@@ -1,0 +1,29 @@
+{
+  "project": "Ea Personal Assistant",
+  "repository": "nanotech-solutions-norway/Ea-Personal_Assistant",
+  "source_set": "active-source",
+  "status": "configured_framework_pending_level_1_validation",
+  "level_1": "active_framework_pending_validation",
+  "level_2": "HOLD_until_level_1_finalized_validated_approved",
+  "active_source_files": [
+    "00_EA_PROJECT_README_AND_UPLOAD_PLAN.md",
+    "01_EA_RUNTIME_CORE.md",
+    "02_EA_PROJECT_LEARNING_AND_SOURCE_AUTHORITY.md",
+    "03_EA_EMAIL_CALENDAR_MEETING_WORKFLOWS.md",
+    "04_EA_BUSINESS_DUE_DILIGENCE_LEGAL_FINANCIAL.md",
+    "05_EA_DOCUMENTS_TEMPLATES_REGISTERS_INDEXES.md",
+    "06_EA_CUSTOM_GPT_AND_PROJECT_SETUP.md",
+    "07_EA_SCHEDULED_TASKS_AND_ROUTINES.md",
+    "08_EA_QA_VALIDATION_RELEASE_GATE.md",
+    "09_EA_LEVEL_2_MANAGED_BACKEND.md",
+    "10_EA_PHASE_VALIDATION_TRACKER.md",
+    "11_EA_IMPLEMENTATION_BLUEPRINT.md",
+    "12_EA_MASTER_INDEX.md"
+  ],
+  "archive_source": "archive/phase-packages/Ea_Phase_Packages_0911_19062026.zip",
+  "notes": [
+    "Use these files as active ChatGPT Project sources.",
+    "Keep 89-file archive as reference/build evidence only.",
+    "Level 2 is explicitly on HOLD until Level 1 validation passes."
+  ]
+}
