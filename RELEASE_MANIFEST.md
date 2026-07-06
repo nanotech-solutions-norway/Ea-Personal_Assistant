@@ -1,6 +1,6 @@
 # Ea Release Manifest
 
-Status: LEVEL_1_VALIDATED_PENDING_RELEASE_APPROVAL
+Status: LEVEL_1_APPROVED
 
 ## Active source folder
 
@@ -29,10 +29,14 @@ The user confirmed:
 - `# Ea Custom GPT QA Test Prompts`: All passed.
 - `# Ea Project QA Test Prompts`: All passed.
 
+## Approval result
+
+The user explicitly approved Level 1 on 2026-07-06.
+
 ## Level 2 status
 
-Level 2 is HOLD until Level 1 is approved for release and the user separately approves Level 2 planning.
+Level 2 remains HOLD. Level 2 may not move to planning or implementation unless separately approved by the user.
 
 ## Release gate
 
-Level 1 is validated pending explicit release approval. Ea is not marked CANONICAL until approval is recorded.
+Level 1 is approved for use. Ea is not marked CANONICAL until separate canonical promotion is recorded.
