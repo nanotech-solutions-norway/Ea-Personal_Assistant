@@ -1,4 +1,4 @@
-# Ea Knowledge Extraction Prompts
+# Ea Knowledge Extraction Prompts v1.1
 
 Status: ACTIVE_PROMPT_PACK  
 Use in: Ea Project  
@@ -13,13 +13,14 @@ Use connectors where available:
 - Google Calendar for meeting history, recurring contacts and project timelines.
 - Google Contacts for contact/company mapping.
 - GitHub for Ea, Atlas, SolarEX, Conta MCP and other project source files.
-- Web search only for current public company/product/regulatory context where needed.
-
-Do not store or expose passwords, API keys, bearer tokens, private headers, .env values, credentials or unnecessary private customer data.
+- Uploaded files and archives as evidence sources.
+- Web search only for current public company/product/regulatory context where needed, especially NTSN websites and collaborator/supplier/customer websites.
 
 Classify extracted knowledge as DRAFT, AUTO_APPROVED, PENDING_REVIEW, APPROVED, CANONICAL or DEPRECATED.
 
 Pricing, warranties, delivery commitments, legal, tax, accounting, product claims, public claims, confidentiality rules and high-risk skills must be PENDING_REVIEW unless explicitly approved.
+
+Apply the rule in `EA_VERSION_DATE_AND_EMAIL_CROSSCHECK_RULE.md` to every extraction task.
 
 ---
 
@@ -46,12 +47,15 @@ For each category, list:
 - connector/source to use;
 - exact search queries to run;
 - expected evidence files/emails/events;
+- latest-version selection method;
+- same-file multi-format comparison method;
+- email cross-check method;
 - sensitivity classification;
 - proposed output file;
 - approval status required;
 - risks and exclusions.
 
-Do not extract or store secrets. Do not treat evidence as canonical until reviewed.
+Use the newest actual file version available. Cross-check relevant extracted file knowledge against Gmail correspondence where possible. Do not treat evidence as canonical until reviewed.
 ```
 
 ---
@@ -59,7 +63,7 @@ Do not extract or store secrets. Do not treat evidence as canonical until review
 ## PROMPT 02 — Product knowledge extraction
 
 ```text
-Use Google Drive, Gmail and GitHub to extract structured NTSN product knowledge.
+Use Google Drive, Gmail, GitHub, uploaded files, project source files and relevant websites to extract structured NTSN product knowledge.
 
 Search for TDS, SDS, SOPs, application notes, quotes, product reports and relevant email threads for:
 
@@ -74,6 +78,10 @@ Search for TDS, SDS, SOPs, application notes, quotes, product reports and releva
 - Ultra-Ever Dry;
 - textile coating R&D;
 - anti-stick / industrial coating candidates.
+
+For each product, first identify the latest actual source files by version number and actual creation/edit/update/change date. If the same source exists in PDF, DOCX, PPTX, XLSX or Markdown, prefer the most complete and newest actual version unless formats conflict.
+
+Cross-check extracted product knowledge against Gmail correspondence by product name, legacy name, supplier, customer, project, quote reference and technical keywords.
 
 For each product, create a structured product file with:
 
@@ -96,6 +104,11 @@ For each product, create a structured product file with:
 - lead time;
 - pricing references;
 - source documents/emails;
+- latest-version evidence;
+- same-file multi-format comparison;
+- email cross-check result;
+- missing information;
+- contradictions;
 - last reviewed date;
 - approval status.
 
@@ -107,7 +120,7 @@ Use these naming rules:
 - SiO2 -> SiO₂;
 - TiO2 -> TiO₂.
 
-Mark performance claims, pricing, warranty, durability and regulatory statements as PENDING_REVIEW unless already explicitly approved.
+Mark performance claims, pricing, warranty, durability and regulatory statements as PENDING_REVIEW unless already explicitly approved. If email evidence conflicts with the file evidence, ask Ruben for confirmation.
 ```
 
 ---
@@ -164,6 +177,10 @@ Classify the profile as PENDING_REVIEW until Ruben approves it.
 ```text
 Use Gmail sent mail, Google Drive templates, proposals, reports and prior documents to extract Ea writing format rules.
 
+For Drive/files/templates, use the latest actual version by version number and actual creation/edit/update/change date. If multiple formats exist, use the most complete and newest actual version unless formats conflict.
+
+Cross-check signature and official company details against sent email correspondence where possible.
+
 Create `knowledge/03_EA_WRITING_FORMAT_AND_SIGNATURES.md` with:
 
 - default English signature;
@@ -190,7 +207,9 @@ Flag uncertain or conflicting signature/company details as PENDING_REVIEW.
 ## PROMPT 05 — Document template extraction
 
 ```text
-Use Google Drive and GitHub to find existing NTSN templates, proposals, reports, memos, QA logs, meeting notes and contract-review documents.
+Use Google Drive, GitHub, uploaded files and project files to find existing NTSN templates, proposals, reports, memos, QA logs, meeting notes and contract-review documents.
+
+Use the latest actual file version by version number and actual edit/update/change date. If a file exists in several formats, use the most complete and newest actual version unless formats conflict. Cross-check important template language with relevant email correspondence if available.
 
 Create template requirements and draft templates for:
 
@@ -210,17 +229,7 @@ Create template requirements and draft templates for:
 - action registers;
 - session-close packs.
 
-For each template, include:
-
-- purpose;
-- when to use;
-- required inputs;
-- output structure;
-- approval requirements;
-- confidentiality classification;
-- source/evidence section;
-- version/date;
-- status.
+For each template, include purpose, when to use, required inputs, output structure, approval requirements, confidentiality classification, source/evidence section, version/date and status.
 
 Do not create final legal, tax or accounting advice templates. Mark those as business-support only.
 ```
@@ -231,6 +240,8 @@ Do not create final legal, tax or accounting advice templates. Mark those as bus
 
 ```text
 Use Google Drive, GitHub, Gmail, current websites and approved prior documents to create Ea Company Context for NanoTech Solutions Norway AS.
+
+Use the latest actual file version and cross-check official company and public-claim information against relevant sent/received emails where possible.
 
 Extract:
 
@@ -248,6 +259,11 @@ Extract:
 - claims that must not be made without approval;
 - standard disclaimers/caveats;
 - source references;
+- latest-version evidence;
+- same-file multi-format comparison;
+- email cross-check result;
+- missing information;
+- contradictions;
 - review date and status.
 
 Mark public claims and marketing language as PENDING_REVIEW unless explicitly approved.
@@ -278,6 +294,8 @@ For each relevant company/contact, extract:
 
 Search by domains, contacts, project names, products and recent threads.
 
+When relationship knowledge is extracted from Drive/GitHub/project files, cross-check against Gmail correspondence where available. If correspondence conflicts with a file or only partially confirms it, mark the item PENDING_REVIEW.
+
 Do not expose confidential details across unrelated parties. Mark sensitive entries PENDING_REVIEW.
 ```
 
@@ -287,6 +305,10 @@ Do not expose confidential details across unrelated parties. Mark sensitive entr
 
 ```text
 Use Gmail, Google Drive, quotes, supplier emails, customer proposals and project reports to build Ea Pricing and Commercial Terms.
+
+Use the latest actual file version by version number and actual edit/update/change date. If the same quote/proposal exists in several formats, use the most complete and newest actual version unless formats conflict.
+
+Cross-check each commercial term against relevant email correspondence where possible.
 
 Extract:
 
@@ -304,6 +326,11 @@ Extract:
 - quote validity;
 - approval requirement;
 - source document/email;
+- latest-version evidence;
+- same-file multi-format comparison;
+- email cross-check result;
+- missing information;
+- contradictions;
 - review date;
 - status.
 
@@ -330,7 +357,9 @@ Include:
 - NTSN Orchestrator Control Plane;
 - active customer/product projects.
 
-For each project, extract:
+For each project, use the latest actual project files, source packs, handoffs, validation logs and repository files. Cross-check current project state against Gmail and Calendar where relevant.
+
+Extract:
 
 - project name;
 - purpose;
@@ -343,6 +372,11 @@ For each project, extract:
 - next recommended action;
 - update frequency;
 - source references;
+- latest-version evidence;
+- same-file multi-format comparison;
+- email/calendar cross-check result;
+- missing information;
+- contradictions;
 - review date.
 
 Classify uncertain or conflicting project states as PENDING_REVIEW.
@@ -355,6 +389,8 @@ Classify uncertain or conflicting project states as PENDING_REVIEW.
 ```text
 Use Ea protocol files, prior legal-review examples, budget-review examples, invoice/quote examples and approved business rules to build Ea Legal and Financial Boundaries knowledge.
 
+Use the latest actual version of source files and cross-check any current business rule against relevant correspondence where available.
+
 Extract:
 
 - allowed legal business-support tasks;
@@ -366,7 +402,11 @@ Extract:
 - standard caveat wording;
 - official-source requirements;
 - risk classification table;
-- examples of safe wording.
+- examples of safe wording;
+- latest-version evidence;
+- email cross-check result;
+- missing information;
+- contradictions.
 
 Do not create final legal, tax or accounting advice. Mark this knowledge PENDING_REVIEW until approved.
 ```
@@ -379,9 +419,15 @@ Do not create final legal, tax or accounting advice. Mark this knowledge PENDING
 After extracting a knowledge category, create a Knowledge Update Pack containing:
 
 - source summary;
+- latest-version selection evidence;
+- alternative versions/formats reviewed;
+- email cross-check queries used;
+- email confirmation/conflict status;
 - extracted knowledge;
 - excluded sensitive data;
 - contradictions found;
+- information present only in older versions;
+- missing information requiring user confirmation;
 - proposed target file path;
 - proposed status: DRAFT, AUTO_APPROVED, PENDING_REVIEW, APPROVED, CANONICAL or DEPRECATED;
 - approval requirements;
@@ -401,7 +447,11 @@ Validate the Ea knowledge layer.
 Check:
 
 - all required knowledge files exist;
-- no secrets or credentials are stored;
+- newest actual file versions were selected;
+- multi-format duplicates were resolved correctly;
+- email cross-check was performed where available;
+- unresolved conflicts are PENDING_REVIEW;
+- missing required information is listed for user confirmation;
 - evidence is separated from instructions;
 - pricing, legal, tax, accounting, warranty, product claims and public claims are PENDING_REVIEW unless approved;
 - source references are present;
