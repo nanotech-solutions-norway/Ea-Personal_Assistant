@@ -1,5 +1,6 @@
-# Test Write Check
+# Ea Target 04
 
-Status: DRAFT
+Status: DRAFT / PENDING_REVIEW
+Generated: 02:18, 08.07.2026 Europe/Oslo
 
-This is a connector write check.
+Draft internal target. Source discovery started. All entries remain PENDING_REVIEW.
