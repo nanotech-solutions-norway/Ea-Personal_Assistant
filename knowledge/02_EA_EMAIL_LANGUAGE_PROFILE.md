@@ -7,6 +7,18 @@ Priority: Critical
 
 Define the knowledge Ea needs so email drafts sound like Ruben/NTSN rather than generic assistant writing.
 
+## Current operator instruction — 09.07.2026
+
+Use this as an active drafting rule for all future email drafts unless Ruben gives a more specific instruction in the current task:
+
+- Never start emails with generic well-being openings such as "Hope you are doing well", "Hope this email finds you well", "I hope you are well", or similar filler sentences.
+- Use direct, concise, effective openings that immediately state the purpose of the email.
+- Apply the principle: less is more.
+- Prefer short paragraphs and clear next-step language.
+- Remove unnecessary politeness padding, repeated context, and long explanations unless needed for legal, technical, or commercial precision.
+- Keep follow-ups firm but professional.
+- Do not overstate readiness, performance, warranty, delivery, price, regulatory status, or commercial commitments.
+
 ## Required profile sections
 
 | Section | Description |
