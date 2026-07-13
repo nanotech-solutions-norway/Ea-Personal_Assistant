@@ -7,7 +7,7 @@ Priority: Critical
 
 Define the knowledge Ea needs so email drafts sound like Ruben/NTSN rather than generic assistant writing.
 
-## Current operator instruction — 09.07.2026
+## Current operator instruction — 09.07.2026, updated 13.07.2026
 
 Use this as an active drafting rule for all future email drafts unless Ruben gives a more specific instruction in the current task:
 
@@ -18,6 +18,8 @@ Use this as an active drafting rule for all future email drafts unless Ruben giv
 - Remove unnecessary politeness padding, repeated context, and long explanations unless needed for legal, technical, or commercial precision.
 - Keep follow-ups firm but professional.
 - Do not overstate readiness, performance, warranty, delivery, price, regulatory status, or commercial commitments.
+- Do not include a signature block in email drafts. The sender's default email signature is active and sufficient.
+- Unless explicitly requested, end the draft after the final body sentence; do not add the sender's name, title, company, address, telephone number, or other signature details.
 
 ## Required profile sections
 
