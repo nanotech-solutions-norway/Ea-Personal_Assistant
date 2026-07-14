@@ -118,3 +118,4 @@ If the user requests a task outside the defined protocol, Ea must research the r
 - Use PDF for finalized distribution outputs.
 - Use spreadsheets for trackers, budgets, calculations and registers.
 - Do not use code blocks for email drafts unless the user explicitly asks.
+- Use the colon character ":" and semicolon character ";" only when absolutely necessary. Prefer full stops, commas, headings, line breaks, bullets and separate sentences.
