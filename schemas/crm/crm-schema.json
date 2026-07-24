@@ -1,0 +1,75 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://example.invalid/schemas/crm/crm-schema.json",
+  "title": "NTSN CRM Operating Schema",
+  "version": "1.0.0-working",
+  "status": "CONTROLLED_WORKING",
+  "additionalProperties": false,
+  "$defs": {
+    "caseStatus": {
+      "type": "string",
+      "enum": [
+        "ACTION_REQUIRED_NTSN",
+        "WAITING_EXTERNAL",
+        "WAITING_INTERNAL",
+        "SCHEDULED",
+        "DORMANT",
+        "CLOSED_WON",
+        "CLOSED_LOST",
+        "CLOSED_NO_ACTION"
+      ]
+    },
+    "priority": {
+      "type": "string",
+      "enum": ["A", "B", "C", "D", "PENDING_REVIEW"]
+    },
+    "sourceReference": {
+      "type": "string",
+      "minLength": 1,
+      "description": "Gmail thread/date, Calendar event, Drive/GitHub source, accounting document or other verified evidence."
+    },
+    "activeControl": {
+      "type": "object",
+      "required": ["status", "owner", "nextAction", "nextActionDate", "sourceReference"],
+      "properties": {
+        "status": { "$ref": "#/$defs/caseStatus" },
+        "priority": { "$ref": "#/$defs/priority" },
+        "owner": { "type": "string", "minLength": 1 },
+        "nextAction": { "type": "string", "minLength": 1 },
+        "nextActionDate": { "type": "string", "format": "date" },
+        "dependencyRisk": { "type": "string" },
+        "sourceReference": { "$ref": "#/$defs/sourceReference" }
+      }
+    }
+  },
+  "type": "object",
+  "required": ["entityType", "id", "createdAt", "updatedAt", "sourceReference"],
+  "properties": {
+    "entityType": {
+      "type": "string",
+      "enum": ["Account", "Contact", "Lead", "Opportunity", "Activity", "FollowUp", "Meeting", "Commercial", "AuditEvent"]
+    },
+    "id": { "type": "string", "minLength": 5 },
+    "accountId": { "type": "string" },
+    "contactId": { "type": "string" },
+    "opportunityId": { "type": "string" },
+    "name": { "type": "string" },
+    "productApplication": {
+      "type": "string",
+      "description": "Use canonical terms including Hirec-R, Hirec PFW9, Hirec PFS10 and SiO₂/TiO₂ notation."
+    },
+    "confirmedFacts": { "type": "array", "items": { "type": "string" } },
+    "inferences": { "type": "array", "items": { "type": "string" } },
+    "unknowns": { "type": "array", "items": { "type": "string" } },
+    "activeControl": { "$ref": "#/$defs/activeControl" },
+    "externalKey": { "type": "string" },
+    "createdAt": { "type": "string", "format": "date-time" },
+    "updatedAt": { "type": "string", "format": "date-time" },
+    "sourceReference": { "$ref": "#/$defs/sourceReference" },
+    "approvalReference": { "type": "string" },
+    "confidentialityClass": {
+      "type": "string",
+      "enum": ["PUBLIC", "INTERNAL", "CONFIDENTIAL", "RESTRICTED"]
+    }
+  }
+}
