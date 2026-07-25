@@ -10,6 +10,10 @@ This package defines the version-controlled governance and schema layer for the 
 
 GitHub stores sanitized governance, schemas, enums, mappings, decisions and validation evidence. It must not store live customer records, confidential attachments, credentials, bank data or official accounting records.
 
+## Active operating authority
+
+The current user-approved operating instruction is `../../active-source/13_EA_CRM_AND_LEAD_MANAGEMENT_ACTIVE_OPERATING_INSTRUCTIONS.md`, effective 16:45, 24.07.2026. It governs CRM activation, source retrieval, duplicate control, qualification, follow-up timing, private reminders, communication handling, commercial/accounting handoff, privacy, completion gates and autonomy boundaries.
+
 ## Operating principles
 
 - One Account per legal/business organization.
@@ -24,6 +28,7 @@ GitHub stores sanitized governance, schemas, enums, mappings, decisions and vali
 
 ## Core files
 
+- `../../active-source/13_EA_CRM_AND_LEAD_MANAGEMENT_ACTIVE_OPERATING_INSTRUCTIONS.md` — user-approved active operating authority.
 - `CRM_MASTER_INSTRUCTIONS.md` — source authority, approval boundaries and quality gates.
 - `CRM_BLUEPRINT.md` — relational objects, identifiers, lifecycle and ownership.
 - `CRM_PLAYBOOK.md` — lead intake, qualification, conversion and follow-up procedures.
