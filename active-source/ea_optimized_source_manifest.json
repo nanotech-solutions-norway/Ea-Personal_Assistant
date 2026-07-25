@@ -18,12 +18,14 @@
     "09_EA_LEVEL_2_MANAGED_BACKEND.md",
     "10_EA_PHASE_VALIDATION_TRACKER.md",
     "11_EA_IMPLEMENTATION_BLUEPRINT.md",
-    "12_EA_MASTER_INDEX.md"
+    "12_EA_MASTER_INDEX.md",
+    "13_EA_CRM_AND_LEAD_MANAGEMENT_ACTIVE_OPERATING_INSTRUCTIONS.md"
   ],
   "archive_source": "archive/phase-packages/Ea_Phase_Packages_0911_19062026.zip",
   "notes": [
     "Use these files as active ChatGPT Project sources.",
     "Keep 89-file archive as reference/build evidence only.",
+    "CRM and lead-management operations are governed by the user-approved active-source instruction dated 16:45, 24.07.2026.",
     "Level 2 is explicitly on HOLD until Level 1 validation passes."
   ]
 }
