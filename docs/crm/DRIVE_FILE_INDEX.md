@@ -1,7 +1,12 @@
 # CRM Google Drive File Index
 
-**Timestamp:** 15:34, 24.07.2026  
-**Root folder:** https://drive.google.com/drive/folders/15axWbQkgaGs8xziuRPuL2QH735swGBoY
+**Timestamp:** 16:45, 24.07.2026  
+**CRM root folder:** https://drive.google.com/drive/folders/15axWbQkgaGs8xziuRPuL2QH735swGBoY  
+**Ea project folder:** https://drive.google.com/drive/folders/1XgWMoN69UtwWCTNlc1MGEBfj7hZ7DnoT
+
+## Active operating source
+
+- Ea CRM and Lead Management Active Operating Instructions: https://docs.google.com/document/d/1m2Wa8TAZWUEg32YE3__h0aB_jXJvBSB4sF8coB8ioLo/edit
 
 ## Governance
 
@@ -39,4 +44,4 @@
 
 ## Authority note
 
-Drive files are operational artifacts. GitHub contains sanitized schemas, governance and change history. Gmail, Calendar and accounting systems remain authoritative for communications, scheduling and official financial records respectively.
+The active operating source in the Ea project folder is the latest user-approved instruction. Drive CRM files are operational artifacts. GitHub contains sanitized schemas, governance and change history. Gmail, Calendar and accounting systems remain authoritative for communications, scheduling and official financial records respectively.
