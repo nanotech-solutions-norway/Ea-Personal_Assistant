@@ -10,6 +10,8 @@ The approved NTSN invoice workflow was validated against historical outgoing inv
 
 Onyx Scandinavia invoices were excluded from the NTSN reference set.
 
+A controlled Drive-only source-reference register was created for validated NTSN examples by language, currency, VAT pattern and layout relevance. Customer-specific invoice content remains outside GitHub.
+
 No customer names, invoice PDFs, bank details, identifiable prices or accounting exports are included in this public validation record.
 
 ## Validated decisions
@@ -33,6 +35,7 @@ No customer names, invoice PDFs, bank details, identifiable prices or accounting
 |---|---|
 | NTSN issuer/reference boundary | PASS |
 | Onyx exclusion | PASS |
+| Drive source-reference register | PASS |
 | Filename/language convention | PASS |
 | Invoice-number source control | PASS |
 | Logo clearance | PASS |
@@ -63,5 +66,7 @@ Every future invoice draft must independently revalidate:
 ## Limitations
 
 This validation does not provide legal, tax, accounting, customs or regulatory approval. Unclear or conflicting treatment must be classified `PENDING_REVIEW` and escalated to qualified review.
+
+Domestic 25% MVA accounting evidence was identified, but the corresponding invoice PDF was not located in the reviewed Drive results. That reference remains secondary and `PENDING_REVIEW` for visual-template use.
 
 Level 2 accounting write-back remains HOLD.
