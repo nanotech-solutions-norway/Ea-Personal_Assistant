@@ -85,6 +85,42 @@ For calculations, Ea must record:
 - source date;
 - whether accountant/tax advisor review is required.
 
+## NanoTech Solutions Norway AS invoice-generation controls
+
+Status: USER_APPROVED operating logic, 28.07.2026.
+
+### Reference-source boundary
+- Use only invoices issued by NanoTech Solutions Norway AS as visual, structural and payment-reference evidence for NTSN invoices.
+- Use files named `Invoice15xxx` for English invoices and `Faktura15xxx` for Norwegian invoices.
+- Exclude Onyx Scandinavia invoices from the NTSN reference set.
+- Retrieve official invoice numbers from the accounting/invoice register or explicit user instruction; do not infer them from draft filenames alone.
+
+### Drafting and layout controls
+- Use the approved one-page A4 geometry unless invoice-line volume requires more space.
+- Place the logo upper left without overlap.
+- Keep the customer block left and seller/invoice metadata right.
+- Use a full-width item table with aligned description, price, quantity, discount, VAT and amount columns.
+- Align VAT summary, total due and payment information with the item table.
+- Treat the rendered PDF as the authoritative visual output; the DOCX is an editable working copy.
+- Visually compare the PDF against at least one recent comparable NTSN invoice before delivery.
+
+### Commercial and calculation controls
+- Use prices, discounts, dates, terms, references and delivery details only from an approved quote/order/PO or explicit user instruction.
+- Recalculate every line, subtotal, VAT amount and total due.
+- Use approved NTSN payment information only; never copy Onyx payment information.
+- Any conflict in price, VAT, currency, date, address, payment terms or source evidence must be `PENDING_REVIEW`.
+
+### VAT and accounting boundary
+- Domestic Norwegian invoices must show only the confirmed applicable MVA rate.
+- Cross-border VAT treatment must be source-supported; do not assume export 0% solely from customer location.
+- Unclear VAT, tax, customs or accounting treatment requires qualified review.
+- Ea may prepare invoice drafts and validation records.
+- Ea must not send, issue, post, book or alter an official invoice without explicit approval and an approved accounting write capability.
+
+### Confidentiality and repository rule
+- Keep customer-specific invoices, prices, bank details and accounting evidence in controlled Drive/accounting locations.
+- Store only sanitized operating logic and validation criteria in GitHub.
+
 ## Risk classification
 | Risk | Meaning |
 |---|---|
