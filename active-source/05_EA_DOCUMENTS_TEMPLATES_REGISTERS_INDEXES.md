@@ -24,6 +24,8 @@ This file defines the reusable document, template, register and index layer for 
 - `EA_FINANCIAL_SUMMARY_TEMPLATE.md`
 - `EA_TAX_NOTE_TEMPLATE.md`
 - `EA_SKILL_CANDIDATE_PACK_TEMPLATE.md`
+- `NTSN_INVOICE_GENERATION_STANDARD.md`
+- `NTSN_INVOICE_VISUAL_QA_CHECKLIST.md`
 
 ## Required indexes/registers
 - `EA_CONTACT_AND_COMPANY_INDEX.md`
@@ -45,6 +47,8 @@ This file defines the reusable document, template, register and index layer for 
 - `EA_SKILL_REGISTRY.md`
 - `EA_PENDING_SKILL_REVIEW_REGISTER.md`
 - `EA_CANONICAL_SKILL_REGISTER.md`
+- `NTSN_INVOICE_VALIDATION_LOG.md`
+- `NTSN_INVOICE_SOURCE_REFERENCE_REGISTER.md`
 
 ## Output format rules
 | Output | Format |
@@ -56,6 +60,11 @@ This file defines the reusable document, template, register and index layer for 
 | Lightweight imports/exports | `.csv` |
 | Backend schemas | `.json` / `.yaml` |
 
+Invoice-specific output rule:
+- Rendered PDF is the authoritative visual invoice output.
+- DOCX is an editable working copy and must be re-rendered before approval.
+- Customer-specific invoice files remain in controlled Drive/accounting storage, not GitHub.
+
 ## File naming conventions
 - `Ea_Meeting_Memo_[Company]_[Topic]_[HHMM_DDMMYYYY].docx`
 - `Ea_Due_Diligence_[Company]_[HHMM_DDMMYYYY].docx`
@@ -63,6 +72,43 @@ This file defines the reusable document, template, register and index layer for 
 - `Ea_Session_Close_[Topic]_[HHMM_DDMMYYYY].md`
 - `Ea_Legal_Review_[Company]_[Document]_[HHMM_DDMMYYYY].docx`
 - `Ea_Financial_Review_[Topic]_[HHMM_DDMMYYYY].xlsx`
+- English NTSN invoice: `Invoice15xxx.pdf`
+- Norwegian NTSN invoice: `Faktura15xxx.pdf`
+- Editable invoice working copy: same stem with `.docx`
+
+## NTSN invoice template family
+
+Status: USER_APPROVED operating logic, 28.07.2026.
+
+- The NTSN invoice family is separate from the Onyx Scandinavia invoice family.
+- NTSN invoice generation may use only NTSN-issued `Invoice15xxx` and `Faktura15xxx` files as historical visual references.
+- Onyx invoices must not be used for NTSN logo placement, seller identity, payment information, legal footer or page geometry.
+- The approved visual baseline uses one-page A4 geometry with logo upper left, customer block left, seller/invoice metadata right, a full-width item table, aligned VAT and total sections and payment information at the bottom.
+- The official invoice number must be retrieved from the accounting/invoice register or explicit user instruction.
+- A PDF render must pass visual QA before delivery.
+
+### NTSN invoice visual QA minimum fields
+| Check | Status | Evidence | Reviewer/date |
+|---|---|---|---|
+| NTSN-only source set used |  |  |  |
+| Onyx reference set excluded |  |  |  |
+| Official invoice number source confirmed |  |  |  |
+| Logo clear of all text |  |  |  |
+| Customer and seller blocks aligned |  |  |  |
+| Invoice metadata aligned |  |  |  |
+| Item columns aligned |  |  |  |
+| Totals recalculate |  |  |  |
+| VAT treatment source-supported |  |  |  |
+| Payment details sourced from NTSN |  |  |  |
+| One-page A4 output verified |  |  |  |
+| Filename and language match |  |  |  |
+| Sending/posting approval state recorded |  |  |  |
+
+### NTSN invoice source register minimum fields
+| Reference file | Language | Issuer verified as NTSN | Currency | VAT pattern | Layout relevance | Source location | Review date |
+|---|---|---|---|---|---|---|---|
+
+Do not place customer names, invoice content, bank details, accounting exports or confidential attachments in the public GitHub register. Use sanitized file-pattern and control metadata only.
 
 ## Product reference map minimum fields
 | Product | Approved name | Use case | Key claims | Source | Status | Review date |
