@@ -45,6 +45,7 @@ This file defines the reusable document, template, register and index layer for 
 - `EA_SKILL_REGISTRY.md`
 - `EA_PENDING_SKILL_REVIEW_REGISTER.md`
 - `EA_CANONICAL_SKILL_REGISTER.md`
+- `EA_LABEL_CREATION_REGISTER.md`
 
 ## Output format rules
 | Output | Format |
@@ -54,6 +55,7 @@ This file defines the reusable document, template, register and index layer for 
 | Final distribution reports/memos | `.pdf` |
 | Trackers/budgets/calculations | `.xlsx` / Google Sheets |
 | Lightweight imports/exports | `.csv` |
+| Brother P-touch labels | `.lbx` with `.png` preview and optional `.zip` package |
 | Backend schemas | `.json` / `.yaml` |
 
 ## File naming conventions
@@ -63,6 +65,7 @@ This file defines the reusable document, template, register and index layer for 
 - `Ea_Session_Close_[Topic]_[HHMM_DDMMYYYY].md`
 - `Ea_Legal_Review_[Company]_[Document]_[HHMM_DDMMYYYY].docx`
 - `Ea_Financial_Review_[Topic]_[HHMM_DDMMYYYY].xlsx`
+- `[Product]_62x102mm_[Language]_[Status].lbx`
 
 ## Product reference map minimum fields
 | Product | Approved name | Use case | Key claims | Source | Status | Review date |
@@ -73,6 +76,22 @@ Product naming rules:
 - Hirec100 → Hirec-R.
 - Hirec 450 water-based → Hirec PFW9.
 - Hirec 450 solvent-based → Hirec PFS10.
+
+## Label creation register minimum fields
+| Product | Approved label name | SDS source/version/date | Label size | Orientation | Language | Pictograms | Signal word | H-statements | P-statements | UFI status | Supplier status | Output files | Release status |
+|---|---|---|---|---|---|---|---|---|---|---|---|---|---|
+
+Label operating rules:
+- Default label size is 62 mm width × 102 mm length, portrait, unless explicitly changed.
+- Brother P-touch Editor `.lbx` is the primary editable format.
+- Editable text objects are preferred; embedded images are limited to required pictograms or explicitly requested image-based versions.
+- Use the largest practical font without clipping or omitting required text.
+- Generate a PNG preview and package files together when useful.
+- Use only approved customer-facing product names; source/legacy names remain internal references.
+- Use the latest verified SDS as the classification source.
+- Old, incomplete, conflicting, private-label-mismatched or UFI-incomplete SDS sources trigger `PENDING_REVIEW`.
+- CLP/REACH/UFI/poison-centre/dangerous-goods and market-placement conclusions remain qualified-review-controlled.
+- Confirm local-language requirements, open the `.lbx` in P-touch Editor and complete a physical print test before release.
 
 ## Follow-up tracker minimum fields
 | Company | Contact | Email/domain | Case/project | Last inbound | Last outbound | Due | Status | Next action | Confidentiality note |
