@@ -11,6 +11,7 @@ Authority: Active-source framework
 | 01_EA_RUNTIME_CORE.md | Core runtime and approval rules | Active |
 | 02_EA_PROJECT_LEARNING_AND_SOURCE_AUTHORITY.md | Learning and source authority | Active |
 | 03_EA_EMAIL_CALENDAR_MEETING_WORKFLOWS.md | Secretary workflows | Active |
+| 03A_EA_CALENDAR_ENTRY_DEFAULTS_0840_31072026.md | Canonical calendar-entry defaults, urgency colors and reminder handling | Canonical / user-instructed |
 | 04_EA_BUSINESS_DUE_DILIGENCE_LEGAL_FINANCIAL.md | Business support workflows | Active |
 | 05_EA_DOCUMENTS_TEMPLATES_REGISTERS_INDEXES.md | Templates, registers and indexes | Active framework |
 | 06_EA_CUSTOM_GPT_AND_PROJECT_SETUP.md | GPT and Project setup | Active |
@@ -24,6 +25,8 @@ Authority: Active-source framework
 
 ## Operating rule
 Use `active-source/` as the compact source-of-truth for ChatGPT Project operation. Keep the 89-file phase package as archive/build evidence.
+
+For calendar-entry handling, apply `03A_EA_CALENDAR_ENTRY_DEFAULTS_0840_31072026.md` before older calendar or follow-up implementation notes where a conflict exists.
 
 ## Current status
 Level 1: configured framework pending validation.  
