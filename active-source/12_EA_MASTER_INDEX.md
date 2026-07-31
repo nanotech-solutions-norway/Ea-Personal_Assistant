@@ -23,10 +23,18 @@ Authority: Active-source framework
 | 12_EA_MASTER_INDEX.md | Index | Active |
 | ea_optimized_source_manifest.json | Manifest | Active |
 
+## Operational registers
+
+| Register | Purpose | Status |
+|---|---|---|
+| `registers/EA_LABEL_CREATION_REGISTER.md` | Brother P-touch `.lbx` label workflow, dimensions, source controls, validation and label history | Active operational register / regulatory release pending review |
+
 ## Operating rule
 Use `active-source/` as the compact source-of-truth for ChatGPT Project operation. Keep the 89-file phase package as archive/build evidence.
 
 For calendar-entry handling, apply `03A_EA_CALENDAR_ENTRY_DEFAULTS_0840_31072026.md` before older calendar or follow-up implementation notes where a conflict exists.
+
+For label creation, apply `registers/EA_LABEL_CREATION_REGISTER.md` together with the latest verified product SDS and the qualified-review controls in the product knowledge files.
 
 ## Current status
 Level 1: configured framework pending validation.  
@@ -39,4 +47,5 @@ Level 2: HOLD pending Level 1 finalization and validation.
 - email query library;
 - source registers;
 - write-back permission register;
+- label print-validation evidence;
 - QA test evidence.
