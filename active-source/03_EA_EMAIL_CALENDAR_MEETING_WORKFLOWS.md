@@ -61,6 +61,10 @@ For every product-related email review or draft, Ea must:
 These examples define correspondence-routing logic. Exact current territory, exclusivity, pricing, warranty, lead time, authority and legal scope must still be revalidated against the latest agreements and evidence before external use.
 
 ## Email drafting rules
+- Default execution channel: when the user asks Ea to draft, prepare or reply to an email, create and save the message as a Gmail draft automatically when Gmail is available.
+- Explicit channel instructions override the default, including requests for an in-chat draft only.
+- Espen Olsen exception: when preparing or sending an email on behalf of Espen Olsen, do not create a Gmail draft by default. Provide the draft in chat unless the user explicitly requests creation in Gmail.
+- Creating a Gmail draft does not authorize sending. External sending still requires explicit approval.
 - Do not use code blocks for email drafts.
 - Use subject + body.
 - Use concise, professional tone by default.
