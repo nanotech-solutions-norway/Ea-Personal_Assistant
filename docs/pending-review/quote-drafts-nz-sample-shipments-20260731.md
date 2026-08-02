@@ -1,14 +1,16 @@
-# Quote and Invoice Register — 11:53, 02.08.2026
+# Quote and Invoice Register — 12:10, 02.08.2026
 
-**Status:** APPROVED / INVOICED / ARCHIVED  
+**Status:** APPROVED / INVOICED / ARCHIVED / QUOTATIONS UPDATED  
 **Classification:** Commercial workflow metadata only; customer addresses, personal email addresses and correspondence are intentionally excluded because this repository is public.
 
 ## Approved commercial documents
 
-| Quotation reference | Quoted items | Total | Invoice | Status |
-|---|---|---:|---:|---|
-| DP-20260731-01 | Hirec PFS10, 100 ml sample at no charge; FedEx transport EUR 89; processing and handling EUR 49 | EUR 138 | 15160 | Operator approved; quotation filed; invoice prepared and archived |
-| ST-20260731-01 | TextileCoat65, 100 ml sample EUR 49; FabricCoat37, 100 ml sample EUR 49; FedEx transport EUR 89; processing and handling EUR 49 | EUR 236 | 15161 | Operator approved; quotation filed; invoice prepared and archived |
+| Quotation reference | Quoted items | Total | Invoice | Current quotation controls | Status |
+|---|---|---:|---:|---|---|
+| DP-20260731-01 | Hirec PFS10, 100 ml sample at no charge; FedEx transport EUR 89; processing and handling EUR 49 | EUR 138 | 15160 | Discount: 100%; Quote approval: Confirmed | Operator-approved PDF overwritten in place and verified |
+| ST-20260731-01 | TextileCoat65, 100 ml sample EUR 49; FabricCoat37, 100 ml sample EUR 49; FedEx transport EUR 89; processing and handling EUR 49 | EUR 236 | 15161 | Quote approval: Confirmed | Operator-approved PDF overwritten in place and verified |
+
+No line item, fee, invoice, or total was changed during the 02.08.2026 quotation update.
 
 ## Controls applied
 
@@ -25,10 +27,10 @@
 
 Quotation root: `https://drive.google.com/drive/folders/1imwSEdP7k4GoWmv9aUf_FvwTtueBF-YR`
 
-| Document | Drive file ID | Parent company folder ID | Write status |
-|---|---|---|---|
-| Quotation DP-20260731-01 PDF | `1aeIILa2zAjX8M7ZS96vnBuYlhr4J0zBI` | `1Ql3eaM1RXto6SpP12bjk57G9BLirz0xh` | Existing PDF overwritten in place with approved layout; readback verified |
-| Quotation ST-20260731-01 PDF | `1DJDQMciXPPuTyXYzo0TUflEvI0RdGlSB` | `18WsrYz_F1YIxn8jqwBNd74_-LSV9fqfd` | Existing PDF overwritten in place with approved layout; readback verified |
+| Document | Drive file ID | Parent company folder ID | Current size | Write status |
+|---|---|---|---:|---|
+| Quotation DP-20260731-01 PDF | `1aeIILa2zAjX8M7ZS96vnBuYlhr4J0zBI` | `1Ql3eaM1RXto6SpP12bjk57G9BLirz0xh` | 458445 bytes | Existing PDF overwritten in place; Discount 100% and approval Confirmed; readback verified |
+| Quotation ST-20260731-01 PDF | `1DJDQMciXPPuTyXYzo0TUflEvI0RdGlSB` | `18WsrYz_F1YIxn8jqwBNd74_-LSV9fqfd` | 395246 bytes | Existing PDF overwritten in place; approval Confirmed; readback verified |
 
 ## Canonical invoice archive write-back
 
@@ -36,17 +38,15 @@ Invoice root: `https://drive.google.com/drive/folders/17UTt1HjdaThZeu844NcKsNq4y
 
 | Invoice | Company folder | Company folder ID | Canonical archive file ID | Status |
 |---|---|---|---|---|
-| Invoice15160.pdf | Mech Eng - Daniel Powley | `1GRwPXG8r2ir8iIUbS3Gq6b3FbXWkrMOB` | `1rZjrn7_zTAmOdOBj1MPLsNG1odyr0n7u` | Folder created; PDF copied; readback verified |
-| Invoice15161.pdf | Sapro-Tech | `1zSFlcOAVsIuydMNy58ktX3UfeUIO7Tcw` | `1n0vi_EHi-qaQ1f6MfNuuP7uoBH9T4LaO` | Folder created; PDF copied; readback verified |
-
-Earlier working copies remain in the quotation-company folders. They were not deleted because deletion was not requested. The invoice-root copies above are the canonical invoice archive copies.
+| Invoice15160.pdf | Mech Eng - Daniel Powley | `1GRwPXG8r2ir8iIUbS3Gq6b3FbXWkrMOB` | `1rZjrn7_zTAmOdOBj1MPLsNG1odyr0n7u` | Archived and readback verified; unchanged by quotation update |
+| Invoice15161.pdf | Sapro-Tech | `1zSFlcOAVsIuydMNy58ktX3UfeUIO7Tcw` | `1n0vi_EHi-qaQ1f6MfNuuP7uoBH9T4LaO` | Archived and readback verified; unchanged by quotation update |
 
 ## Gmail drafts
 
-Replacement reply drafts were created in the existing correspondence threads with the approved quotation and corresponding invoice attached.
+The existing unsent Gmail drafts were created before the 02.08.2026 quotation-field modifications. Their quotation attachments must be replaced with the current PDFs before any external send.
 
-- DP replacement draft ID: `r-6185910603907869569`
-- ST replacement draft ID: `r-3998732423201444125`
+- Previous DP replacement draft ID: `r-6185910603907869569`
+- Previous ST replacement draft ID: `r-3998732423201444125`
 - External send status: **NOT SENT**
 
 ## Future invoice filing rule
@@ -59,4 +59,4 @@ If the operator requests a later quotation modification, overwrite the existing 
 
 ## Next action
 
-Await payment before arranging the FedEx shipments. External sending of the Gmail drafts requires explicit operator instruction.
+Replace the quotation attachments in the unsent Gmail drafts before sending. Await payment before arranging the FedEx shipments.
