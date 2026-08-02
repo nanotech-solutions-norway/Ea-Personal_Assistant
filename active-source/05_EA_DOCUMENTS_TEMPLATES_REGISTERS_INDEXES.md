@@ -24,6 +24,7 @@ This file defines the reusable document, template, register and index layer for 
 - `EA_FINANCIAL_SUMMARY_TEMPLATE.md`
 - `EA_TAX_NOTE_TEMPLATE.md`
 - `EA_SKILL_CANDIDATE_PACK_TEMPLATE.md`
+- `EA_QUOTATION_TEMPLATE_AND_DRIVE_FILING_WORKFLOW.md`
 
 ## Required indexes/registers
 - `EA_CONTACT_AND_COMPANY_INDEX.md`
@@ -66,6 +67,7 @@ This file defines the reusable document, template, register and index layer for 
 - `Ea_Legal_Review_[Company]_[Document]_[HHMM_DDMMYYYY].docx`
 - `Ea_Financial_Review_[Topic]_[HHMM_DDMMYYYY].xlsx`
 - `[Product]_62x102mm_[Language]_[Status].lbx`
+- `Quotation - [Reference].pdf`
 
 ## Product reference map minimum fields
 | Product | Approved name | Use case | Key claims | Source | Status | Review date |
@@ -92,6 +94,36 @@ Label operating rules:
 - Old, incomplete, conflicting, private-label-mismatched or UFI-incomplete SDS sources trigger `PENDING_REVIEW`.
 - CLP/REACH/UFI/poison-centre/dangerous-goods and market-placement conclusions remain qualified-review-controlled.
 - Confirm local-language requirements, open the `.lbx` in P-touch Editor and complete a physical print test before release.
+
+## Quotation template and filing workflow
+
+Status: APPROVED / CANONICAL as of 11:20, 02.08.2026.
+
+Quotation drafting rules:
+- Use the approved 2026 NanoTech Solutions Norway AS one-page A4 quotation design.
+- Preserve the source logo/header, Customer and Vendor columns, Libre Baskerville typography and source font sizes, ruled terms table, grey items table, total block, note box, stamp/signature block and Main Office footer.
+- Use the current quotation workbook and 2025–2026 quotation PDFs as the controlling layout evidence.
+- Do not reconstruct quotations as plain-text documents.
+- Do not use or merge the separate legacy 2023 blue-header quotation design unless explicitly instructed.
+- Change only variable recipient, date, quotation reference, commercial terms, product, quantity, price, total and note fields.
+- A quotation remains a draft until the operator explicitly approves the quotation content. Layout approval alone does not approve the commercial content.
+
+Approved quotation Drive filing:
+- Root: `https://drive.google.com/drive/folders/1imwSEdP7k4GoWmv9aUf_FvwTtueBF-YR`.
+- After explicit operator approval, search for the recipient company folder and save the approved PDF there.
+- If the company folder does not exist, create it under the root using the confirmed company name and the existing sibling-folder naming style.
+- Do not create a new customer folder merely because a draft exists.
+- Verify the PDF upload through Drive readback.
+
+Post-approval modifications:
+- When the operator requests modifications after approval, overwrite the existing quotation PDF in the corresponding company folder.
+- Preserve the quotation reference, filename and Drive file ID where technically possible.
+- Do not create duplicate, `_v2`, `REVISED` or date-suffixed copies by default.
+- Create a separate revision only when the operator explicitly requests one.
+- Verify the replacement through Drive readback and treat the latest operator-approved file as active.
+
+Invoice gate:
+- Create the corresponding invoice only after quotation approval and operator confirmation, using the latest approved quotation as the commercial source unless explicitly changed.
 
 ## Follow-up tracker minimum fields
 | Company | Contact | Email/domain | Case/project | Last inbound | Last outbound | Due | Status | Next action | Confidentiality note |
