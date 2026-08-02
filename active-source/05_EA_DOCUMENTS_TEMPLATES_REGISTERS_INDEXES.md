@@ -68,8 +68,11 @@ This file defines the reusable document, template, register and index layer for 
 - `Ea_Legal_Review_[Company]_[Document]_[HHMM_DDMMYYYY].docx`
 - `Ea_Financial_Review_[Topic]_[HHMM_DDMMYYYY].xlsx`
 - `[Product]_62x102mm_[Language]_[Status].lbx`
-- `Quotation - [Reference].pdf`
-- `Invoice[Number].pdf`
+- `[QuotationReference].pdf`, for example `ST-20260731-01.pdf`
+- `Invoice[Number].pdf` for English invoices
+- `Faktura[Number].pdf` for Norwegian invoices
+
+Commercial file names must contain only the approved document reference and required language prefix. Do not add customer names, dates outside the reference, `FINAL`, `APPROVED`, `REVISED`, `_v2` or other descriptive text.
 
 ## Product reference map minimum fields
 | Product | Approved name | Use case | Key claims | Source | Status | Review date |
@@ -99,7 +102,7 @@ Label operating rules:
 
 ## Quotation template and filing workflow
 
-Status: APPROVED / CANONICAL as of 11:20, 02.08.2026.
+Status: APPROVED / CANONICAL as of 12:35, 02.08.2026.
 
 Quotation drafting rules:
 - Use the approved 2026 NanoTech Solutions Norway AS one-page A4 quotation design.
@@ -110,39 +113,62 @@ Quotation drafting rules:
 - Change only variable recipient, date, quotation reference, commercial terms, product, quantity, price, total and note fields.
 - A quotation remains a draft until the operator explicitly approves the quotation content. Layout approval alone does not approve the commercial content.
 
+Quotation naming:
+- Use the exact quotation reference as the complete filename, for example `ST-20260731-01.pdf`.
+- Use the same reference-only base name for editable source files.
+- Use the same exact filename in Gmail and Google Drive.
+- If a newly issued updated quotation is created for the same customer in the same reference period, allocate the next sequence: `-02`, `-03`, and so on.
+- Do not use prefixes, customer names, status labels or ad hoc revision suffixes.
+
 Approved quotation Drive filing:
 - Root: `https://drive.google.com/drive/folders/1imwSEdP7k4GoWmv9aUf_FvwTtueBF-YR`.
 - After explicit operator approval, search for the recipient company folder and save the approved PDF there.
 - If the company folder does not exist, create it under the root using the confirmed company name and the existing sibling-folder naming style.
 - Do not create a new customer folder merely because a draft exists.
-- Verify the PDF upload through Drive readback.
+- Verify the filename, file ID, size and parent folder through Drive readback.
 
 Post-approval quotation modifications:
-- When the operator requests modifications after approval, overwrite the existing quotation PDF in the corresponding company folder.
-- Preserve the quotation reference, filename and Drive file ID where technically possible.
-- Do not create duplicate, `_v2`, `REVISED` or date-suffixed copies by default.
-- Create a separate revision only when the operator explicitly requests one.
-- Verify the replacement through Drive readback and treat the latest operator-approved file as active.
+- A correction that remains the same quotation may overwrite the existing file in place when explicitly treated as the same quotation.
+- A newly issued updated quotation receives the next sequential quotation reference and is saved as a separate file.
+- Do not create `_v2`, `REVISED`, `FINAL` or date-suffixed filenames.
+- Confirm whether a change is a correction or a newly issued quotation when the operator instruction is ambiguous.
+
+Quotation border validation:
+- Preserve all grey ruled-cell borders when values are replaced.
+- Redraw any affected rule segment after redaction.
+- Validate at high zoom and in a mobile/PDF-reader-style render before filing or attaching the PDF.
 
 Invoice creation gate:
 - Create the corresponding invoice only after quotation approval and operator confirmation, using the latest approved quotation as the commercial source unless explicitly changed.
 
 ## Invoice approval and Drive filing workflow
 
-Status: APPROVED / CANONICAL as of 11:53, 02.08.2026.
+Status: APPROVED / CANONICAL as of 12:35, 02.08.2026.
 
 Invoice approval rules:
 - An invoice remains a draft until the operator explicitly approves its commercial content.
 - Approval of a quotation does not by itself approve the invoice unless the operator explicitly confirms the invoice draft.
 - Do not file an unapproved invoice draft in the invoice archive root.
 
+Invoice naming:
+- English invoices use `Invoice[Number].pdf`.
+- Norwegian invoices use `Faktura[Number].pdf`.
+- Do not add customer names, dates, status words or revision labels.
+- Use the same exact filename in Gmail, working folders and the canonical invoice archive.
+- A replacement requiring a new invoice must use the next accounting-controlled invoice number, not an ad hoc revision suffix.
+
 Approved invoice Drive filing:
 - Root: `https://drive.google.com/drive/folders/17UTt1HjdaThZeu844NcKsNq4ygOhC8gX`.
 - After explicit operator approval, search the invoice root for the recipient company folder and save a PDF copy of the approved invoice there.
 - If the company folder does not exist, create it under the invoice root using the confirmed company name and the existing sibling-folder naming style.
-- Use the approved invoice number and filename, normally `Invoice[Number].pdf`.
 - Do not create a customer folder merely because an invoice draft exists.
-- Verify the file and parent folder through Drive readback.
+- Verify the filename, file ID, size and parent folder through Drive readback.
+
+Gmail attachment control:
+- Discard superseded drafts when explicitly instructed.
+- Attach quotations and invoices using their canonical reference filenames.
+- Read back the draft and verify both attachment filenames.
+- Do not send without explicit operator instruction.
 
 ## Follow-up tracker minimum fields
 | Company | Contact | Email/domain | Case/project | Last inbound | Last outbound | Due | Status | Next action | Confidentiality note |
