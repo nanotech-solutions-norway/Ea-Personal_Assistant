@@ -1,58 +1,52 @@
-# Quote and Invoice Register — 12:31, 02.08.2026
+# Quote and Invoice Register — 12:35, 02.08.2026
 
-**Status:** APPROVED / INVOICED / ARCHIVED / GMAIL DRAFTS CURRENT  
+**Status:** APPROVED / INVOICED / ARCHIVED / GMAIL DRAFTS CURRENT / NAMING COMPLIANT  
 **Classification:** Commercial workflow metadata only; customer addresses, personal email addresses, banking details and correspondence are intentionally excluded because this repository is public.
 
 ## Approved commercial documents
 
-| Quotation reference | Quoted items | Total | Invoice | Current controls | Status |
-|---|---|---:|---:|---|---|
-| DP-20260731-01 | Hirec PFS10, 100 ml sample; FedEx transport EUR 89; processing and handling EUR 49 | EUR 138 | 15160 | Quotation discount: 100%; Quote approval: Confirmed; invoice sample-line discount: 100% | Quotation and invoice updated, archived and attached to current Gmail draft |
-| ST-20260731-01 | TextileCoat65, 100 ml sample EUR 49; FabricCoat37, 100 ml sample EUR 49; FedEx transport EUR 89; processing and handling EUR 49 | EUR 236 | 15161 | Quote approval: Confirmed | Quotation and invoice regenerated from final approved quotation and attached to current Gmail draft |
+| Quotation reference | Total | Invoice | Canonical quotation filename | Canonical invoice filename | Status |
+|---|---:|---:|---|---|---|
+| DP-20260731-01 | EUR 138 | 15160 | `DP-20260731-01.pdf` | `Invoice15160.pdf` | Approved, filed and attached to current Gmail draft |
+| ST-20260731-01 | EUR 236 | 15161 | `ST-20260731-01.pdf` | `Invoice15161.pdf` | Approved, filed and attached to current Gmail draft |
 
-The payable totals remain EUR 138 and EUR 236 respectively.
+## Naming rule
 
-## Invoice updates
+- Quotation files use the exact quotation reference only, for example `ST-20260731-01.pdf`.
+- Do not add `Quotation -`, customer names, status labels or version text.
+- A newly issued updated quotation in the same customer/reference period receives the next sequence, for example `ST-20260731-02`.
+- Invoice files use the established invoice reference filename, normally `Invoice[Number].pdf` or `Faktura[Number].pdf`.
+- Gmail attachments and Google Drive files use the same canonical filenames.
 
-- Invoice15160 now displays `100%` in the discount column for the no-charge Hirec PFS10 sample line.
-- Invoice15160 total remains EUR 138.00 because only FedEx transport and processing/handling are payable.
-- Invoice15161 monetary values remain unchanged.
-- Both invoices state `Quote approval: Confirmed` in the commercial terms.
-- Both PDFs passed one-page A4 render review without clipping or overlap.
+## Google Drive quotation files
 
-## Google Drive write-back
-
-### Working copies in quotation-company folders
-
-| Invoice | Drive file ID | Parent folder ID | Current size | Status |
-|---|---|---|---:|---|
-| Invoice15160.pdf | `1Sv41WdYf3qGBd7h_eYzzF3U-hcQp4nzN` | `1Ql3eaM1RXto6SpP12bjk57G9BLirz0xh` | 468008 bytes | Overwritten in place |
-| Invoice15161.pdf | `15QPlen-Kt3oCpR2rtW-hhf4B4OmuZPIT` | `18WsrYz_F1YIxn8jqwBNd74_-LSV9fqfd` | 469083 bytes | Overwritten in place |
-
-### Canonical invoice archive
-
-Invoice root: `https://drive.google.com/drive/folders/17UTt1HjdaThZeu844NcKsNq4ygOhC8gX`
-
-| Invoice | Canonical archive file ID | Company folder ID | Current size | Status |
-|---|---|---|---:|---|
-| Invoice15160.pdf | `1rZjrn7_zTAmOdOBj1MPLsNG1odyr0n7u` | `1GRwPXG8r2ir8iIUbS3Gq6b3FbXWkrMOB` | 468008 bytes | Overwritten in place |
-| Invoice15161.pdf | `1n0vi_EHi-qaQ1f6MfNuuP7uoBH9T4LaO` | `1zSFlcOAVsIuydMNy58ktX3UfeUIO7Tcw` | 469083 bytes | Overwritten in place |
-
-## Current Gmail drafts
-
-Superseded draft messages were moved to Trash because Gmail drafts with attachments cannot be edited in place. Two replacement reply drafts were created in the existing customer threads with the final border-corrected quotation and updated invoice attached.
-
-| Recipient case | Current draft ID | Message ID | Attachments | Status |
+| Document | Drive file ID | Parent folder ID | Current filename | Status |
 |---|---|---|---|---|
-| Daniel Powley | `r-6322392180396493212` | `19fc2058de4b406e` | Quotation DP-20260731-01 + Invoice15160 | Draft; not sent |
-| Sapro-Tech | `r-1636579541251473866` | `19fc205c9cb6776a` | Quotation ST-20260731-01 + Invoice15161 | Draft; not sent |
+| Daniel quotation PDF | `1aeIILa2zAjX8M7ZS96vnBuYlhr4J0zBI` | `1Ql3eaM1RXto6SpP12bjk57G9BLirz0xh` | `DP-20260731-01.pdf` | Renamed in place; file ID preserved |
+| Daniel editable source | `1Php2tj-LBmEy-xhPQaUlz8rRsMALEFS5Dp5YNHwWFio` | `1Ql3eaM1RXto6SpP12bjk57G9BLirz0xh` | `DP-20260731-01` | Renamed in place |
+| Sapro-Tech quotation PDF | `1DJDQMciXPPuTyXYzo0TUflEvI0RdGlSB` | `18WsrYz_F1YIxn8jqwBNd74_-LSV9fqfd` | `ST-20260731-01.pdf` | Renamed in place; file ID preserved |
+| Sapro-Tech editable source | `1Do_NyGNDJ_J1vjhtw1xOADE0fvd0W_dlyDFwu8xfePg` | `18WsrYz_F1YIxn8jqwBNd74_-LSV9fqfd` | `ST-20260731-01` | Renamed in place |
 
-Superseded draft messages moved to Trash:
+## Google Drive invoice files
 
-- `19fb7e0c44494ea2`
-- `19fc1def02601534`
-- `19fb7e10928bd1fe`
-- `19fc1df28b4e7208`
+All working and canonical archive copies already comply with the invoice-reference naming rule:
+
+- `Invoice15160.pdf`
+- `Invoice15161.pdf`
+
+## Gmail draft replacement
+
+The immediately previous Gmail drafts were discarded as explicitly instructed:
+
+- `19fc2058de4b406e`
+- `19fc205c9cb6776a`
+
+Two replacement reply drafts were created in the existing customer threads and read back to verify the attachment filenames.
+
+| Recipient case | Current draft ID | Message ID | Verified attachments | Status |
+|---|---|---|---|---|
+| Daniel Powley | `r8862849847475210312` | `19fc2098044e55f1` | `DP-20260731-01.pdf`; `Invoice15160.pdf` | Draft; not sent |
+| Sapro-Tech | `r-7655390388117525692` | `19fc209c6f8669da` | `ST-20260731-01.pdf`; `Invoice15161.pdf` | Draft; not sent |
 
 ## Next action
 
