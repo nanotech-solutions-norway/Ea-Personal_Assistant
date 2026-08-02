@@ -25,6 +25,7 @@ This file defines the reusable document, template, register and index layer for 
 - `EA_TAX_NOTE_TEMPLATE.md`
 - `EA_SKILL_CANDIDATE_PACK_TEMPLATE.md`
 - `EA_QUOTATION_TEMPLATE_AND_DRIVE_FILING_WORKFLOW.md`
+- `EA_INVOICE_APPROVAL_AND_DRIVE_FILING_WORKFLOW.md`
 
 ## Required indexes/registers
 - `EA_CONTACT_AND_COMPANY_INDEX.md`
@@ -68,6 +69,7 @@ This file defines the reusable document, template, register and index layer for 
 - `Ea_Financial_Review_[Topic]_[HHMM_DDMMYYYY].xlsx`
 - `[Product]_62x102mm_[Language]_[Status].lbx`
 - `Quotation - [Reference].pdf`
+- `Invoice[Number].pdf`
 
 ## Product reference map minimum fields
 | Product | Approved name | Use case | Key claims | Source | Status | Review date |
@@ -115,15 +117,32 @@ Approved quotation Drive filing:
 - Do not create a new customer folder merely because a draft exists.
 - Verify the PDF upload through Drive readback.
 
-Post-approval modifications:
+Post-approval quotation modifications:
 - When the operator requests modifications after approval, overwrite the existing quotation PDF in the corresponding company folder.
 - Preserve the quotation reference, filename and Drive file ID where technically possible.
 - Do not create duplicate, `_v2`, `REVISED` or date-suffixed copies by default.
 - Create a separate revision only when the operator explicitly requests one.
 - Verify the replacement through Drive readback and treat the latest operator-approved file as active.
 
-Invoice gate:
+Invoice creation gate:
 - Create the corresponding invoice only after quotation approval and operator confirmation, using the latest approved quotation as the commercial source unless explicitly changed.
+
+## Invoice approval and Drive filing workflow
+
+Status: APPROVED / CANONICAL as of 11:53, 02.08.2026.
+
+Invoice approval rules:
+- An invoice remains a draft until the operator explicitly approves its commercial content.
+- Approval of a quotation does not by itself approve the invoice unless the operator explicitly confirms the invoice draft.
+- Do not file an unapproved invoice draft in the invoice archive root.
+
+Approved invoice Drive filing:
+- Root: `https://drive.google.com/drive/folders/17UTt1HjdaThZeu844NcKsNq4ygOhC8gX`.
+- After explicit operator approval, search the invoice root for the recipient company folder and save a PDF copy of the approved invoice there.
+- If the company folder does not exist, create it under the invoice root using the confirmed company name and the existing sibling-folder naming style.
+- Use the approved invoice number and filename, normally `Invoice[Number].pdf`.
+- Do not create a customer folder merely because an invoice draft exists.
+- Verify the file and parent folder through Drive readback.
 
 ## Follow-up tracker minimum fields
 | Company | Contact | Email/domain | Case/project | Last inbound | Last outbound | Due | Status | Next action | Confidentiality note |
