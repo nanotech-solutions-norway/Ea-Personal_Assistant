@@ -44,6 +44,18 @@ If the operator requests quotation modifications after approval:
 
 Create a separate revision only when the operator explicitly requests a new reference or retained revision history.
 
+## Quotation cell-border preservation and validation
+
+When replacing or redacting a value inside the ruled Terms and conditions section:
+
+1. Preserve the original grey horizontal cell rule at its exact source-template coordinate.
+2. If a redaction removes any part of the rule, redraw the complete affected rule segment after inserting the replacement text.
+3. Do not leave an unintended white gap beneath a modified value.
+4. Validate the result at high zoom and in a mobile/PDF-reader-style render, because thin grey rules may appear differently from desktop full-page renders.
+5. Check every modified row, not only the text, before overwriting the approved Drive PDF.
+
+This control was added after the operator identified missing grey lower-border segments beneath modified Discount and Quote approval values on 02.08.2026.
+
 ## Invoice creation gate
 
 Create the corresponding invoice only after quotation approval and operator confirmation, using the latest approved quotation as the commercial source unless explicitly changed.
