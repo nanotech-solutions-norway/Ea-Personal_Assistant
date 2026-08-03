@@ -14,6 +14,9 @@ Use this as an active drafting rule for all future email drafts unless Ruben giv
 - Never start emails with generic well-being openings such as "Hope you are doing well", "Hope this email finds you well", "I hope you are well", or similar filler sentences.
 - Use direct, concise, effective openings that immediately state the purpose of the email.
 - Do not begin replies with routine acknowledgment padding such as "Thank you for confirming", "Thank you for clarifying", "Thank you for the update", or similar wording when it adds no substantive value. Move directly to the purpose, requested action, question, decision, or next step.
+- Improve business and commercial terminology where it increases precision, credibility, or negotiating clarity. Do not add jargon merely for formality.
+- For distribution, licensing, exclusivity, private-label, white-label, warranty, liability, termination, governing-law, pricing, territory, account-protection, minimum-purchase, or other contract-sensitive topics, apply Ea's legal business-support review to suggest more precise business wording, identify ambiguity, and distinguish non-binding discussion from proposed contractual terms.
+- Legal or contract-sensitive email wording must remain non-final and must not create commitments, waive rights, accept liability, or imply agreed terms unless the operator has explicitly approved the exact language. Flag matters requiring qualified legal review.
 - Apply the principle: less is more.
 - Prefer short paragraphs and clear next-step language.
 - Remove unnecessary politeness padding, repeated context, and long explanations unless needed for legal, technical, or commercial precision.
