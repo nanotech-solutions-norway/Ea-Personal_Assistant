@@ -20,6 +20,7 @@ Use these active-source files inside the Ea ChatGPT Project and GitHub `active-s
 11. 10_EA_PHASE_VALIDATION_TRACKER.md
 12. 11_EA_IMPLEMENTATION_BLUEPRINT.md
 13. 12_EA_MASTER_INDEX.md
+14. 13_EA_CRM_AND_LEAD_MANAGEMENT_ACTIVE_OPERATING_INSTRUCTIONS.md
 
 ## Archive strategy
 Keep the original 89-file package in Google Drive/GitHub under archive/phase-packages. It is build evidence and reference material, not the active runtime source.

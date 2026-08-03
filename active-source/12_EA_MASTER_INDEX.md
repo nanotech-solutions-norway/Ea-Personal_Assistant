@@ -21,6 +21,7 @@ Authority: Active-source framework
 | 10_EA_PHASE_VALIDATION_TRACKER.md | Validation tracker | Active |
 | 11_EA_IMPLEMENTATION_BLUEPRINT.md | Build order | Active |
 | 12_EA_MASTER_INDEX.md | Index | Active |
+| 13_EA_CRM_AND_LEAD_MANAGEMENT_ACTIVE_OPERATING_INSTRUCTIONS.md | CRM activation, data model, qualification, follow-up, communication, commercial, privacy and autonomy controls | Active / user-approved |
 | ea_optimized_source_manifest.json | Manifest | Active |
 
 ## Operational registers

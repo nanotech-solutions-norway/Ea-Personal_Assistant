@@ -1,0 +1,64 @@
+version: 1.0.0-working
+status: CONTROLLED_WORKING
+updated: "2026-07-24T15:34:00+02:00"
+timezone: Europe/Oslo
+
+case_statuses:
+  ACTION_REQUIRED_NTSN:
+    definition: NTSN owes a response, document, decision, quote, sample, technical conclusion or other action.
+    closed: false
+  WAITING_EXTERNAL:
+    definition: Waiting for a customer, supplier, manufacturer, partner or third party.
+    closed: false
+  WAITING_INTERNAL:
+    definition: Waiting for an internal NTSN decision, review, production step or approval.
+    closed: false
+  SCHEDULED:
+    definition: A meeting, test, shipment, production step or decision date is scheduled.
+    closed: false
+  DORMANT:
+    definition: No active next step after appropriate attempts; retain for controlled re-engagement.
+    closed: false
+  CLOSED_WON:
+    definition: Commercial or project objective completed successfully.
+    closed: true
+  CLOSED_LOST:
+    definition: Opportunity ended or was declined.
+    closed: true
+  CLOSED_NO_ACTION:
+    definition: Invalid, irrelevant, duplicate or no further action required.
+    closed: true
+
+opportunity_stages:
+  - DISCOVERY
+  - TECHNICAL_REVIEW
+  - QUALIFIED
+  - SAMPLE_OR_TEST
+  - PROPOSAL
+  - NEGOTIATION
+  - PROCUREMENT
+  - ORDERED
+  - DELIVERY
+  - CLOSED_WON
+  - CLOSED_LOST
+
+priorities:
+  A: material fit or urgent/near-term action
+  B: credible fit with specific gaps or dependency
+  C: early-stage or controlled nurture
+  D: low-fit, invalid or no-action
+  PENDING_REVIEW: unresolved source, safety, confidentiality, legal, regulatory or commercial risk
+
+reminder_states:
+  - NOT_CREATED
+  - SCHEDULED
+  - RESCHEDULED
+  - CLOSED
+  - PENDING_REVIEW
+
+approval_states:
+  - DRAFT
+  - PENDING_REVIEW
+  - APPROVED
+  - REJECTED
+  - SUPERSEDED
