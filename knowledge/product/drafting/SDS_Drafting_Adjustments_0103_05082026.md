@@ -2,7 +2,7 @@
 
 Status: APPROVED / CANONICAL  
 Approved by: Operator  
-Effective: 11:21, 05.08.2026  
+Effective: 11:51, 05.08.2026  
 Scope: All future SDS creation, recreation, revision, correction, DOCX output and PDF export.
 
 ## Mandatory typography hierarchy
@@ -15,19 +15,32 @@ Scope: All future SDS creation, recreation, revision, correction, DOCX output an
 2. **Subsection headings and labels**
    - Font size: `11 pt`.
    - Weight: `regular`.
-   - Applies to subsection headings, field labels, table labels and equivalent secondary text.
+   - Applies to subsection headings, field labels, column headings, table labels and equivalent secondary text.
 
 3. **Body text and values**
    - Font size: `10 pt`.
    - Weight: `regular`.
-   - Applies to body paragraphs, hazard and precaution text, explanatory text, notes, table values and ordinary list content.
+   - Applies to body paragraphs, hazard and precautionary statements, explanatory text, notes, table values and ordinary list content.
 
 4. **Highlight interpretation**
    - Yellow review marking maps to `12 pt bold` primary section text.
    - Green review marking maps to `11 pt regular` subsection or label text.
    - Grey review marking maps to `10 pt regular` body or value text.
-   - Review highlights must be removed from the final DOCX and PDF unless the operator explicitly requests otherwise.
-   - Preserve the controlled font family, page setup, logo, header/footer structure, table borders and regulatory pictogram colours.
+   - Review highlights must be removed from the final DOCX and PDF unless explicitly requested.
+   - Preserve the controlled font family, page setup, logo, header/footer structure, table widths, borders, shading and regulatory pictogram colours.
+
+5. **Tables and fixed display elements**
+   - Section-banner table text uses `12 pt bold`.
+   - Column headings and field-label cells use `11 pt regular`.
+   - Data and value cells use `10 pt regular`.
+   - Do not retain bold placeholder emphasis in body/value cells.
+   - The main SDS title, regulatory subtitle and fixed header display elements retain the controlled template display styling.
+
+## Relationship to the TDS spacing rule
+
+- The TDS clause-block blank-line algorithm does not automatically apply to SDS documents.
+- Preserve the controlled SDS template paragraph spacing, table continuity and regulatory section flow unless the operator gives a separate SDS line-break instruction.
+- Do not add empty paragraphs between table rows, hazard statements or regulatory list items solely to imitate the TDS layout.
 
 ## Mandatory formatting and date controls
 
@@ -52,8 +65,8 @@ Scope: All future SDS creation, recreation, revision, correction, DOCX output an
 4. **Print date**
    - Use a native Microsoft Word `DATE` field with TODAY()-equivalent behaviour.
    - Display format: `DD.MM.YYYY`.
-   - The DOCX must be configured to update fields when opened or printed where technically possible.
-   - Do not hard-code the print date in the DOCX.
+   - Configure the DOCX to update fields on open or print where technically possible.
+   - Do not hard-code the print date.
    - The PDF shows the date resolved during export.
 
 5. **Document metadata**
@@ -68,14 +81,14 @@ Before delivery:
 - verify primary section headings are `12 pt bold`;
 - verify subsection headings and labels are `11 pt regular`;
 - verify body text and values are `10 pt regular`;
+- verify all table cells follow the same hierarchy;
 - verify no review highlights remain;
 - verify no unintended red text remains;
 - verify Issue-date arithmetic against the Revision date;
-- verify that Print date is a Word field rather than plain text;
+- verify the Print date is a native Word field rather than plain text;
 - update fields using the operator's local timezone;
-- render every DOCX page;
-- inspect all rendered pages for layout drift, clipping, overlap and broken line breaks;
-- export and inspect the PDF;
+- render and inspect every DOCX page;
+- export and inspect every PDF page;
 - provide both DOCX and PDF when requested.
 
 ## Current implementation example
@@ -88,5 +101,8 @@ For SH-TC1 SDS v4.1:
 - Primary headings: `12 pt bold`
 - Subsection headings and labels: `11 pt regular`
 - Body text and values: `10 pt regular`
-- Red SDS text: converted to black
-- Review highlights: removed
+- Table hierarchy validated
+- Red SDS text converted to black
+- Review highlights removed
+- Output length: `22 pages`
+- Regulatory status: `DRAFT – PENDING QUALIFIED REGULATORY REVIEW`
