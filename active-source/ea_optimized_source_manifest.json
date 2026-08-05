@@ -3,7 +3,7 @@
   "repository": "nanotech-solutions-norway/Ea-Personal_Assistant",
   "source_set": "active-source",
   "status": "configured_framework_pending_level_1_validation",
-  "level_1": "active_framework_pending_validation",
+  "level_1": "active_framework_with_hourly_email_watch_pending_full_qa",
   "level_2": "HOLD_until_level_1_finalized_validated_approved",
   "active_source_files": [
     "00_EA_PROJECT_README_AND_UPLOAD_PLAN.md",
@@ -11,21 +11,32 @@
     "02_EA_PROJECT_LEARNING_AND_SOURCE_AUTHORITY.md",
     "03_EA_EMAIL_CALENDAR_MEETING_WORKFLOWS.md",
     "03A_EA_CALENDAR_ENTRY_DEFAULTS_0840_31072026.md",
+    "03A_EA_EMAIL_DRAFT_CHANNEL_OVERRIDE_1744_05082026.md",
+    "03B_EA_CALENDAR_EXCLUSIONS_AND_DRAFT_MEETING_OVERRIDE_2351_05082026.md",
     "04_EA_BUSINESS_DUE_DILIGENCE_LEGAL_FINANCIAL.md",
     "05_EA_DOCUMENTS_TEMPLATES_REGISTERS_INDEXES.md",
     "06_EA_CUSTOM_GPT_AND_PROJECT_SETUP.md",
     "07_EA_SCHEDULED_TASKS_AND_ROUTINES.md",
+    "07A_EA_GMAIL_BUSINESS_EMAIL_WATCH_PROMPT_2351_05082026.md",
     "08_EA_QA_VALIDATION_RELEASE_GATE.md",
     "09_EA_LEVEL_2_MANAGED_BACKEND.md",
     "10_EA_PHASE_VALIDATION_TRACKER.md",
     "11_EA_IMPLEMENTATION_BLUEPRINT.md",
     "12_EA_MASTER_INDEX.md"
   ],
+  "knowledge_files": [
+    "knowledge/13_EA_SCHEDULED_EMAIL_WATCH_MEMORY.md"
+  ],
+  "implementation_logs": [
+    "docs/EA_SCHEDULE_PROMPT_UPDATE_LOG_2351_05082026.md"
+  ],
   "archive_source": "archive/phase-packages/Ea_Phase_Packages_0911_19062026.zip",
   "notes": [
-    "Use these files as active ChatGPT Project sources.",
-    "Apply 03A_EA_CALENDAR_ENTRY_DEFAULTS_0840_31072026.md before older calendar-entry instructions where conflicts exist.",
-    "Keep 89-file archive as reference/build evidence only.",
-    "Level 2 is explicitly on HOLD until Level 1 validation passes."
+    "Use the compact active-source files for ChatGPT Project operation.",
+    "For the hourly business-email watch, apply 07A first, then 03B, then the two 03A overrides, before older workflow notes.",
+    "Do not create calendar entries for invoices, payment reminders, customs, Tolletaten or Altinn customs matters.",
+    "The draft-invite Microsoft Teams location rule in 03B supersedes the older blank-location rule for that event type.",
+    "Gmail is the default drafting channel, except Inster, Grupo Oesia and Tecnobit correspondence is chat-only unless Gmail drafting is explicitly requested.",
+    "Level 2 remains on HOLD. Native scheduled tasks perform one bounded cycle per run and may not modify Drive or GitHub governance records."
   ]
 }
