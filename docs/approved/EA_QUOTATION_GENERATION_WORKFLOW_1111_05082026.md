@@ -29,15 +29,20 @@ Use the following sources in order:
 5. Recent approved quotation PDFs, prioritizing files created or modified within the previous three months.
 6. Older quotation files only as supporting evidence when recent sources are insufficient.
 
-Do not reconstruct a quotation from a generic document, invoice template, email body or plain-text table when the quotation workbook or recent quotation PDF is available.
+Do not reconstruct a quotation from a generic document, invoice template, email body or plain-text table when the quotation workbook or recent quotation PDF is available. Prefer editing a copy of one of the operator-designated guideline quotations or the current quotation workbook so that the original layout remains intact.
 
-## 3. Recent quotation evidence reviewed
+## 3. Primary quotation guidelines and recent evidence
 
-The following Google Drive quotation PDFs, all within the three-month review window ending 05.08.2026, were used to confirm the current quotation family:
+The operator-designated primary visual guidelines are:
 
-- `ITYCS-20260729-01` — 29.07.2026
+- `Quotation - ITYCS-20260729-01` — Hirec PFS10 quotation
+- `Quotation - ITYCS-20260701-01` — Hirec PFW9 quotation
+
+Use these two quotations as the first visual comparison for every new or corrected quotation. Preserve their page geometry, section order, label spelling, line positions, grey item header, note box, signature/stamp area and footer. The source labels `Costumer`, `Qnt.` and `Sub total` are template labels and must remain unchanged unless the operator explicitly approves a template revision.
+
+Additional quotation evidence within the three-month review window includes:
+
 - `MH-20260728-03` — 28.07.2026
-- `ITYCS-20260701-01` — 01.07.2026
 - `ES-20260608-01` — 08.06.2026
 - `MH-20260522-01` — 22.05.2026
 
@@ -60,7 +65,8 @@ Preserve the approved 2026 NanoTech Solutions Norway AS quotation design:
 - bordered note box at the lower left;
 - source stamp/signature block at the lower right;
 - `Main Office` footer at the lower left;
-- original margins, spacing, line weights, table geometry and section positions.
+- original margins, spacing, line weights, table geometry and section positions;
+- the exact source labels and capitalization, including `Quote`, `Costumer`, `Vendor`, `Terms and conditions`, `Items`, `Qnt.`, `Sub total`, `Total order value`, `Note:` and `Main Office`.
 
 Do not substitute:
 
@@ -154,7 +160,7 @@ When changing any value:
 
 Before reporting a quotation as complete:
 
-- compare it visually against at least one recent quotation PDF from the previous three months;
+- compare it visually against both operator-designated guideline quotations when available, and at minimum against one recent quotation PDF from the previous three months;
 - validate the controlling source is a quotation source and not an invoice source;
 - render the PDF and inspect it at high zoom;
 - confirm one-page A4 output when expected;
