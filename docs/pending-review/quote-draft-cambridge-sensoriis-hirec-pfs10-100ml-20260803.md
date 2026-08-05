@@ -41,7 +41,7 @@ Commercial status: **not approved for external issue**. The PDF and editable sou
 
 - Google Docs editable source: https://docs.google.com/document/d/1CslV7mSj5he5fkkBfGUTd_QqvEnXgESMVkfgxhXDQpo/edit
 - Google Drive PDF: https://drive.google.com/file/d/1iYbDvlQRsHobltnWyDUVrF4_P4YQ696U/view
-- Gmail draft ID: `r-7182748648587234538`
+- Gmail draft ID originally recorded: `r-7182748648587234538`
 - Gmail thread ID: `19f40eb3e151fb4b`
 
 ## Validation
@@ -49,10 +49,16 @@ Commercial status: **not approved for external issue**. The PDF and editable sou
 - Quote reference collision check: no existing `CS-20260803` quotation located in the quotation archive before creation.
 - DOCX rendered and visually reviewed as a one-page A4 document.
 - PDF preflight: openable, one page, not encrypted, text-based.
-- Customer folder was not created because the quotation remains pending internal approval, in accordance with the approved workflow.
+- Customer folder was not created because the quotation remained pending internal approval at creation time, in accordance with the approved workflow.
 
 ## Required approval actions
 
 1. Approve or revise the EUR 49.00 product price, EUR 89.00 transport fee and EUR 49.00 handling fee.
 2. Confirm whether any sample-fee credit should be offered against a later order.
-3. After approval, change quotation status, create/verify the full-name customer folder, file the editable source and PDF there, and use the prepared Gmail draft for external issue.
+3. After approval, change quotation status, create/verify the full-name customer folder, and file the editable source and PDF there.
+
+## Status reconciliation - 10:57, 05.08.2026
+
+A retry and read-back validation found that Gmail contains a **sent** message dated 03.08.2026 at 15:56 to `henry.hutchison@cambsensoriis.com`, in thread `19f40eb3e151fb4b`, with `CS-20260803-01.pdf` attached. The message states that the quotation covers the 100 ml Hirec PFS10 validation sample, FedEx transport to the United Kingdom, and processing/handling.
+
+This conflicts with the quotation and this register entry, which remain marked `DRAFT - PENDING INTERNAL APPROVAL`. No separate operator-approval evidence was located during the retry. Classification therefore remains **PENDING_REVIEW**. No duplicate quotation or Gmail message was created during the retry.
