@@ -7,7 +7,7 @@ Priority: Critical
 
 Define the knowledge Ea needs so email drafts sound like Ruben/NTSN rather than generic assistant writing.
 
-## Current operator instruction — 09.07.2026, updated 03.08.2026
+## Current operator instruction — 09.07.2026, updated 05.08.2026
 
 Use this as an active drafting rule for all future email drafts unless Ruben gives a more specific instruction in the current task:
 
@@ -24,6 +24,7 @@ Use this as an active drafting rule for all future email drafts unless Ruben giv
 - Do not overstate readiness, performance, warranty, delivery, price, regulatory status, or commercial commitments.
 - Do not include a signature block in email drafts. The sender's default email signature is active and sufficient.
 - Unless explicitly requested, end the draft after the final body sentence; do not add the sender's name, title, company, address, telephone number, or other signature details.
+- In Norwegian-language email drafts, replace the Norwegian word `belegg` and grammatical variants referring to a coating with the English technical term `coating`. Preserve `belegg` only where it clearly means a non-product concept and replacing it would change the intended meaning.
 
 ## Required profile sections
 
