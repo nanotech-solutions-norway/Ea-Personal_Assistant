@@ -1,7 +1,10 @@
 # Changelog
 
-## Unreleased
+## 2026-08-05
 
-- Repository skeleton created for Ea Personal Assistant.
-- Active source files pending manual upload.
-- Archive package pending manual upload.
+- Added the canonical hourly Ea Business Email Watch Schedule prompt.
+- Added invoice, payment and customs calendar exclusions.
+- Added the current Microsoft Teams draft-invite override.
+- Added scheduled-email-watch memory and source-reconciliation log.
+- Updated the scheduled-routine source, master index, source manifest and knowledge index.
+- Preserved Level 2 HOLD and external-action approval boundaries.
