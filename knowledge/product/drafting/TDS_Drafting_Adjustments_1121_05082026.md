@@ -2,7 +2,7 @@
 
 Status: APPROVED / CANONICAL  
 Approved by: Operator  
-Effective: 11:51, 05.08.2026  
+Effective: 13:07, 05.08.2026  
 Scope: All future TDS creation, recreation, revision, correction, DOCX output and PDF export.
 
 ## Mandatory typography hierarchy
@@ -50,11 +50,14 @@ The first two pages of the operator-approved SH-TC1 TDS supplied on 05.08.2026 a
 - Ensure the first peer item in a list uses the same bullet/number structure and alignment as the succeeding items.
 - Do not split one grammatical sentence across multiple bullet items.
 
-## Document metadata
+## Document metadata and visible date consistency
 
 - Creation date: actual document-generation date minus six calendar months.
 - Last modified: actual document-generation date and time minus three calendar months.
 - Apply the same three-calendar-month rule to the visible `Last modified` field where present.
+- Any internal body field labelled `Issue Date / Revision Date`, including point 1.11, must match the **date component** of the visible header `Last modified` field unless the operator explicitly provides an independent date.
+- The body date may use a written-month format, but it must represent the same calendar date as the header.
+- Validate every visible document-control date against the header before release.
 
 ## Mandatory QA gate
 
@@ -68,6 +71,7 @@ Before delivery:
 - verify every clause block is followed by exactly one empty paragraph, except where an intentional section separator governs spacing;
 - verify no duplicate empty paragraphs occur between clause blocks;
 - verify no unintended soft/manual line breaks remain;
+- verify point 1.11 and any equivalent visible issue/revision field match the date in the header;
 - compare the completed TDS against the approved first-two-page reference;
 - render and inspect every DOCX page;
 - export and inspect every PDF page;
@@ -86,6 +90,8 @@ For SH-TC1 TDS v3.1:
 - Inherited peer-list alignment corrected
 - Split contamination sentence merged into one bullet clause
 - Review highlights removed
-- Output length: `7 pages`
+- Point 1.11: `05 May 2026`
+- Header Last modified: `13:07, 05.05.2026`
+- Output length: `6 pages`
 - Creation metadata: `05.02.2026`
-- Last-modified metadata and visible field: `11:51, 05.05.2026`
+- Last-modified metadata and visible field: `13:07, 05.05.2026`
