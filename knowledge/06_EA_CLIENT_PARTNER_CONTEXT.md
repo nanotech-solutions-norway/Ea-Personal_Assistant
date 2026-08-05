@@ -43,6 +43,12 @@ The related upstream and downstream correspondence must be searched, read and va
 
 These rows are approved as relationship-routing instructions for evidence retrieval and email cross-checking. They are not blanket approval for customer-facing technical claims, pricing, availability, warranties, delivery commitments, exclusivity or legal conclusions.
 
+## Operator-confirmed NTT-AT correspondence rule — 05.08.2026
+
+- NTT-AT already has NanoTech Solutions Norway AS's current address.
+- Do not repeat or include the address in emails to NTT-AT unless NTT-AT explicitly requests it or Ruben explicitly instructs Ea to include it for the specific email.
+- Where an NTT-AT document or quotation appears to contain an outdated or incorrect address, flag the discrepancy for operator review rather than automatically inserting the address into the reply.
+
 ## Privacy rule
 
 Do not store unnecessary personal data. Do not expose one party's confidential details to another party. Sensitive relationship notes remain PENDING_REVIEW unless explicitly approved.
