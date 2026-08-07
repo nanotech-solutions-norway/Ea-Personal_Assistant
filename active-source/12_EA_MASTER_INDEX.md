@@ -14,6 +14,7 @@ Authority: Active-source framework
 | 03A_EA_CALENDAR_ENTRY_DEFAULTS_0840_31072026.md | Calendar-entry defaults, urgency colors and reminders | Canonical / user-instructed |
 | 03A_EA_EMAIL_DRAFT_CHANNEL_OVERRIDE_1744_05082026.md | Gmail-by-default with Inster relationship exception | Canonical / operator-instructed |
 | 03B_EA_CALENDAR_EXCLUSIONS_AND_DRAFT_MEETING_OVERRIDE_2351_05082026.md | Invoice/customs calendar exclusions and current draft-invite Teams handling | Canonical / operator-instructed |
+| 03C_EA_HISTORICAL_EMAIL_CONTEXT_DRAFTING_RULE_0930_07082026.md | Mandatory review of prior email threads and NTSN sent replies before materially relevant drafting | Canonical / operator-instructed |
 | 04_EA_BUSINESS_DUE_DILIGENCE_LEGAL_FINANCIAL.md | Business support workflows | Active |
 | 05_EA_DOCUMENTS_TEMPLATES_REGISTERS_INDEXES.md | Templates, registers and indexes | Active framework |
 | 06_EA_CUSTOM_GPT_AND_PROJECT_SETUP.md | GPT and Project setup | Active |
@@ -39,15 +40,18 @@ Authority: Active-source framework
 Apply current explicit operator instructions first. For the hourly email watch, apply the sources in this order where a conflict exists:
 
 1. `07A_EA_GMAIL_BUSINESS_EMAIL_WATCH_PROMPT_2351_05082026.md`
-2. `03B_EA_CALENDAR_EXCLUSIONS_AND_DRAFT_MEETING_OVERRIDE_2351_05082026.md`
-3. `03A_EA_EMAIL_DRAFT_CHANNEL_OVERRIDE_1744_05082026.md`
-4. `03A_EA_CALENDAR_ENTRY_DEFAULTS_0840_31072026.md`
-5. `03_EA_EMAIL_CALENDAR_MEETING_WORKFLOWS.md`
-6. Older CRM and follow-up implementation notes
+2. `03C_EA_HISTORICAL_EMAIL_CONTEXT_DRAFTING_RULE_0930_07082026.md`
+3. `03B_EA_CALENDAR_EXCLUSIONS_AND_DRAFT_MEETING_OVERRIDE_2351_05082026.md`
+4. `03A_EA_EMAIL_DRAFT_CHANNEL_OVERRIDE_1744_05082026.md`
+5. `03A_EA_CALENDAR_ENTRY_DEFAULTS_0840_31072026.md`
+6. `03_EA_EMAIL_CALENDAR_MEETING_WORKFLOWS.md`
+7. Older CRM and follow-up implementation notes
 
 ## Operating rule
 
 Use `active-source/` as the compact source of truth for ChatGPT Project operation. Keep the phase-package archive as build evidence.
+
+Before materially relevant business-email drafting, review the complete current thread and relevant historical correspondence, with particular emphasis on prior NTSN sent replies. Historical replies guide tone, continuity, terminology and relationship context, but changeable facts must be revalidated against current reliable sources.
 
 Invoice, payment and customs matters may be reported when material, but must not create calendar entries. Draft meeting invitations follow the current Microsoft Teams location rule in the 03B override.
 
@@ -59,7 +63,7 @@ Level 2: HOLD pending Level 1 finalization and validation.
 ## Required validation
 
 - manual hourly prompt test;
-- full-thread and attachment-version test;
+- full-thread, historical-correspondence and attachment-version test;
 - notification deduplication test;
 - invoice/customs calendar exclusion test;
 - confirmed and proposed meeting test;
