@@ -13,6 +13,7 @@
     "03A_EA_CALENDAR_ENTRY_DEFAULTS_0840_31072026.md",
     "03A_EA_EMAIL_DRAFT_CHANNEL_OVERRIDE_1744_05082026.md",
     "03B_EA_CALENDAR_EXCLUSIONS_AND_DRAFT_MEETING_OVERRIDE_2351_05082026.md",
+    "03C_EA_HISTORICAL_EMAIL_CONTEXT_DRAFTING_RULE_0930_07082026.md",
     "04_EA_BUSINESS_DUE_DILIGENCE_LEGAL_FINANCIAL.md",
     "05_EA_DOCUMENTS_TEMPLATES_REGISTERS_INDEXES.md",
     "06_EA_CUSTOM_GPT_AND_PROJECT_SETUP.md",
@@ -33,7 +34,8 @@
   "archive_source": "archive/phase-packages/Ea_Phase_Packages_0911_19062026.zip",
   "notes": [
     "Use the compact active-source files for ChatGPT Project operation.",
-    "For the hourly business-email watch, apply 07A first, then 03B, then the two 03A overrides, before older workflow notes.",
+    "For the hourly business-email watch, apply 07A together with the newer 03C historical-email-context rule, then 03B and the two 03A overrides before older workflow notes.",
+    "Before materially relevant email drafting, review the complete current thread and relevant historical correspondence, with emphasis on prior NTSN sent replies. Historical replies guide tone and continuity; current changeable facts must still be revalidated.",
     "Do not create calendar entries for invoices, payment reminders, customs, Tolletaten or Altinn customs matters.",
     "The draft-invite Microsoft Teams location rule in 03B supersedes the older blank-location rule for that event type.",
     "Gmail is the default drafting channel, except Inster, Grupo Oesia and Tecnobit correspondence is chat-only unless Gmail drafting is explicitly requested.",
