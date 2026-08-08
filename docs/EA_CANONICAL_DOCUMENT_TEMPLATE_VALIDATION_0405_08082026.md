@@ -29,11 +29,11 @@ The review basis included the four operator-marked PDF previews plus the origina
 - Top and bottom workbook print margins retained at 8.0 mm.
 - Target documents remain one-page outputs.
 - Red-marked text alignment, excess spacing and unwanted line breaks were corrected.
-- Purple-marked visible dropdown indicators/data validations were removed from the marked target-sheet fields.
+- Purple-marked dropdown arrows/indicators were hidden at the marked target-sheet fields while the underlying list validations were retained.
 - Blue-marked shape geometry remains corrected.
 
 ### Quote
-- Customer/currency/transport/carrier/application/item dropdown indicators removed from the marked target-sheet locations.
+- Customer/currency/transport/carrier/application/item dropdown indicators hidden at the marked target-sheet locations while the underlying list validations were retained.
 - Static `%` character removed from the Discount row.
 - Vendor contact labels and phone/email/web values aligned and prevented from wrapping/clipping.
 - Final PDF is one page with 8.4 mm left/right margins.
@@ -44,7 +44,7 @@ The review basis included the four operator-marked PDF previews plus the origina
 - Final PDF is one page with 8.4 mm left/right margins.
 
 ### RFQ
-- Transport/carrier and item-row dropdown indicators removed from marked target-sheet locations.
+- Transport/carrier and item-row dropdown indicators hidden at marked target-sheet locations while the underlying list validations were retained.
 - Purchase email kept on one line.
 - Final PDF is one page with 8.4 mm left/right margins.
 
@@ -53,7 +53,7 @@ The review basis included the four operator-marked PDF previews plus the origina
 - `PO ref.` alignment corrected to match adjacent reference labels.
 - `Att.: Ruben A. Meyer` restored as one aligned line.
 - Email kept on one line.
-- Item dropdown indicators removed.
+- Item dropdown indicators hidden while the underlying list validation was retained.
 - The left `Address` graphic is now a square QR code, matching the original PO workbook's intended QR-code treatment.
 - The right `Website` graphic remains a square QR code.
 - Both QR surfaces/canvases are square in the final package and final preview.
@@ -65,6 +65,7 @@ The review basis included the four operator-marked PDF previews plus the origina
 - Only the intended operator-facing target sheet is visible in each canonical template.
 - Supporting workbook sheets remain available as hidden/very-hidden dependencies.
 - Formula/cross-sheet relationships remain intact where applicable.
+- Marked list data validations remain present and functional with dropdown-arrow display suppressed.
 - No visible `#REF!`, `#VALUE!`, `#DIV/0!`, `#NAME?` or `#N/A` errors were detected in final target-sheet scans.
 - ZIP/package integrity checks returned no corrupt entries.
 - All four regenerated PDF previews contain one intended target document page.
@@ -82,4 +83,4 @@ Microsoft Excel/VBA runtime execution was not available in the correction enviro
 
 ## Final result
 
-PASS WITH WARNINGS — marked layout corrections, side-margin increase, dropdown/% removal, QR/stamp geometry, rendering, package integrity, formula scanning and VBA preservation passed; Microsoft Excel macro execution remains the outstanding runtime acceptance test.
+PASS WITH WARNINGS — marked layout corrections, side-margin increase, dropdown-indicator hiding/% removal, QR/stamp geometry, rendering, package integrity, formula scanning and VBA preservation passed; Microsoft Excel macro execution remains the outstanding runtime acceptance test.
