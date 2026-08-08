@@ -72,7 +72,7 @@
     "Before materially relevant email drafting, review the complete current thread and relevant historical correspondence, with emphasis on prior NTSN sent replies. Historical replies guide tone and continuity; current changeable facts must still be revalidated.",
     "Apply 05A automatically for operator-requested template creation, document drafting, conversion, recreation, information extraction and template population involving DOCX, PDF, XLSX/XLSM or derived template formats, unless explicitly overridden.",
     "For Quote, Packing List, RFQ and PO requests, apply 05B and retrieve the registered canonical XLTM master automatically unless the operator explicitly specifies an alternative.",
-    "Canonical Quote/Packing List/RFQ/PO templates were markup-corrected on 08.08.2026: left/right margins 8.4 mm; marked dropdown indicators removed; Quote static percent character removed; red-marked alignment/line-break issues corrected; PO Address and Website graphics are both square QR codes.",
+    "Canonical Quote/Packing List/RFQ/PO templates were markup-corrected on 08.08.2026: left/right margins 8.4 mm; marked dropdown arrows hidden while list validations remain functional; Quote static percent character removed; red-marked alignment/line-break issues corrected; PO Address and Website graphics are both square QR codes.",
     "For document work, specific current approved/canonical document-type workflows and templates take precedence over general template rules.",
     "Do not create calendar entries for invoices, payment reminders, customs, Tolletaten or Altinn customs matters.",
     "The draft-invite Microsoft Teams location rule in 03B supersedes the older blank-location rule for that event type.",
