@@ -17,6 +17,7 @@
     "04_EA_BUSINESS_DUE_DILIGENCE_LEGAL_FINANCIAL.md",
     "05_EA_DOCUMENTS_TEMPLATES_REGISTERS_INDEXES.md",
     "05A_EA_DOCUMENT_TEMPLATE_RECREATION_CONVERSION_STATIC_RULES_0349_08082026.md",
+    "05B_EA_CANONICAL_XLTM_TEMPLATE_USAGE_RULE_0405_08082026.md",
     "06_EA_CUSTOM_GPT_AND_PROJECT_SETUP.md",
     "07_EA_SCHEDULED_TASKS_AND_ROUTINES.md",
     "07A_EA_GMAIL_BUSINESS_EMAIL_WATCH_PROMPT_2351_05082026.md",
@@ -32,15 +33,43 @@
   "implementation_logs": [
     "docs/EA_SCHEDULE_PROMPT_UPDATE_LOG_2351_05082026.md",
     "docs/EA_DOCUMENT_TEMPLATE_STATIC_RULES_UPDATE_LOG_0349_08082026.md",
-    "docs/decisions/EA_DECISION_DOCUMENT_TEMPLATE_STATIC_RULES_0349_08082026.md"
+    "docs/decisions/EA_DECISION_DOCUMENT_TEMPLATE_STATIC_RULES_0349_08082026.md",
+    "docs/decisions/EA_DECISION_CANONICAL_DOCUMENT_TEMPLATES_0405_08082026.md",
+    "registers/EA_CANONICAL_DOCUMENT_TEMPLATE_REGISTER_0405_08082026.md"
   ],
+  "canonical_document_templates": {
+    "drive_folder_id": "19A7iUWZ7WTowDR1TzRsTLmaraxCbIosH",
+    "usage_rule": "05B_EA_CANONICAL_XLTM_TEMPLATE_USAGE_RULE_0405_08082026.md",
+    "register": "registers/EA_CANONICAL_DOCUMENT_TEMPLATE_REGISTER_0405_08082026.md",
+    "quote": {
+      "file": "EA_Template_Quote_v1.0.xltm",
+      "sheet": "Quote",
+      "drive_file_id": "1GNdKJerxGBmJQ75Z6ZmZrCfQA31Sk8Qv"
+    },
+    "packing_list": {
+      "file": "EA_Template_Packing_List_v1.0.xltm",
+      "sheet": "Packing list",
+      "drive_file_id": "1RP-pUGYwcmZM8v0nyW4N8PHakDfLwWwO"
+    },
+    "rfq": {
+      "file": "EA_Template_RFQ_v1.0.xltm",
+      "sheet": "RFQ",
+      "drive_file_id": "1_CKn7m-F4AAGkUaeiCRBEf77Xp02xxvO"
+    },
+    "po": {
+      "file": "EA_Template_PO_v1.0.xltm",
+      "sheet": "PO",
+      "drive_file_id": "1NUitA_ITVS6oz8OK9u7_LaN5v_yOHwHM"
+    }
+  },
   "archive_source": "archive/phase-packages/Ea_Phase_Packages_0911_19062026.zip",
   "notes": [
     "Use the compact active-source files for ChatGPT Project operation.",
     "For the hourly business-email watch, apply 07A together with the newer 03C historical-email-context rule, then 03B and the two 03A overrides before older workflow notes.",
     "Before materially relevant email drafting, review the complete current thread and relevant historical correspondence, with emphasis on prior NTSN sent replies. Historical replies guide tone and continuity; current changeable facts must still be revalidated.",
     "Apply 05A automatically for operator-requested template creation, document drafting, conversion, recreation, information extraction and template population involving DOCX, PDF, XLSX/XLSM or derived template formats, unless explicitly overridden.",
-    "For document work, specific current approved/canonical document-type workflows and templates take precedence over the general 05A static rules.",
+    "For Quote, Packing List, RFQ and PO requests, apply 05B and retrieve the registered canonical XLTM master automatically unless the operator explicitly specifies an alternative.",
+    "For document work, specific current approved/canonical document-type workflows and templates take precedence over general template rules.",
     "Do not create calendar entries for invoices, payment reminders, customs, Tolletaten or Altinn customs matters.",
     "The draft-invite Microsoft Teams location rule in 03B supersedes the older blank-location rule for that event type.",
     "Gmail is the default drafting channel, except Inster, Grupo Oesia and Tecnobit correspondence is chat-only unless Gmail drafting is explicitly requested.",
