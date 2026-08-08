@@ -1,55 +1,73 @@
-# Ea Canonical Document Template Validation — 11:53, 08.08.2026
+# Ea Canonical Document Template Validation — 23:52, 08.08.2026
 
 Status: PASS WITH FUNCTIONAL EXECUTION WARNING
 
 ## Scope
 
-Re-validation of the four canonical macro-enabled Excel templates after operator-requested layout correction against both the source XLSM workbooks and the generated PDF previews:
+Re-validation of the four canonical macro-enabled Excel templates after implementation of the operator's marked-PDF corrections:
 
 - Quote → `EA_Template_Quote_v1.0.xltm`
 - Packing List → `EA_Template_Packing_List_v1.0.xltm`
 - RFQ → `EA_Template_RFQ_v1.0.xltm`
 - PO → `EA_Template_PO_v1.0.xltm`
 
+The review basis included the four operator-marked PDF previews plus the original source workbooks `Quote (Espen Olsen) - v5.38.xlsm` and `RFQ - v3.1.xlsm`.
+
 ## Validation results
 
-| Template | Package integrity | Formula scan | VBA preservation | Layout/alignment | Shape geometry | PDF preview | Result |
+| Template | Package integrity | Formula scan | VBA preservation | Markup corrections | Shape/QR geometry | PDF preview | Result |
 |---|---|---|---|---|---|---|---|
-| Quote | PASS | PASS — 0 visible formula errors | PASS — byte-for-byte | PASS | PASS — stamp/signature aspect preserved | PASS — 1 page | PASS WITH WARNING |
-| Packing List | PASS | PASS — 0 visible formula errors | PASS — byte-for-byte | PASS | PASS — stamp round | PASS — 1 page | PASS WITH WARNING |
-| RFQ | PASS | PASS — 0 visible formula errors | PASS — byte-for-byte | PASS | PASS — stamp/signature aspect preserved | PASS — 1 page | PASS WITH WARNING |
-| PO | PASS | PASS — 0 visible formula errors | PASS — byte-for-byte | PASS | PASS — stamps round; QR square | PASS — 1 page | PASS WITH WARNING |
+| Quote | PASS | PASS — 0 visible formula errors | PASS — byte-for-byte | PASS | PASS — circular stamp/signature geometry preserved | PASS — 1 page | PASS WITH WARNING |
+| Packing List | PASS | PASS — 0 visible formula errors | PASS — byte-for-byte | PASS | PASS — circular stamp preserved | PASS — 1 page | PASS WITH WARNING |
+| RFQ | PASS | PASS — 0 visible formula errors | PASS — byte-for-byte | PASS | PASS — circular stamp/signature geometry preserved | PASS — 1 page | PASS WITH WARNING |
+| PO | PASS | PASS — 0 visible formula errors | PASS — byte-for-byte | PASS | PASS — circular stamps; Address + Website QR codes square | PASS — 1 page | PASS WITH WARNING |
 
-## Corrected layout controls
+## Operator-markup corrections verified
 
-- Left/right/top/bottom page margins standardized to approximately 8 mm.
-- Horizontal centering enabled for the target print regions.
-- Printable-width utilization increased so side margins visually match the top/bottom spacing.
-- Quote phone/email/web fields corrected to remain on a single line without right-edge clipping.
-- Packing List `sub total Weight (KG)` heading corrected to a clean merged heading without clipping.
-- RFQ purchase email corrected to remain on a single line.
-- PO `Att.: Ruben A. Meyer` structure corrected; email and Address/Website labels no longer break incorrectly.
-- Stamp/signature graphics were resized using their intrinsic aspect ratios rather than distorted anchor rectangles.
-- PO QR image surface/canvas corrected to square geometry.
+### Global
+- Left and right workbook print margins increased by 5% from 8.0 mm to 8.4 mm.
+- Top and bottom workbook print margins retained at 8.0 mm.
+- Target documents remain one-page outputs.
+- Red-marked text alignment, excess spacing and unwanted line breaks were corrected.
+- Purple-marked visible dropdown indicators/data validations were removed from the marked target-sheet fields.
+- Blue-marked shape geometry remains corrected.
 
-## PDF margin verification
+### Quote
+- Customer/currency/transport/carrier/application/item dropdown indicators removed from the marked target-sheet locations.
+- Static `%` character removed from the Discount row.
+- Vendor contact labels and phone/email/web values aligned and prevented from wrapping/clipping.
+- Final PDF is one page with 8.4 mm left/right margins.
 
-- Quote: left/right 8.00 mm; top/bottom approximately 8.08 mm.
-- Packing List: left/right approximately 8.10 mm; top/bottom 8.00 mm.
-- RFQ: left/right 8.00 mm; top/bottom approximately 8.10 mm.
-- PO: left/right 8.00 mm; top/bottom approximately 8.06 mm.
+### Packing List
+- `Contact:` label alignment corrected.
+- Circular stamp retains 1:1 aspect ratio.
+- Final PDF is one page with 8.4 mm left/right margins.
 
-The sub-0.1 mm differences are caused by proportional A4 page fitting and are visually negligible.
+### RFQ
+- Transport/carrier and item-row dropdown indicators removed from marked target-sheet locations.
+- Purchase email kept on one line.
+- Final PDF is one page with 8.4 mm left/right margins.
+
+### PO
+- Customer address block no longer contains the marked unwanted blank line.
+- `PO ref.` alignment corrected to match adjacent reference labels.
+- `Att.: Ruben A. Meyer` restored as one aligned line.
+- Email kept on one line.
+- Item dropdown indicators removed.
+- The left `Address` graphic is now a square QR code, matching the original PO workbook's intended QR-code treatment.
+- The right `Website` graphic remains a square QR code.
+- Both QR surfaces/canvases are square in the final package and final preview.
+- Final PDF is one page with 8.4 mm left/right margins.
 
 ## Structural checks
 
 - Macro-enabled template content type remains present.
 - Only the intended operator-facing target sheet is visible in each canonical template.
 - Supporting workbook sheets remain available as hidden/very-hidden dependencies.
-- Original workbook formulas, validations and cross-sheet relationships remain intact where applicable.
-- No visible `#REF!`, `#VALUE!`, `#DIV/0!`, `#NAME?` or `#N/A` errors were detected in target-sheet scans.
+- Formula/cross-sheet relationships remain intact where applicable.
+- No visible `#REF!`, `#VALUE!`, `#DIV/0!`, `#NAME?` or `#N/A` errors were detected in final target-sheet scans.
+- ZIP/package integrity checks returned no corrupt entries.
 - All four regenerated PDF previews contain one intended target document page.
-- ZIP/package integrity tests returned no corrupt entries.
 
 ## VBA preservation
 
@@ -64,4 +82,4 @@ Microsoft Excel/VBA runtime execution was not available in the correction enviro
 
 ## Final result
 
-PASS WITH WARNINGS — layout, rendering, package integrity, formula scanning, geometry and VBA preservation passed; Microsoft Excel macro execution remains the outstanding runtime acceptance test.
+PASS WITH WARNINGS — marked layout corrections, side-margin increase, dropdown/% removal, QR/stamp geometry, rendering, package integrity, formula scanning and VBA preservation passed; Microsoft Excel macro execution remains the outstanding runtime acceptance test.
