@@ -40,7 +40,7 @@ Apply this rule automatically when the operator requests any semantically equiva
 5. Preserve formulas and supporting-sheet relationships. Do not flatten formulas into static results.
 6. Preserve VBA/macros and macro-enabled format.
 7. Preserve the canonical target-sheet geometry, including 8.4 mm left/right print margins, one-page fitting and square/circular shape aspect ratios.
-8. Do not reintroduce visible dropdown indicators/data validations that were removed from the canonical target sheets by the operator's 08.08.2026 markup correction.
+8. Preserve the underlying canonical list validations but keep their dropdown arrows/indicators hidden at the target-sheet locations marked by the operator on 08.08.2026.
 9. Save the populated working document as `.xlsm` unless the operator explicitly requests another editable format.
 10. Generate PDF only from the designated target sheet when a fixed-layout/final/preview copy is requested.
 11. Apply document-specific approved workflows and naming conventions, including quotation-specific approval, reference and filing rules, where applicable.
@@ -51,7 +51,7 @@ Apply this rule automatically when the operator requests any semantically equiva
 ### Quote
 - Use `Quote` as the operator-facing target sheet.
 - Supporting product/customer/currency/freight/application-method sheets remain functional dependencies where formulas/macros use them.
-- Do not reintroduce the target-sheet dropdown indicators removed from Customer/Currency/Transport/Carrier/Application/Item fields unless the operator explicitly requests them.
+- Keep the target-sheet dropdown arrows hidden for Customer/Currency/Transport/Carrier/Application/Item fields while preserving their underlying list-validation functionality, unless the operator explicitly requests visible arrows.
 - The Discount row must not contain a static `%` character unless the operator explicitly requests percentage display.
 - Preserve corrected vendor contact alignment and single-line phone/email/web layout.
 - Existing quotation approval, reference-number, filename and Drive-filing rules remain controlling.
@@ -65,7 +65,7 @@ Apply this rule automatically when the operator requests any semantically equiva
 ### RFQ
 - Use `RFQ` as the target sheet.
 - Preserve product lookup/unit/price formulas and supporting workbook sheets where still applicable.
-- Do not reintroduce the target-sheet transport/carrier/item dropdown indicators removed by the operator unless explicitly requested.
+- Keep the target-sheet transport/carrier/item dropdown arrows hidden while preserving their underlying list-validation functionality, unless explicitly requested.
 - Preserve the corrected single-line purchase email.
 - Vendor and commercial fields are variable unless a current authoritative source confirms them.
 
@@ -73,7 +73,7 @@ Apply this rule automatically when the operator requests any semantically equiva
 - Use `PO` as the target sheet.
 - The hidden `RFQ` sheet remains an upstream source for vendor/item/reference fields where the workbook relationship requires it.
 - Preserve delivery-information, signature/branding and calculation logic.
-- Do not reintroduce target-sheet item dropdown indicators unless explicitly requested.
+- Keep target-sheet item dropdown arrows hidden while preserving their underlying list-validation functionality, unless explicitly requested.
 - Preserve the corrected customer-address spacing, PO-reference alignment, attention line and single-line email.
 - Preserve both QR-code graphics as square QR codes: `Address` on the left and `Website` on the right. The original `RFQ - v3.1.xlsm` PO sheet is the reference for their intended function.
 
@@ -94,7 +94,7 @@ Before release, confirm:
 - correct canonical template and target sheet used;
 - no unintended sample/customer/vendor values remain;
 - formulas and intended workbook relationships remain present;
-- canonical target-sheet dropdown state is preserved and removed indicators have not reappeared;
+- canonical target-sheet validation state is preserved and hidden dropdown indicators have not reappeared;
 - no visible `#REF!`, `#VALUE!`, `#DIV/0!`, `#NAME?` or `#N/A` errors;
 - arithmetic/totals validate;
 - VBA project remains present for macro-enabled output;
@@ -107,4 +107,4 @@ Validation status: `PASS`, `PASS WITH WARNINGS`, or `FAIL`.
 
 ## Runtime warning
 
-The canonical template packages have passed structural, formula-error, marked-layout, visual and VBA-binary-preservation validation. Actual VBA/button execution requires Microsoft Excel runtime validation; do not claim macro execution was tested unless it was run in Excel.
+The canonical template packages have passed structural, formula-error, marked-layout, hidden-dropdown-validation, visual and VBA-binary-preservation validation. Actual VBA/button execution requires Microsoft Excel runtime validation; do not claim macro execution was tested unless it was run in Excel.
