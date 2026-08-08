@@ -35,12 +35,15 @@
     "docs/EA_DOCUMENT_TEMPLATE_STATIC_RULES_UPDATE_LOG_0349_08082026.md",
     "docs/decisions/EA_DECISION_DOCUMENT_TEMPLATE_STATIC_RULES_0349_08082026.md",
     "docs/decisions/EA_DECISION_CANONICAL_DOCUMENT_TEMPLATES_0405_08082026.md",
-    "registers/EA_CANONICAL_DOCUMENT_TEMPLATE_REGISTER_0405_08082026.md"
+    "registers/EA_CANONICAL_DOCUMENT_TEMPLATE_REGISTER_0405_08082026.md",
+    "docs/EA_CANONICAL_TEMPLATE_LAYOUT_CORRECTION_1153_08082026.md",
+    "docs/EA_CANONICAL_TEMPLATE_MARKUP_CORRECTION_2352_08082026.md"
   ],
   "canonical_document_templates": {
     "drive_folder_id": "19A7iUWZ7WTowDR1TzRsTLmaraxCbIosH",
     "usage_rule": "05B_EA_CANONICAL_XLTM_TEMPLATE_USAGE_RULE_0405_08082026.md",
     "register": "registers/EA_CANONICAL_DOCUMENT_TEMPLATE_REGISTER_0405_08082026.md",
+    "revision": "markup-corrected-2026-08-08-2352",
     "quote": {
       "file": "EA_Template_Quote_v1.0.xltm",
       "sheet": "Quote",
@@ -69,6 +72,7 @@
     "Before materially relevant email drafting, review the complete current thread and relevant historical correspondence, with emphasis on prior NTSN sent replies. Historical replies guide tone and continuity; current changeable facts must still be revalidated.",
     "Apply 05A automatically for operator-requested template creation, document drafting, conversion, recreation, information extraction and template population involving DOCX, PDF, XLSX/XLSM or derived template formats, unless explicitly overridden.",
     "For Quote, Packing List, RFQ and PO requests, apply 05B and retrieve the registered canonical XLTM master automatically unless the operator explicitly specifies an alternative.",
+    "Canonical Quote/Packing List/RFQ/PO templates were markup-corrected on 08.08.2026: left/right margins 8.4 mm; marked dropdown indicators removed; Quote static percent character removed; red-marked alignment/line-break issues corrected; PO Address and Website graphics are both square QR codes.",
     "For document work, specific current approved/canonical document-type workflows and templates take precedence over general template rules.",
     "Do not create calendar entries for invoices, payment reminders, customs, Tolletaten or Altinn customs matters.",
     "The draft-invite Microsoft Teams location rule in 03B supersedes the older blank-location rule for that event type.",
