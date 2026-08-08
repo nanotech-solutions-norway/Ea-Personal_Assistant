@@ -20,11 +20,12 @@ Markup legend supplied by the operator:
 - Left/right print margins changed from 8.0 mm to 8.4 mm.
 - Top/bottom print margins retained at 8.0 mm.
 - One-page print fitting retained.
-- Marked target-sheet dropdown validations/indicators removed.
+- Marked target-sheet dropdown arrows/indicators hidden while list data-validation functionality is retained.
 - Existing corrected circular/square geometry retained.
+- Marked dropdown arrows were suppressed using the workbook validation-display state; the underlying list validations were restored/retained rather than deleted.
 
 ### Quote
-- Removed marked dropdowns.
+- Hid marked dropdown arrows while retaining their underlying list validations.
 - Removed static `%` from Discount.
 - Corrected vendor contact alignment and single-line phone/email/web presentation.
 
@@ -33,11 +34,11 @@ Markup legend supplied by the operator:
 - Retained circular stamp geometry.
 
 ### RFQ
-- Removed marked dropdowns.
+- Hid marked dropdown arrows while retaining their underlying list validations.
 - Corrected purchase-email single-line layout.
 
 ### PO
-- Removed marked item dropdowns.
+- Hid marked item dropdown arrows while retaining the underlying list validation.
 - Corrected customer-address spacing, PO-ref alignment, attention line and email wrapping.
 - Replaced/recreated the left `Address` graphic as a square QR code.
 - Retained/recreated the right `Website` QR code as a square QR code.
@@ -59,10 +60,10 @@ The existing canonical Drive files were replaced in place, preserving file IDs:
 ## Final hashes
 
 ### XLTM
-- Quote: `b3d208012bae0c58c8c154384d805ebf0b33d048c2a7e655ce4c06c948384281`
+- Quote: `37fed70499c12a91715a65a53a7f02309ab4302efe2d76a2cff023764b941ff6`
 - Packing List: `95359e3de2ce6a1f0db159e2249351c30ddf2676800de31192152c7d0db3139e`
-- RFQ: `4e7a47a7e41616c38fb692fbbb72907cb9944c0998acaffdf1ceb30e972510f5`
-- PO: `8c8fd03231fc5cb6817f77eecd699d9a9ca3a14ccfeb4013dbe42ae2a1f6cf11`
+- RFQ: `8a07dce694d2314802202b6e1cda17985fe3fa4c50e736bb987b8f89addaaa0b`
+- PO: `21fa6fe53182ef0c75618c5878be103c037137827d38328271f426fcb64b38f6`
 
 ### PDF
 - Quote: `ebce820ec294dd2dc13e87c35df467e8412fd2e88838ff4757e944ae8706008b`
@@ -77,7 +78,7 @@ The existing canonical Drive files were replaced in place, preserving file IDs:
 - VBA project preservation: PASS — byte-for-byte
 - Marked PDF correction coverage: PASS
 - Left/right 8.4 mm margins: PASS
-- Dropdown indicator removal: PASS
+- Dropdown indicator hiding with validation retention: PASS
 - Quote `%` removal: PASS
 - PO Address + Website square QR pair: PASS
 - Final PDF visual review: PASS
