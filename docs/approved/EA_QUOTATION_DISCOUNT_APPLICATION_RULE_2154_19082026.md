@@ -46,6 +46,34 @@ Before exporting a discounted quotation, verify all of the following:
 - total order value equals the sum of all displayed subtotals;
 - quotation notes, if used, describe the discount treatment consistently with the item table and do not introduce a second discount mechanism.
 
-## 5. Relationship to existing quotation workflow
+## 5. Typography consistency
 
-This file supplements `docs/approved/EA_QUOTATION_GENERATION_WORKFLOW_1111_05082026.md` and is controlling for discount placement and product-only discount calculations. Current explicit operator instruction remains the highest authority.
+For every quotation:
+
+- use one consistent font family throughout the quotation;
+- keep corresponding body fields, terms, item descriptions, units, quantities, prices and totals at a consistent body font size;
+- preserve intentional hierarchy only for the quotation title and approved section headings;
+- bold/italic/color differences may be used only where the approved quotation layout already requires them;
+- the `Note` field may use a smaller font size when necessary to keep all note text inside the existing note box;
+- do not mix font families or introduce ad-hoc font sizes when editing individual values.
+
+Before export, visually verify that edited values do not appear in a different typeface or size from equivalent surrounding fields.
+
+## 6. Spreadsheet-first PDF generation
+
+Quotation values must be entered and validated in the spreadsheet source before PDF generation.
+
+Required sequence:
+
+1. Populate or update the quotation spreadsheet first.
+2. Recalculate and verify product prices, subtotals, discount field and total order value in the spreadsheet.
+3. Verify typography, borders, alignment, note-box fit, logo/signature placement and one-page layout in the spreadsheet source.
+4. Export/convert that validated spreadsheet into the customer-facing PDF.
+5. Do not use direct PDF text replacement or PDF-only edits as the normal quotation-generation workflow.
+6. After conversion, render and visually inspect the PDF to confirm that the spreadsheet formatting carried through correctly and that no text is clipped, substituted inconsistently or moved outside its intended field.
+
+The editable spreadsheet is the controlling source for the customer-facing PDF unless the operator explicitly instructs otherwise.
+
+## 7. Relationship to existing quotation workflow
+
+This file supplements `docs/approved/EA_QUOTATION_GENERATION_WORKFLOW_1111_05082026.md` and is controlling for discount placement, product-only discount calculations, quotation typography consistency and spreadsheet-first PDF generation. Current explicit operator instruction remains the highest authority.
