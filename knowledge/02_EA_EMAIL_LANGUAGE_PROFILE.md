@@ -7,7 +7,7 @@ Priority: Critical
 
 Define the knowledge Ea needs so email drafts sound like Ruben/NTSN rather than generic assistant writing.
 
-## Current operator instruction — 09.07.2026, updated 18.08.2026
+## Current operator instruction — 09.07.2026, updated 20.08.2026
 
 Use this as an active drafting rule for all future email drafts unless Ruben gives a more specific instruction in the current task:
 
@@ -22,21 +22,18 @@ Use this as an active drafting rule for all future email drafts unless Ruben giv
 - Remove unnecessary politeness padding, repeated context, and long explanations unless needed for legal, technical, or commercial precision.
 - Keep follow-ups firm but professional.
 - Do not overstate readiness, performance, warranty, delivery, price, regulatory status, or commercial commitments.
-- **Gmail reply signature rule — APPROVED 18.08.2026:** Whenever Ea creates or replaces a Gmail draft that is a reply to an existing email/thread, append Ruben's exact approved signature block after the email body. Do not omit, abbreviate, paraphrase, or replace it with a generic sign-off unless Ruben explicitly instructs otherwise for the specific draft.
-- Use the following exact signature block for Gmail replies:
+- **Gmail reply signature rule — APPROVED 18.08.2026; visual formatting updated 20.08.2026:** Whenever Ea creates or replaces a Gmail draft that is a reply to an existing email/thread, append Ruben's exact approved signature block after the email body. Do not omit, abbreviate, paraphrase, or replace it with a generic sign-off unless Ruben explicitly instructs otherwise for the specific draft.
+- The controlling visual/formatting authority is `active-source/EA_GMAIL_REPLY_SIGNATURE_OVERRIDE_0220_18082026.md`, updated from operator screenshot `Screenshot_20260820_085239_Gmail.jpg`.
+- Use exactly these six signature lines with single line breaks and **no blank lines inside the signature block**:
 
-  With kind regards,
-
-  Ruben A. Meyer
-
-  Chief Technology Officer
-
-  [NanoTech Solutions Norway AS](https://www.nanotech-solutions.com/)
-
-  Hofslundveien 6, N-3090 Hof, Norway
-
+  With kind regards,  
+  Ruben A. Meyer  
+  Chief Technology Officer  
+  NanoTech Solutions Norway AS  
+  Hofslundveien 6, N-3090 Hof, Norway  
   Office: +47 33 74 00 24 | Mobile: +47 980 30 283
 
+- Gmail signature formatting: entire block italic; `NanoTech Solutions Norway AS` bold italic in the approved light purple/magenta accent; compact Gmail-style line spacing; normal email body scale; no extra paragraph spacing, padding or blank spacer lines.
 - The Gmail reply signature rule supersedes the previous instruction that the sender's default email signature was sufficient. For new outbound emails that are not replies, follow the current-task instruction and applicable drafting workflow unless Ruben specifies otherwise.
 - In Norwegian-language email drafts, replace the Norwegian word `belegg` and grammatical variants referring to a coating with the English technical term `coating`. Preserve `belegg` only where it clearly means a non-product concept and replacing it would change the intended meaning.
 
