@@ -14,10 +14,10 @@ Scheduled tasks perform one bounded cycle per run. They must not be described as
 
 ## Active hourly email task
 
-**Task title:** `Ea Email Draft & Follow-up Watch`  
+**Task title:** `Ea Business Email Watch`  
 **Timing mode:** `condition_watch`  
 **Schedule:** hourly  
-**State:** enabled and under production validation as of 25.08.2026.
+**State:** ENABLED; corrected and re-enabled 29.08.2026.
 
 Current controlling runtime source:
 
@@ -27,21 +27,23 @@ Historical predecessor prompts remain supporting evidence only and must not over
 
 The hourly task may search/read connected sources, create or update private Gmail drafts, and create or update duplicate-safe private internal calendar follow-ups exactly as authorized by the current runtime. For actionable threads, required private draft/follow-up write-back must not be suppressed merely because the case was previously reported. Notification deduplication and execution deduplication are separate controls.
 
+Gmail is the default drafting channel for all business contacts. The former standing chat-only exception for Inster, Grupo Oesía and Tecnobit is superseded as of 29.08.2026. Chat-only/no-Gmail handling now applies only where the operator explicitly instructs it for the specific current message/thread.
+
 Calendar exclusions remain absolute for new follow-up creation: invoices, payment/billing/collection items, failed Autopay, subscription payments, customs, Tolletaten and Altinn customs notices. Historical legacy entries may remain as evidence unless separately cleaned up.
 
-Confirmed meetings retain popup reminders 1 day and 2 hours before the meeting. External attendees, invitations, external meeting changes, purchases, commitments, Drive/GitHub governance writes and Level 2 claims remain outside the scheduled task's authority.
+Confirmed meetings retain popup reminders 1 day and 2 hours before the meeting. External attendees, invitations, external meeting changes, purchases, commitments, Drive/GitHub governance writes and Level 2 claims remain outside the scheduled task's authority unless separately approved for the exact action.
 
-## Other recommended routines
+## Level 1 cadence routines
 
-| Task | Schedule | Purpose |
-|---|---|---|
-| Ea Morning Briefing | Monday–Friday 07:00 Europe/Oslo | Calendar, urgent emails, preparation needs and approvals |
-| Ea Mid-Day Review | Monday–Friday 14:00 Europe/Oslo | Changed meetings, unanswered emails and follow-up gaps |
-| Ea Evening Close | Monday–Friday 21:00 Europe/Oslo | Tomorrow preparation, pending approvals and session-close items |
-| Ea Saturday Review | Saturday 10:00 Europe/Oslo | Weekly administration and open-loop review |
-| Ea Sunday Planning | Sunday 18:00 or 21:00 Europe/Oslo | Monday and weekly planning |
+| Task | Schedule | State as of 29.08.2026 | Purpose |
+|---|---|---|---|
+| Ea Morning Briefing | Monday–Friday 07:00 Europe/Oslo | ENABLED | Calendar, urgent emails, preparation needs and approvals |
+| Ea Mid-Day Review | Monday–Friday 14:00 Europe/Oslo | ENABLED | Changed meetings, unanswered emails and follow-up gaps |
+| Ea Evening Close | Monday–Friday 21:00 Europe/Oslo | ENABLED | Tomorrow preparation, pending approvals and session-close items |
+| Ea Saturday Review | Saturday 10:00 Europe/Oslo | PENDING_CAPACITY | Weekly administration and open-loop review |
+| Ea Sunday Planning | Sunday 18:00 or 21:00 Europe/Oslo | PENDING_OPERATOR_TIME_AND_CAPACITY | Monday and weekly planning |
 
-These additional routines are recommendations unless separately enabled as native tasks.
+The native automation account currently permits five active tasks. Activation of the Saturday routine was blocked by the active-task limit on 29.08.2026. Do not claim Saturday or Sunday as active until creation succeeds. Sunday also requires the operator to select 18:00 or 21:00.
 
 ## 03:00 nightly update
 
@@ -55,4 +57,12 @@ Scheduled tasks may prepare drafts, recommendations and expressly approved priva
 
 ## Validation
 
-The current hourly task was audited on 25.08.2026. See `validation/Ea_Scheduled_Function_Audit_1810_25082026.md`. Phase 09 remains `ACTIVE_VALIDATION` while the intermittent Gmail draft payload failure is investigated.
+The hourly task was re-audited operationally on 29.08.2026 after it was found disabled. It is now enabled in `condition_watch` mode with hourly recurrence. The current runtime preserves Level 1 boundaries, calendar exclusions, duplicate controls, source-authority checks, attachment validation and post-write verification.
+
+Open validation items:
+
+- confirm successful post-change Gmail draft and private follow-up executions across representative threads;
+- confirm the superseded Inster/Grupo Oesía/Tecnobit chat-only rule no longer suppresses Gmail drafting;
+- resolve active-task capacity before enabling Saturday/Sunday cadence;
+- select Sunday planning time: 18:00 or 21:00 Europe/Oslo;
+- keep Level 2 HOLD.
