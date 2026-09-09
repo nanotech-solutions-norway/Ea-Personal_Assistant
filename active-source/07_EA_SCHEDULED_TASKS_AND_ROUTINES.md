@@ -2,7 +2,7 @@
 
 Status: ACTIVE / LEVEL_1_CUSTOMIZED  
 Authority: Active-source framework with approved operator overrides  
-Level: Level 1 active, Level 2 automation on HOLD
+Level: Level 1 active; Level 2 automation on HOLD
 
 ## Purpose
 
@@ -15,19 +15,22 @@ Scheduled tasks perform one bounded cycle per run. They must not be described as
 ## Active hourly email task
 
 **Task title:** `Ea Business Email Watch`  
-**Timing mode:** `condition_watch`  
+**Canonical timing mode:** `condition_watch` (operator-approved 29.08.2026)  
+**Live timing mode:** `exact_schedule` as verified 09.09.2026 — `CONTROL_PLANE_DRIFT / PENDING_REVIEW`  
 **Schedule:** hourly  
-**State:** ENABLED; corrected and re-enabled 29.08.2026.
+**State:** ENABLED. Do not silently resolve the timing-mode mismatch; preserve the live task until an explicit operator decision is recorded.
 
 Current controlling runtime source:
 
 `07B_EA_EMAIL_DRAFT_FOLLOWUP_WATCH_CURRENT_1810_25082026.md`
 
-Historical predecessor prompts remain supporting evidence only and must not override the current operator-approved runtime.
+Historical predecessor prompts remain supporting evidence only and must not override the current operator-approved runtime. The live prompt contains newer resilience/retry/failure-isolation deltas that are preserved as runtime evidence but are not silently promoted over canonical source text while reconciliation remains PENDING_REVIEW.
 
 The hourly task may search/read connected sources, create or update private Gmail drafts, and create or update duplicate-safe private internal calendar follow-ups exactly as authorized by the current runtime. For actionable threads, required private draft/follow-up write-back must not be suppressed merely because the case was previously reported. Notification deduplication and execution deduplication are separate controls.
 
 Gmail is the default drafting channel for all business contacts. The former standing chat-only exception for Inster, Grupo Oesía and Tecnobit is superseded as of 29.08.2026. Chat-only/no-Gmail handling now applies only where the operator explicitly instructs it for the specific current message/thread.
+
+Manual draft deletion suppression is controlled by `03D_EA_MANUAL_DRAFT_DELETION_SUPPRESSION_RULE_1111_09092026.md`. When operator deletion of a Gmail draft is known, scheduled or recovery workflows must classify the state as `OPERATOR_DELETED_SUPPRESS_RECREATE` and must not automatically recreate a new draft to that recipient. A later explicit operator instruction to draft/reply authorizes that specifically requested draft.
 
 Calendar exclusions remain absolute for new follow-up creation: invoices, payment/billing/collection items, failed Autopay, subscription payments, customs, Tolletaten and Altinn customs notices. Historical legacy entries may remain as evidence unless separately cleaned up.
 
@@ -35,7 +38,7 @@ Confirmed meetings retain popup reminders 1 day and 2 hours before the meeting. 
 
 ## Level 1 cadence routines
 
-| Task | Schedule | State as of 29.08.2026 | Purpose |
+| Task | Schedule | State as of 09.09.2026 | Purpose |
 |---|---|---|---|
 | Ea Morning Briefing | Monday–Friday 07:00 Europe/Oslo | ENABLED | Calendar, urgent emails, preparation needs and approvals |
 | Ea Mid-Day Review | Monday–Friday 14:00 Europe/Oslo | ENABLED | Changed meetings, unanswered emails and follow-up gaps |
@@ -44,6 +47,8 @@ Confirmed meetings retain popup reminders 1 day and 2 hours before the meeting. 
 | Ea Sunday Planning | Sunday 18:00 or 21:00 Europe/Oslo | PENDING_OPERATOR_TIME_AND_CAPACITY | Monday and weekly planning |
 
 The native automation account currently permits five active tasks. Activation of the Saturday routine was blocked by the active-task limit on 29.08.2026. Do not claim Saturday or Sunday as active until creation succeeds. Sunday also requires the operator to select 18:00 or 21:00.
+
+All recurring draft-generation/recovery paths, including Morning Briefing, Mid-Day Review and Evening Close, inherit the 03D known-manual-deletion suppression rule.
 
 ## 03:00 nightly update
 
@@ -57,12 +62,14 @@ Scheduled tasks may prepare drafts, recommendations and expressly approved priva
 
 ## Validation
 
-The hourly task was re-audited operationally on 29.08.2026 after it was found disabled. It is now enabled in `condition_watch` mode with hourly recurrence. The current runtime preserves Level 1 boundaries, calendar exclusions, duplicate controls, source-authority checks, attachment validation and post-write verification.
+The hourly task was re-audited operationally on 29.08.2026 after it was found disabled. It remains enabled with hourly recurrence. The canonical `condition_watch` field and the live `exact_schedule` field remain a controlled unresolved mismatch (`CONTROL_PLANE_DRIFT / PENDING_REVIEW`). The current runtime preserves Level 1 boundaries, calendar exclusions, duplicate controls, source-authority checks, attachment validation and post-write verification. The 03D manual-draft-deletion suppression rule is mandatory across all recurring draft-generation paths.
 
 Open validation items:
 
 - confirm successful post-change Gmail draft and private follow-up executions across representative threads;
 - confirm the superseded Inster/Grupo Oesía/Tecnobit chat-only rule no longer suppresses Gmail drafting;
+- verify `03D` suppression is honored by the hourly watch and Morning/Mid-Day/Evening recovery routines;
+- obtain an explicit operator decision on `condition_watch` vs `exact_schedule`, then synchronize runtime and canonical source together;
 - resolve active-task capacity before enabling Saturday/Sunday cadence;
 - select Sunday planning time: 18:00 or 21:00 Europe/Oslo;
 - keep Level 2 HOLD.
