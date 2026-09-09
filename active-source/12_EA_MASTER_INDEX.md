@@ -15,6 +15,7 @@ Authority: Active-source framework
 | 03A_EA_EMAIL_DRAFT_CHANNEL_OVERRIDE_1744_05082026.md | Gmail-by-default with Inster relationship exception | Canonical / operator-instructed |
 | 03B_EA_CALENDAR_EXCLUSIONS_AND_DRAFT_MEETING_OVERRIDE_2351_05082026.md | Invoice/customs calendar exclusions and current draft-invite Teams handling | Canonical / operator-instructed |
 | 03C_EA_HISTORICAL_EMAIL_CONTEXT_DRAFTING_RULE_0930_07082026.md | Mandatory review of prior email threads and NTSN sent replies before materially relevant drafting | Canonical / operator-instructed |
+| 03D_EA_MANUAL_DRAFT_DELETION_SUPPRESSION_RULE_1111_09092026.md | Known operator-deleted Gmail drafts suppress automatic recreation until a new explicit drafting instruction | Approved / Canonical / operator-instructed |
 | 04_EA_BUSINESS_DUE_DILIGENCE_LEGAL_FINANCIAL.md | Business support workflows | Active |
 | 05_EA_DOCUMENTS_TEMPLATES_REGISTERS_INDEXES.md | Templates, registers and indexes | Active framework |
 | 05A_EA_DOCUMENT_TEMPLATE_RECREATION_CONVERSION_STATIC_RULES_0349_08082026.md | Default rules for template creation, document drafting, conversion, recreation, extraction and template population for DOCX/PDF/XLSM | Canonical / operator-instructed |
@@ -22,7 +23,8 @@ Authority: Active-source framework
 | 05C_EA_CANONICAL_PO_DRAFTING_PDF_LAYOUT_STANDARD_0219_09092026.md | Canonical PO drafting, A4 layout, Libre Baskerville typography, branding, signature placement and final-PDF QA | Canonical / operator-instructed |
 | 06_EA_CUSTOM_GPT_AND_PROJECT_SETUP.md | GPT and Project setup | Active |
 | 07_EA_SCHEDULED_TASKS_AND_ROUTINES.md | Scheduled routines and execution boundaries | Active |
-| 07A_EA_GMAIL_BUSINESS_EMAIL_WATCH_PROMPT_2351_05082026.md | Complete hourly business-email schedule prompt | Canonical / operator-instructed |
+| 07A_EA_GMAIL_BUSINESS_EMAIL_WATCH_PROMPT_2351_05082026.md | Historical approved hourly business-email schedule prompt | Canonical predecessor / supporting |
+| 07B_EA_EMAIL_DRAFT_FOLLOWUP_WATCH_CURRENT_1810_25082026.md | Current canonical hourly business-email draft/follow-up runtime source | Approved / Canonical / operator-instructed |
 | 08_EA_QA_VALIDATION_RELEASE_GATE.md | QA and release gate | Active |
 | 09_EA_LEVEL_2_MANAGED_BACKEND.md | Future backend design | HOLD |
 | 10_EA_PHASE_VALIDATION_TRACKER.md | Validation tracker | Active |
@@ -36,6 +38,7 @@ Authority: Active-source framework
 |---|---|---|
 | `knowledge/13_EA_SCHEDULED_EMAIL_WATCH_MEMORY.md` | Compact canonical memory for the hourly email watch | Approved / Canonical |
 | `docs/EA_SCHEDULE_PROMPT_UPDATE_LOG_2351_05082026.md` | Source reconciliation and implementation log | Approved / Canonical |
+| `docs/EA_CLEANUP_RUN_1728_09092026.md` | Clean-up protocol authority/freshness/completeness/conflict/readback run | AUTO_APPROVED operational log; unresolved semantic drift remains PENDING_REVIEW |
 | `docs/EA_DOCUMENT_TEMPLATE_STATIC_RULES_UPDATE_LOG_0349_08082026.md` | Implementation and validation log for the canonical document/template static rules | Approved / Canonical |
 | `docs/decisions/EA_DECISION_DOCUMENT_TEMPLATE_STATIC_RULES_0349_08082026.md` | Operator decision establishing the document/template static rules | Approved / Canonical |
 | `docs/decisions/EA_DECISION_CANONICAL_DOCUMENT_TEMPLATES_0405_08082026.md` | Operator decision establishing Quote/Packing List/RFQ/PO canonical templates | Approved / Canonical |
@@ -48,13 +51,15 @@ Authority: Active-source framework
 
 Apply current explicit operator instructions first. For the hourly email watch, apply the sources in this order where a conflict exists:
 
-1. `07A_EA_GMAIL_BUSINESS_EMAIL_WATCH_PROMPT_2351_05082026.md`
-2. `03C_EA_HISTORICAL_EMAIL_CONTEXT_DRAFTING_RULE_0930_07082026.md`
-3. `03B_EA_CALENDAR_EXCLUSIONS_AND_DRAFT_MEETING_OVERRIDE_2351_05082026.md`
-4. `03A_EA_EMAIL_DRAFT_CHANNEL_OVERRIDE_1744_05082026.md`
-5. `03A_EA_CALENDAR_ENTRY_DEFAULTS_0840_31072026.md`
-6. `03_EA_EMAIL_CALENDAR_MEETING_WORKFLOWS.md`
-7. Older CRM and follow-up implementation notes
+1. `03D_EA_MANUAL_DRAFT_DELETION_SUPPRESSION_RULE_1111_09092026.md` for known operator-deleted draft suppression;
+2. `07B_EA_EMAIL_DRAFT_FOLLOWUP_WATCH_CURRENT_1810_25082026.md` as the current canonical hourly runtime source;
+3. `07A_EA_GMAIL_BUSINESS_EMAIL_WATCH_PROMPT_2351_05082026.md` as predecessor/supporting authority where not superseded;
+4. `03C_EA_HISTORICAL_EMAIL_CONTEXT_DRAFTING_RULE_0930_07082026.md`;
+5. `03B_EA_CALENDAR_EXCLUSIONS_AND_DRAFT_MEETING_OVERRIDE_2351_05082026.md`;
+6. `03A_EA_EMAIL_DRAFT_CHANNEL_OVERRIDE_1744_05082026.md`;
+7. `03A_EA_CALENDAR_ENTRY_DEFAULTS_0840_31072026.md`;
+8. `03_EA_EMAIL_CALENDAR_MEETING_WORKFLOWS.md`;
+9. older CRM and follow-up implementation notes.
 
 For document/template work, apply:
 
@@ -74,6 +79,10 @@ For PO final PDF, 05C supersedes conflicting older 05B visual-layout requirement
 Use `active-source/` as the compact source of truth for ChatGPT Project operation. Keep the phase-package archive as build evidence.
 
 Before materially relevant business-email drafting, review the complete current thread and relevant historical correspondence, with particular emphasis on prior NTSN sent replies. Historical replies guide tone, continuity, terminology and relationship context, but changeable facts must be revalidated against current reliable sources.
+
+Known operator deletion of a Gmail draft is an intentional suppression signal under 03D. Automated hourly/recovery routines must not recreate that draft unless a new explicit operator drafting instruction authorizes the specific draft.
+
+The live `Ea Business Email Watch` remains hourly and enabled. Canonical `condition_watch` versus live `exact_schedule` is an unresolved `CONTROL_PLANE_DRIFT / PENDING_REVIEW`; no clean-up routine may silently choose one. The live resilience additions are preserved as runtime evidence pending explicit reconciliation.
 
 For template creation, document drafting, document conversion, document recreation, information extraction and recreation/template population involving DOCX, PDF, XLSX/XLSM or derived template formats, apply 05A automatically unless the operator explicitly overrides it. The operator does not need to restate those static rules for each request.
 
@@ -99,8 +108,8 @@ Invoice, payment and customs matters may be reported when material, but must not
 
 ## Current status
 
-Level 1: configured framework pending full QA validation.  
-Level 2: HOLD pending Level 1 finalization and validation.
+Level 1 baseline: APPROVED for use on 06.07.2026. Post-approval canonical additions and runtime changes remain subject to the targeted validation/readback items below; this does not revoke the approved baseline.  
+Level 2: HOLD. Planning or implementation requires separate explicit operator approval.
 
 ## Required validation
 
@@ -119,4 +128,6 @@ Level 2: HOLD pending Level 1 finalization and validation.
 - DOCX/PDF/XLSM/XLTM preservation and output-format test;
 - formula/validation/VBA-preservation test for canonical XLTM templates;
 - target-sheet-only PDF preview/final-output test where legacy workbook rendering is explicitly requested;
+- 03D manual-draft-deletion suppression test across hourly and recovery routines;
+- explicit reconciliation decision for live `exact_schedule` vs canonical `condition_watch`, followed by synchronized runtime/source readback;
 - external-action and Level 2 HOLD test.
