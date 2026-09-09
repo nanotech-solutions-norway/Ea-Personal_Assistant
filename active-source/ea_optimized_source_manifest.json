@@ -2,9 +2,9 @@
   "project": "Ea Personal Assistant",
   "repository": "nanotech-solutions-norway/Ea-Personal_Assistant",
   "source_set": "active-source",
-  "status": "configured_framework_pending_level_1_validation",
-  "level_1": "active_framework_with_hourly_email_watch_pending_full_qa",
-  "level_2": "HOLD_until_level_1_finalized_validated_approved",
+  "status": "level_1_approved_baseline_with_post_approval_updates_pending_targeted_validation",
+  "level_1": "approved_baseline_active_with_post_approval_rules_and_hourly_watch_targeted_qa",
+  "level_2": "HOLD_pending_separate_operator_approval",
   "active_source_files": [
     "00_EA_PROJECT_README_AND_UPLOAD_PLAN.md",
     "01_EA_RUNTIME_CORE.md",
@@ -14,6 +14,7 @@
     "03A_EA_EMAIL_DRAFT_CHANNEL_OVERRIDE_1744_05082026.md",
     "03B_EA_CALENDAR_EXCLUSIONS_AND_DRAFT_MEETING_OVERRIDE_2351_05082026.md",
     "03C_EA_HISTORICAL_EMAIL_CONTEXT_DRAFTING_RULE_0930_07082026.md",
+    "03D_EA_MANUAL_DRAFT_DELETION_SUPPRESSION_RULE_1111_09092026.md",
     "04_EA_BUSINESS_DUE_DILIGENCE_LEGAL_FINANCIAL.md",
     "05_EA_DOCUMENTS_TEMPLATES_REGISTERS_INDEXES.md",
     "05A_EA_DOCUMENT_TEMPLATE_RECREATION_CONVERSION_STATIC_RULES_0349_08082026.md",
@@ -22,6 +23,7 @@
     "06_EA_CUSTOM_GPT_AND_PROJECT_SETUP.md",
     "07_EA_SCHEDULED_TASKS_AND_ROUTINES.md",
     "07A_EA_GMAIL_BUSINESS_EMAIL_WATCH_PROMPT_2351_05082026.md",
+    "07B_EA_EMAIL_DRAFT_FOLLOWUP_WATCH_CURRENT_1810_25082026.md",
     "08_EA_QA_VALIDATION_RELEASE_GATE.md",
     "09_EA_LEVEL_2_MANAGED_BACKEND.md",
     "10_EA_PHASE_VALIDATION_TRACKER.md",
@@ -40,7 +42,8 @@
     "registers/EA_CANONICAL_DOCUMENT_TEMPLATE_REGISTER_0405_08082026.md",
     "registers/EA_CANONICAL_PO_DRAFTING_STANDARD_REGISTER_0219_09092026.md",
     "docs/EA_CANONICAL_TEMPLATE_LAYOUT_CORRECTION_1153_08082026.md",
-    "docs/EA_CANONICAL_TEMPLATE_MARKUP_CORRECTION_2352_08082026.md"
+    "docs/EA_CANONICAL_TEMPLATE_MARKUP_CORRECTION_2352_08082026.md",
+    "docs/EA_CLEANUP_RUN_1728_09092026.md"
   ],
   "canonical_document_templates": {
     "drive_folder_id": "19A7iUWZ7WTowDR1TzRsTLmaraxCbIosH",
@@ -78,7 +81,10 @@
   "archive_source": "archive/phase-packages/Ea_Phase_Packages_0911_19062026.zip",
   "notes": [
     "Use the compact active-source files for ChatGPT Project operation.",
-    "For the hourly business-email watch, apply 07A together with the newer 03C historical-email-context rule, then 03B and the two 03A overrides before older workflow notes.",
+    "03D is the specific controlling rule when operator deletion of a Gmail draft is known; automatic recreation is suppressed until a new explicit drafting instruction authorizes the specific draft.",
+    "07B is the current canonical hourly email-watch runtime source; 07A is retained as predecessor/supporting authority where not superseded.",
+    "The live Ea Business Email Watch is enabled and hourly. Canonical condition_watch versus live exact_schedule remains CONTROL_PLANE_DRIFT / PENDING_REVIEW and must not be silently resolved.",
+    "Live resilience/retry/failure-isolation additions are preserved as runtime evidence pending explicit reconciliation; do not wholesale roll back the live prompt.",
     "Before materially relevant email drafting, review the complete current thread and relevant historical correspondence, with emphasis on prior NTSN sent replies. Historical replies guide tone and continuity; current changeable facts must still be revalidated.",
     "Apply 05A automatically for operator-requested template creation, document drafting, conversion, recreation, information extraction and template population involving DOCX, PDF, XLSX/XLSM or derived template formats, unless explicitly overridden.",
     "For Quote, Packing List and RFQ requests, apply 05B and retrieve the registered canonical XLTM master automatically unless the operator explicitly specifies an alternative.",
@@ -88,7 +94,8 @@
     "For document work, specific current approved/canonical document-type workflows and templates take precedence over general template rules.",
     "Do not create calendar entries for invoices, payment reminders, customs, Tolletaten or Altinn customs matters.",
     "The draft-invite Microsoft Teams location rule in 03B supersedes the older blank-location rule for that event type.",
-    "Gmail is the default drafting channel, except Inster, Grupo Oesia and Tecnobit correspondence is chat-only unless Gmail drafting is explicitly requested.",
+    "Gmail is the default drafting channel for all business contacts unless a current specific operator instruction says chat-only/no-Gmail.",
+    "Level 1 baseline was approved for use on 06.07.2026; later canonical/runtime additions require targeted validation without revoking the baseline approval.",
     "Level 2 remains on HOLD. Native scheduled tasks perform one bounded cycle per run and may not modify Drive or GitHub governance records."
   ]
 }
