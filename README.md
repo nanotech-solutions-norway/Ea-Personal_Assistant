@@ -17,7 +17,7 @@ Ea is intended to operate as:
 active-source/              # Compact current Project source set + manifest and approved overlays
 archive/phase-packages/     # Full phase-package archive/build evidence
 validation/                 # QA results, release gates, validation trackers
-a config/custom-gpt/        # Custom GPT instruction block, knowledge list, starters
+config/custom-gpt/          # Custom GPT instruction block, knowledge list, starters
 config/project/             # Project instruction block and source list
 level-2/                    # Future backend/MCP/automation design; HOLD
 docs/decisions/             # Architecture decisions and approved choices
