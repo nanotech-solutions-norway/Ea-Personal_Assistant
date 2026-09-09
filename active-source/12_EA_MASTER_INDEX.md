@@ -18,7 +18,8 @@ Authority: Active-source framework
 | 04_EA_BUSINESS_DUE_DILIGENCE_LEGAL_FINANCIAL.md | Business support workflows | Active |
 | 05_EA_DOCUMENTS_TEMPLATES_REGISTERS_INDEXES.md | Templates, registers and indexes | Active framework |
 | 05A_EA_DOCUMENT_TEMPLATE_RECREATION_CONVERSION_STATIC_RULES_0349_08082026.md | Default rules for template creation, document drafting, conversion, recreation, extraction and template population for DOCX/PDF/XLSM | Canonical / operator-instructed |
-| 05B_EA_CANONICAL_XLTM_TEMPLATE_USAGE_RULE_0405_08082026.md | Automatic canonical Quote, Packing List, RFQ and PO template selection and use | Canonical / operator-instructed |
+| 05B_EA_CANONICAL_XLTM_TEMPLATE_USAGE_RULE_0405_08082026.md | Automatic canonical Quote, Packing List, RFQ and legacy editable PO template selection/use | Canonical / operator-instructed |
+| 05C_EA_CANONICAL_PO_DRAFTING_PDF_LAYOUT_STANDARD_0219_09092026.md | Canonical PO drafting, A4 layout, Libre Baskerville typography, branding, signature placement and final-PDF QA | Canonical / operator-instructed |
 | 06_EA_CUSTOM_GPT_AND_PROJECT_SETUP.md | GPT and Project setup | Active |
 | 07_EA_SCHEDULED_TASKS_AND_ROUTINES.md | Scheduled routines and execution boundaries | Active |
 | 07A_EA_GMAIL_BUSINESS_EMAIL_WATCH_PROMPT_2351_05082026.md | Complete hourly business-email schedule prompt | Canonical / operator-instructed |
@@ -38,7 +39,9 @@ Authority: Active-source framework
 | `docs/EA_DOCUMENT_TEMPLATE_STATIC_RULES_UPDATE_LOG_0349_08082026.md` | Implementation and validation log for the canonical document/template static rules | Approved / Canonical |
 | `docs/decisions/EA_DECISION_DOCUMENT_TEMPLATE_STATIC_RULES_0349_08082026.md` | Operator decision establishing the document/template static rules | Approved / Canonical |
 | `docs/decisions/EA_DECISION_CANONICAL_DOCUMENT_TEMPLATES_0405_08082026.md` | Operator decision establishing Quote/Packing List/RFQ/PO canonical templates | Approved / Canonical |
+| `docs/decisions/EA_DECISION_CANONICAL_PO_DRAFTING_STANDARD_0219_09092026.md` | Operator decision establishing the 05C canonical PO drafting/final-PDF standard | Approved / Canonical |
 | `registers/EA_CANONICAL_DOCUMENT_TEMPLATE_REGISTER_0405_08082026.md` | Canonical XLTM template filenames, Drive IDs, hashes and validation status | Approved / Canonical |
+| `registers/EA_CANONICAL_PO_DRAFTING_STANDARD_REGISTER_0219_09092026.md` | Canonical PO rule, PDF reference, logo and legacy editable-template relationship | Approved / Canonical |
 | `registers/EA_LABEL_CREATION_REGISTER.md` | Brother P-touch label workflow and validation history | Active operational register / regulatory release pending review |
 
 ## Precedence
@@ -57,13 +60,14 @@ For document/template work, apply:
 
 1. current explicit operator instruction;
 2. the designated current APPROVED/CANONICAL document-specific workflow or explicitly designated alternative template;
-3. `05B_EA_CANONICAL_XLTM_TEMPLATE_USAGE_RULE_0405_08082026.md` when the requested document is a Quote, Packing List, RFQ or PO;
-4. `05A_EA_DOCUMENT_TEMPLATE_RECREATION_CONVERSION_STATIC_RULES_0349_08082026.md`;
-5. `05_EA_DOCUMENTS_TEMPLATES_REGISTERS_INDEXES.md`;
-6. current verified source files and connector evidence;
-7. older supporting material.
+3. `05C_EA_CANONICAL_PO_DRAFTING_PDF_LAYOUT_STANDARD_0219_09092026.md` for PO drafting and final PDF;
+4. `05B_EA_CANONICAL_XLTM_TEMPLATE_USAGE_RULE_0405_08082026.md` for Quote, Packing List, RFQ and for PO editable-workbook retrieval/functionality when applicable;
+5. `05A_EA_DOCUMENT_TEMPLATE_RECREATION_CONVERSION_STATIC_RULES_0349_08082026.md`;
+6. `05_EA_DOCUMENTS_TEMPLATES_REGISTERS_INDEXES.md`;
+7. current verified source files and connector evidence;
+8. older supporting material.
 
-Specific quotation/invoice or other approved document-type workflows override general template rules where they conflict. The 05B canonical mapping controls which master file is used for Quote/Packing List/RFQ/PO unless the operator explicitly specifies an alternative.
+For PO final PDF, 05C supersedes conflicting older 05B visual-layout requirements, including the old default requirement for Address/Website QR graphics. 05B continues to control the legacy functional XLTM/XLSM template when an editable Excel PO is explicitly requested or required.
 
 ## Operating rule
 
@@ -73,9 +77,23 @@ Before materially relevant business-email drafting, review the complete current 
 
 For template creation, document drafting, document conversion, document recreation, information extraction and recreation/template population involving DOCX, PDF, XLSX/XLSM or derived template formats, apply 05A automatically unless the operator explicitly overrides it. The operator does not need to restate those static rules for each request.
 
-When the operator requests a Quote/quotation, Packing List, RFQ/Request for Quote, or PO/Purchase Order, retrieve and use the corresponding registered canonical XLTM master under 05B automatically. Do not substitute an older workbook or populated example merely because it is available.
+When the operator requests a Quote/quotation, Packing List or RFQ/Request for Quote, retrieve and use the corresponding registered canonical XLTM master under 05B automatically.
+
+When the operator requests a PO/Purchase Order:
+- apply 05C automatically for drafting and final fixed-layout PDF;
+- use the 05C canonical PDF reference for visual layout only, never as a source of reusable transaction values;
+- use current verified quotation/order evidence for prices, items and commercial terms;
+- use Libre Baskerville for all visible PO text;
+- use only the canonical top-right PO logo;
+- preserve the grey divider under every Terms and conditions row;
+- place the validated signature/stamp directly on the signature line;
+- retrieve the legacy 05B PO XLTM only when an editable Excel PO is explicitly requested or functionally required.
 
 Canonical template Drive folder: `Canonical Document Templates`, ID `19A7iUWZ7WTowDR1TzRsTLmaraxCbIosH`.
+
+05C Drive file ID: `1L_MZD3Y-JnyI6nTHKV7E6eJAUsmtY8wp`.  
+Canonical PO PDF reference ID: `1NliiqekZMO6Uii8vTXSs11aoFylXZ8CA`.  
+Canonical PO top-right logo ID: `1V4KpZwpXteMHVOAFsZh68bc6juDtfAmq`.
 
 Invoice, payment and customs matters may be reported when material, but must not create calendar entries. Draft meeting invitations follow the current Microsoft Teams location rule in the 03B override.
 
@@ -94,9 +112,11 @@ Level 2: HOLD pending Level 1 finalization and validation.
 - Gmail/Inster channel test;
 - NTT-AT address and Norwegian terminology test;
 - document/template static-rule discovery and precedence test;
-- canonical Quote/Packing List/RFQ/PO template selection and Drive retrieval test;
+- canonical Quote/Packing List/RFQ template selection and Drive retrieval test;
+- canonical 05C PO standard discovery and precedence test;
+- canonical PO A4/Libre-Baskerville/top-right-logo/signature-on-line/terms-divider visual test;
 - populated-template reconstruction and validation-copy test;
 - DOCX/PDF/XLSM/XLTM preservation and output-format test;
 - formula/validation/VBA-preservation test for canonical XLTM templates;
-- target-sheet-only PDF preview/final-output test;
+- target-sheet-only PDF preview/final-output test where legacy workbook rendering is explicitly requested;
 - external-action and Level 2 HOLD test.
