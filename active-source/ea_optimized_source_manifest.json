@@ -18,6 +18,7 @@
     "05_EA_DOCUMENTS_TEMPLATES_REGISTERS_INDEXES.md",
     "05A_EA_DOCUMENT_TEMPLATE_RECREATION_CONVERSION_STATIC_RULES_0349_08082026.md",
     "05B_EA_CANONICAL_XLTM_TEMPLATE_USAGE_RULE_0405_08082026.md",
+    "05C_EA_CANONICAL_PO_DRAFTING_PDF_LAYOUT_STANDARD_0219_09092026.md",
     "06_EA_CUSTOM_GPT_AND_PROJECT_SETUP.md",
     "07_EA_SCHEDULED_TASKS_AND_ROUTINES.md",
     "07A_EA_GMAIL_BUSINESS_EMAIL_WATCH_PROMPT_2351_05082026.md",
@@ -35,7 +36,9 @@
     "docs/EA_DOCUMENT_TEMPLATE_STATIC_RULES_UPDATE_LOG_0349_08082026.md",
     "docs/decisions/EA_DECISION_DOCUMENT_TEMPLATE_STATIC_RULES_0349_08082026.md",
     "docs/decisions/EA_DECISION_CANONICAL_DOCUMENT_TEMPLATES_0405_08082026.md",
+    "docs/decisions/EA_DECISION_CANONICAL_PO_DRAFTING_STANDARD_0219_09092026.md",
     "registers/EA_CANONICAL_DOCUMENT_TEMPLATE_REGISTER_0405_08082026.md",
+    "registers/EA_CANONICAL_PO_DRAFTING_STANDARD_REGISTER_0219_09092026.md",
     "docs/EA_CANONICAL_TEMPLATE_LAYOUT_CORRECTION_1153_08082026.md",
     "docs/EA_CANONICAL_TEMPLATE_MARKUP_CORRECTION_2352_08082026.md"
   ],
@@ -43,7 +46,7 @@
     "drive_folder_id": "19A7iUWZ7WTowDR1TzRsTLmaraxCbIosH",
     "usage_rule": "05B_EA_CANONICAL_XLTM_TEMPLATE_USAGE_RULE_0405_08082026.md",
     "register": "registers/EA_CANONICAL_DOCUMENT_TEMPLATE_REGISTER_0405_08082026.md",
-    "revision": "markup-corrected-2026-08-08-2352",
+    "revision": "po-layout-v2-2026-09-09-0219",
     "quote": {
       "file": "EA_Template_Quote_v1.0.xltm",
       "sheet": "Quote",
@@ -60,9 +63,16 @@
       "drive_file_id": "1_CKn7m-F4AAGkUaeiCRBEf77Xp02xxvO"
     },
     "po": {
-      "file": "EA_Template_PO_v1.0.xltm",
+      "editable_template_file": "EA_Template_PO_v1.0.xltm",
       "sheet": "PO",
-      "drive_file_id": "1NUitA_ITVS6oz8OK9u7_LaN5v_yOHwHM"
+      "editable_template_drive_file_id": "1NUitA_ITVS6oz8OK9u7_LaN5v_yOHwHM",
+      "drafting_pdf_standard": "05C_EA_CANONICAL_PO_DRAFTING_PDF_LAYOUT_STANDARD_0219_09092026.md",
+      "drafting_pdf_standard_drive_file_id": "1L_MZD3Y-JnyI6nTHKV7E6eJAUsmtY8wp",
+      "canonical_pdf_reference_file": "EA_CANONICAL_PO_LAYOUT_REFERENCE_v2.0_09092026.pdf",
+      "canonical_pdf_reference_drive_file_id": "1NliiqekZMO6Uii8vTXSs11aoFylXZ8CA",
+      "canonical_top_right_logo_file": "EA_CANONICAL_PO_TOP_RIGHT_LOGO_v2.0.png",
+      "canonical_top_right_logo_drive_file_id": "1V4KpZwpXteMHVOAFsZh68bc6juDtfAmq",
+      "final_pdf_rule": "05C supersedes conflicting 05B PO visual/layout/QR requirements; 05B remains for editable workbook functionality."
     }
   },
   "archive_source": "archive/phase-packages/Ea_Phase_Packages_0911_19062026.zip",
@@ -71,8 +81,10 @@
     "For the hourly business-email watch, apply 07A together with the newer 03C historical-email-context rule, then 03B and the two 03A overrides before older workflow notes.",
     "Before materially relevant email drafting, review the complete current thread and relevant historical correspondence, with emphasis on prior NTSN sent replies. Historical replies guide tone and continuity; current changeable facts must still be revalidated.",
     "Apply 05A automatically for operator-requested template creation, document drafting, conversion, recreation, information extraction and template population involving DOCX, PDF, XLSX/XLSM or derived template formats, unless explicitly overridden.",
-    "For Quote, Packing List, RFQ and PO requests, apply 05B and retrieve the registered canonical XLTM master automatically unless the operator explicitly specifies an alternative.",
-    "Canonical Quote/Packing List/RFQ/PO templates were markup-corrected on 08.08.2026: left/right margins 8.4 mm; marked dropdown arrows hidden while list validations remain functional; Quote static percent character removed; red-marked alignment/line-break issues corrected; PO Address and Website graphics are both square QR codes.",
+    "For Quote, Packing List and RFQ requests, apply 05B and retrieve the registered canonical XLTM master automatically unless the operator explicitly specifies an alternative.",
+    "For PO drafting/final PDF, apply 05C automatically. Use its canonical PDF only as visual/layout authority and use current verified quotation/order evidence for transaction values.",
+    "PO final PDF uses Libre Baskerville throughout, the canonical top-right logo only, a divider below every terms row, and the validated smaller signature directly on the signature line. The old default PO QR-code requirement is superseded for 05C PDF output.",
+    "Use 05B legacy PO XLTM only when an editable Excel PO is explicitly requested or functionally required.",
     "For document work, specific current approved/canonical document-type workflows and templates take precedence over general template rules.",
     "Do not create calendar entries for invoices, payment reminders, customs, Tolletaten or Altinn customs matters.",
     "The draft-invite Microsoft Teams location rule in 03B supersedes the older blank-location rule for that event type.",
