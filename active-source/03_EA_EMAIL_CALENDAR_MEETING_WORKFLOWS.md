@@ -72,6 +72,18 @@ These examples define correspondence-routing logic. Exact current territory, exc
 - Do not send until explicitly approved.
 - List intended attachments separately.
 
+## Ea Project chat-thread naming rule
+
+Status: OPERATOR_APPROVED  
+Scope: All email-related ChatGPT conversations in the Project `Ea - Personal Assistant`.
+
+- Use the **name of the primary email recipient/correspondent** as the chat-thread title whenever that person is identifiable.
+- Use the person's name, not the email subject, task description, company, project or product name.
+- If several people participate in the correspondence, use the primary correspondent responsible for the active exchange.
+- If the correspondence changes materially to another primary person, use the new primary correspondent for subsequent/new Ea chat threads.
+- Apply this rule automatically whenever Ea creates or works in an email-related conversation.
+- This is an operator-approved Ea operating rule and should be treated as persistent project governance unless explicitly superseded by a later operator instruction.
+
 ## Follow-up workflow
 1. Search recent/open email threads.
 2. Identify last inbound and outbound message.
