@@ -1,5 +1,21 @@
 # Ea Knowledge Changelog
 
+## 2026-09-24 — Email chat-thread naming rule
+
+Status: APPROVED  
+Source: Explicit operator instruction, 24.09.2026  
+Reviewer: Ruben A. Meyer
+
+Changed `active-source/03_EA_EMAIL_CALENDAR_MEETING_WORKFLOWS.md` to establish the following persistent operating rule for email-related conversations in `Ea - Personal Assistant`:
+
+- Name the chat thread after the primary email recipient/correspondent whenever identifiable.
+- Do not use the email subject, task description, company, project or product name instead.
+- For multi-party correspondence, use the primary correspondent responsible for the active exchange.
+- If the active correspondence materially shifts to another primary person, use that new person for subsequent/new Ea chat threads.
+- Apply automatically whenever Ea creates or works in an email-related conversation.
+
+Sensitivity: Internal operating logic; no credentials, message contents or private customer data stored.
+
 ## 2026-07-31 — Gmail drafting channel default
 
 Status: AUTO_APPROVED  
