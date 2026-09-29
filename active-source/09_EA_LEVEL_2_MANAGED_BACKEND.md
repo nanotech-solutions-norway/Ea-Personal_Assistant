@@ -1,12 +1,12 @@
 # 09 — Ea Level 2 Managed Backend
 
-Status: HOLD / STAGED_DESIGN_APPROVED_FOR_IMPLEMENTATION_PLANNING  
+Status: LEVEL_2A_ACTIVE / LEVEL_2B_HOLD / LEVEL_2C_HOLD  
 Authority: Operator instruction 29.09.2026 plus current active-source governance  
-Activation condition: explicit operator promotion after Level 1 hardening and validation gates
+Activation: Level 2A explicitly approved 29.09.2026 for controlled internal autonomy; Level 2B/2C remain separately gated
 
 ## Hold rule
 
-Level 2 execution remains **HOLD**. This document defines the target architecture and staged activation model; it does not grant production authority.
+Level 2A controlled internal execution is **ACTIVE** by explicit operator instruction. Level 2B and Level 2C remain **HOLD**.
 
 Level 2 must not be treated as “Level 1 with unrestricted autonomy.” It is a controlled execution layer built on the hardened Level 1 observer/decision/policy foundation.
 
@@ -22,7 +22,7 @@ Level 2 must not be treated as “Level 1 with unrestricted autonomy.” It is a
 
 ## Level 2A — Controlled internal autonomy
 
-**Status:** HOLD / first activation target.
+**Status:** ACTIVE — controlled internal autonomy only.
 
 Candidate permissions after validation:
 - create/update verified Gmail drafts;
@@ -142,7 +142,7 @@ Do not persist full confidential email/transcript content unless separately auth
 
 ## Activation gates
 
-Level 2A may move from HOLD only after:
+Continuing Level 2A validation should demonstrate:
 - Level 1.1 transactional hardening is implemented or equivalent controls are demonstrably enforced;
 - Level 1.2 observability/regression controls are operational to the extent needed for the deployment;
 - no Critical/Major approval, confidentiality, wrong-recipient, wrong-thread, duplicate or unsupported-commitment defects remain;
@@ -150,9 +150,8 @@ Level 2A may move from HOLD only after:
 - failure isolation and reconciliation are demonstrated;
 - audit metadata is demonstrated;
 - external send remains unavailable to the Level 2A execution identity/toolset where technically feasible;
-- operator explicitly approves `Level 2A HOLD -> ACTIVE`.
 
-Recommended validation target before Level 2A promotion:
+Recommended ongoing validation target for Level 2A:
 - at least 100 consecutive actionable cases and at least 14 days of normal operation, whichever is longer;
 - zero wrong-recipient drafts;
 - zero autonomous sends;
@@ -170,7 +169,7 @@ Level 2B and Level 2C require separate validation and explicit promotion decisio
 
 ## Current Level 2 scope status
 
-- Level 2A: HOLD
+- Level 2A: ACTIVE — controlled internal autonomy
 - Level 2B: HOLD
 - Level 2C: HOLD
 - Universal live meeting capture: HOLD / separate privacy-security design
