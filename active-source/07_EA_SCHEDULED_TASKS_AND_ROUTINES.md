@@ -1,75 +1,72 @@
 # 07 — Ea Scheduled Tasks and Routines
 
-Status: ACTIVE / LEVEL_1_CUSTOMIZED  
+Status: ACTIVE / LEVEL_2A_CONTROLLED_INTERNAL  
 Authority: Active-source framework with approved operator overrides  
-Level: Level 1 active; Level 2 automation on HOLD
+Level: Level 1 baseline active; Level 2A controlled internal autonomy ACTIVE; Level 2B/2C HOLD
 
 ## Purpose
 
-Define Ea's native scheduled routines and separate them from Level 2 managed automation.
+Define Ea's native scheduled routines, current Level 2A internal-autonomy scope, and the boundary to approval-gated or external Level 2 functions.
 
-## Native scheduled tasks
+## Native scheduled-task rule
 
-Scheduled tasks perform one bounded cycle per run. They must not be described as continuous monitoring, universal recording, automatic project-file awareness, autonomous file/governance write-back, attachment archiving or another Level 2 backend capability.
+Each native task performs one bounded cycle per run. Native tasks may use connected evidence, create/update verified Gmail drafts, create/update duplicate-safe private internal Calendar follow-ups, prepare meetings, validate attachments and perform post-write verification within Level 2A. They may not claim continuous/unbounded monitoring, universal recording, unrestricted file/governance write-back, or autonomous external execution.
 
 ## Active hourly email task
 
+**Task ID:** `6a6336e9994c8191b25966dc451c2db0`  
 **Task title:** `Ea Business Email Watch`  
-**Canonical timing mode:** `condition_watch` (operator-approved 29.08.2026)  
-**Live timing mode:** `exact_schedule` as verified 09.09.2026 — `CONTROL_PLANE_DRIFT / PENDING_REVIEW`  
+**Canonical timing mode:** `condition_watch`  
+**Live timing mode:** `condition_watch` — verified 29.09.2026; prior `exact_schedule` drift resolved  
 **Schedule:** hourly  
-**State:** ENABLED. Do not silently resolve the timing-mode mismatch; preserve the live task until an explicit operator decision is recorded.
+**State:** ENABLED  
+**Level:** Level 2A controlled internal autonomy
 
 Current controlling runtime source:
 
 `07B_EA_EMAIL_DRAFT_FOLLOWUP_WATCH_CURRENT_1810_25082026.md`
 
-Historical predecessor prompts remain supporting evidence only and must not override the current operator-approved runtime. The live prompt contains newer resilience/retry/failure-isolation deltas that are preserved as runtime evidence but are not silently promoted over canonical source text while reconciliation remains PENDING_REVIEW.
+The hourly task may search/read connected sources, create or update private Gmail drafts, and create or update duplicate-safe private internal Calendar follow-ups exactly as authorized by the current runtime. Required private write-back must not be suppressed merely because a case was previously reported. Notification deduplication and execution deduplication are separate controls.
 
-The hourly task may search/read connected sources, create or update private Gmail drafts, and create or update duplicate-safe private internal calendar follow-ups exactly as authorized by the current runtime. For actionable threads, required private draft/follow-up write-back must not be suppressed merely because the case was previously reported. Notification deduplication and execution deduplication are separate controls.
+Gmail is the default drafting channel for all business contacts. The former standing chat-only exception for Inster, Grupo Oesía and Tecnobit is superseded. Chat-only/no-Gmail handling applies only where the operator explicitly instructs it for the specific current message/thread.
 
-Gmail is the default drafting channel for all business contacts. The former standing chat-only exception for Inster, Grupo Oesía and Tecnobit is superseded as of 29.08.2026. Chat-only/no-Gmail handling now applies only where the operator explicitly instructs it for the specific current message/thread.
+Manual draft deletion suppression is controlled by `03D_EA_MANUAL_DRAFT_DELETION_SUPPRESSION_RULE_1111_09092026.md`. Known operator deletion remains recipient-level suppression unless a new explicit operator instruction authorizes the specifically requested draft. Thread/case scoping remains `PENDING_REVIEW`.
 
-Manual draft deletion suppression is controlled by `03D_EA_MANUAL_DRAFT_DELETION_SUPPRESSION_RULE_1111_09092026.md`. When operator deletion of a Gmail draft is known, scheduled or recovery workflows must classify the state as `OPERATOR_DELETED_SUPPRESS_RECREATE` and must not automatically recreate a new draft to that recipient. A later explicit operator instruction to draft/reply authorizes that specifically requested draft.
+Calendar exclusions remain absolute for new follow-up creation: invoices, payment/billing/collection items, failed Autopay, subscription payments, customs, Tolletaten and Altinn customs notices.
 
-Calendar exclusions remain absolute for new follow-up creation: invoices, payment/billing/collection items, failed Autopay, subscription payments, customs, Tolletaten and Altinn customs notices. Historical legacy entries may remain as evidence unless separately cleaned up.
+Confirmed/operator-authorized meetings retain popup reminders 1 day and 2 hours before the meeting. External attendees, invitations, external meeting changes, purchases, commitments, file sharing/deletion/permission changes and Level 2B/2C actions remain outside native scheduled-task authority unless separately approved for the exact action.
 
-Confirmed meetings retain popup reminders 1 day and 2 hours before the meeting. External attendees, invitations, external meeting changes, purchases, commitments, Drive/GitHub governance writes and Level 2 claims remain outside the scheduled task's authority unless separately approved for the exact action.
+## Cadence routines
 
-## Level 1 cadence routines
-
-| Task | Schedule | State as of 09.09.2026 | Purpose |
+| Task | Schedule | State verified 29.09.2026 | Level / purpose |
 |---|---|---|---|
-| Ea Morning Briefing | Monday–Friday 07:00 Europe/Oslo | ENABLED | Calendar, urgent emails, preparation needs and approvals |
-| Ea Mid-Day Review | Monday–Friday 14:00 Europe/Oslo | ENABLED | Changed meetings, unanswered emails and follow-up gaps |
-| Ea Evening Close | Monday–Friday 21:00 Europe/Oslo | ENABLED | Tomorrow preparation, pending approvals and session-close items |
-| Ea Saturday Review | Saturday 10:00 Europe/Oslo | PENDING_CAPACITY | Weekly administration and open-loop review |
-| Ea Sunday Planning | Sunday 18:00 or 21:00 Europe/Oslo | PENDING_OPERATOR_TIME_AND_CAPACITY | Monday and weekly planning |
+| Ea Morning Briefing | Monday–Friday 07:00 Europe/Oslo | ENABLED | Level 2A internal briefing + bounded recovery |
+| Ea Mid-Day Review | Monday–Friday 14:00 Europe/Oslo | ENABLED | Level 2A internal review + bounded recovery |
+| Ea Evening Close | Monday–Friday 21:00 Europe/Oslo | DISABLED | Prompt aligned to Level 2A; remains disabled |
+| Ea Saturday Review | — | NOT ACTIVE | No active native task |
+| Ea Sunday Planning | — | NOT ACTIVE | No active native task |
 
-The native automation account currently permits five active tasks. Activation of the Saturday routine was blocked by the active-task limit on 29.08.2026. Do not claim Saturday or Sunday as active until creation succeeds. Sunday also requires the operator to select 18:00 or 21:00.
+Morning, Mid-Day and any future re-enabled Evening recovery path inherit 03D, duplicate controls, private-Calendar exclusions, post-write verification and Level 2A external-action boundaries.
 
-All recurring draft-generation/recovery paths, including Morning Briefing, Mid-Day Review and Evening Close, inherit the 03D known-manual-deletion suppression rule.
+## 03:00 managed update
 
-## 03:00 nightly update
+Status: HOLD.
 
-Status: HOLD for Level 2.
-
-A 03:00 file-aware update requires managed automation if it must access files, update registers, write back to Drive/GitHub, process attachments, extract archives or validate by readback. Native tasks must not claim these capabilities.
+A 03:00 file-aware managed update requires a managed backend if it must persist case state, process attachments/archives, synchronize Drive/GitHub governance or perform managed event ingestion. Level 2A activation does not itself authorize this nightly backend routine.
 
 ## Global approval rule
 
-Scheduled tasks may prepare drafts, recommendations and expressly approved private internal controls. They may not send emails; send or externally notify meeting invitations; add external attendees; modify files, permissions, memory or governance records; place orders or issue purchase orders; accept pricing, warranty, delivery, exclusivity, liability, legal, tax, accounting or regulatory commitments; share data; store confidential transcripts; or promote rules without approval.
+Level 2A scheduled tasks may prepare and verify drafts, private internal controls, meeting preparation, attachment validation, state reconciliation and concise internal audit metadata. They may not send/forward email, send invitations, add/change external attendees, modify external meetings, make purchases/refunds, share/delete files, change permissions, store confidential transcripts without separate authorization, promote `PENDING_REVIEW`, or accept pricing, warranty, delivery, exclusivity, liability, legal, tax, accounting or regulatory commitments.
+
+Level 2B and Level 2C remain HOLD.
 
 ## Validation
 
-The hourly task was re-audited operationally on 29.08.2026 after it was found disabled. It remains enabled with hourly recurrence. The canonical `condition_watch` field and the live `exact_schedule` field remain a controlled unresolved mismatch (`CONTROL_PLANE_DRIFT / PENDING_REVIEW`). The current runtime preserves Level 1 boundaries, calendar exclusions, duplicate controls, source-authority checks, attachment validation and post-write verification. The 03D manual-draft-deletion suppression rule is mandatory across all recurring draft-generation paths.
+The hourly task is enabled, hourly and synchronized to canonical `condition_watch`. The prior `exact_schedule` control-plane drift is RESOLVED as of 29.09.2026.
 
 Open validation items:
-
-- confirm successful post-change Gmail draft and private follow-up executions across representative threads;
-- confirm the superseded Inster/Grupo Oesía/Tecnobit chat-only rule no longer suppresses Gmail drafting;
-- verify `03D` suppression is honored by the hourly watch and Morning/Mid-Day/Evening recovery routines;
-- obtain an explicit operator decision on `condition_watch` vs `exact_schedule`, then synchronize runtime and canonical source together;
-- resolve active-task capacity before enabling Saturday/Sunday cadence;
-- select Sunday planning time: 18:00 or 21:00 Europe/Oslo;
-- keep Level 2 HOLD.
+- continue representative Gmail draft and private Calendar follow-up readback tests;
+- verify 03D across hourly and cadence recovery routines;
+- validate stable case identity/idempotency/freshness controls in the managed Level 2A backend;
+- validate event-driven Gmail/Calendar ingestion before reducing reliance on polling;
+- retain Level 2B/2C HOLD until separate promotion gates are met.
