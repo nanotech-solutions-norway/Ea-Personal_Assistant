@@ -2,9 +2,9 @@
   "project": "Ea Personal Assistant",
   "repository": "nanotech-solutions-norway/Ea-Personal_Assistant",
   "source_set": "active-source",
-  "status": "level_1_approved_baseline_with_level_1_1_1_2_hardening_active_validation_level_2_staged_hold",
+  "status": "level_2A_active_controlled_internal_autonomy_level_2B_2C_hold",
   "level_1": "approved_baseline_active; Level_1_1_transactional_hardening_and_Level_1_2_observability_active_validation",
-  "level_2": "HOLD_staged_2A_2B_2C_separate_promotion_required",
+  "level_2": "Level_2A_ACTIVE_controlled_internal; Level_2B_HOLD; Level_2C_HOLD",
   "active_source_files": [
     "00_EA_PROJECT_README_AND_UPLOAD_PLAN.md",
     "01_EA_RUNTIME_CORE.md",
@@ -101,6 +101,10 @@
     "29.09.2026: Level 2 redesigned as 2A controlled internal autonomy, 2B approval-gated external execution, and 2C future narrow autonomous external execution; all stages remain HOLD.",
     "03D remains recipient-level APPROVED/CANONICAL. Thread/case-scoped suppression is PENDING_REVIEW and must not be silently applied.",
     "Level 1/Level 2A should use least-privilege toolsets without autonomous send capability where technically feasible; approval-bound external execution belongs to future Level 2B.",
-    "Hourly reconciliation remains a required safety watchdog even if managed incremental Gmail/Calendar change detection is later implemented."
+    "Hourly reconciliation remains a required safety watchdog even if managed incremental Gmail/Calendar change detection is later implemented.",
+    "29.09.2026: Level 2A activated for controlled internal autonomy by explicit operator instruction; Level 2B and Level 2C remain HOLD.",
+    "Level 2A scope includes verified Gmail drafts, duplicate-safe private internal Calendar follow-ups, meeting preparation, authorized note/transcript processing, attachment validation, readback/reconciliation and internal audit metadata.",
+    "Level 2A excludes autonomous email sending/forwarding, external invitations/attendee changes, approval-controlled commitments, file sharing/deletion/permission changes, and PENDING_REVIEW promotion.",
+    "29.09.2026: live Ea Business Email Watch reconciled to canonical condition_watch."
   ]
 }
