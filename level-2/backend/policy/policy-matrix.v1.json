@@ -1,0 +1,25 @@
+{
+  "policy_version": "ea-policy-v1-2026-09-30",
+  "default": "PROHIBIT",
+  "actions": {
+    "gmail.read": {"level_2a": "ALLOW", "level_2b": "ALLOW", "risk": "READ"},
+    "gmail.create_draft": {"level_2a": "ALLOW", "level_2b": "ALLOW", "risk": "INTERNAL_REVERSIBLE"},
+    "gmail.update_draft": {"level_2a": "ALLOW", "level_2b": "ALLOW", "risk": "INTERNAL_REVERSIBLE"},
+    "gmail.send_existing_draft": {"level_2a": "PROHIBIT", "level_2b": "REQUIRE_APPROVAL", "risk": "EXTERNAL_CONSEQUENTIAL"},
+    "gmail.forward_attachment": {"level_2a": "PROHIBIT", "level_2b": "REQUIRE_APPROVAL", "risk": "EXTERNAL_DATA_TRANSFER"},
+    "calendar.read": {"level_2a": "ALLOW", "level_2b": "ALLOW", "risk": "READ"},
+    "calendar.create_private_followup": {"level_2a": "ALLOW", "level_2b": "ALLOW", "risk": "INTERNAL_REVERSIBLE"},
+    "calendar.update_private_followup": {"level_2a": "ALLOW", "level_2b": "ALLOW", "risk": "INTERNAL_REVERSIBLE"},
+    "calendar.send_invitation": {"level_2a": "PROHIBIT", "level_2b": "REQUIRE_APPROVAL", "risk": "EXTERNAL_CONSEQUENTIAL"},
+    "calendar.change_external_attendee": {"level_2a": "PROHIBIT", "level_2b": "REQUIRE_APPROVAL", "risk": "EXTERNAL_CONSEQUENTIAL"},
+    "drive.read": {"level_2a": "ALLOW", "level_2b": "ALLOW", "risk": "READ"},
+    "drive.internal_write": {"level_2a": "REQUIRE_APPROVAL", "level_2b": "REQUIRE_APPROVAL", "risk": "INTERNAL_MUTATION"},
+    "drive.share_external": {"level_2a": "PROHIBIT", "level_2b": "REQUIRE_APPROVAL", "risk": "EXTERNAL_DATA_TRANSFER"},
+    "drive.change_permissions": {"level_2a": "PROHIBIT", "level_2b": "REQUIRE_APPROVAL", "risk": "ACCESS_CONTROL"},
+    "drive.delete": {"level_2a": "PROHIBIT", "level_2b": "REQUIRE_APPROVAL", "risk": "DESTRUCTIVE"},
+    "commercial.price_discount_commit": {"level_2a": "PROHIBIT", "level_2b": "REQUIRE_APPROVAL", "risk": "COMMERCIAL_COMMITMENT"},
+    "commercial.warranty_commit": {"level_2a": "PROHIBIT", "level_2b": "REQUIRE_APPROVAL", "risk": "COMMERCIAL_COMMITMENT"},
+    "legal_regulatory.commit": {"level_2a": "PROHIBIT", "level_2b": "REQUIRE_APPROVAL", "risk": "LEGAL_REGULATORY"},
+    "financial.purchase_refund": {"level_2a": "PROHIBIT", "level_2b": "REQUIRE_APPROVAL", "risk": "FINANCIAL"}
+  }
+}
