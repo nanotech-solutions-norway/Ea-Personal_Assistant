@@ -12,9 +12,9 @@ Authority: Active-source framework
 5. Add Level 1.2 observability: incremental change detection where managed integrations support it, plus hourly reconciliation/watchdog.
 6. Run extended Level 1 hardening regression and production validation.
 7. Demonstrate least privilege, including no-send capability for Level 1/Level 2A where technically feasible.
-8. Validate Level 2A controlled internal autonomy in staging/simulation.
-9. Only after explicit operator promotion, activate Level 2A.
-10. Design and validate Level 2B approval-bound external execution separately.
+8. Operate Level 2A controlled internal autonomy under least-privilege and readback controls.
+9. Continue production validation of Level 2A internal actions and failure isolation.
+10. Design and validate Level 2B approval-bound external execution separately; keep HOLD.
 11. Consider Level 2C narrow autonomous external execution only after sustained Level 2A/2B evidence and separate approval.
 
 ## Level 1.1 minimum hardening
@@ -40,8 +40,8 @@ Authority: Active-source framework
 
 ## Level 2 staged rule
 
-- **Level 2A:** controlled internal autonomy only; no autonomous external communication.
+- **Level 2A:** ACTIVE — controlled internal autonomy only; no autonomous external communication.
 - **Level 2B:** approval-gated external execution bound to an exact action revision.
 - **Level 2C:** narrowly defined low-risk autonomous external execution, future separate decision.
 
-All Level 2 stages remain HOLD until explicit promotion. Level 2 must not be activated as one monolithic autonomy tier.
+Level 2A is ACTIVE by explicit operator instruction. Level 2B and Level 2C remain HOLD and require separate promotion. Level 2 must not be activated as one monolithic autonomy tier.
