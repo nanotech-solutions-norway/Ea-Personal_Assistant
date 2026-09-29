@@ -7,14 +7,14 @@ Authority: Active-source framework
 
 1. Maintain approved Level 1 baseline and active-source authority.
 2. Apply Level 1.1 transactional hardening to business-email/Calendar workflows.
-3. Add stable case identity/state, idempotency semantics, freshness checks, typed failures, readback verification and audit metadata where technically supported.
+3. Repository implementation complete for stable case/action/audit schemas, idempotency primitives, policy gateway foundation and approval envelopes; provision the managed runtime/store next.
 4. Preserve 03D manual-draft-deletion suppression as approved; treat proposed thread/case scoping as PENDING_REVIEW until explicitly approved.
-5. Add Level 1.2 observability: incremental change detection where managed integrations support it, plus hourly reconciliation/watchdog.
+5. Repository contracts complete for Gmail watch/history and Calendar watch/sync-token ingestion; deploy the webhook/Pub/Sub runtime next while retaining hourly reconciliation/watchdog.
 6. Run extended Level 1 hardening regression and production validation.
-7. Demonstrate least privilege, including no-send capability for Level 1/Level 2A where technically feasible.
+7. Provision the specified separate Level 2A no-send identity and future Level 2B approval-gated execution identity; repository policy already fails Level 2A send closed.
 8. Operate Level 2A controlled internal autonomy under least-privilege and readback controls.
 9. Continue production validation of Level 2A internal actions and failure isolation.
-10. Design and validate Level 2B approval-bound external execution separately; keep HOLD.
+10. Level 2B.1 approval-bound Gmail send design is implemented in staging files; validate against staging Gmail only after separate send-capable identity and approval store are provisioned; keep HOLD.
 11. Consider Level 2C narrow autonomous external execution only after sustained Level 2A/2B evidence and separate approval.
 
 ## Level 1.1 minimum hardening
@@ -45,3 +45,24 @@ Authority: Active-source framework
 - **Level 2C:** narrowly defined low-risk autonomous external execution, future separate decision.
 
 Level 2A is ACTIVE by explicit operator instruction. Level 2B and Level 2C remain HOLD and require separate promotion. Level 2 must not be activated as one monolithic autonomy tier.
+
+
+## Current implementation checkpoint — 30.09.2026
+
+Completed in repository:
+- durable data model;
+- deterministic policy matrix/evaluator;
+- idempotency and payload hashing;
+- source→sink rules;
+- incremental ingestion contracts;
+- identity/scoping design;
+- Level 2B.1 staging transaction;
+- unit-test workflow.
+
+Not deployed:
+- database;
+- Pub/Sub/webhook receivers;
+- Gmail/Calendar watch registrations;
+- separate OAuth/service identities;
+- approval service;
+- production agent runtime.
