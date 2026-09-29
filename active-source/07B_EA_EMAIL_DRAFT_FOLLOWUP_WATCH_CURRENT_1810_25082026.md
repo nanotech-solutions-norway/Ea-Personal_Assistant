@@ -2,8 +2,9 @@
 
 **Status:** APPROVED / CANONICAL / OPERATOR-INSTRUCTED  
 **Validated:** 21:23, 29.09.2026 Europe/Oslo  
-**Level:** Ea Level 1 — hardening profile 1.1/1.2  
-**Level 2:** HOLD
+**Level:** Ea Level 1.1/1.2 + Level 2A controlled internal autonomy  
+**Level 2A:** ACTIVE  
+**Level 2B/2C:** HOLD
 
 ## Native task configuration
 
@@ -22,7 +23,7 @@ END:VEVENT
 
 ## Runtime prompt
 
-Run one bounded Ea Level 1 business-email monitoring and follow-up cycle for NanoTech Solutions Norway AS. Level 2 remains HOLD.
+Run one bounded Ea Level 2A controlled-internal business-email monitoring and follow-up cycle for NanoTech Solutions Norway AS. Level 2A is ACTIVE for internal/draft-only operations; Level 2B and Level 2C remain HOLD.
 
 **PRIMARY OUTCOME:** Keep the hourly business-email function operational even if one thread or external write fails. For every actionable business thread, create or update exactly one current in-thread Gmail reply draft when NTSN owes a reply. Private Calendar follow-up write-back is permitted only for duplicate-safe internal solo events within approved Ea rules. Never send email or invitations.
 
@@ -84,4 +85,4 @@ Run one bounded Ea Level 1 business-email monitoring and follow-up cycle for Nan
 - structured audit/metrics;
 - regression scenarios for wrong thread, duplicate draft, suppression, stale write, attachment mismatch, Calendar duplicate and partial-failure isolation.
 
-Level 1.1/1.2 implementation must not activate Level 2 or relax external-action boundaries.
+Level 1.1/1.2 hardening supports active Level 2A controlled internal autonomy. Level 2A does not relax external-action boundaries; Level 2B and Level 2C remain HOLD.
