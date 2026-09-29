@@ -1,0 +1,24 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:ea:approval-envelope:v1",
+  "type": "object",
+  "required": [
+    "approval_id","case_id","action_type","action_revision","payload_hash",
+    "approved_by","approved_at"
+  ],
+  "properties": {
+    "approval_id": {"type": "string"},
+    "case_id": {"type": "string"},
+    "action_type": {"type": "string"},
+    "action_revision": {"type": "string"},
+    "payload_hash": {"type": "string", "pattern": "^[a-f0-9]{64}$"},
+    "approved_by": {"type": "string"},
+    "approved_at": {"type": "string", "format": "date-time"},
+    "expires_at": {"type": ["string","null"], "format": "date-time"},
+    "recipient_set": {"type": "array", "items": {"type": "string"}},
+    "subject": {"type": ["string","null"]},
+    "attachment_hashes": {"type": "array", "items": {"type": "string"}},
+    "source_revision": {"type": ["string","null"]}
+  },
+  "additionalProperties": false
+}
