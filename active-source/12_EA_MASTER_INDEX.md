@@ -145,3 +145,17 @@ Current target:
 - Level 2C: future narrow low-risk autonomous external execution, HOLD.
 
 Level 2A controlled internal autonomy was activated. No autonomous send authority, external Calendar authority, pricing/warranty/legal/regulatory commitment, file deletion/sharing/permission change, or universal meeting capture was authorized.
+
+
+## 30.09.2026 Level 2 managed-backend foundation
+
+The first managed-backend foundation is implemented in GitHub under `level-2/backend/` and is explicitly **NOT_DEPLOYED**.
+
+It establishes persistent case/action/audit schemas, deterministic policy evaluation, idempotency/revision hashing, external-source→sensitive-sink controls, Gmail/Calendar incremental ingestion contracts, least-privilege identity separation and the Level 2B.1 approval-bound Gmail-send staging transaction.
+
+Operational authority is unchanged:
+- Level 2A ACTIVE;
+- Level 2B HOLD;
+- Level 2C HOLD.
+
+Code/design presence does not constitute production activation. Managed database, webhook/Pub/Sub infrastructure, identity separation, approval storage and external-integration tests must be provisioned and validated before any Level 2B promotion.
