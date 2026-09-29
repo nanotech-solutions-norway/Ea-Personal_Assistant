@@ -26,7 +26,7 @@ Authority: Active-source framework
 | 07A_EA_GMAIL_BUSINESS_EMAIL_WATCH_PROMPT_2351_05082026.md | Historical approved hourly business-email schedule prompt | Canonical predecessor / supporting |
 | 07B_EA_EMAIL_DRAFT_FOLLOWUP_WATCH_CURRENT_1810_25082026.md | Current canonical hourly business-email draft/follow-up runtime source | Approved / Canonical / operator-instructed |
 | 08_EA_QA_VALIDATION_RELEASE_GATE.md | QA and extended Level 1 hardening / staged Level 2 release gates | Active / extended validation |
-| 09_EA_LEVEL_2_MANAGED_BACKEND.md | Staged Level 2A/2B/2C architecture and activation controls | HOLD / staged design |
+| 09_EA_LEVEL_2_MANAGED_BACKEND.md | Staged Level 2A/2B/2C architecture and activation controls | Level 2A ACTIVE / 2B-2C HOLD |
 | 10_EA_PHASE_VALIDATION_TRACKER.md | Baseline + Level 1.1/1.2 hardening and Level 2 promotion tracker | Active validation |
 | 11_EA_IMPLEMENTATION_BLUEPRINT.md | Level 1 hardening and staged Level 2 build order | Active |
 | 12_EA_MASTER_INDEX.md | Index | Active |
@@ -109,7 +109,7 @@ Invoice, payment and customs matters may be reported when material, but must not
 ## Current status
 
 Level 1 baseline: APPROVED for use on 06.07.2026. Post-approval canonical additions and runtime changes remain subject to the targeted validation/readback items below; this does not revoke the approved baseline.  
-Level 2: HOLD. The staged design is Level 2A controlled internal autonomy, Level 2B approval-gated external execution, and Level 2C narrow autonomous external execution. Each stage requires separate validation and explicit operator promotion.
+Level 2A: ACTIVE for controlled internal autonomy by explicit operator instruction on 29.09.2026. Level 2B and Level 2C remain HOLD and require separate validation and explicit operator promotion.
 
 ## Required validation
 
@@ -140,8 +140,8 @@ The operator approved implementation of the architecture review recommendations 
 Current target:
 - Level 1.1 transactional hardening: case/state identity, idempotency, stable draft identity, freshness/concurrency guard, typed failure/reconciliation, deterministic Calendar deduplication, attachment manifest and readback;
 - Level 1.2 observability: incremental change detection where managed integrations support it, hourly reconciliation watchdog, audit/metrics and regression tests;
-- Level 2A: controlled internal autonomy, HOLD;
+- Level 2A: controlled internal autonomy, ACTIVE;
 - Level 2B: revision-bound operator-approved external execution, HOLD;
 - Level 2C: future narrow low-risk autonomous external execution, HOLD.
 
-No Level 2 activation, autonomous send authority, external Calendar authority, pricing/warranty/legal/regulatory commitment, file deletion/sharing/permission change, or universal meeting capture was authorized by this implementation.
+Level 2A controlled internal autonomy was activated. No autonomous send authority, external Calendar authority, pricing/warranty/legal/regulatory commitment, file deletion/sharing/permission change, or universal meeting capture was authorized.
