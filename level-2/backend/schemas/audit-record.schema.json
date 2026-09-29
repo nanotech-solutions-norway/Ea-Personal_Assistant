@@ -1,0 +1,25 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:ea:audit-record:v1",
+  "type": "object",
+  "required": ["timestamp", "case_id", "policy_version", "action", "risk_class", "verification_result"],
+  "properties": {
+    "timestamp": {"type": "string", "format": "date-time"},
+    "cycle_id": {"type": ["string","null"]},
+    "case_id": {"type": "string"},
+    "action_id": {"type": ["string","null"]},
+    "policy_version": {"type": "string"},
+    "source_ids": {"type": "array", "items": {"type": "string"}},
+    "classification_before": {"type": ["string","null"]},
+    "classification_after": {"type": ["string","null"]},
+    "action": {"type": "string"},
+    "risk_class": {"type": "string"},
+    "approval_required": {"type": "boolean"},
+    "approval_id": {"type": ["string","null"]},
+    "tool_result": {"type": ["string","null"]},
+    "verification_result": {"type": "string"},
+    "error": {"type": ["string","null"]},
+    "retry_count": {"type": "integer", "minimum": 0}
+  },
+  "additionalProperties": true
+}
