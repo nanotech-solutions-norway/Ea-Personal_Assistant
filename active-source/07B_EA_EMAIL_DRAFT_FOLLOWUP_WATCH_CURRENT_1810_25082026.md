@@ -1,7 +1,7 @@
 # Ea Hourly Business Email Draft & Follow-up Watch
 
 **Status:** APPROVED / CANONICAL / OPERATOR-INSTRUCTED  
-**Validated:** 21:23, 29.09.2026 Europe/Oslo  
+**Validated:** 22:54, 29.09.2026 Europe/Oslo  
 **Level:** Ea Level 1.1/1.2 + Level 2A controlled internal autonomy  
 **Level 2A:** ACTIVE  
 **Level 2B/2C:** HOLD
@@ -11,7 +11,7 @@
 **Task ID:** `6a6336e9994c8191b25966dc451c2db0`  
 **Task title:** `Ea Business Email Watch`  
 **Canonical timing mode:** `condition_watch`  
-**Live timing mode:** `exact_schedule` previously observed; unresolved `CONTROL_PLANE_DRIFT / PENDING_REVIEW`  
+**Live timing mode:** `condition_watch` — verified 29.09.2026; prior `exact_schedule` drift RESOLVED  
 **Schedule:** hourly  
 **State:** ENABLED
 

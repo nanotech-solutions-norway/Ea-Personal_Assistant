@@ -83,7 +83,6 @@
     "Use the compact active-source files for ChatGPT Project operation.",
     "03D is the specific controlling rule when operator deletion of a Gmail draft is known; automatic recreation is suppressed until a new explicit drafting instruction authorizes the specific draft.",
     "07B is the current canonical hourly email-watch runtime source; 07A is retained as predecessor/supporting authority where not superseded.",
-    "The live Ea Business Email Watch is enabled and hourly. Canonical condition_watch versus live exact_schedule remains CONTROL_PLANE_DRIFT / PENDING_REVIEW and must not be silently resolved.",
     "Live resilience/retry/failure-isolation additions are preserved as runtime evidence pending explicit reconciliation; do not wholesale roll back the live prompt.",
     "Before materially relevant email drafting, review the complete current thread and relevant historical correspondence, with emphasis on prior NTSN sent replies. Historical replies guide tone and continuity; current changeable facts must still be revalidated.",
     "Apply 05A automatically for operator-requested template creation, document drafting, conversion, recreation, information extraction and template population involving DOCX, PDF, XLSX/XLSM or derived template formats, unless explicitly overridden.",
@@ -96,15 +95,15 @@
     "The draft-invite Microsoft Teams location rule in 03B supersedes the older blank-location rule for that event type.",
     "Gmail is the default drafting channel for all business contacts unless a current specific operator instruction says chat-only/no-Gmail.",
     "Level 1 baseline was approved for use on 06.07.2026; later canonical/runtime additions require targeted validation without revoking the baseline approval.",
-    "Level 2 remains on HOLD. Native scheduled tasks perform one bounded cycle per run and may not modify Drive or GitHub governance records.",
     "29.09.2026: Level 1.1 transactional hardening and Level 1.2 observability architecture adopted for implementation/validation without revoking Level 1 baseline.",
-    "29.09.2026: Level 2 redesigned as 2A controlled internal autonomy, 2B approval-gated external execution, and 2C future narrow autonomous external execution; all stages remain HOLD.",
     "03D remains recipient-level APPROVED/CANONICAL. Thread/case-scoped suppression is PENDING_REVIEW and must not be silently applied.",
     "Level 1/Level 2A should use least-privilege toolsets without autonomous send capability where technically feasible; approval-bound external execution belongs to future Level 2B.",
     "Hourly reconciliation remains a required safety watchdog even if managed incremental Gmail/Calendar change detection is later implemented.",
     "29.09.2026: Level 2A activated for controlled internal autonomy by explicit operator instruction; Level 2B and Level 2C remain HOLD.",
     "Level 2A scope includes verified Gmail drafts, duplicate-safe private internal Calendar follow-ups, meeting preparation, authorized note/transcript processing, attachment validation, readback/reconciliation and internal audit metadata.",
     "Level 2A excludes autonomous email sending/forwarding, external invitations/attendee changes, approval-controlled commitments, file sharing/deletion/permission changes, and PENDING_REVIEW promotion.",
-    "29.09.2026: live Ea Business Email Watch reconciled to canonical condition_watch."
+    "29.09.2026: live Ea Business Email Watch reconciled to canonical condition_watch.",
+    "29.09.2026: canonical and live Ea Business Email Watch timing are both condition_watch; prior exact_schedule control-plane drift is RESOLVED.",
+    "29.09.2026: Morning Briefing and Mid-Day Review prompts aligned to Level 2A controlled internal autonomy; Evening Close prompt aligned but task remains disabled."
   ]
 }

@@ -7,7 +7,7 @@ Authority: Active-source framework
 
 | Phase | Name | Status | Notes |
 |---|---|---|---|
-| 00 | Scope and architecture | APPROVED | Level 1 scope confirmed; Level 2 HOLD |
+| 00 | Scope and architecture | APPROVED | Level 1 baseline confirmed; Level 2A active; Level 2B/2C HOLD |
 | 01 | Folder skeleton and governance | APPROVED | GitHub and Drive skeleton created |
 | 02 | Runtime core | APPROVED | Approval and confidentiality rules passed QA |
 | 03 | Project learning and source authority | APPROVED | Source authority and dynamic skill tests passed |
@@ -16,7 +16,7 @@ Authority: Active-source framework
 | 06 | Templates, registers and indexes | READY_FOR_CUSTOMIZATION | Needs real project/business data for production depth |
 | 07 | Custom GPT build | APPROVED | Custom GPT QA prompts passed |
 | 08 | Project setup and permissions | APPROVED | Project QA prompts passed |
-| 09 | Scheduled tasks | ACTIVE_VALIDATION | Hourly Ea Business Email Watch enabled; Level 1.1/1.2 hardening validation required; timing-mode drift remains PENDING_REVIEW |
+| 09 | Scheduled tasks | ACTIVE / LEVEL_2A | Hourly Ea Business Email Watch enabled and synchronized to canonical `condition_watch`; prior timing-mode drift resolved |
 | 10 | QA and release gate | APPROVED_BASELINE / EXTENDED_VALIDATION | Baseline Level 1 approved; new hardening controls require targeted evidence |
 | 11 | Level 2 backend | LEVEL_2A_ACTIVE / 2B-2C_HOLD | Controlled internal autonomy active; external execution stages remain HOLD |
 
@@ -75,7 +75,6 @@ One severe boundary violation resets the validation window.
 
 ## PENDING_REVIEW / unresolved
 
-- canonical `condition_watch` vs previously observed live `exact_schedule` control-plane drift;
 - whether 03D should later become thread/case-scoped instead of current approved recipient-level suppression;
 - exact managed backend/tooling for persistent case state and incremental Gmail/Calendar event detection;
 - exact architecture for physically separated send permission;
@@ -86,6 +85,5 @@ One severe boundary violation resets the validation window.
 1. Continue Level 1 production validation under the hardened 07B protocol.
 2. Implement persistent case/audit state in the selected managed integration when available.
 3. Implement incremental detection where managed Gmail/Calendar integrations support it; retain hourly reconciliation as watchdog.
-4. Resolve the timing-mode drift by explicit operator decision and synchronized runtime/source update.
 5. Preserve 03D as currently approved until any scope change is explicitly approved.
 6. Keep Level 2B and Level 2C on HOLD until their separate activation gates pass; continue Level 2A validation.
