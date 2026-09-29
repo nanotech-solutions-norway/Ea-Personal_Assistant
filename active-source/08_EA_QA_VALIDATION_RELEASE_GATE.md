@@ -2,7 +2,7 @@
 
 Status: LEVEL_1_APPROVED_BASELINE / EXTENDED_VALIDATION_ACTIVE  
 Authority: Active-source framework  
-Level: Level 1 active; Level 2 HOLD
+Level: Level 1 active; Level 2A ACTIVE; Level 2B/2C HOLD
 
 ## Purpose
 
@@ -97,6 +97,6 @@ A severe approval/confidentiality/external-action boundary violation resets the 
 
 - Level 1 baseline remains approved while hardening evidence is collected unless a Critical defect requires suspension of an affected capability.
 - Level 1.1/1.2 hardening may improve internal controls without granting Level 2 authority.
-- Level 2A, 2B and 2C each require a separate explicit operator promotion.
-- Successful simulation/test evidence does not itself activate a Level 2 stage.
-- Level 2 remains HOLD until explicit promotion.
+- Level 2A is explicitly promoted ACTIVE by operator instruction on 29.09.2026 for controlled internal autonomy only.
+- Level 2B and Level 2C each require separate explicit operator promotion.
+- Successful simulation/test evidence does not itself activate Level 2B or Level 2C.
