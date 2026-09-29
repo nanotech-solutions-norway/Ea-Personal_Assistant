@@ -82,7 +82,7 @@ Before materially relevant business-email drafting, review the complete current 
 
 Known operator deletion of a Gmail draft is an intentional suppression signal under 03D. Automated hourly/recovery routines must not recreate that draft unless a new explicit operator drafting instruction authorizes the specific draft. The 29.09.2026 optimization proposal to scope suppression by thread/case is PENDING_REVIEW and does not modify current recipient-level 03D authority.
 
-The live `Ea Business Email Watch` remains hourly and enabled. Canonical `condition_watch` versus live `exact_schedule` is an unresolved `CONTROL_PLANE_DRIFT / PENDING_REVIEW`; no clean-up routine may silently choose one. The live resilience additions are preserved as runtime evidence pending explicit reconciliation.
+The live `Ea Business Email Watch` remains hourly and enabled. Canonical and live timing mode are both `condition_watch`; the prior `exact_schedule` control-plane drift was resolved on 29.09.2026. Resilience, retry and failure-isolation controls remain active.
 
 For template creation, document drafting, document conversion, document recreation, information extraction and recreation/template population involving DOCX, PDF, XLSX/XLSM or derived template formats, apply 05A automatically unless the operator explicitly overrides it. The operator does not need to restate those static rules for each request.
 
@@ -129,7 +129,7 @@ Level 2A: ACTIVE for controlled internal autonomy by explicit operator instructi
 - formula/validation/VBA-preservation test for canonical XLTM templates;
 - target-sheet-only PDF preview/final-output test where legacy workbook rendering is explicitly requested;
 - 03D manual-draft-deletion suppression test across hourly and recovery routines;
-- explicit reconciliation decision for live `exact_schedule` vs canonical `condition_watch`, followed by synchronized runtime/source readback;
+- verify live and canonical `condition_watch` remain synchronized during scheduled-task audits;
 - external-action and Level 2 HOLD test.
 
 
