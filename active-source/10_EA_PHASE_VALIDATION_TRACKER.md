@@ -1,6 +1,6 @@
 # 10 — Ea Phase Validation Tracker
 
-Status: LEVEL_1_APPROVED / HARDENING_ACTIVE  
+Status: LEVEL_1_APPROVED / HARDENING_ACTIVE / LEVEL_2A_ACTIVE  
 Authority: Active-source framework
 
 ## Phase status
@@ -18,14 +18,14 @@ Authority: Active-source framework
 | 08 | Project setup and permissions | APPROVED | Project QA prompts passed |
 | 09 | Scheduled tasks | ACTIVE_VALIDATION | Hourly Ea Business Email Watch enabled; Level 1.1/1.2 hardening validation required; timing-mode drift remains PENDING_REVIEW |
 | 10 | QA and release gate | APPROVED_BASELINE / EXTENDED_VALIDATION | Baseline Level 1 approved; new hardening controls require targeted evidence |
-| 11 | Level 2 backend | HOLD / STAGED_DESIGN | 2A internal, 2B approval-gated external, 2C narrow autonomous external; all remain HOLD |
+| 11 | Level 2 backend | LEVEL_2A_ACTIVE / 2B-2C_HOLD | Controlled internal autonomy active; external execution stages remain HOLD |
 
 ## Current release classification
 
 Level 1 baseline: APPROVED and active.  
 Level 1.1 transactional hardening: IMPLEMENTATION / ACTIVE_VALIDATION.  
 Level 1.2 observability/incremental architecture: IMPLEMENTATION_TARGET / ACTIVE_VALIDATION.  
-Level 2A: HOLD.  
+Level 2A: ACTIVE — controlled internal autonomy.  
 Level 2B: HOLD.  
 Level 2C: HOLD.
 
@@ -79,7 +79,6 @@ One severe boundary violation resets the validation window.
 - whether 03D should later become thread/case-scoped instead of current approved recipient-level suppression;
 - exact managed backend/tooling for persistent case state and incremental Gmail/Calendar event detection;
 - exact architecture for physically separated send permission;
-- Level 2A activation decision after validation;
 - Level 2B and Level 2C remain separate future promotion decisions.
 
 ## Remaining actions
@@ -89,4 +88,4 @@ One severe boundary violation resets the validation window.
 3. Implement incremental detection where managed Gmail/Calendar integrations support it; retain hourly reconciliation as watchdog.
 4. Resolve the timing-mode drift by explicit operator decision and synchronized runtime/source update.
 5. Preserve 03D as currently approved until any scope change is explicitly approved.
-6. Keep all Level 2 stages on HOLD until their separate activation gates pass.
+6. Keep Level 2B and Level 2C on HOLD until their separate activation gates pass; continue Level 2A validation.
