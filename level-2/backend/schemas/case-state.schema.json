@@ -1,0 +1,24 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:ea:case-state:v1",
+  "type": "object",
+  "required": ["case_id", "classification", "state_version"],
+  "properties": {
+    "case_id": {"type": "string", "minLength": 1},
+    "company_contact": {"type": ["string","null"]},
+    "gmail_thread_id": {"type": ["string","null"]},
+    "latest_actionable_message_id": {"type": ["string","null"]},
+    "gmail_draft_id": {"type": ["string","null"]},
+    "calendar_event_id": {"type": ["string","null"]},
+    "classification": {
+      "enum": ["REPLY_REQUIRED","FOLLOW_UP_REQUIRED","BOTH","WAITING_EXTERNAL","WAITING_INTERNAL","SCHEDULED","CLOSED_NO_ACTION","EXCLUDED"]
+    },
+    "suppression_state": {"type": ["string","null"]},
+    "next_action": {"type": ["string","null"]},
+    "due_at": {"type": ["string","null"], "format": "date-time"},
+    "source_revision": {"type": ["string","null"]},
+    "state_version": {"type": "integer", "minimum": 1},
+    "last_verified_at": {"type": ["string","null"], "format": "date-time"}
+  },
+  "additionalProperties": true
+}

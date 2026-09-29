@@ -1,0 +1,28 @@
+name: Ea Level 2 backend foundation tests
+
+on:
+  pull_request:
+    paths:
+      - "level-2/backend/**"
+      - ".github/workflows/ea-level2-backend-tests.yml"
+  push:
+    branches: [main]
+    paths:
+      - "level-2/backend/**"
+
+permissions:
+  contents: read
+
+jobs:
+  unit:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: level-2/backend
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Run policy/idempotency tests
+        run: python -m unittest discover -s tests -v

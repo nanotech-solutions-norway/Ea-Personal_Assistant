@@ -1,5 +1,18 @@
 # Changelog
 
+## 2026-09-30
+
+- Implemented the first Ea Level 2 managed-backend foundation under `level-2/backend/` without activating Level 2B.
+- Added PostgreSQL-compatible case/action/approval/audit/watch/cursor schema.
+- Added deterministic Level 2A/2B policy matrix and fail-closed evaluator.
+- Added stable idempotency/action-revision/payload hashing primitives.
+- Added source→sink controls for untrusted external content.
+- Added Gmail watch/history and Calendar watch/sync-token ingestion contracts.
+- Added Level 2A vs Level 2B least-privilege identity design and MCP 2026-07-28 gateway requirements.
+- Added Level 2B.1 exact-approval Gmail send staging design; Level 2B remains HOLD.
+- Added backend unit CI and staging/integration validation matrix.
+- Managed database, webhook/Pub/Sub runtime, separate identities and integration tests remain NOT_DEPLOYED.
+
 ## 2026-08-08
 
 - Added canonical default static rules for Ea document/template work involving DOCX, PDF and XLSX/XLSM.

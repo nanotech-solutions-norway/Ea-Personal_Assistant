@@ -1,0 +1,16 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:ea:event-envelope:v1",
+  "type": "object",
+  "required": ["event_id","source","received_at","cursor"],
+  "properties": {
+    "event_id": {"type": "string"},
+    "source": {"enum": ["gmail","google_calendar"]},
+    "received_at": {"type": "string", "format": "date-time"},
+    "cursor": {"type": "string"},
+    "resource_key": {"type": ["string","null"]},
+    "event_kind": {"type": ["string","null"]},
+    "metadata": {"type": "object"}
+  },
+  "additionalProperties": false
+}

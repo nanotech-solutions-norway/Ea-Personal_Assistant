@@ -176,3 +176,36 @@ Level 2B and Level 2C require separate validation and explicit promotion decisio
 - 03:00 file-aware managed update: HOLD
 - Autonomous external sending: HOLD
 - External Calendar execution: HOLD except exact operator-approved Level 2B action after future activation
+
+
+## 30.09.2026 managed-backend foundation implementation
+
+Repository foundation is now **IMPLEMENTED_IN_REPOSITORY / NOT_DEPLOYED** under `level-2/backend/`.
+
+Implemented artifacts:
+- PostgreSQL-compatible durable case/action/approval/audit/watch/cursor schema;
+- deterministic policy matrix and fail-closed evaluator;
+- stable action revision and idempotency hashing primitives;
+- source→sink control matrix for untrusted external content;
+- JSON schemas for case, event, audit and approval envelopes;
+- Gmail `users.watch` / history cursor ingestion contract;
+- Calendar notification-channel / `syncToken` ingestion contract including HTTP 410 full-resync behavior;
+- Level 2A vs Level 2B identity/least-privilege design;
+- MCP 2026-07-28 gateway requirements;
+- Level 2B.1 exact-approval Gmail send staging design;
+- unit CI for policy/idempotency primitives;
+- integration validation matrix.
+
+This implementation does **not** activate Level 2B, deploy a managed database/webhook/Pub/Sub service, create send-capable credentials, or authorize external effects.
+
+### Deployment prerequisites still open
+1. managed PostgreSQL-compatible runtime store;
+2. HTTPS webhook receiver;
+3. Google Cloud project and Gmail Pub/Sub topic/watch;
+4. Google Calendar watch channels;
+5. secrets/identity store and separate Level 2A/Level 2B execution identities;
+6. application runtime using Agents SDK/Responses or equivalent approved harness;
+7. observability destination;
+8. staging integration tests and operator promotion decision.
+
+Canonical implementation root: `level-2/backend/README.md`.

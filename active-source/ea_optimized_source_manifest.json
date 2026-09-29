@@ -104,6 +104,35 @@
     "Level 2A excludes autonomous email sending/forwarding, external invitations/attendee changes, approval-controlled commitments, file sharing/deletion/permission changes, and PENDING_REVIEW promotion.",
     "29.09.2026: live Ea Business Email Watch reconciled to canonical condition_watch.",
     "29.09.2026: canonical and live Ea Business Email Watch timing are both condition_watch; prior exact_schedule control-plane drift is RESOLVED.",
-    "29.09.2026: Morning Briefing and Mid-Day Review prompts aligned to Level 2A controlled internal autonomy; Evening Close prompt aligned but task remains disabled."
-  ]
+    "29.09.2026: Morning Briefing and Mid-Day Review prompts aligned to Level 2A controlled internal autonomy; Evening Close prompt aligned but task remains disabled.",
+    "30.09.2026: Level 2 managed-backend foundation implemented in repository under level-2/backend; deployment infrastructure is NOT_DEPLOYED.",
+    "30.09.2026: Level 2B.1 exact-approval Gmail send transaction exists as staging design only; Level 2B remains HOLD.",
+    "30.09.2026: deterministic policy matrix explicitly PROHIBITS Gmail send at Level 2A and requires approval at Level 2B."
+  ],
+  "level_2_backend": {
+    "implementation_status": "IMPLEMENTED_IN_REPOSITORY_NOT_DEPLOYED",
+    "root": "level-2/backend",
+    "foundation_date": "2026-09-30",
+    "components": [
+      "durable_case_action_approval_audit_schema",
+      "deterministic_policy_gateway",
+      "idempotency_and_revision_hashing",
+      "source_sink_controls",
+      "gmail_incremental_ingestion_contract",
+      "calendar_incremental_ingestion_contract",
+      "least_privilege_identity_design",
+      "level_2B1_send_draft_staging",
+      "backend_unit_ci"
+    ],
+    "deployment_pending": [
+      "managed_database",
+      "https_webhook_runtime",
+      "gmail_pubsub_watch",
+      "calendar_watch_channels",
+      "separate_execution_identities",
+      "approval_service",
+      "integration_observability",
+      "staging_integration_tests"
+    ]
+  }
 }

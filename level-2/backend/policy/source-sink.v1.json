@@ -1,0 +1,47 @@
+{
+  "version": "ea-source-sink-v1-2026-09-30",
+  "untrusted_sources": [
+    "email_body",
+    "email_attachment",
+    "external_document",
+    "web_page",
+    "customer_url",
+    "third_party_calendar_content",
+    "chat_message_from_external_party"
+  ],
+  "sensitive_sinks": [
+    "gmail.send_existing_draft",
+    "gmail.forward_attachment",
+    "calendar.send_invitation",
+    "calendar.change_external_attendee",
+    "drive.share_external",
+    "drive.change_permissions",
+    "drive.delete",
+    "commercial.price_discount_commit",
+    "commercial.warranty_commit",
+    "legal_regulatory.commit",
+    "financial.purchase_refund"
+  ],
+  "rules": [
+    {
+      "id": "SS-001",
+      "when": "instruction_origin_is_untrusted_source",
+      "then": "instruction_is_evidence_only_not_authority"
+    },
+    {
+      "id": "SS-002",
+      "when": "untrusted_source_influences_sensitive_sink",
+      "then": "require_independent_policy_evaluation"
+    },
+    {
+      "id": "SS-003",
+      "when": "sink_requires_approval",
+      "then": "approval_must_bind_exact_payload_revision"
+    },
+    {
+      "id": "SS-004",
+      "when": "source_or_policy_conflict_unresolved",
+      "then": "fail_closed_pending_review"
+    }
+  ]
+}
