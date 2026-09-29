@@ -25,10 +25,10 @@ Authority: Active-source framework
 | 07_EA_SCHEDULED_TASKS_AND_ROUTINES.md | Scheduled routines and execution boundaries | Active |
 | 07A_EA_GMAIL_BUSINESS_EMAIL_WATCH_PROMPT_2351_05082026.md | Historical approved hourly business-email schedule prompt | Canonical predecessor / supporting |
 | 07B_EA_EMAIL_DRAFT_FOLLOWUP_WATCH_CURRENT_1810_25082026.md | Current canonical hourly business-email draft/follow-up runtime source | Approved / Canonical / operator-instructed |
-| 08_EA_QA_VALIDATION_RELEASE_GATE.md | QA and release gate | Active |
-| 09_EA_LEVEL_2_MANAGED_BACKEND.md | Future backend design | HOLD |
-| 10_EA_PHASE_VALIDATION_TRACKER.md | Validation tracker | Active |
-| 11_EA_IMPLEMENTATION_BLUEPRINT.md | Build order | Active |
+| 08_EA_QA_VALIDATION_RELEASE_GATE.md | QA and extended Level 1 hardening / staged Level 2 release gates | Active / extended validation |
+| 09_EA_LEVEL_2_MANAGED_BACKEND.md | Staged Level 2A/2B/2C architecture and activation controls | Level 2A ACTIVE / 2B-2C HOLD |
+| 10_EA_PHASE_VALIDATION_TRACKER.md | Baseline + Level 1.1/1.2 hardening and Level 2 promotion tracker | Active validation |
+| 11_EA_IMPLEMENTATION_BLUEPRINT.md | Level 1 hardening and staged Level 2 build order | Active |
 | 12_EA_MASTER_INDEX.md | Index | Active |
 | ea_optimized_source_manifest.json | Active-source manifest | Active |
 
@@ -80,7 +80,7 @@ Use `active-source/` as the compact source of truth for ChatGPT Project operatio
 
 Before materially relevant business-email drafting, review the complete current thread and relevant historical correspondence, with particular emphasis on prior NTSN sent replies. Historical replies guide tone, continuity, terminology and relationship context, but changeable facts must be revalidated against current reliable sources.
 
-Known operator deletion of a Gmail draft is an intentional suppression signal under 03D. Automated hourly/recovery routines must not recreate that draft unless a new explicit operator drafting instruction authorizes the specific draft.
+Known operator deletion of a Gmail draft is an intentional suppression signal under 03D. Automated hourly/recovery routines must not recreate that draft unless a new explicit operator drafting instruction authorizes the specific draft. The 29.09.2026 optimization proposal to scope suppression by thread/case is PENDING_REVIEW and does not modify current recipient-level 03D authority.
 
 The live `Ea Business Email Watch` remains hourly and enabled. Canonical `condition_watch` versus live `exact_schedule` is an unresolved `CONTROL_PLANE_DRIFT / PENDING_REVIEW`; no clean-up routine may silently choose one. The live resilience additions are preserved as runtime evidence pending explicit reconciliation.
 
@@ -109,7 +109,7 @@ Invoice, payment and customs matters may be reported when material, but must not
 ## Current status
 
 Level 1 baseline: APPROVED for use on 06.07.2026. Post-approval canonical additions and runtime changes remain subject to the targeted validation/readback items below; this does not revoke the approved baseline.  
-Level 2: HOLD. Planning or implementation requires separate explicit operator approval.
+Level 2A: ACTIVE for controlled internal autonomy by explicit operator instruction on 29.09.2026. Level 2B and Level 2C remain HOLD and require separate validation and explicit operator promotion.
 
 ## Required validation
 
@@ -131,3 +131,17 @@ Level 2: HOLD. Planning or implementation requires separate explicit operator ap
 - 03D manual-draft-deletion suppression test across hourly and recovery routines;
 - explicit reconciliation decision for live `exact_schedule` vs canonical `condition_watch`, followed by synchronized runtime/source readback;
 - external-action and Level 2 HOLD test.
+
+
+## 29.09.2026 Level 1 hardening / Level 2 staging update
+
+The operator approved implementation of the architecture review recommendations while retaining Level 2 HOLD.
+
+Current target:
+- Level 1.1 transactional hardening: case/state identity, idempotency, stable draft identity, freshness/concurrency guard, typed failure/reconciliation, deterministic Calendar deduplication, attachment manifest and readback;
+- Level 1.2 observability: incremental change detection where managed integrations support it, hourly reconciliation watchdog, audit/metrics and regression tests;
+- Level 2A: controlled internal autonomy, ACTIVE;
+- Level 2B: revision-bound operator-approved external execution, HOLD;
+- Level 2C: future narrow low-risk autonomous external execution, HOLD.
+
+Level 2A controlled internal autonomy was activated. No autonomous send authority, external Calendar authority, pricing/warranty/legal/regulatory commitment, file deletion/sharing/permission change, or universal meeting capture was authorized.
