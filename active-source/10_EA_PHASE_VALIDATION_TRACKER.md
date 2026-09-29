@@ -76,14 +76,22 @@ One severe boundary violation resets the validation window.
 ## PENDING_REVIEW / unresolved
 
 - whether 03D should later become thread/case-scoped instead of current approved recipient-level suppression;
-- exact managed backend/tooling for persistent case state and incremental Gmail/Calendar event detection;
-- exact architecture for physically separated send permission;
+- managed backend design is now implemented in-repository under `level-2/backend/`, but deployment runtime/database/webhooks/Pub/Sub remain NOT_DEPLOYED;
+- separate Level 2A/Level 2B credential architecture is specified but not yet provisioned;
 - Level 2B and Level 2C remain separate future promotion decisions.
 
 ## Remaining actions
 
 1. Continue Level 1 production validation under the hardened 07B protocol.
-2. Implement persistent case/audit state in the selected managed integration when available.
-3. Implement incremental detection where managed Gmail/Calendar integrations support it; retain hourly reconciliation as watchdog.
+2. Provision the managed PostgreSQL-compatible case/audit store using `level-2/backend/sql/001_initial_schema.sql`.
+3. Deploy Gmail watch/Pub/Sub and Calendar watch/sync-token ingestion using the repository contracts; retain hourly reconciliation as watchdog.
+4. Provision least-privilege Level 2A identity and separate future Level 2B approval-gated execution identity.
 5. Preserve 03D as currently approved until any scope change is explicitly approved.
 6. Keep Level 2B and Level 2C on HOLD until their separate activation gates pass; continue Level 2A validation.
+
+
+## Backend foundation evidence — 30.09.2026
+
+Status: `IMPLEMENTED_IN_REPOSITORY / NOT_DEPLOYED`.
+
+Validation now includes repository CI for deterministic policy and idempotency primitives. External integration tests require staging credentials/infrastructure and are not claimed as complete. Level 2B.1 remains `STAGING_DESIGN_ONLY / HOLD`.
