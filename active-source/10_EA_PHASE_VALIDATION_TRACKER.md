@@ -141,3 +141,24 @@ Remaining:
 
 
 Webhook security hardening is now implemented at the interface boundary: durable storage and authenticated delivery are both mandatory before readiness. Test-only storage/authentication cannot make a non-test deployment ready.
+
+
+## Durable adapter checkpoint — 30.09.2026
+
+Status: `IMPLEMENTED_IN_REPOSITORY / MANAGED_RESOURCES_PENDING`.
+
+Completed:
+- PostgreSQL EventStore adapter;
+- durable insert/duplicate/rollback/health tests;
+- Google OIDC verifier adapter;
+- Gmail expected push-identity validation;
+- Calendar channel-token validation;
+- environment-driven runtime component bootstrap.
+
+Remaining blockers are now primarily managed-resource provisioning and live integration:
+- PostgreSQL instance/schema deployment;
+- HTTPS runtime deployment;
+- Google Cloud Pub/Sub + Gmail watch;
+- Calendar watch registration/token storage;
+- secret-store integration;
+- live crash/recovery/cursor tests.
