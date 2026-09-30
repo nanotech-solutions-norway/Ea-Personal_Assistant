@@ -6,6 +6,9 @@ ENV PYTHONDONTWRITEBYTECODE=1 \
 
 WORKDIR /app
 
+COPY runtime/requirements-runtime.txt /app/runtime/requirements-runtime.txt
+RUN pip install --no-cache-dir -r /app/runtime/requirements-runtime.txt
+
 COPY runtime /app/runtime
 
 EXPOSE 8080
