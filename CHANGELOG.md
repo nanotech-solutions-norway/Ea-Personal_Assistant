@@ -2,6 +2,8 @@
 
 ## 2026-09-30
 
+- Added Level 2A fail-closed Gmail/Calendar event-receiver runtime scaffold, durable ingestion-event migration, container entry point, and runtime regression tests.
+- Webhook endpoints remain unavailable until deployment preflight passes and a durable EventStore is attached; test-only memory storage is not production-authorized.
 - Validated connected NTSN Gmail, Google Calendar and Drive Level 2A read surfaces without exercising external writes.
 - Added managed-runtime deployment runbook and placeholder-only staging environment contract.
 - Added fail-closed runtime preflight for missing infrastructure and unsafe Level 2A external-action flags.
