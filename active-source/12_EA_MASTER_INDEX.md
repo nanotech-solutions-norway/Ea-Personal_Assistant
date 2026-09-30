@@ -173,3 +173,12 @@ New implementation artifacts under `level-2/backend/`:
 - `tests/test_preflight.py`.
 
 The preflight fails closed when core infrastructure is missing or if Level 2B/external send/external Calendar execution flags are enabled in a Level 2A deployment.
+
+
+## 30.09.2026 event-runtime scaffold
+
+Ea Level 2 backend now includes a repository implementation of the inbound notification boundary. It parses Gmail Pub/Sub and Calendar change notifications into stable event envelopes, provides a durable-ingestion SQL migration, and exposes health/readiness/webhook endpoints.
+
+The runtime fails closed: without a passing deployment preflight and attached durable EventStore, webhook requests receive 503. The test-only in-memory store does not constitute production durability.
+
+This advances Level 2A infrastructure readiness only. Level 2B/2C authority is unchanged.
