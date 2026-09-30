@@ -95,3 +95,22 @@ One severe boundary violation resets the validation window.
 Status: `IMPLEMENTED_IN_REPOSITORY / NOT_DEPLOYED`.
 
 Validation now includes repository CI for deterministic policy and idempotency primitives. External integration tests require staging credentials/infrastructure and are not claimed as complete. Level 2B.1 remains `STAGING_DESIGN_ONLY / HOLD`.
+
+
+## Live connector validation checkpoint — 30.09.2026
+
+Status: `PASS_FOR_CONNECTED_LEVEL_2A_READ_SURFACES / INFRASTRUCTURE_PENDING`.
+
+Verified:
+- NTSN business Gmail authentication;
+- recent Gmail message-ID search;
+- Gmail draft listing;
+- NTSN Calendar authentication;
+- calendar discovery and bounded event retrieval;
+- Drive Level 2 staging-folder visibility.
+
+No send/forward, external Calendar mutation, Drive share/permission mutation, or destructive action was performed.
+
+Remaining deployment blockers are infrastructure-level: managed PostgreSQL, HTTPS webhook runtime, Gmail Pub/Sub/watch, Calendar watch channels, managed secrets/identity, and observability.
+
+Repository staging preflight now fails closed if required infrastructure variables are absent or if Level 2B/external-send/external-Calendar flags are enabled during a Level 2A deployment.

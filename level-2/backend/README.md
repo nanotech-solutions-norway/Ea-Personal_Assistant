@@ -62,3 +62,23 @@ The native hourly Ea Business Email Watch remains the reconciliation/watchdog pa
 - OpenAI Agents SDK: https://developers.openai.com/api/docs/guides/agents/sdk
 - OpenAI guardrails/approvals: https://developers.openai.com/api/docs/guides/agents/guardrails-approvals
 - MCP 2026-07-28: https://blog.modelcontextprotocol.io/posts/2026-07-28/
+
+
+## Live connector validation — 30.09.2026
+
+Connected Level 2A application surfaces were validated against the NTSN business Gmail, Google Calendar and Drive accounts.
+
+Passed:
+- Gmail profile lookup, message-ID search and draft listing;
+- Calendar profile lookup, calendar listing and bounded event search;
+- Drive staging-folder read/list.
+
+No external write was exercised.
+
+The connected app surfaces do not provision Gmail `users.watch`, Calendar watch channels, Pub/Sub, managed PostgreSQL, webhook hosting or secret/identity infrastructure. Those remain `INFRASTRUCTURE_PENDING`.
+
+Deployment artifacts:
+- `runtime/DEPLOYMENT_RUNBOOK.md`
+- `runtime/staging.env.example`
+- `runtime/preflight.py`
+- `validation/LIVE_CONNECTOR_VALIDATION_2026-09-30.md`

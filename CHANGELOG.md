@@ -2,6 +2,12 @@
 
 ## 2026-09-30
 
+- Validated connected NTSN Gmail, Google Calendar and Drive Level 2A read surfaces without exercising external writes.
+- Added managed-runtime deployment runbook and placeholder-only staging environment contract.
+- Added fail-closed runtime preflight for missing infrastructure and unsafe Level 2A external-action flags.
+- Added live connector validation evidence and preflight regression tests.
+- Classified Gmail users.watch, Calendar watch-channel creation, Pub/Sub, managed PostgreSQL, webhook hosting and managed identity as infrastructure-pending rather than connector failures.
+
 - Implemented the first Ea Level 2 managed-backend foundation under `level-2/backend/` without activating Level 2B.
 - Added PostgreSQL-compatible case/action/approval/audit/watch/cursor schema.
 - Added deterministic Level 2A/2B policy matrix and fail-closed evaluator.
