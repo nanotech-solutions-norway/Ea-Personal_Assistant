@@ -54,8 +54,29 @@ def create_app(
     values = dict(env or {})
     preflight = check(values)
     is_test = values.get("EA_ENV", "").strip().lower() == "test"
-    store_ready = bool(store is not None and (getattr(store, "durable", False) or is_test))
-    auth_ready = bool(authenticator is not None and (getattr(authenticator, "production_safe", False) or is_test))
+
+    def store_ready() -> bool:
+        if store is None:
+            return False
+        if is_test and not getattr(store, "durable", False):
+            return True
+        if not getattr(store, "durable", False):
+            return False
+        healthcheck = getattr(store, "healthcheck", None)
+        if callable(healthcheck):
+            try:
+                return bool(healthcheck())
+            except Exception:
+                return False
+        return True
+
+    def auth_ready() -> bool:
+        if authenticator is None:
+            return False
+        return bool(getattr(authenticator, "production_safe", False) or is_test)
+
+    def runtime_ready() -> bool:
+        return bool(preflight.ready and store_ready() and auth_ready())
 
     def application(environ: dict, start_response: StartResponse):
         path = environ.get("PATH_INFO", "")
@@ -65,13 +86,15 @@ def create_app(
             return _response(start_response, "200 OK", {"status": "ok", "level": "2A"})
 
         if path == "/readyz":
-            ready = bool(preflight.ready and store_ready and auth_ready)
+            s_ready = store_ready()
+            a_ready = auth_ready()
+            ready = bool(preflight.ready and s_ready and a_ready)
             status = "200 OK" if ready else "503 Service Unavailable"
             return _response(start_response, status, {
                 "ready": ready,
                 "preflight_ready": preflight.ready,
-                "durable_store_ready": store_ready,
-                "authenticated_delivery_ready": auth_ready,
+                "durable_store_ready": s_ready,
+                "authenticated_delivery_ready": a_ready,
                 "missing": list(preflight.missing),
                 "unsafe_flags": list(preflight.unsafe_flags),
             })
@@ -79,12 +102,9 @@ def create_app(
         if method != "POST":
             return _response(start_response, "405 Method Not Allowed", {"error": "method_not_allowed"})
 
-        if not preflight.ready or not store_ready or not auth_ready:
+        if not runtime_ready():
             return _response(start_response, "503 Service Unavailable", {
-                "error": "runtime_not_ready",
-                "preflight_ready": preflight.ready,
-                "durable_store_ready": store_ready,
-                "authenticated_delivery_ready": auth_ready,
+                "error": "runtime_not_ready"
             })
 
         if path == "/hooks/gmail":
