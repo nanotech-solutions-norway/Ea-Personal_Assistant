@@ -107,7 +107,10 @@
     "29.09.2026: Morning Briefing and Mid-Day Review prompts aligned to Level 2A controlled internal autonomy; Evening Close prompt aligned but task remains disabled.",
     "30.09.2026: Level 2 managed-backend foundation implemented in repository under level-2/backend; deployment infrastructure is NOT_DEPLOYED.",
     "30.09.2026: Level 2B.1 exact-approval Gmail send transaction exists as staging design only; Level 2B remains HOLD.",
-    "30.09.2026: deterministic policy matrix explicitly PROHIBITS Gmail send at Level 2A and requires approval at Level 2B."
+    "30.09.2026: deterministic policy matrix explicitly PROHIBITS Gmail send at Level 2A and requires approval at Level 2B.",
+    "30.09.2026: connected NTSN Gmail/Calendar/Drive Level 2A read surfaces passed live validation; no external write was exercised.",
+    "30.09.2026: Gmail users.watch, Calendar watch channels, Pub/Sub, managed database/webhook and managed identity remain infrastructure dependencies outside the current connected app surfaces.",
+    "30.09.2026: staging preflight fails closed if Level 2B/external-send/external-Calendar flags are enabled during Level 2A deployment."
   ],
   "level_2_backend": {
     "implementation_status": "IMPLEMENTED_IN_REPOSITORY_NOT_DEPLOYED",
@@ -122,7 +125,10 @@
       "calendar_incremental_ingestion_contract",
       "least_privilege_identity_design",
       "level_2B1_send_draft_staging",
-      "backend_unit_ci"
+      "backend_unit_ci",
+      "runtime_deployment_runbook",
+      "staging_fail_closed_preflight",
+      "live_connector_validation"
     ],
     "deployment_pending": [
       "managed_database",
@@ -133,6 +139,34 @@
       "approval_service",
       "integration_observability",
       "staging_integration_tests"
-    ]
+    ],
+    "live_connector_validation": {
+      "date": "2026-09-30",
+      "status": "PASS_FOR_CONNECTED_LEVEL_2A_READ_SURFACES_INFRASTRUCTURE_PENDING",
+      "passed": [
+        "gmail_profile_lookup",
+        "gmail_message_id_search",
+        "gmail_draft_listing",
+        "calendar_profile_lookup",
+        "calendar_listing",
+        "calendar_bounded_event_search",
+        "drive_staging_folder_listing"
+      ],
+      "not_exercised": [
+        "gmail_send",
+        "gmail_forward",
+        "calendar_external_write",
+        "drive_external_share_or_permission_change",
+        "destructive_actions"
+      ],
+      "infrastructure_pending": [
+        "managed_postgresql",
+        "https_webhook_runtime",
+        "gmail_pubsub_and_users_watch",
+        "calendar_watch_channels",
+        "managed_secret_and_identity_store",
+        "integration_observability"
+      ]
+    }
   }
 }
