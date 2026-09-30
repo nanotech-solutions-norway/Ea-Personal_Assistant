@@ -98,3 +98,13 @@ Repository staging now includes a fail-closed event receiver scaffold:
 The webhook surface intentionally returns **503** when the deployment preflight is not ready or when no durable EventStore is attached. This prevents notification acknowledgement before durable capture.
 
 The included `InMemoryEventStore` is test-only and must never be used as a production acknowledgement sink.
+
+
+### Webhook authentication hardening
+
+Production readiness now also requires an authenticated-delivery adapter. The runtime will not report ready, and will not acknowledge Gmail/Calendar webhook traffic, unless:
+- deployment preflight passes;
+- a durable EventStore is attached;
+- an authenticated-delivery adapter is attached.
+
+The bundled allow-all authenticator and in-memory store are test-only and become readiness-eligible only when `EA_ENV=test`.
