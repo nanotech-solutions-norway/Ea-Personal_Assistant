@@ -115,7 +115,10 @@
     "30.09.2026: test-only in-memory EventStore is not approved for production acknowledgement.",
     "30.09.2026: durable PostgreSQL EventStore adapter and managed HTTPS deployment remain pending.",
     "30.09.2026: runtime readiness now requires both durable EventStore and authenticated-delivery adapter; test-only adapters are accepted only under EA_ENV=test.",
-    "30.09.2026: cloud watch/channel registration must occur only after durable storage and production delivery authentication are connected."
+    "30.09.2026: cloud watch/channel registration must occur only after durable storage and production delivery authentication are connected.",
+    "30.09.2026: PostgreSQL EventStore adapter, healthcheck, Google OIDC verifier and Calendar channel-token validation implemented in repository.",
+    "30.09.2026: server bootstraps durable store/auth only after preflight; bootstrap or database/auth failures keep readiness and webhook acknowledgement closed.",
+    "30.09.2026: managed database/runtime/watch resources remain unprovisioned; Level 2B/2C remain HOLD."
   ],
   "level_2_backend": {
     "implementation_status": "IMPLEMENTED_IN_REPOSITORY_NOT_DEPLOYED",
@@ -140,7 +143,14 @@
       "container_scaffold",
       "runtime_ingestion_tests",
       "authenticated_delivery_interface",
-      "non_test_durable_store_readiness_gate"
+      "non_test_durable_store_readiness_gate",
+      "postgresql_event_store_adapter",
+      "postgresql_healthcheck",
+      "google_oidc_push_verifier",
+      "gmail_push_service_account_validation",
+      "calendar_channel_token_validation",
+      "environment_component_bootstrap",
+      "runtime_dependency_manifest"
     ],
     "deployment_pending": [
       "managed_database",
@@ -150,11 +160,13 @@
       "separate_execution_identities",
       "approval_service",
       "integration_observability",
-      "postgresql_event_store_adapter",
       "managed_runtime_deployment",
       "webhook_authentication_and_google_delivery_validation",
       "cloud_watch_integration_tests",
-      "production_google_delivery_auth_adapter"
+      "managed_postgresql_instance_and_migrations",
+      "managed_https_runtime",
+      "google_push_identity_and_calendar_channel_secrets",
+      "live_watch_registration_and_recovery_validation"
     ],
     "live_connector_validation": {
       "date": "2026-09-30",
@@ -192,8 +204,9 @@
         "/hooks/gmail",
         "/hooks/calendar"
       ],
-      "durable_store": "PENDING",
-      "production_acknowledgement": "DISABLED_UNTIL_DURABLE_STORE_ATTACHED"
+      "durable_store": "ADAPTER_IMPLEMENTED_MANAGED_DATABASE_PENDING",
+      "production_acknowledgement": "DISABLED_UNTIL_DURABLE_STORE_ATTACHED",
+      "delivery_auth": "ADAPTER_IMPLEMENTED_LIVE_GOOGLE_CONFIG_PENDING"
     }
   }
 }
