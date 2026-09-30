@@ -86,3 +86,28 @@ Recommended production control:
 - do not persist authentication secrets in event metadata or audit bodies.
 
 `EA_WEBHOOK_AUTH_MODE` must identify the configured mechanism; the staging example uses `google_verified_delivery`.
+
+
+## Durable adapter checkpoint
+
+Repository adapters now exist for:
+- PostgreSQL event persistence;
+- Gmail authenticated Pub/Sub OIDC delivery;
+- Calendar channel-token authentication.
+
+Additional required environment:
+- `GMAIL_PUSH_AUDIENCE`;
+- `GMAIL_PUSH_SERVICE_ACCOUNT_EMAIL`;
+- `CALENDAR_CHANNEL_TOKEN`.
+
+The container installs `psycopg[binary]`, `google-auth` and `requests` from `requirements-runtime.txt`.
+
+Production sequence is now:
+1. provision database;
+2. apply `001_initial_schema.sql` and `002_ingestion_events.sql`;
+3. provision HTTPS runtime and secrets;
+4. set the Google delivery-auth values;
+5. confirm `/readyz` is 200;
+6. only then register Gmail/Calendar watches.
+
+Do not register watches while readiness is 503.
