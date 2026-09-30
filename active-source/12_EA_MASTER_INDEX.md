@@ -182,3 +182,6 @@ Ea Level 2 backend now includes a repository implementation of the inbound notif
 The runtime fails closed: without a passing deployment preflight and attached durable EventStore, webhook requests receive 503. The test-only in-memory store does not constitute production durability.
 
 This advances Level 2A infrastructure readiness only. Level 2B/2C authority is unchanged.
+
+
+Runtime readiness now requires both durable event persistence and authenticated webhook delivery. Test-only adapters are explicitly non-production and cannot satisfy readiness outside `EA_ENV=test`.
