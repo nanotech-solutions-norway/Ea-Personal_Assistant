@@ -159,3 +159,17 @@ Operational authority is unchanged:
 - Level 2C HOLD.
 
 Code/design presence does not constitute production activation. Managed database, webhook/Pub/Sub infrastructure, identity separation, approval storage and external-integration tests must be provisioned and validated before any Level 2B promotion.
+
+
+## 30.09.2026 live integration-stage checkpoint
+
+The connected NTSN Gmail, Google Calendar and Drive Level 2A read surfaces have passed live validation. This confirms connector reachability only; it does not deploy event-driven infrastructure or grant additional authority.
+
+New implementation artifacts under `level-2/backend/`:
+- `runtime/DEPLOYMENT_RUNBOOK.md`;
+- `runtime/staging.env.example`;
+- `runtime/preflight.py`;
+- `validation/LIVE_CONNECTOR_VALIDATION_2026-09-30.md`;
+- `tests/test_preflight.py`.
+
+The preflight fails closed when core infrastructure is missing or if Level 2B/external send/external Calendar execution flags are enabled in a Level 2A deployment.
