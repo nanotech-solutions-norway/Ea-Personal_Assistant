@@ -66,3 +66,23 @@ Not deployed:
 - separate OAuth/service identities;
 - approval service;
 - production agent runtime.
+
+
+## 30.09.2026 integration-stage implementation
+
+Implemented:
+- live read-surface validation for connected NTSN Gmail/Calendar/Drive;
+- managed-runtime deployment runbook;
+- placeholder-only staging environment contract;
+- fail-closed deployment preflight;
+- CI tests for missing infrastructure and unsafe Level 2A flags.
+
+Next executable phase requires infrastructure outside the current Gmail/Calendar/Drive connector surfaces:
+1. provision managed PostgreSQL;
+2. provision HTTPS runtime/webhook endpoint;
+3. provision Google Cloud Pub/Sub and Gmail watch;
+4. provision Calendar watch channels;
+5. provision managed secret/identity separation;
+6. run staging integration tests against those deployed components.
+
+Level 2B/2C remain HOLD.
