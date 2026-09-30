@@ -7,6 +7,8 @@ from .events import EventEnvelope
 
 
 class EventStore(Protocol):
+    durable: bool
+
     def put_if_absent(self, event: EventEnvelope) -> bool:
         """Persist event durably.
 
@@ -16,6 +18,8 @@ class EventStore(Protocol):
 
 class InMemoryEventStore:
     """Test-only store. Never use as a production webhook acknowledgement sink."""
+
+    durable = False
 
     def __init__(self) -> None:
         self.events: dict[str, dict] = {}
