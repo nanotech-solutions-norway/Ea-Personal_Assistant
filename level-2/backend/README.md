@@ -82,3 +82,29 @@ Deployment artifacts:
 - `runtime/staging.env.example`
 - `runtime/preflight.py`
 - `validation/LIVE_CONNECTOR_VALIDATION_2026-09-30.md`
+
+
+## Runtime scaffold — 30.09.2026
+
+Repository staging now includes a fail-closed event receiver scaffold:
+- `sql/002_ingestion_events.sql` — durable trigger-event table;
+- `runtime/ea_runtime/events.py` — Gmail Pub/Sub and Calendar notification parsing;
+- `runtime/ea_runtime/store.py` — EventStore contract plus test-only in-memory implementation;
+- `runtime/ea_runtime/app.py` — WSGI health/readiness/webhook surface;
+- `runtime/ea_runtime/server.py` — staging server entry point;
+- `runtime/Dockerfile` — container scaffold;
+- event/runtime regression tests.
+
+The webhook surface intentionally returns **503** when the deployment preflight is not ready or when no durable EventStore is attached. This prevents notification acknowledgement before durable capture.
+
+The included `InMemoryEventStore` is test-only and must never be used as a production acknowledgement sink.
+
+
+### Webhook authentication hardening
+
+Production readiness now also requires an authenticated-delivery adapter. The runtime will not report ready, and will not acknowledge Gmail/Calendar webhook traffic, unless:
+- deployment preflight passes;
+- a durable EventStore is attached;
+- an authenticated-delivery adapter is attached.
+
+The bundled allow-all authenticator and in-memory store are test-only and become readiness-eligible only when `EA_ENV=test`.

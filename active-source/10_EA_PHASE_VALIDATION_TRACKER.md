@@ -114,3 +114,30 @@ No send/forward, external Calendar mutation, Drive share/permission mutation, or
 Remaining deployment blockers are infrastructure-level: managed PostgreSQL, HTTPS webhook runtime, Gmail Pub/Sub/watch, Calendar watch channels, managed secrets/identity, and observability.
 
 Repository staging preflight now fails closed if required infrastructure variables are absent or if Level 2B/external-send/external-Calendar flags are enabled during a Level 2A deployment.
+
+
+## Runtime scaffold checkpoint — 30.09.2026
+
+Status: `IMPLEMENTED_IN_REPOSITORY / STORAGE_ADAPTER_AND_CLOUD_RUNTIME_PENDING`.
+
+Completed:
+- ingestion-event migration;
+- Gmail/Calendar event validation/parsing;
+- duplicate-stable event identity;
+- fail-closed health/readiness/webhook app;
+- container scaffold;
+- automated runtime tests.
+
+Safety invariant: notification POSTs are rejected with 503 until both deployment preflight passes and a durable EventStore is attached. No webhook may acknowledge external change notifications using the test-only in-memory store in production.
+
+Remaining:
+- PostgreSQL EventStore adapter;
+- actual managed database;
+- HTTPS deployment;
+- Google Pub/Sub/watch registration;
+- Calendar watch registration;
+- secret/identity provisioning;
+- tracing/observability integration.
+
+
+Webhook security hardening is now implemented at the interface boundary: durable storage and authenticated delivery are both mandatory before readiness. Test-only storage/authentication cannot make a non-test deployment ready.

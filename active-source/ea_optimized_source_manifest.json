@@ -110,7 +110,12 @@
     "30.09.2026: deterministic policy matrix explicitly PROHIBITS Gmail send at Level 2A and requires approval at Level 2B.",
     "30.09.2026: connected NTSN Gmail/Calendar/Drive Level 2A read surfaces passed live validation; no external write was exercised.",
     "30.09.2026: Gmail users.watch, Calendar watch channels, Pub/Sub, managed database/webhook and managed identity remain infrastructure dependencies outside the current connected app surfaces.",
-    "30.09.2026: staging preflight fails closed if Level 2B/external-send/external-Calendar flags are enabled during Level 2A deployment."
+    "30.09.2026: staging preflight fails closed if Level 2B/external-send/external-Calendar flags are enabled during Level 2A deployment.",
+    "30.09.2026: fail-closed Gmail/Calendar webhook runtime scaffold implemented; notifications are not acknowledged unless deployment preflight passes and a durable EventStore is attached.",
+    "30.09.2026: test-only in-memory EventStore is not approved for production acknowledgement.",
+    "30.09.2026: durable PostgreSQL EventStore adapter and managed HTTPS deployment remain pending.",
+    "30.09.2026: runtime readiness now requires both durable EventStore and authenticated-delivery adapter; test-only adapters are accepted only under EA_ENV=test.",
+    "30.09.2026: cloud watch/channel registration must occur only after durable storage and production delivery authentication are connected."
   ],
   "level_2_backend": {
     "implementation_status": "IMPLEMENTED_IN_REPOSITORY_NOT_DEPLOYED",
@@ -128,7 +133,14 @@
       "backend_unit_ci",
       "runtime_deployment_runbook",
       "staging_fail_closed_preflight",
-      "live_connector_validation"
+      "live_connector_validation",
+      "durable_ingestion_event_schema",
+      "gmail_calendar_event_parsers",
+      "fail_closed_webhook_runtime_scaffold",
+      "container_scaffold",
+      "runtime_ingestion_tests",
+      "authenticated_delivery_interface",
+      "non_test_durable_store_readiness_gate"
     ],
     "deployment_pending": [
       "managed_database",
@@ -138,7 +150,11 @@
       "separate_execution_identities",
       "approval_service",
       "integration_observability",
-      "staging_integration_tests"
+      "postgresql_event_store_adapter",
+      "managed_runtime_deployment",
+      "webhook_authentication_and_google_delivery_validation",
+      "cloud_watch_integration_tests",
+      "production_google_delivery_auth_adapter"
     ],
     "live_connector_validation": {
       "date": "2026-09-30",
@@ -167,6 +183,17 @@
         "managed_secret_and_identity_store",
         "integration_observability"
       ]
+    },
+    "runtime_scaffold": {
+      "status": "IMPLEMENTED_IN_REPOSITORY_FAIL_CLOSED",
+      "endpoints": [
+        "/healthz",
+        "/readyz",
+        "/hooks/gmail",
+        "/hooks/calendar"
+      ],
+      "durable_store": "PENDING",
+      "production_acknowledgement": "DISABLED_UNTIL_DURABLE_STORE_ATTACHED"
     }
   }
 }

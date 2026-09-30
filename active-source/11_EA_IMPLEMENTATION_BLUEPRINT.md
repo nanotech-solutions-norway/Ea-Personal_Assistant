@@ -86,3 +86,20 @@ Next executable phase requires infrastructure outside the current Gmail/Calendar
 6. run staging integration tests against those deployed components.
 
 Level 2B/2C remain HOLD.
+
+
+## Runtime scaffold progression — 30.09.2026
+
+The repository now contains the event-receiver/container scaffold and ingestion-event SQL migration. The next implementation unit is the durable PostgreSQL EventStore adapter plus managed deployment. Until that adapter is connected, the staging server is intentionally not ready and will not acknowledge Gmail/Calendar notifications.
+
+After durable storage is available:
+1. deploy the container to an HTTPS endpoint;
+2. attach PostgreSQL EventStore;
+3. validate `/readyz`;
+4. create Gmail Pub/Sub/watch;
+5. create Calendar watch channels;
+6. run duplicate, crash/restart and cursor-recovery integration tests;
+7. preserve the hourly reconciliation watchdog.
+
+
+Before watch registration, implement the production authenticated-delivery adapter and PostgreSQL EventStore. The cloud watch registration step must not precede those two controls.

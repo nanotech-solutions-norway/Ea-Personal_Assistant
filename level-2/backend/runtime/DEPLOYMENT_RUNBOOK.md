@@ -56,3 +56,33 @@ Production secrets must never be committed to GitHub or copied into Drive.
 ## Promotion rule
 
 Completing deployment does not activate Level 2B. Level 2B.1 remains HOLD until its promotion gate is separately satisfied and the operator explicitly promotes it.
+
+
+## Runtime scaffold checkpoint
+
+Implemented in repository:
+- deterministic Gmail Pub/Sub notification parser;
+- deterministic Calendar notification-header parser;
+- stable event identifiers for duplicate delivery handling;
+- durable ingestion-event SQL migration;
+- WSGI `/healthz`, `/readyz`, `/hooks/gmail`, and `/hooks/calendar` surface;
+- fail-closed webhook behavior when durable storage is unavailable;
+- container scaffold;
+- unit tests for malformed notifications, duplicate Gmail delivery, Calendar notification persistence, health/readiness separation and no-store rejection.
+
+Important: `server.py` deliberately starts without a durable store adapter, so `/readyz` remains 503 and webhook POSTs remain unavailable until the managed PostgreSQL adapter is connected. This is an intentional safety state, not a production configuration.
+
+
+## Delivery authentication requirement
+
+Before any cloud watch/channel is registered, implement an authenticated-delivery adapter appropriate to the deployed Google push configuration.
+
+The runtime now treats delivery authentication as a mandatory readiness dependency. Test-only allow-all authentication is not production-safe.
+
+Recommended production control:
+- Gmail Pub/Sub push: validate authenticated push identity/token at the ingress/gateway or runtime adapter;
+- Calendar channels: validate the channel identity/token and expected stored watch registration before event acceptance;
+- reject unexpected source/channel/resource combinations;
+- do not persist authentication secrets in event metadata or audit bodies.
+
+`EA_WEBHOOK_AUTH_MODE` must identify the configured mechanism; the staging example uses `google_verified_delivery`.
