@@ -28,3 +28,17 @@ Status: ACTIVE_STAGING_TEST_PLAN
 ## CI
 
 Repository CI covers deterministic policy and hashing primitives. Integration tests against Gmail, Calendar, Pub/Sub, database and approval service require a connected staging environment and are therefore not claimed as complete.
+
+
+## Runtime ingestion scaffold tests
+
+| ID | Test | Expected |
+|---|---|---|
+| B-021 | Gmail Pub/Sub valid notification | deterministic event envelope |
+| B-022 | Gmail malformed historyId | rejected |
+| B-023 | Duplicate Gmail Pub/Sub delivery | one durable event identity |
+| B-024 | Calendar valid notification headers | deterministic event envelope |
+| B-025 | Calendar missing channel/resource metadata | rejected |
+| B-026 | Health endpoint with missing infrastructure | health 200, readiness 503 |
+| B-027 | Webhook without durable EventStore | 503 fail-closed |
+| B-028 | Unsafe Level 2A external-action flag | readiness blocked |
