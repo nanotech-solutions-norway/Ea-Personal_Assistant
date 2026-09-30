@@ -42,3 +42,7 @@ Repository CI covers deterministic policy and hashing primitives. Integration te
 | B-026 | Health endpoint with missing infrastructure | health 200, readiness 503 |
 | B-027 | Webhook without durable EventStore | 503 fail-closed |
 | B-028 | Unsafe Level 2A external-action flag | readiness blocked |
+
+| B-029 | Webhook with no authenticator | 503 fail-closed |
+| B-030 | Authenticator rejects delivery | 401 and no event persistence |
+| B-031 | Test-only in-memory store outside test mode | readiness blocked |
