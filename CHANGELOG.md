@@ -2,6 +2,8 @@
 
 ## 2026-09-30
 
+- Added production-capable PostgreSQL EventStore, database healthcheck, Google OIDC Gmail push verification, Calendar channel-token validation, environment bootstrap and adapter regression tests.
+
 - Hardened webhook readiness: production requires both durable event storage and authenticated Google delivery; test-only adapters cannot satisfy non-test readiness.
 
 - Added Level 2A fail-closed Gmail/Calendar event-receiver runtime scaffold, durable ingestion-event migration, container entry point, and runtime regression tests.
