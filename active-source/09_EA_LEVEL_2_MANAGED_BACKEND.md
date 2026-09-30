@@ -249,3 +249,20 @@ The bundled in-memory EventStore and allow-all authenticator are test-only and m
 Cloud watch/channel registration must occur only after durable storage and authenticated delivery are available.
 
 This runtime scaffold changes infrastructure readiness only. Level 2A authority is unchanged; Level 2B and Level 2C remain HOLD.
+
+
+## 30.09.2026 durable EventStore and Google delivery adapters
+
+Status: **IMPLEMENTED_IN_REPOSITORY / INFRASTRUCTURE_NOT_PROVISIONED**.
+
+The runtime now has production-capable adapter code for:
+- durable PostgreSQL notification-event persistence with duplicate-safe insert semantics;
+- database health checking;
+- Google OIDC verification for authenticated Gmail Pub/Sub push;
+- expected Gmail push service-account identity enforcement;
+- Calendar channel-token validation;
+- environment-driven component bootstrap.
+
+The runtime remains fail-closed. Missing packages, database connectivity, invalid delivery credentials or failed bootstrap prevent readiness and webhook acknowledgement.
+
+No Gmail watch, Calendar watch, Pub/Sub resource, database instance, external send capability or Level 2B authority is created by these adapters.
