@@ -185,3 +185,10 @@ This advances Level 2A infrastructure readiness only. Level 2B/2C authority is u
 
 
 Runtime readiness now requires both durable event persistence and authenticated webhook delivery. Test-only adapters are explicitly non-production and cannot satisfy readiness outside `EA_ENV=test`.
+
+
+## 30.09.2026 durable adapter checkpoint
+
+The Level 2A repository runtime now contains production-capable PostgreSQL event persistence and Google delivery-authentication adapters. This removes the repository-code blocker for durable notification acknowledgement, but does not provision or activate any managed infrastructure.
+
+Cloud watch registration remains prohibited until the deployed runtime reports ready with the real database and real delivery-auth configuration.

@@ -108,3 +108,16 @@ Production readiness now also requires an authenticated-delivery adapter. The ru
 - an authenticated-delivery adapter is attached.
 
 The bundled allow-all authenticator and in-memory store are test-only and become readiness-eligible only when `EA_ENV=test`.
+
+
+## Durable store and Google delivery adapters — 30.09.2026
+
+Implemented in repository:
+- `runtime/ea_runtime/postgres_store.py` — PostgreSQL EventStore using atomic `ON CONFLICT DO NOTHING` duplicate handling and a database healthcheck;
+- `runtime/ea_runtime/google_auth.py` — cryptographic Google OIDC verification using `google-auth`;
+- `GoogleDeliveryAuthenticator` — Gmail OIDC service-account identity check plus Calendar `X-Goog-Channel-Token` validation;
+- `runtime/ea_runtime/bootstrap.py` — environment-driven construction of the durable store and production authenticator;
+- `runtime/requirements-runtime.txt` — runtime dependencies;
+- regression tests for store commit/rollback/duplicate/health behavior and delivery authentication.
+
+The server now attempts component bootstrap only after preflight passes. Database/auth/bootstrap failures leave `/healthz` available while `/readyz` and webhook acknowledgement stay closed.

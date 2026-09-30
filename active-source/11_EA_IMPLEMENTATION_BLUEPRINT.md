@@ -103,3 +103,19 @@ After durable storage is available:
 
 
 Before watch registration, implement the production authenticated-delivery adapter and PostgreSQL EventStore. The cloud watch registration step must not precede those two controls.
+
+
+## Durable adapter progression — 30.09.2026
+
+The previously pending PostgreSQL EventStore and production Google-delivery authentication adapters are now implemented in repository.
+
+Next executable infrastructure sequence:
+1. provision PostgreSQL and apply both SQL migrations;
+2. deploy the runtime container behind HTTPS;
+3. inject secrets/environment values;
+4. verify database health + authenticated-delivery readiness;
+5. require `/readyz == 200`;
+6. then create Gmail Pub/Sub/watch and Calendar watch channels;
+7. execute live duplicate/restart/cursor recovery tests.
+
+Level 2B remains out of scope for this infrastructure deployment.

@@ -46,3 +46,12 @@ Repository CI covers deterministic policy and hashing primitives. Integration te
 | B-029 | Webhook with no authenticator | 503 fail-closed |
 | B-030 | Authenticator rejects delivery | 401 and no event persistence |
 | B-031 | Test-only in-memory store outside test mode | readiness blocked |
+
+| B-032 | PostgreSQL event insert | commit + true |
+| B-033 | PostgreSQL duplicate event | commit + false |
+| B-034 | PostgreSQL failure | rollback + exception |
+| B-035 | PostgreSQL healthcheck | SELECT 1 required |
+| B-036 | Gmail valid OIDC service-account identity | allowed |
+| B-037 | Gmail wrong/unverified push identity | denied |
+| B-038 | Calendar correct channel token | allowed |
+| B-039 | Calendar wrong channel token | denied |
