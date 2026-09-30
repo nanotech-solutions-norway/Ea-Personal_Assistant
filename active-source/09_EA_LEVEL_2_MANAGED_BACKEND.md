@@ -209,3 +209,43 @@ This implementation does **not** activate Level 2B, deploy a managed database/we
 8. staging integration tests and operator promotion decision.
 
 Canonical implementation root: `level-2/backend/README.md`.
+
+
+## 30.09.2026 fail-closed event runtime scaffold
+
+Status: **IMPLEMENTED_IN_REPOSITORY / NOT_CLOUD_DEPLOYED**.
+
+The Level 2A managed-backend foundation now includes:
+- `sql/002_ingestion_events.sql` for durable notification-event capture;
+- deterministic Gmail Pub/Sub and Google Calendar notification parsing;
+- stable event IDs for duplicate-delivery handling;
+- an EventStore interface;
+- a production-readiness requirement for durable storage;
+- an authenticated-delivery interface;
+- fail-closed `/healthz`, `/readyz`, `/hooks/gmail`, and `/hooks/calendar` runtime endpoints;
+- a container scaffold;
+- regression tests for malformed events, duplicates, readiness, missing durable storage and rejected authentication.
+
+### Runtime safety rule
+
+A non-test runtime must not report ready or acknowledge Gmail/Calendar notification POSTs unless:
+1. deployment preflight passes;
+2. a durable EventStore is attached;
+3. a production-safe authenticated-delivery adapter is attached.
+
+The bundled in-memory EventStore and allow-all authenticator are test-only and may satisfy readiness only under `EA_ENV=test`.
+
+### Remaining infrastructure
+
+- managed PostgreSQL-compatible deployment;
+- PostgreSQL EventStore adapter;
+- HTTPS runtime deployment;
+- Google Cloud Pub/Sub + Gmail `users.watch`;
+- Calendar watch-channel registration;
+- production Google delivery authentication;
+- managed secrets/identity separation;
+- integration observability and crash/recovery tests.
+
+Cloud watch/channel registration must occur only after durable storage and authenticated delivery are available.
+
+This runtime scaffold changes infrastructure readiness only. Level 2A authority is unchanged; Level 2B and Level 2C remain HOLD.
