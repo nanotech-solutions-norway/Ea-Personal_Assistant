@@ -138,3 +138,6 @@ Remaining:
 - Calendar watch registration;
 - secret/identity provisioning;
 - tracing/observability integration.
+
+
+Webhook security hardening is now implemented at the interface boundary: durable storage and authenticated delivery are both mandatory before readiness. Test-only storage/authentication cannot make a non-test deployment ready.
