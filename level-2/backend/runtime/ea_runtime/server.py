@@ -7,12 +7,12 @@ from .app import create_app
 
 
 def main() -> None:
-    # Staging scaffold only. A durable EventStore adapter must be attached before
-    # webhook endpoints can acknowledge notifications; without one, readiness
-    # remains 503 and webhook POSTs fail closed.
+    # Staging scaffold only. Durable EventStore and authenticated-delivery
+    # adapters are intentionally not auto-created. Without both, readiness is
+    # 503 and webhook POSTs fail closed.
     host = os.getenv("HOST", "0.0.0.0")
     port = int(os.getenv("PORT", "8080"))
-    app = create_app(store=None)
+    app = create_app(store=None, authenticator=None, env=dict(os.environ))
     with make_server(host, port, app) as httpd:
         httpd.serve_forever()
 
