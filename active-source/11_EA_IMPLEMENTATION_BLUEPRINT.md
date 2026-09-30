@@ -100,3 +100,6 @@ After durable storage is available:
 5. create Calendar watch channels;
 6. run duplicate, crash/restart and cursor-recovery integration tests;
 7. preserve the hourly reconciliation watchdog.
+
+
+Before watch registration, implement the production authenticated-delivery adapter and PostgreSQL EventStore. The cloud watch registration step must not precede those two controls.
