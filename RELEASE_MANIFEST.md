@@ -1,42 +1,54 @@
 # Ea Release Manifest
 
-Status: LEVEL_1_APPROVED
+Status: LEVEL_1_APPROVED / LEVEL_2A_ACTIVE / PERSONAL_FINANCE_CAPABILITY_APPROVED
 
 ## Active source folder
 
 `active-source/`
 
-The configured Level 1 active-source files from 00 through 12 plus manifest have been uploaded.
+The current compact active-source set includes the approved Personal Finance Senior Advisor domain source:
 
-## Archive folder
+- `active-source/04A_EA_PERSONAL_FINANCE_SENIOR_ADVISOR.md`
 
-`archive/phase-packages/`
+## Personal Finance Senior Advisor
 
-The binary 89-file archive ZIP still requires manual upload.
+Implementation sources:
 
-## Validation folder
+- `knowledge/finance/PERSONAL_FINANCE_ADVISOR_PROTOCOL_CURRENT.md`
+- `knowledge/finance/PERSONAL_FINANCE_ADVISOR_CORE_INSTRUCTIONS.md`
+- `knowledge/finance/PERSONAL_FINANCE_ADVISOR_SPECIFICATION_CURRENT.md`
+- `config/personal-finance/financial_state.schema.json`
+- `config/project/EA_PROJECT_INSTRUCTION_BLOCK.md`
+- `config/custom-gpt/EA_CUSTOM_GPT_INSTRUCTION_BLOCK.md`
+- `config/custom-gpt/EA_CUSTOM_GPT_KNOWLEDGE_FILE_LIST.md`
 
-`validation/`
+Governance:
 
-Level 1 validation evidence has been added in:
+- R0/R1 analysis and preparation are allowed within authorized scope.
+- R2 planning writes require explicit operator instruction and readback.
+- R3 consequential external financial actions require exact operator approval.
+- R4 transfers, payments, trades, borrowing, account actions, financial/legal signing, ownership changes and credential/security changes remain human-only.
+- No user-specific raw financial records are included in this repository release.
 
-- `validation/LEVEL_1_VALIDATION_RESULTS.md`
+## Validation
 
-## Validation result
+Personal-finance static integration validation:
 
-The user confirmed:
+- workflow: `.github/workflows/ea-personal-finance-validation.yml`
+- result on 06.10.2026: **PASS**
+- Security baseline: **PASS**
+- CodeQL: **PASS**
 
-- `# Ea Custom GPT QA Test Prompts`: All passed.
-- `# Ea Project QA Test Prompts`: All passed.
-
-## Approval result
-
-The user explicitly approved Level 1 on 2026-07-06.
+Live/synthetic finance regression using synthetic or explicitly approved user data remains a separate acceptance layer before high-impact production reliance.
 
 ## Level 2 status
 
-Level 2 remains HOLD. Level 2 may not move to planning or implementation unless separately approved by the user.
+- Level 2A: ACTIVE for controlled internal autonomy.
+- Level 2B: HOLD.
+- Level 2C: HOLD.
+
+Personal-finance integration does not expand Level 2 authority.
 
 ## Release gate
 
-Level 1 is approved for use. Ea is not marked CANONICAL until separate canonical promotion is recorded.
+The Personal Finance Senior Advisor repository integration is approved and active as an Ea capability. Live ChatGPT runtime/project configuration remains dependent on the available ChatGPT configuration surface and source loading.
