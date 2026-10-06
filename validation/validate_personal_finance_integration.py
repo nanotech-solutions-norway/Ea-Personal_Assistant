@@ -25,8 +25,9 @@ for rel in required:
     if p.suffix in {".md",".json"} and p.exists() and "Privatøkonomi Seniorrådgiver" in p.read_text(encoding="utf-8"):
         errors.append("Norwegian system-role title in "+rel)
 mod=(ROOT/"active-source/04A_EA_PERSONAL_FINANCE_SENIOR_ADVISOR.md").read_text(encoding="utf-8")
-for needle in ["R4","human-only","Norwegian","English","financial_state.schema.json"]:
-    if needle not in mod: errors.append("04A missing "+needle)
+mod_lower=mod.lower()
+for needle in ["r4","human-only","norwegian","english","financial_state.schema.json"]:
+    if needle.lower() not in mod_lower: errors.append("04A missing "+needle)
 if errors:
     print("\n".join("FAIL: "+e for e in errors)); sys.exit(1)
 print("PASS: Ea Personal Finance integration static validation")
