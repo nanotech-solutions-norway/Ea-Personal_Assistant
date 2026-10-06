@@ -1,5 +1,17 @@
 # Changelog
 
+## 2026-10-06 — Personal Finance Senior Advisor
+
+- Integrated Personal Finance Senior Advisor into Ea as an approved routed capability.
+- Added `active-source/04A_EA_PERSONAL_FINANCE_SENIOR_ADVISOR.md`.
+- Mirrored the canonical finance protocol, core instructions and implementation specification under `knowledge/finance/`.
+- Added a minimized machine-readable financial-state schema under `config/personal-finance/`.
+- Added Project/runtime configuration blocks, capability decision/register, validation record and dedicated CI.
+- Personal Finance Integration CI, Security baseline and CodeQL passed.
+- Preserved R4 human-only financial execution for transfers, payments, trades, borrowing, account actions, signing, ownership changes and credentials.
+- Kept real user-specific financial records out of the public repository.
+- Mirrored the validated finance control set into the Ea Google Drive project structure.
+
 ## 2026-09-30
 
 - Added production-capable PostgreSQL EventStore, database healthcheck, Google OIDC Gmail push verification, Calendar channel-token validation, environment bootstrap and adapter regression tests.
