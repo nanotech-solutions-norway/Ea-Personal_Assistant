@@ -22,6 +22,7 @@ Track which knowledge files/items have been reviewed, validated and approved.
 | KV-010 | 09_EA_LEGAL_FINANCIAL_BOUNDARIES.md | Professional boundaries | Pending review | DRAFT | Pending | Pending | Requirements created |
 | KV-011 | 10_EA_SOURCE_UPDATE_PROTOCOL.md | Update protocol | Pending review | DRAFT | Pending | Pending | Requirements created |
 | KV-012 | Gmail drafting channel default and Espen Olsen exception | Email workflow | Explicit user instruction, 08:27 31.07.2026 | AUTO_APPROVED | Ruben A. Meyer | 31.07.2026 | Gmail draft is default; Espen Olsen correspondence remains in-chat unless Gmail is explicitly requested; sending remains approval-controlled |
+| KV-013 | product/PRODUCT_HIREC_PFW9.md — snow accumulation / PV output evidence | Product / application evidence | NTT Advanced Technology Corporation slide 11; `NTSN_Snow Accumulation Prevention Effects by Coating HIREC PFW9.pdf`; Drive ID `1Nu-30g4KbjNxGZSEDzDiiiKuuSrsVxaW` | PENDING_REVIEW | Pending public-claim approval | 06.10.2026 | Internal source retrieval activated. The comparative test supports narrow application evidence only; public/customer-facing snow/PV-output claims remain PENDING_REVIEW. |
 
 ## Status definitions
 
