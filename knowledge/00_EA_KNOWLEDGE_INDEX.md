@@ -16,6 +16,7 @@ The Ea protocol defines how Ea must behave. The Ea knowledge layer defines what 
 | File | Purpose | Status |
 |---|---|---|
 | 01_EA_PRODUCT_KNOWLEDGE_REQUIREMENTS.md | Product knowledge requirements and product-file schema | DRAFT |
+| product/PRODUCT_HIREC_PFW9.md | Structured Hirec PFW9 knowledge, including NTT snow-accumulation / PV-output evidence | ACTIVE_INTERNAL_EVIDENCE / PENDING_REVIEW_PUBLIC_CLAIMS |
 | 02_EA_EMAIL_LANGUAGE_PROFILE.md | Ruben/NTSN email style and terminology profile | ACTIVE / OPERATOR-INSTRUCTED |
 | 03_EA_WRITING_FORMAT_AND_SIGNATURES.md | Email/document format, signatures, units and dates | DRAFT |
 | 04_EA_DOCUMENT_TEMPLATE_REQUIREMENTS.md | Required reusable document templates | DRAFT |
