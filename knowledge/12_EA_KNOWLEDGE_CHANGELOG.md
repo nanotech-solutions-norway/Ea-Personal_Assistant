@@ -1,5 +1,24 @@
 # Ea Knowledge Changelog
 
+## 2026-10-06 — Hirec PFW9 snow-accumulation / PV-output evidence
+
+Status: PENDING_REVIEW_PUBLIC_CLAIMS  
+Source: Operator-supplied NTT Advanced Technology Corporation presentation extract, slide/page 11  
+Reviewer: Public/customer-facing claim approval pending
+
+Created `knowledge/product/PRODUCT_HIREC_PFW9.md` and indexed the new evidence.
+
+The source compares a non-coated PV-panel condition with Hirec PFW9 on 7 Feb. 2025 using time-sequence snow images and a PV Panel Output (W) chart. For internal retrieval, Ea may treat the slide as source-supported evidence that the Hirec PFW9 condition showed earlier PV output recovery during the documented test window and a comparative snow-accumulation/snow-release effect.
+
+The update does **not** approve universal snow-prevention, anti-icing, energy-yield, durability, PV-warranty or annual-output claims. Those remain `PENDING_REVIEW_PUBLIC_CLAIMS`.
+
+Application map handling: Hirec PFW9 may be considered for **PV-panel snow accumulation / wet-snow mitigation** as an application-specific candidate supported by this test evidence. Do not merge this route with SolarEX Quartz SiO₂ or SolarEX Titan TiO₂.
+
+Source file is verified in the current Google Drive Hirec PFW9 product folder:
+`NTSN_Snow Accumulation Prevention Effects by Coating HIREC PFW9.pdf` — Drive ID `1Nu-30g4KbjNxGZSEDzDiiiKuuSrsVxaW`.
+
+Sensitivity: Internal product evidence. No credentials or confidential customer data stored.
+
 ## 2026-09-24 — Email chat-thread naming rule
 
 Status: APPROVED  
