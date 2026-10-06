@@ -16,6 +16,7 @@
     "03C_EA_HISTORICAL_EMAIL_CONTEXT_DRAFTING_RULE_0930_07082026.md",
     "03D_EA_MANUAL_DRAFT_DELETION_SUPPRESSION_RULE_1111_09092026.md",
     "04_EA_BUSINESS_DUE_DILIGENCE_LEGAL_FINANCIAL.md",
+    "04A_EA_PERSONAL_FINANCE_SENIOR_ADVISOR.md",
     "05_EA_DOCUMENTS_TEMPLATES_REGISTERS_INDEXES.md",
     "05A_EA_DOCUMENT_TEMPLATE_RECREATION_CONVERSION_STATIC_RULES_0349_08082026.md",
     "05B_EA_CANONICAL_XLTM_TEMPLATE_USAGE_RULE_0405_08082026.md",
@@ -31,7 +32,10 @@
     "12_EA_MASTER_INDEX.md"
   ],
   "knowledge_files": [
-    "knowledge/13_EA_SCHEDULED_EMAIL_WATCH_MEMORY.md"
+    "knowledge/13_EA_SCHEDULED_EMAIL_WATCH_MEMORY.md",
+    "knowledge/finance/PERSONAL_FINANCE_ADVISOR_PROTOCOL_CURRENT.md",
+    "knowledge/finance/PERSONAL_FINANCE_ADVISOR_CORE_INSTRUCTIONS.md",
+    "knowledge/finance/PERSONAL_FINANCE_ADVISOR_SPECIFICATION_CURRENT.md"
   ],
   "implementation_logs": [
     "docs/EA_SCHEDULE_PROMPT_UPDATE_LOG_2351_05082026.md",
@@ -208,5 +212,18 @@
       "production_acknowledgement": "DISABLED_UNTIL_DURABLE_STORE_ATTACHED",
       "delivery_auth": "ADAPTER_IMPLEMENTED_LIVE_GOOGLE_CONFIG_PENDING"
     }
+  },
+  "personal_finance": {
+    "status": "APPROVED_ACTIVE",
+    "integration_date": "2026-10-06",
+    "active_source": "04A_EA_PERSONAL_FINANCE_SENIOR_ADVISOR.md",
+    "state_schema": "config/personal-finance/financial_state.schema.json",
+    "system_language": "English",
+    "operator_languages": [
+      "Norwegian",
+      "English"
+    ],
+    "restricted_financial_execution": "R4_HUMAN_ONLY",
+    "raw_personal_finance_data_in_public_repo": "PROHIBITED_BY_DEFAULT"
   }
 }

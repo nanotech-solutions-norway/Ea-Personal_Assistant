@@ -1,0 +1,32 @@
+name: Ea Personal Finance Integration
+on:
+  push:
+    paths:
+      - 'active-source/**'
+      - 'knowledge/finance/**'
+      - 'config/personal-finance/**'
+      - 'config/project/EA_PROJECT_INSTRUCTION_BLOCK.md'
+      - 'config/custom-gpt/EA_CUSTOM_GPT_INSTRUCTION_BLOCK.md'
+      - 'config/custom-gpt/EA_CUSTOM_GPT_KNOWLEDGE_FILE_LIST.md'
+      - 'validation/validate_personal_finance_integration.py'
+      - '.github/workflows/ea-personal-finance-validation.yml'
+  pull_request:
+    paths:
+      - 'active-source/**'
+      - 'knowledge/finance/**'
+      - 'config/personal-finance/**'
+      - 'config/project/EA_PROJECT_INSTRUCTION_BLOCK.md'
+      - 'config/custom-gpt/EA_CUSTOM_GPT_INSTRUCTION_BLOCK.md'
+      - 'config/custom-gpt/EA_CUSTOM_GPT_KNOWLEDGE_FILE_LIST.md'
+      - 'validation/validate_personal_finance_integration.py'
+permissions:
+  contents: read
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: python validation/validate_personal_finance_integration.py

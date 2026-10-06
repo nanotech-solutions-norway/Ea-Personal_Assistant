@@ -1,0 +1,372 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Ea Personal Finance Financial State",
+  "description": "Minimized user-controlled household financial state. Do not populate this public repository with real personal financial data.",
+  "type": "object",
+  "required": [
+    "as_of",
+    "base_currency",
+    "household",
+    "income",
+    "expenses",
+    "assets",
+    "liabilities",
+    "goals",
+    "milestones"
+  ],
+  "properties": {
+    "as_of": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "base_currency": {
+      "type": "string",
+      "pattern": "^[A-Z]{3}$"
+    },
+    "secondary_currencies": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "pattern": "^[A-Z]{3}$"
+      },
+      "uniqueItems": true
+    },
+    "household": {
+      "type": "object",
+      "additionalProperties": true
+    },
+    "income": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/cashflowItem"
+      }
+    },
+    "expenses": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/cashflowItem"
+      }
+    },
+    "assets": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/balanceItem"
+      }
+    },
+    "liabilities": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/liabilityItem"
+      }
+    },
+    "insurance": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": true
+      }
+    },
+    "goals": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/goalItem"
+      }
+    },
+    "milestones": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/milestoneItem"
+      }
+    },
+    "source_register": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": true
+      }
+    }
+  },
+  "$defs": {
+    "status": {
+      "type": "string",
+      "enum": [
+        "VERIFIED",
+        "USER_PROVIDED",
+        "DERIVED",
+        "ASSUMPTION",
+        "ESTIMATE",
+        "SCENARIO",
+        "CONFLICTED",
+        "STALE",
+        "UNKNOWN"
+      ]
+    },
+    "cashflowItem": {
+      "type": "object",
+      "required": [
+        "category",
+        "amount",
+        "currency",
+        "frequency",
+        "status"
+      ],
+      "properties": {
+        "category": {
+          "type": "string"
+        },
+        "amount": {
+          "type": "number"
+        },
+        "currency": {
+          "type": "string",
+          "pattern": "^[A-Z]{3}$"
+        },
+        "frequency": {
+          "type": "string"
+        },
+        "due_date": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "status": {
+          "$ref": "#/$defs/status"
+        },
+        "source_id": {
+          "type": [
+            "string",
+            "null"
+          ]
+        }
+      },
+      "additionalProperties": true
+    },
+    "balanceItem": {
+      "type": "object",
+      "required": [
+        "asset_type",
+        "current_value",
+        "currency",
+        "status"
+      ],
+      "properties": {
+        "asset_type": {
+          "type": "string"
+        },
+        "current_value": {
+          "type": "number"
+        },
+        "currency": {
+          "type": "string",
+          "pattern": "^[A-Z]{3}$"
+        },
+        "valuation_date": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "liquidity_class": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "status": {
+          "$ref": "#/$defs/status"
+        },
+        "source_id": {
+          "type": [
+            "string",
+            "null"
+          ]
+        }
+      },
+      "additionalProperties": true
+    },
+    "liabilityItem": {
+      "type": "object",
+      "required": [
+        "liability_type",
+        "current_balance",
+        "currency",
+        "status"
+      ],
+      "properties": {
+        "liability_type": {
+          "type": "string"
+        },
+        "current_balance": {
+          "type": "number",
+          "minimum": 0
+        },
+        "currency": {
+          "type": "string",
+          "pattern": "^[A-Z]{3}$"
+        },
+        "nominal_interest_rate": {
+          "type": [
+            "number",
+            "null"
+          ]
+        },
+        "effective_interest_rate": {
+          "type": [
+            "number",
+            "null"
+          ]
+        },
+        "fixed_or_variable": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "next_rate_reset_date": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "remaining_term_months": {
+          "type": [
+            "integer",
+            "null"
+          ],
+          "minimum": 0
+        },
+        "minimum_payment": {
+          "type": [
+            "number",
+            "null"
+          ],
+          "minimum": 0
+        },
+        "fees": {
+          "type": [
+            "number",
+            "null"
+          ],
+          "minimum": 0
+        },
+        "status": {
+          "$ref": "#/$defs/status"
+        },
+        "source_id": {
+          "type": [
+            "string",
+            "null"
+          ]
+        }
+      },
+      "additionalProperties": true
+    },
+    "goalItem": {
+      "type": "object",
+      "required": [
+        "goal_name",
+        "status"
+      ],
+      "properties": {
+        "goal_name": {
+          "type": "string"
+        },
+        "target_amount": {
+          "type": [
+            "number",
+            "null"
+          ]
+        },
+        "currency": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "target_date": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "priority": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "current_funded_amount": {
+          "type": [
+            "number",
+            "null"
+          ]
+        },
+        "required_monthly_contribution": {
+          "type": [
+            "number",
+            "null"
+          ]
+        },
+        "status": {
+          "$ref": "#/$defs/status"
+        }
+      },
+      "additionalProperties": true
+    },
+    "milestoneItem": {
+      "type": "object",
+      "required": [
+        "event",
+        "status"
+      ],
+      "properties": {
+        "event": {
+          "type": "string"
+        },
+        "date_or_window": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "expected_financial_impact": {
+          "type": [
+            "number",
+            "null"
+          ]
+        },
+        "currency": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "preparation_lead_time_days": {
+          "type": [
+            "integer",
+            "null"
+          ],
+          "minimum": 0
+        },
+        "latest_safe_decision_date": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "status": {
+          "$ref": "#/$defs/status"
+        },
+        "source_id": {
+          "type": [
+            "string",
+            "null"
+          ]
+        }
+      },
+      "additionalProperties": true
+    }
+  },
+  "additionalProperties": true
+}

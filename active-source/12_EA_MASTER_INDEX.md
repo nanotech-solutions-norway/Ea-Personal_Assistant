@@ -192,3 +192,19 @@ Runtime readiness now requires both durable event persistence and authenticated 
 The Level 2A repository runtime now contains production-capable PostgreSQL event persistence and Google delivery-authentication adapters. This removes the repository-code blocker for durable notification acknowledgement, but does not provision or activate any managed infrastructure.
 
 Cloud watch registration remains prohibited until the deployed runtime reports ready with the real database and real delivery-auth configuration.
+
+## Personal Finance Senior Advisor integration — 06.10.2026
+
+### Personal finance capability
+
+| File | Purpose | Status |
+|---|---|---|
+| 04A_EA_PERSONAL_FINANCE_SENIOR_ADVISOR.md | Personal/household finance routing, analysis, privacy and action boundaries | Approved / Active |
+| knowledge/finance/PERSONAL_FINANCE_ADVISOR_PROTOCOL_CURRENT.md | Full finance protocol | Current mirror |
+| knowledge/finance/PERSONAL_FINANCE_ADVISOR_CORE_INSTRUCTIONS.md | Finance core instructions | Current mirror |
+| knowledge/finance/PERSONAL_FINANCE_ADVISOR_SPECIFICATION_CURRENT.md | Finance implementation specification | Current mirror |
+| config/personal-finance/financial_state.schema.json | Machine-readable minimized financial state | Active schema |
+| registers/EA_PERSONAL_FINANCE_CAPABILITY_REGISTER_20261006.md | Capability registry entry | Approved / Active |
+| validation/EA_PERSONAL_FINANCE_INTEGRATION_VALIDATION_20261006.md | Integration validation | Static PASS |
+
+For personal/household finance, precedence is current explicit operator instruction, 04A, finance protocol/core instructions/specification, verified private financial state, then current authoritative external sources. Business finance remains under 04.
