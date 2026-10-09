@@ -48,7 +48,7 @@ The new unified Calendar & Commitments daily operating contract is defined in `0
 | Ea Saturday Review | — | NOT ACTIVE | No separate native task; included in daily briefing |
 | Ea Sunday Planning | — | NOT ACTIVE | No separate native task; included in daily briefing |
 
-Native task ID `6a9287f458048191ad59286eba6eea2d`; mode `exact_schedule`; first new scheduled run 11.10.2026 at 07:00. Task-update acknowledgement confirms configuration only, **not successful future execution**, access to all sources or bidirectional synchronization.
+Native task ID `6a9287f458048191ad59286eba6eea2d`; mode `exact_schedule`; first new scheduled run 10.10.2026 at 07:00. Task-update acknowledgement confirms configuration only, **not successful future execution**, access to all sources or bidirectional synchronization.
 
 **Drift disclosure:** This document previously recorded the Morning and Mid-Day routines as enabled on 29.09.2026, but live task state observed on 10.10.2026 was disabled for both. The latest operator instruction authorizes restoring a *daily* morning Calendar briefing; Mid-Day is not re-enabled. This historical state discrepancy is retained as evidence and is not silently merged.
 
