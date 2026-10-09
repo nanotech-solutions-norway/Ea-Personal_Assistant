@@ -35,7 +35,8 @@
     "knowledge/13_EA_SCHEDULED_EMAIL_WATCH_MEMORY.md",
     "knowledge/finance/PERSONAL_FINANCE_ADVISOR_PROTOCOL_CURRENT.md",
     "knowledge/finance/PERSONAL_FINANCE_ADVISOR_CORE_INSTRUCTIONS.md",
-    "knowledge/finance/PERSONAL_FINANCE_ADVISOR_SPECIFICATION_CURRENT.md"
+    "knowledge/finance/PERSONAL_FINANCE_ADVISOR_SPECIFICATION_CURRENT.md",
+    "knowledge/finance/EA_HOUSEHOLD_BUDGETING_PRIVATE_STATE_RULES_CURRENT.md"
   ],
   "implementation_logs": [
     "docs/EA_SCHEDULE_PROMPT_UPDATE_LOG_2351_05082026.md",
@@ -224,6 +225,9 @@
       "English"
     ],
     "restricted_financial_execution": "R4_HUMAN_ONLY",
-    "raw_personal_finance_data_in_public_repo": "PROHIBITED_BY_DEFAULT"
+    "raw_personal_finance_data_in_public_repo": "PROHIBITED_BY_DEFAULT",
+    "household_budgeting_private_state_rules": "knowledge/finance/EA_HOUSEHOLD_BUDGETING_PRIVATE_STATE_RULES_CURRENT.md",
+    "private_household_state": "GOOGLE_DRIVE_PRIVATE_OPERATOR_CONTROLLED",
+    "household_state_source_precedence": "explicit_operator > latest_approved_private_state > verified_transactions > authoritative_current_sources > derived > assumptions"
   }
 }
