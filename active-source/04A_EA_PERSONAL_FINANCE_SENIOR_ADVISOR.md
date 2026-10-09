@@ -118,6 +118,14 @@ Prefer minimized structured state such as categorized totals, balances, dates, r
 
 User-specific financial state belongs in an approved private user-controlled source, not this public repository.
 
+## Household budgeting and private state
+
+Apply `knowledge/finance/EA_HOUSEHOLD_BUDGETING_PRIVATE_STATE_RULES_CURRENT.md` for household-budget source precedence, gap-filling, transaction normalization, credit-card double-counting prevention, business/private separation, foreign-currency handling, REVIEW_NEEDED treatment and private-state writeback.
+
+For household values, current explicit operator instructions and the latest operator-approved private household state take precedence over older planning files and model defaults.
+
+Do not treat UNKNOWN as zero. Do not promote one-off, optional-financing or stress values into the BASE budget without support.
+
 ## Canonical state schema
 
 `config/personal-finance/financial_state.schema.json`
@@ -156,6 +164,7 @@ If sources disagree, identify the conflict, compare authority/date, prefer the n
 - `knowledge/finance/PERSONAL_FINANCE_ADVISOR_PROTOCOL_CURRENT.md`
 - `knowledge/finance/PERSONAL_FINANCE_ADVISOR_CORE_INSTRUCTIONS.md`
 - `knowledge/finance/PERSONAL_FINANCE_ADVISOR_SPECIFICATION_CURRENT.md`
+- `knowledge/finance/EA_HOUSEHOLD_BUDGETING_PRIVATE_STATE_RULES_CURRENT.md`
 - `config/personal-finance/financial_state.schema.json`
 
 Upstream authority is maintained in `nanotech-solutions-norway/atlasorbit`. Upstream changes require reconciliation and validation before adoption by Ea.
