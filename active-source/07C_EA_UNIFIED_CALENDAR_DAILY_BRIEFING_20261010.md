@@ -10,7 +10,7 @@
 
 - Title: `Ea Daily Calendar Briefing`.
 - Native ChatGPT task ID: `6a9287f458048191ad59286eba6eea2d` (formerly `Ea Morning Briefing`).
-- Schedule: daily, 07:00 Europe/Oslo; equivalent local clock in Europe/Madrid. First occurrence 11.10.2026 07:00.
+- Schedule: daily, 07:00 Europe/Oslo; equivalent local clock in Europe/Madrid. First occurrence 10.10.2026 07:00.
 - Task mode: `exact_schedule`; enabled after operator request 10.10.2026.
 - Scope: one bounded run. No claims of continuous monitoring or automatic ingestion of all ChatGPT chats, Projects or tasks.
 - The existing `Ea Business Email Watch` remains independent, hourly and `condition_watch`. Do not duplicate its schedule, override its prompt or reinstate the removed `Daily task review — morning priorities` Google Calendar series.
