@@ -25,6 +25,7 @@ Authority: Active-source framework
 | 07_EA_SCHEDULED_TASKS_AND_ROUTINES.md | Scheduled routines and execution boundaries | Active |
 | 07A_EA_GMAIL_BUSINESS_EMAIL_WATCH_PROMPT_2351_05082026.md | Historical approved hourly business-email schedule prompt | Canonical predecessor / supporting |
 | 07B_EA_EMAIL_DRAFT_FOLLOWUP_WATCH_CURRENT_1810_25082026.md | Current canonical hourly business-email draft/follow-up runtime source | Approved / Canonical / operator-instructed |
+| 07C_EA_UNIFIED_CALENDAR_DAILY_BRIEFING_20261010.md | Calendar-first daily briefing contract, cross-source commitments and source coverage limits | Operator-instructed daily task; sidebar/managed sync pending implementation |
 | 08_EA_QA_VALIDATION_RELEASE_GATE.md | QA and extended Level 1 hardening / staged Level 2 release gates | Active / extended validation |
 | 09_EA_LEVEL_2_MANAGED_BACKEND.md | Staged Level 2A/2B/2C architecture and activation controls | Level 2A ACTIVE / 2B-2C HOLD |
 | 10_EA_PHASE_VALIDATION_TRACKER.md | Baseline + Level 1.1/1.2 hardening and Level 2 promotion tracker | Active validation |
@@ -208,3 +209,8 @@ Cloud watch registration remains prohibited until the deployed runtime reports r
 | validation/EA_PERSONAL_FINANCE_INTEGRATION_VALIDATION_20261006.md | Integration validation | Static PASS |
 
 For personal/household finance, precedence is current explicit operator instruction, 04A, finance protocol/core instructions/specification, verified private financial state, then current authoritative external sources. Business finance remains under 04.
+
+
+## 10.10.2026 — Daily calendar briefing addition
+
+The explicit operator instruction adds the unified calendar as a section of the Ea daily native scheduled run. Refer to `07C_EA_UNIFIED_CALENDAR_DAILY_BRIEFING_20261010.md`. `Ea Daily Calendar Briefing` was enabled at 07:00 Europe/Oslo daily; the hourly business-email watch is unchanged. The formerly enabled Morning/Mid-Day states in the 29.09 canonical snapshot conflicted with the 10.10 live disabled states. Morning reactivation is based on the new operator instruction, not assumed continued operation. Mid-Day and Evening stay disabled. Do not interpret this as activation of an interactive sidebar calendar or full two-way connector synchronization.
