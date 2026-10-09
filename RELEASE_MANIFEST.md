@@ -17,6 +17,7 @@ Implementation sources:
 - `knowledge/finance/PERSONAL_FINANCE_ADVISOR_PROTOCOL_CURRENT.md`
 - `knowledge/finance/PERSONAL_FINANCE_ADVISOR_CORE_INSTRUCTIONS.md`
 - `knowledge/finance/PERSONAL_FINANCE_ADVISOR_SPECIFICATION_CURRENT.md`
+- `knowledge/finance/EA_HOUSEHOLD_BUDGETING_PRIVATE_STATE_RULES_CURRENT.md`
 - `config/personal-finance/financial_state.schema.json`
 - `config/project/EA_PROJECT_INSTRUCTION_BLOCK.md`
 - `config/custom-gpt/EA_CUSTOM_GPT_INSTRUCTION_BLOCK.md`
@@ -29,6 +30,8 @@ Governance:
 - R3 consequential external financial actions require exact operator approval.
 - R4 transfers, payments, trades, borrowing, account actions, financial/legal signing, ownership changes and credential/security changes remain human-only.
 - No user-specific raw financial records are included in this repository release.
+- Household budget state is private Drive state; GitHub stores only sanitized operating rules, schemas and validation logic.
+- Household budgeting uses explicit operator input > latest approved private state > verified transaction evidence > derived values > assumptions.
 
 ## Validation
 
