@@ -1,5 +1,19 @@
 # Ea Knowledge Changelog
 
+## 2026-10-09 — Household budgeting and private financial-state rules
+
+Status: APPROVED  
+Source: Explicit operator instruction and validated Ea Personal Finance budgeting workflow  
+Reviewer: Ruben A. Meyer
+
+Added `knowledge/finance/EA_HOUSEHOLD_BUDGETING_PRIVATE_STATE_RULES_CURRENT.md` and routed the active Personal Finance capability to it.
+
+The update codifies source precedence, gap-filling/adoption rules, internal-transfer and credit-card normalization, business/private separation, foreign-currency handling, REVIEW_NEEDED treatment, budget scenario separation and private Drive state writeback.
+
+No household transaction data, account identifiers or private budget values are stored in GitHub.
+
+Sensitivity: Sanitized internal operating logic.
+
 ## 2026-10-06 — Hirec PFW9 snow-accumulation / PV-output evidence
 
 Status: PENDING_REVIEW_PUBLIC_CLAIMS  
