@@ -36,17 +36,23 @@ Calendar exclusions remain absolute for new follow-up creation: invoices, paymen
 
 Confirmed/operator-authorized meetings retain popup reminders 1 day and 2 hours before the meeting. External attendees, invitations, external meeting changes, purchases, commitments, file sharing/deletion/permission changes and Level 2B/2C actions remain outside native scheduled-task authority unless separately approved for the exact action.
 
-## Cadence routines
+## Cadence routines — reconciled 10.10.2026
 
-| Task | Schedule | State verified 29.09.2026 | Level / purpose |
+The new unified Calendar & Commitments daily operating contract is defined in `07C_EA_UNIFIED_CALENDAR_DAILY_BRIEFING_20261010.md`. The native daily task was reactivated and rescheduled by current explicit operator instruction on 10.10.2026. No Google Calendar morning-priority event was created.
+
+| Task | Current live schedule | Live state 10.10.2026 | Scope |
 |---|---|---|---|
-| Ea Morning Briefing | Monday–Friday 07:00 Europe/Oslo | ENABLED | Level 2A internal briefing + bounded recovery |
-| Ea Mid-Day Review | Monday–Friday 14:00 Europe/Oslo | ENABLED | Level 2A internal review + bounded recovery |
-| Ea Evening Close | Monday–Friday 21:00 Europe/Oslo | DISABLED | Prompt aligned to Level 2A; remains disabled |
-| Ea Saturday Review | — | NOT ACTIVE | No active native task |
-| Ea Sunday Planning | — | NOT ACTIVE | No active native task |
+| Ea Daily Calendar Briefing (formerly Ea Morning Briefing) | Daily 07:00 Europe/Oslo / Europe/Madrid | **ENABLED** | Calendar-first agenda, 7/14/30-day commitments, Gmail/GitHub/Drive reconciliation, bounded Level 2A preparation |
+| Ea Mid-Day Review | Monday–Friday 14:00 Europe/Oslo | **DISABLED** | Previous bounded review remains dormant, not changed |
+| Ea Evening Close | Monday–Friday 21:00 Europe/Oslo | **DISABLED** | Previous evening review remains dormant |
+| Ea Saturday Review | — | NOT ACTIVE | No separate native task; included in daily briefing |
+| Ea Sunday Planning | — | NOT ACTIVE | No separate native task; included in daily briefing |
 
-Morning, Mid-Day and any future re-enabled Evening recovery path inherit 03D, duplicate controls, private-Calendar exclusions, post-write verification and Level 2A external-action boundaries.
+Native task ID `6a9287f458048191ad59286eba6eea2d`; mode `exact_schedule`; first new scheduled run 10.10.2026 at 07:00. Task-update acknowledgement confirms configuration only, **not successful future execution**, access to all sources or bidirectional synchronization.
+
+**Drift disclosure:** This document previously recorded the Morning and Mid-Day routines as enabled on 29.09.2026, but live task state observed on 10.10.2026 was disabled for both. The latest operator instruction authorizes restoring a *daily* morning Calendar briefing; Mid-Day is not re-enabled. This historical state discrepancy is retained as evidence and is not silently merged.
+
+The hourly `Ea Business Email Watch` remains enabled and unmodified. All cadence routines inherit 03D, duplicate controls, Calendar exclusions, post-write verification and Level 2A external-action boundaries. Dynamic Calendar source access must be reported as unavailable if the scheduled run cannot access connected data.
 
 ## 03:00 managed update
 

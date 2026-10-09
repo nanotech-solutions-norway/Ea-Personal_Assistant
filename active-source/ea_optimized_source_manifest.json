@@ -25,6 +25,7 @@
     "07_EA_SCHEDULED_TASKS_AND_ROUTINES.md",
     "07A_EA_GMAIL_BUSINESS_EMAIL_WATCH_PROMPT_2351_05082026.md",
     "07B_EA_EMAIL_DRAFT_FOLLOWUP_WATCH_CURRENT_1810_25082026.md",
+    "07C_EA_UNIFIED_CALENDAR_DAILY_BRIEFING_20261010.md",
     "08_EA_QA_VALIDATION_RELEASE_GATE.md",
     "09_EA_LEVEL_2_MANAGED_BACKEND.md",
     "10_EA_PHASE_VALIDATION_TRACKER.md",
@@ -123,7 +124,9 @@
     "30.09.2026: cloud watch/channel registration must occur only after durable storage and production delivery authentication are connected.",
     "30.09.2026: PostgreSQL EventStore adapter, healthcheck, Google OIDC verifier and Calendar channel-token validation implemented in repository.",
     "30.09.2026: server bootstraps durable store/auth only after preflight; bootstrap or database/auth failures keep readiness and webhook acknowledgement closed.",
-    "30.09.2026: managed database/runtime/watch resources remain unprovisioned; Level 2B/2C remain HOLD."
+    "30.09.2026: managed database/runtime/watch resources remain unprovisioned; Level 2B/2C remain HOLD.",
+    "10.10.2026: native Ea Daily Calendar Briefing re-enabled daily 07:00 Europe/Oslo; cross-source agenda/commitments added under 07C. This is bounded ChatGPT task orchestration, not a deployed custom sidebar or full bidirectional calendar synchronization.",
+    "10.10.2026: live Morning and Mid-Day tasks were disabled although 29.09 canonical scheduling file recorded enabled. Explicit operator instruction reactivated Morning daily; Mid-Day and Evening remain disabled. Preserve the discrepancy for validation."
   ],
   "level_2_backend": {
     "implementation_status": "IMPLEMENTED_IN_REPOSITORY_NOT_DEPLOYED",
