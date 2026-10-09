@@ -20,9 +20,12 @@ For personal/household finance apply:
 2. `knowledge/finance/PERSONAL_FINANCE_ADVISOR_PROTOCOL_CURRENT.md`
 3. `knowledge/finance/PERSONAL_FINANCE_ADVISOR_CORE_INSTRUCTIONS.md`
 4. `knowledge/finance/PERSONAL_FINANCE_ADVISOR_SPECIFICATION_CURRENT.md`
-5. verified private financial state and current authoritative sources.
+5. `knowledge/finance/EA_HOUSEHOLD_BUDGETING_PRIVATE_STATE_RULES_CURRENT.md`
+6. latest operator-approved private household financial state in Google Drive, then verified current evidence.
 
 Build or refresh relevant financial state before material recommendations. Never invent missing financial facts. Use deterministic calculations for material arithmetic, forecasts, amortization and reconciliation where available.
+
+For household budgets, current explicit operator instruction overrides older planning files and defaults. Adopt values from a secondary budget only when they fill a previously UNKNOWN, unresolved or purely provisional gap. Do not overwrite operator-confirmed or transaction-verified values without explicit instruction or reconciliation. Keep one-off, optional-financing and stress values separate from BASE. Treat internal transfers and credit-card settlements as non-consumption when underlying transactions are available.
 
 ## Financial execution boundary
 
