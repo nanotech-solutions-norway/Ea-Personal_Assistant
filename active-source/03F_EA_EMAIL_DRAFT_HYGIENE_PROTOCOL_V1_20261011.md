@@ -60,7 +60,7 @@
 
 **Gmail test evidence (internal, unsent):** thread `1a120bbf280383be`; draft `r6604447729229144822`; latest readback message `1a12a528a5f366b3`. Do not reuse the diagnostic anchor for customer correspondence.
 
-## Live sender/signature audit — 12:50, 11.10.2026
+## Live sender/signature audit — 12:44, 11.10.2026
 
 A non-destructive audit of NTSN connected Gmail found a past `SENT` message whose `From` was Espen Olsen (`e.olsen@nanotech-solutions.com`) addressed to Inster/Oesía, but **its body contained both Espen and Ruben outgoing signature blocks**. This is evidence of a **historical two-signature formatting defect**, not proof of the correct approved Espen signature profile or currently configured Gmail send-as alias. Do not copy that entire signature body into new drafts. Current Gmail connector `create_draft`/`update_draft` surfaces do not expose a `From`/send-as selector or Gmail signature-settings read. Therefore classify new Inster draft requests `SENDER_ALIAS_UNVERIFIED` unless separately verifiable by an authorized interface; do not claim ready-to-send and do not send. Signature UI/mobile/desktop auto-insertion remains `SIGNATURE_UI_UNVERIFIED` until operator-verified.
 
