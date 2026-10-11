@@ -28,3 +28,34 @@ jobs:
         run: python -m compileall -q src runtime tests
       - name: Run backend tests
         run: python -m unittest discover -s tests -v
+
+  postgres-integration:
+    runs-on: ubuntu-latest
+    services:
+      postgres:
+        image: postgres:16
+        env:
+          POSTGRES_DB: ea_ci_synthetic
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: ea_ci_ephemeral
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd "pg_isready -U postgres -d ea_ci_synthetic"
+          --health-interval 5s
+          --health-timeout 3s
+          --health-retries 10
+    env:
+      EA_TEST_DATABASE_URL: postgresql://postgres:ea_ci_ephemeral@localhost:5432/ea_ci_synthetic
+    defaults:
+      run:
+        working-directory: level-2/backend
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Install PostgreSQL test client
+        run: python -m pip install "psycopg[binary]>=3.2,<4"
+      - name: Execute disposable PostgreSQL integration suite
+        run: python -m unittest discover -s tests -p test_projection_pg_live.py -v
