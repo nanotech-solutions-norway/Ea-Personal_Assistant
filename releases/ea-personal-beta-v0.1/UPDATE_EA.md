@@ -1,5 +1,7 @@
 # \ea-update — Ea Personal Controlled Update Protocol
 
+**Release:** EA-PERSONAL-BETA-0.1.0
+
 ## Purpose
 
 Update an installed Ea Personal beta release without overwriting customer-specific preferences or silently changing authority.
