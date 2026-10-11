@@ -68,6 +68,9 @@ class PostgresProjectionSink:
         conn = self._connect(self._dsn)
         try:
             with conn.cursor() as cur:
+                # PostgreSQL RLS uses this transaction-local tenant identity.
+                # Never accept tenant_scope from an unverified webhook body.
+                cur.execute("SELECT set_config('ea.tenant_scope', %s, true)", (tenant_scope,))
                 # Serialize both first-run and subsequent same-scope updates.
                 cur.execute("SELECT pg_advisory_xact_lock(hashtextextended(%s, 0))", (scope,))
                 cur.execute("SELECT cursor_value FROM ea_source_cursors WHERE source=%s FOR UPDATE", (scope,))
@@ -125,15 +128,16 @@ class PostgresProjectionSink:
                 meta = json.dumps({"source": source, "collection": collection_key}, sort_keys=True)
                 cur.execute(
                     "INSERT INTO ea_source_cursors "
-                    "(source,cursor_value,cursor_kind,valid,last_full_sync_at,"
+                    "(source,tenant_scope,collection_key,cursor_value,cursor_kind,valid,last_full_sync_at,"
                     "last_incremental_sync_at,metadata) "
-                    "VALUES (%s,%s,%s,TRUE,CASE WHEN %s THEN NOW() ELSE NULL END,"
+                    "VALUES (%s,%s,%s,%s,%s,TRUE,CASE WHEN %s THEN NOW() ELSE NULL END,"
                     "NOW(),%s::jsonb) "
-                    "ON CONFLICT(source) DO UPDATE SET cursor_value=EXCLUDED.cursor_value,"
+                    "ON CONFLICT(source) DO UPDATE SET tenant_scope=EXCLUDED.tenant_scope,"
+                    "collection_key=EXCLUDED.collection_key,cursor_value=EXCLUDED.cursor_value,"
                     "cursor_kind=EXCLUDED.cursor_kind,valid=TRUE,"
                     "last_full_sync_at=CASE WHEN %s THEN NOW() ELSE ea_source_cursors.last_full_sync_at END,"
                     "last_incremental_sync_at=NOW(),metadata=EXCLUDED.metadata",
-                    (scope, next_cursor, mode, mode == "full", meta, mode == "full"),
+                    (scope, tenant_scope, collection_key, next_cursor, mode, mode == "full", meta, mode == "full"),
                 )
                 cur.execute(
                     "INSERT INTO ea_sync_runs "
