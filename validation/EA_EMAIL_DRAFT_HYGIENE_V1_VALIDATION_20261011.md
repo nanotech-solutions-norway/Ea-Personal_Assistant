@@ -31,6 +31,15 @@
 | Inster/Espen sender alias selection | NOT TESTED; fail closed when unverified |
 | Gmail UI signature insertion across mobile and desktop | NOT TESTED; visual duplicate signature risk remains |
 | Connector behavior across unrelated customer threads | NOT TESTED; previous per-thread failures remain possible |
-| Live scheduled-task prompt explicitly changed this run | NO; sources updated, runtime must retrieve current 03F or receive a separate prompt alignment |
+| Active hourly Ea Business Email Watch prompt alignment | PASS; updated in-place and returned enabled hourly condition_watch |
+| Active daily Ea Calendar Briefing prompt alignment | PASS; updated in-place and returned enabled daily 07:00 Europe/Oslo |
 
 **Operational instruction:** Always perform in-place `update_draft` clean-body replacement and final readback for connector-created native replies before claiming a clean draft. If post-update full body differs, mark `DRAFT_QA_FAILED` and do not send/recreate fallback. No policy approval is implied for untested alias/UI behavior. Level 2B/2C remain HOLD.
+
+## Live scheduled task alignment — 11:42, 11.10.2026
+
+Both active native tasks were explicitly updated to reference 03F and require the two-step Gmail create/update/readback path:
+- `Ea Business Email Watch` ID `6a6336e9994c8191b25966dc451c2db0`: update SUCCESS; hourly `condition_watch`, enabled; existing follow-up and governance rules retained.
+- `Ea Daily Calendar Briefing` ID `6a9287f458048191ad59286eba6eea2d`: update SUCCESS; daily 07:00 Europe/Oslo `exact_schedule`, enabled; original calendar/commitments controls retained.
+
+This confirms saved prompt changes, **not** successful future scheduled run execution; per-run Gmail drafts still require actual saved-body readback. No schedule changes or new external send authority were introduced.
