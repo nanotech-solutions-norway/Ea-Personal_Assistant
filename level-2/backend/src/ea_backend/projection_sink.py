@@ -78,28 +78,29 @@ class PostgresProjectionSink:
 
                 cur.execute(
                     "SELECT source_id,source_revision,state,item_kind,display_title,due_at,timezone "
-                    "FROM ea_unified_items WHERE tenant_scope=%s AND source=%s",
-                    (tenant_scope, source),
+                    "FROM ea_unified_items WHERE tenant_scope=%s AND source=%s AND collection_key=%s",
+                    (tenant_scope, source, collection_key),
                 )
                 existing = [
                     SourceItem(
                         tenant_scope=tenant_scope, source=source, source_id=row[0],
                         revision=row[1], state=row[2], kind=row[3], title=row[4],
                         due_at=row[5].isoformat() if hasattr(row[5], "isoformat") else row[5],
-                        timezone=row[6],
+                        timezone=row[6], collection_key=collection_key,
                     ) for row in cur.fetchall()
                 ]
                 plan = plan_sync(
                     existing, tuple(fetched), tenant_scope=tenant_scope, source=source,
                     mode=mode, collection_complete=complete_full_inventory,
                     operator_attested_snapshot=operator_attested_snapshot,
+                    collection_key=collection_key,
                 )
                 for record in (*plan.to_upsert, *plan.to_tombstone):
                     cur.execute(
                         "INSERT INTO ea_unified_items "
-                        "(item_key,tenant_scope,source,source_id,source_revision,item_kind,"
+                        "(item_key,tenant_scope,source,collection_key,source_id,source_revision,item_kind,"
                         "state,display_title,due_at,timezone,last_verified_at,updated_at) "
-                        "VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,NOW(),NOW()) "
+                        "VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,NOW(),NOW()) "
                         "ON CONFLICT(item_key) DO UPDATE SET "
                         "source_revision=EXCLUDED.source_revision,item_kind=EXCLUDED.item_kind,"
                         "state=EXCLUDED.state,display_title=EXCLUDED.display_title,"
@@ -107,15 +108,16 @@ class PostgresProjectionSink:
                         "last_verified_at=NOW(),updated_at=NOW() "
                         "WHERE ea_unified_items.tenant_scope=EXCLUDED.tenant_scope "
                         "AND ea_unified_items.source=EXCLUDED.source "
+                        "AND ea_unified_items.collection_key=EXCLUDED.collection_key "
                         "AND ea_unified_items.source_id=EXCLUDED.source_id",
-                        (record.key, record.tenant_scope, record.source, record.source_id,
+                        (record.key, record.tenant_scope, record.source, collection_key, record.source_id,
                          record.revision, record.kind, record.state, record.title,
                          record.due_at, record.timezone),
                     )
                     cur.execute(
                         "SELECT source_revision,state FROM ea_unified_items "
-                        "WHERE item_key=%s AND tenant_scope=%s AND source=%s",
-                        (record.key, tenant_scope, source),
+                        "WHERE item_key=%s AND tenant_scope=%s AND source=%s AND collection_key=%s",
+                        (record.key, tenant_scope, source, collection_key),
                     )
                     if cur.fetchone() != (record.revision, record.state):
                         raise SyncContractError("Projection readback mismatch; rolling back")
