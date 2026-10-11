@@ -49,3 +49,13 @@
 
 **Approval scope:** protocol/rule adoption and approved GitHub/Drive source updates and one safe *unsent* internal Gmail draft only. Gmail sending is expressly prohibited.  
 **Promotion note:** This approved governance rule is immediately controlling, but operational connector/UI compliance must be separately validated; no passing test is presumed by this document.
+
+## Live Gmail connector hardening — validated 11.10.2026
+
+**Observed:** `create_draft(reply_message_id=...)` returned a valid threaded DRAFT but **automatically appended previous quoted correspondence**, despite supplying a clean text and HTML body. Initial saved-body readback therefore **FAILED** the no-quotation and one-signature checks. Creation success alone is insufficient.
+
+**Validated remediation:** Immediately call `update_draft` on that same returned `draft_id`, supplying the exact clean `body` and `html_body` **without creating a new draft**. On the internal self-addressed test, this preserved the original `thread_id` and RFC `In-Reply-To` / `References` headers, retained `DRAFT`, removed quoted history, and yielded exactly one outgoing signature. The underlying `message_id` changed; draft identity stayed stable.
+
+**Mandatory workflow for this connector:** for replies, create a threaded draft, then always perform the in-place body replacement/removal of auto-quoted history **before** marking the draft as ready; read back the current draft `message_id` and independently verify the full stored body. If update/readback fails, leave `DRAFT_QA_FAILED`, do not assert compliant formatting and do not send. Avoid recreating the draft to repair it. Preserve native thread identity. This connector behavior was verified in a single internal test; visual presentation and alias handling in other mailbox clients require separate checks.
+
+**Gmail test evidence (internal, unsent):** thread `1a120bbf280383be`; draft `r6604447729229144822`; latest readback message `1a12a528a5f366b3`. Do not reuse the diagnostic anchor for customer correspondence.
