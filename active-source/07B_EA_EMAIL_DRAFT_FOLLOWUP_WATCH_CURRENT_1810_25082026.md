@@ -86,3 +86,8 @@ Run one bounded Ea Level 2A controlled-internal business-email monitoring and fo
 - regression scenarios for wrong thread, duplicate draft, suppression, stale write, attachment mismatch, Calendar duplicate and partial-failure isolation.
 
 Level 1.1/1.2 hardening supports active Level 2A controlled internal autonomy. Level 2A does not relax external-action boundaries; Level 2B and Level 2C remain HOLD.
+
+
+## Approved 11.10.2026 — Email Draft Hygiene Protocol v1.0
+
+Apply `03F_EA_EMAIL_DRAFT_HYGIENE_PROTOCOL_V1_20261011.md` before and after every draft created or updated by the hourly watch. Preserve 03D recipient-level manual deletion suppression. Create native in-thread drafts only with a verified message anchor; never manually insert quoted correspondence/previous signatures/third-party disclaimers into new response text. Normalize spacing; use a single sender-specific signature if necessary and verify actual stored draft content and From alias. For Inster, Espen Olsen remains intended sender; if unavailable as configured Gmail send-as identity, classify `SENDER_ALIAS_UNVERIFIED` and do not claim readiness. Read-back failure or connector errors are not success. Original received/sent messages are immutable. No-send and Level 2B/2C HOLD boundaries remain unchanged.
