@@ -16,6 +16,7 @@ Authority: Active-source framework
 | 03B_EA_CALENDAR_EXCLUSIONS_AND_DRAFT_MEETING_OVERRIDE_2351_05082026.md | Invoice/customs calendar exclusions and current draft-invite Teams handling | Canonical / operator-instructed |
 | 03C_EA_HISTORICAL_EMAIL_CONTEXT_DRAFTING_RULE_0930_07082026.md | Mandatory review of prior email threads and NTSN sent replies before materially relevant drafting | Canonical / operator-instructed |
 | 03D_EA_MANUAL_DRAFT_DELETION_SUPPRESSION_RULE_1111_09092026.md | Known operator-deleted Gmail drafts suppress automatic recreation until a new explicit drafting instruction | Approved / Canonical / operator-instructed |
+| 03F_EA_EMAIL_DRAFT_HYGIENE_PROTOCOL_V1_20261011.md | Operator-approved Gmail body/thread/signature/QA standard | Approved / Canonical / operator-instructed |
 | 04_EA_BUSINESS_DUE_DILIGENCE_LEGAL_FINANCIAL.md | Business support workflows | Active |
 | 05_EA_DOCUMENTS_TEMPLATES_REGISTERS_INDEXES.md | Templates, registers and indexes | Active framework |
 | 05A_EA_DOCUMENT_TEMPLATE_RECREATION_CONVERSION_STATIC_RULES_0349_08082026.md | Default rules for template creation, document drafting, conversion, recreation, extraction and template population for DOCX/PDF/XLSM | Canonical / operator-instructed |
@@ -52,7 +53,7 @@ Authority: Active-source framework
 
 Apply current explicit operator instructions first. For the hourly email watch, apply the sources in this order where a conflict exists:
 
-1. `03D_EA_MANUAL_DRAFT_DELETION_SUPPRESSION_RULE_1111_09092026.md` for known operator-deleted draft suppression;
+1. `03D_EA_MANUAL_DRAFT_DELETION_SUPPRESSION_RULE_1111_09092026.md` (suppression); `03F_EA_EMAIL_DRAFT_HYGIENE_PROTOCOL_V1_20261011.md` (draft formatting/thread/signature/readback) for known operator-deleted draft suppression;
 2. `07B_EA_EMAIL_DRAFT_FOLLOWUP_WATCH_CURRENT_1810_25082026.md` as the current canonical hourly runtime source;
 3. `07A_EA_GMAIL_BUSINESS_EMAIL_WATCH_PROMPT_2351_05082026.md` as predecessor/supporting authority where not superseded;
 4. `03C_EA_HISTORICAL_EMAIL_CONTEXT_DRAFTING_RULE_0930_07082026.md`;
