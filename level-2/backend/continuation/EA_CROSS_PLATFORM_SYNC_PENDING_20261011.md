@@ -1,0 +1,90 @@
+# EA Cross-Platform Synchronization — Pending Continuation
+
+**Checkpoint date:** 2026-10-11 (Europe/Madrid)  
+**Disposition:** PENDING_CONTINUATION / ENGINEERING_WORK_PAUSED_BY_OPERATOR  
+**Project:** EA Personal Assistant — Level 2 managed backend, cross-platform synchronization  
+**Source-of-truth repository:** https://github.com/nanotech-solutions-norway/Ea-Personal_Assistant  
+**EA Drive project folder:** https://drive.google.com/drive/folders/1XgWMoN69UtwWCTNlc1MGEBfj7hZ7DnoT  
+**Dedicated backend Drive folder:** https://drive.google.com/drive/folders/1udUzB6WMf24dC7zxGhdXxDMspVzP8g4I  
+**Earlier engineering staging report:** https://docs.google.com/document/d/1XARMrILFVVjHbJi9CGocOPES4tdqpdEz4LXMRPuS4VQ/edit
+
+## 1. Operator instruction and hold
+
+The operator requested that this **cross-platform synchronization project** be stored for pending continuation. Do not start new development/deployment, enroll credentials, provision paid infrastructure, initiate account data replication, or resume the work automatically. Resume only after the operator explicitly requests continuation.
+
+This **does not** suspend the separately authorized ChatGPT EA Daily Calendar Briefing or the EA Business Email Watch. Those existing tasks remain under their own canonical rules; this checkpoint does not alter task schedules or authorizations.
+
+No production synchronization launch approval or expanded autonomy has been granted.
+
+## 2. Verified completed work
+
+The engineering implementation was developed and merged in consecutive PRs:
+
+| PR | Verified work | Status |
+| --- | --- | --- |
+| [#36](https://github.com/nanotech-solutions-norway/Ea-Personal_Assistant/pull/36) | Unified daily Calendar/commitment briefing contract | MERGED |
+| [#37](https://github.com/nanotech-solutions-norway/Ea-Personal_Assistant/pull/37) | Normalized cross-provider projection planner, SQL schema, synthetic tests and provider contract | MERGED |
+| [#38](https://github.com/nanotech-solutions-norway/Ea-Personal_Assistant/pull/38) | Collection-scoped identities, bounded pagination, atomic projection/cursor persistence and rollback safeguards | MERGED |
+| [#39](https://github.com/nanotech-solutions-norway/Ea-Personal_Assistant/pull/39) | Actual disposable PostgreSQL 16 integration CI and read-only Calendar `events.list` adapter | MERGED |
+| [#40](https://github.com/nanotech-solutions-norway/Ea-Personal_Assistant/pull/40) | Gmail history, Drive changes and GitHub HMAC webhook verification adapters | MERGED; merge `e4c0e4ef3fd11bd3ce6febd93a880da61974fc05` |
+| [#41](https://github.com/nanotech-solutions-norway/Ea-Personal_Assistant/pull/41) | PostgreSQL tenant RLS migration 005, transaction-local tenant context, non-owner cross-tenant regression tests | MERGED; merge `3cefa2c8862d6bad57c2aa704ea1542e53abcd7f` |
+
+**Validation at last engineering checkpoint:** GitHub PR #41 had five passing workflows: Level 2 backend tests (unit and disposable PostgreSQL integration jobs), Security baseline, Repository security baseline, Dependency review, and CodeQL. This proves only repository-level staging checks and synthetic database isolation, **not** live external synchronization.
+
+Relevant source folders:
+- `level-2/backend/src/ea_backend/` — provider adapters, normalized projection, paging, transactional sink.
+- `level-2/backend/sql/001_initial_schema.sql` through `005_tenant_rls.sql` — schema and tenant isolation.
+- `level-2/backend/runtime/` — authenticated notification receiver scaffold, delivery adapters, deployment runbook, preflight and container image.
+- `level-2/backend/tests/` — unit, database integration, fail-closed regression.
+- `.github/workflows/ea-level2-backend-tests.yml` — synthetic CI with disposable PostgreSQL.
+
+## 3. Precise system state — NOT production-ready
+
+**Implemented and verified in repository:** source-change collectors for Calendar, Gmail, Drive; signed GitHub webhook verifier; normalized record planner; transactional projection/cursor writes; provider collection isolation; PostgreSQL projection RLS and synthetic tests.
+
+**NOT VERIFIED / NOT DEPLOYED:**
+- Separate authorized EA Azure subscription/resource group, chosen region and approved cost ceiling.
+- Actual managed private PostgreSQL, private networking, backup/retention and restricted runtime role.
+- Authenticated HTTPS container runtime, secret manager, isolated managed identity, audit/observability destination.
+- Separate backend Google OAuth credentials/consent; Gmail Pub/Sub and `users.watch`; Calendar watch; Drive change/watch registrations.
+- GitHub App webhook registration, durable replay storage and live webhook processing.
+- Source initial inventories, production cursor persistence, independent application DB/source readback and ongoing reconciliation.
+- Full token-expiration/410 reset, revocation, authorization, restart/crash, replay, rollback, full-page and kill-switch acceptance tests.
+- End-to-end synchronization of accounts, emails, events, files, cases or Tasks/Projects. No general native ChatGPT Projects/chats synchronization API is established.
+
+**Important database gap:** Migration 005 enforces RLS on projection and cursor tables, but legacy `ea_cases`, `ea_actions`, `ea_approvals`, `ea_audit`, `ea_watch_registrations`, and `ea_ingest_events` are **not yet universally multi-tenant-isolated**. Before use with mixed/private customer data, either isolate the whole environment to a single authorized tenant or complete the separate tenant-isolation migration and verify a nonowner, non-BYPASSRLS runtime role.
+
+The public GitHub repository must contain **no Gmail messages, calendar descriptions, personal schedules, secrets, OAuth credentials, private account records, banking/customer details or similar data**. ChatGPT connector tokens are not exportable backend service credentials.
+
+## 4. Governance held unchanged
+
+- EA Level 2A controlled internal actions: active only within existing approved rules.
+- Level 2B and Level 2C: HOLD.
+- No autonomous external email sending, calendar invitations/attendee changes, purchases, payments, resource sharing, deletions, production promotion, or unapproved commercial commitments.
+- Follow canonical EA 03B Calendar exclusions, 03D manually deleted draft suppression, 03F draft hygiene, approval/readback controls, tenant/source authority and project privacy boundaries.
+- Live EA scheduled tasks operate separately from the unbuilt continuous managed sync; do not treat scheduled daily/hourly briefings as proof of full backend synchronization.
+
+## 5. Unresolved decisions / dependencies
+
+1. **Operator:** Identify or approve a separate EA staging Azure subscription/resource group (do not silently reuse AtlasOrbit ACSEE), geographic region and monthly cost ceiling.
+2. **Infrastructure authority:** Obtain a connected Azure resource-management/deployment capability or a separately authorized administrator workflow. Available connected tools in the last session did **not** expose Azure PostgreSQL/Container Apps provisioning.
+3. **Identity/consent:** Define EA tenant/account scope, least-privilege Google/GitHub provider grants and secrets handling. Do not reuse personal/family or AtlasOrbit credentials implicitly.
+4. **Security design:** Confirm staging-only initial scope, legacy-table isolation/RLS, audit, backup, retention, privacy/authorization policy and kill switch.
+5. **Release gate:** Obtain explicit operator approval before any production cutover.
+
+## 6. Resume sequence — follow in order
+
+1. Read this checkpoint and the linked Google Drive report, the current GitHub `main` branch, the canonical EA `active-source/` documents, CI and open PRs. Reconcile later changes; do **not** assume this checkpoint supersedes later explicit operator instructions.
+2. Revalidate PRs #36–#41 in `main`, CI and `runtime/DEPLOYMENT_RUNBOOK.md`. Identify unmerged changes and known defects before new implementation.
+3. Resolve operator-selected EA staging subscription/resource group, region, budget, tenant ownership, and confidential workload grant. Hold if missing.
+4. Provision strictly private, least-privileged staging PostgreSQL / managed HTTPS runtime and secrets under the approved account. Apply migrations 001–005 and any additional legacy isolation; prove restricted-role isolation and independent readback with synthetic data.
+5. Complete provider worker-to-database integration: Calendar initial full scan/incremental token; Gmail initial mailbox state, history and Pub/Sub watch; Drive initial authorized folder baseline and changes; GitHub App webhook installation/deduplication, periodic reconciliation. Use complete pagination, atomic cursors, source re-reads and provider-specific expired-token resets.
+6. Run end-to-end tests for initial/full and incremental source reads, duplicates, partial pages, 410/404 token expiry, Drive access loss, wrong tenant, stale revisions, notifications, restart recovery, readback and kill switch. Verify 03B/03D/03F rules and no external write authority.
+7. Record auditable provider-specific PASS/FAIL, cost and privacy evidence. Ask for separate explicit production release authorization before activating continuous live synchronization. Keep Level 2B/2C HOLD.
+8. Update GitHub and the EA backend Drive folder at the end of each validated step; include step-level completion statuses.
+
+## 7. Next required input on resumption
+
+**Which separately authorized Azure subscription/resource group, region and maximum monthly EA staging budget should be used?**
+
+**Final checkpoint disposition:** SAVED_FOR_LATER; no automatic continuation; live continuous cross-platform sync NOT ACTIVE. This file is a non-sensitive engineering handoff, not a deployment authorization.
