@@ -36,10 +36,11 @@ class SourceItem:
     title: str | None = None
     due_at: str | None = None
     timezone: str | None = None
+    collection_key: str = ""
 
     @property
     def key(self) -> str:
-        return source_key(self.tenant_scope, self.source, self.source_id)
+        return source_key(self.tenant_scope, self.source, self.source_id, self.collection_key)
 
 
 @dataclass(frozen=True)
@@ -57,16 +58,16 @@ class SyncPlan:
         return len(self.to_upsert) + len(self.to_tombstone)
 
 
-def source_key(tenant_scope: str, source: str, source_id: str) -> str:
+def source_key(tenant_scope: str, source: str, source_id: str, collection_key: str = "") -> str:
     """Stable opaque key; identity includes tenant and provider namespace."""
     if not all(isinstance(v, str) and v.strip() for v in (tenant_scope, source, source_id)):
         raise SyncContractError("Tenant, provider and source ID must be nonempty strings")
-    payload = "\x1f".join((tenant_scope, source, source_id))
+    payload = "\x1f".join((tenant_scope, source, source_id) if not collection_key else (tenant_scope, source, collection_key, source_id))
     return sha256(payload.encode("utf-8")).hexdigest()
 
 
-def _validate(item: SourceItem, tenant_scope: str, source: str) -> None:
-    if item.tenant_scope != tenant_scope or item.source != source:
+def _validate(item: SourceItem, tenant_scope: str, source: str, collection_key: str) -> None:
+    if item.tenant_scope != tenant_scope or item.source != source or item.collection_key != collection_key:
         raise SyncContractError("Cross-tenant or cross-provider projection rejected")
     if not item.source_id.strip() or not item.revision.strip():
         raise SyncContractError("Missing source identity or revision")
@@ -83,6 +84,7 @@ def plan_sync(
     mode: Mode,
     collection_complete: bool = False,
     operator_attested_snapshot: bool = False,
+    collection_key: str = "",
 ) -> SyncPlan:
     """Plan idempotent provider-scoped changes; never run external writes.
 
@@ -103,14 +105,14 @@ def plan_sync(
 
     old: dict[str, SourceItem] = {}
     for item in existing:
-        _validate(item, tenant_scope, source)
+        _validate(item, tenant_scope, source, collection_key)
         if item.key in old and old[item.key] != item:
             raise SyncContractError("Conflicting existing identities")
         old[item.key] = item
 
     new: dict[str, SourceItem] = {}
     for item in fetched:
-        _validate(item, tenant_scope, source)
+        _validate(item, tenant_scope, source, collection_key)
         if item.key in new and new[item.key] != item:
             raise SyncContractError("Conflicting revisions for one source item")
         new[item.key] = item
@@ -146,6 +148,7 @@ def plan_sync(
                     revision="missing-from-complete-full-scan:" + prior.revision,
                     state="deleted",
                     kind=prior.kind,
+                    collection_key=prior.collection_key,
                 ))
     return SyncPlan(
         tenant_scope=tenant_scope,
