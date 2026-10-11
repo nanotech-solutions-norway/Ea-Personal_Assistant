@@ -94,3 +94,8 @@ Apply `03F_EA_EMAIL_DRAFT_HYGIENE_PROTOCOL_V1_20261011.md` before and after ever
 
 
 **Gmail connector verified 11.10.2026:** For each threaded reply, `create_draft` may auto-append quoted history despite a clean supplied body. Use `update_draft` **in place on the same draft ID** with exact clean body/HTML before final readback; verify message body has no history/disclaimers, one sender-specific signature, matching thread and DRAFT state. If body update fails, mark QA failed; never report compliant draft or create an unthreaded fallback. See 03F live validation.
+
+
+## Espen Outlook-only rule (approved 11.10.2026)
+
+Espen-authored messages are exclusively ChatGPT drafts: Subject outside, email body inside a fenced plain-text code block for manual Outlook copy. Do not create or update Gmail drafts for Espen, including Inster. The operator selects sender, handles the Outlook signature and sends manually. Omit a full signature from the draft body by default. If a scheduled run cannot display this draft, report PENDING_OPERATOR_CHAT_DRAFT. All earlier Gmail-by-default directions in this file apply only to other authorized senders; preserve 03D suppression, 03F style, confidentiality and no-send safeguards.
