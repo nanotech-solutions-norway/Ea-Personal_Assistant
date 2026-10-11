@@ -220,3 +220,8 @@ The explicit operator instruction adds the unified calendar as a section of the 
 ## 07B current Google Docs mirror — 11.10.2026
 
 GitHub `active-source/07B_EA_EMAIL_DRAFT_FOLLOWUP_WATCH_CURRENT_1810_25082026.md` is controlling. The verified native Drive mirror is [07B current workflow](https://docs.google.com/document/d/1hWjnqY2jYH1T_FE7C6Cb4Pjj6r3P0YmlPmwa2QAALmo/edit); older raw Drive 07B file `18zaiG1ykgh_Z0ltdG1Vc9eNJDy8ue2r3` remains read-only historical evidence (29.09.2026). Apply 03F formatting, same-draft update/readback and 03D suppression. Espen sender/alias profile and UI signature handling remain PENDING_REVIEW; do not equate historical Espen SENT evidence with current send-as availability. Validation: `validation/EA_EMAIL_DRAFT_HYGIENE_V1_VALIDATION_20261011.md`.
+
+
+## 11.10.2026 — Espen Outlook manual-copy override
+
+Latest operator-approved sender-specific rule: all emails written on behalf of Espen Olsen must appear in a plain-text code block inside ChatGPT, subject separately, for manual copying into Outlook. Never create/update Gmail drafts or send as Espen. Outlook controls the manual sender, signature and sending; omit a full manual signature by default. This rule overrides the older Gmail-by-default/Inster recipient-only handling for Espen. For Ruben and other sender profiles, default Gmail drafting rules remain effective. See active-source 03F, 03A, 03 and 07B. Preserve 03D suppression and Level 2 boundaries.
