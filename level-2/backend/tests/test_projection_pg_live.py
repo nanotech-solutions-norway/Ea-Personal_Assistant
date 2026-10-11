@@ -31,6 +31,7 @@ class RealPostgresProjectionTests(unittest.TestCase):
                 ("002", "002_ingestion_events.sql"),
                 ("003", "003_unified_calendar_projection.sql"),
                 ("004", "004_collection_scoped_projection.sql"),
+                ("005", "005_tenant_rls.sql"),
             ):
                 contents = (ROOT / "sql" / name).read_text(encoding="utf-8")
                 contents = "\n".join(
@@ -41,6 +42,10 @@ class RealPostgresProjectionTests(unittest.TestCase):
                     for command in contents.split(";"):
                         if command.strip():
                             cur.execute(command.strip())
+            with conn.cursor() as cur:
+                cur.execute("CREATE ROLE ea_ci_scope_reader NOLOGIN")
+                cur.execute("GRANT USAGE ON SCHEMA public TO ea_ci_scope_reader")
+                cur.execute("GRANT SELECT ON ea_unified_items, ea_unified_links, ea_sync_runs, ea_source_cursors TO ea_ci_scope_reader")
         cls.sink = PostgresProjectionSink.from_dsn(DSN)
 
     def setUp(self):
@@ -127,6 +132,30 @@ class RealPostgresProjectionTests(unittest.TestCase):
         self.capture([self.item()])
         self.capture([], mode="incremental", expected="tok1", next_cursor="tok2")
         self.assertEqual(self.verify_row()[1], "active")
+
+    def test_postgresql_rls_restricted_role_blocks_missing_and_foreign_tenant(self):
+        self.capture([self.item()])
+        with self.psycopg.connect(DSN) as conn:
+            with conn.cursor() as cur:
+                cur.execute("SET ROLE ea_ci_scope_reader")
+                cur.execute("SELECT COUNT(*) FROM ea_unified_items")
+                self.assertEqual(cur.fetchone()[0], 0)
+                cur.execute("SELECT set_config('ea.tenant_scope', %s, true)", (self.tenant,))
+                cur.execute("SELECT COUNT(*) FROM ea_unified_items WHERE tenant_scope=%s", (self.tenant,))
+                self.assertEqual(cur.fetchone()[0], 1)
+                cur.execute("SELECT set_config('ea.tenant_scope', %s, true)", (self.tenant + "_other",))
+                cur.execute("SELECT COUNT(*) FROM ea_unified_items")
+                self.assertEqual(cur.fetchone()[0], 0)
+                cur.execute("SELECT COUNT(*) FROM ea_source_cursors")
+                self.assertEqual(cur.fetchone()[0], 0)
+
+    def test_tenant_scoped_cursor_saved_with_identity(self):
+        self.capture([self.item()])
+        with self.psycopg.connect(DSN) as conn:
+            with conn.cursor() as cur:
+                cur.execute("SELECT tenant_scope,collection_key FROM ea_source_cursors "
+                            "WHERE tenant_scope=%s", (self.tenant,))
+                self.assertEqual(cur.fetchone(), (self.tenant, self.collection))
 
 
 if __name__ == "__main__":
