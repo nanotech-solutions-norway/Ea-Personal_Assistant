@@ -161,3 +161,23 @@ New read-only `src/ea_backend/calendar_source.py` transforms `events.list` into 
 - Privacy, exclusions, no-send, no-external-calendar-write, deduplication, kill switch and recovery tests passing before any promotion.
 
 **No production deployment or cross-platform data replication is evidenced by this code.** Level 2B and 2C remain HOLD.
+
+## Source-change adapter checkpoint — 11.10.2026
+
+This follow-on review branch adds deterministic read-only adapters for:
+- `src/ea_backend/gmail_history_source.py`: follows Gmail `users.history.list` until the terminal `historyId`, emits only dirty thread IDs, deduplicates change pointers, and propagates the documented 404 history-expiry condition. It **does not** retrieve or classify threads and is not initial mailbox-sync logic.
+- `src/ea_backend/drive_changes_source.py`: exhausts `changes.list` pages and saves the terminal `newStartPageToken` only after complete capture, tracks IDs needing re-read, distinguishes potentially removed files, and refuses unsupported shared-drive events rather than silently discarding them. A file omitted from an incremental feed is NOT deleted. It **does not** yet establish approved Drive-folder membership, account access or a complete baseline.
+- `src/ea_backend/github_delivery.py`: validates GitHub `X-Hub-Signature-256` against raw signed bytes using constant-time comparison, checks allowlisted repositories and installations, and emits minimal delivery metadata. It does **not** connect an HTTP listener or perform any GitHub mutations.
+
+All adapters have synthetic unit regression tests. Source watch creation, provider OAuth, subscription renewal, reconnect/resync, credential revocation, error backoff/dead-letter queue and protected database write-through remain follow-up infrastructure and integration work.
+
+### Required worker-to-database integration
+
+1. Use account-/collection-specific least-privilege OAuth credentials stored in a dedicated secret manager, never these ChatGPT connector session credentials.
+2. For Gmail changed thread IDs: retrieve authoritative current `threads.get` (including the latest draft/deletion suppression state), apply 03D before any approved internal draft action, produce minimal normalized records only after consent/scope classification.
+3. For Drive changed file IDs: re-read `files.get` and relevant parents/permissions. Access loss and `removed` are potentially significant but require scope-specific reconciliation before tombstoning. Skip personal/private items in business namespace and never mirror raw file contents to public GitHub.
+4. For GitHub: verify webhook delivery signature before JSON parsing, persist delivery IDs for replay protection, fetch current issue/PR/workflow state with a least-privileged installation token, and verify repository/installation allowlist on each worker cycle. Do not treat webhook payload as business instructions.
+5. Atomically persist the vetted resource projections, completed source cursor, and audit metadata under an authorized tenant identity; prove real PostgreSQL row security and cross-tenant negative tests.
+6. Observe a second incremental delivery, forced token expiry/reset, replay, provider revocation, and disconnect/restart before marking a source SYNCED.
+
+Provider change notifications are triggers, not authoritative evidence. No user data or credentials were copied into this repository, and no continuous synchronization is active as a result of this change.
