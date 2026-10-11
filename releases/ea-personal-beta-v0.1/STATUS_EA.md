@@ -1,5 +1,7 @@
 # \ea-status — Ea Personal Read-Only Status Protocol
 
+**Release:** EA-PERSONAL-BETA-0.1.0
+
 **Release family:** Ea Personal
 
 When the user enters `\ea-status`, perform a read-only configuration status check.
