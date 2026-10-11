@@ -111,3 +111,35 @@ Production sequence is now:
 6. only then register Gmail/Calendar watches.
 
 Do not register watches while readiness is 503.
+
+
+## Cross-platform atomic staging checkpoint — 11.10.2026
+
+Operator confirmed merged PR #37. Follow-up PR #38 stages:
+- `src/ea_backend/projection_sink.py`: PostgreSQL transactional projection and cursor write with optimistic expected-cursor check, per-collection advisory lock, rollback and in-transaction readback.
+- `src/ea_backend/provider_paging.py`: bounded complete-page collector; missing/cyclic page tokens or missing terminal source cursor fail closed.
+- `sql/004_collection_scoped_projection.sql`: collection identity for secondary calendars, Google accounts and provider resource scopes; apply **after 001, 002 and 003**.
+- tests for duplicate replay, cursor drift, incomplete pagination, tenant/collection separation and rollback.
+
+The change is **not a deployed worker**. It does not register Google watches, deploy cloud resources, configure OAuth or initiate a full data copy.
+
+### Staging deployment gate, in order
+
+1. Confirm intended owner, tenant/resource isolation, subscription, region and budget for a **separate private EA** environment; do not silently reuse AtlasOrbit or family credentials or infrastructure.
+2. Provision private managed PostgreSQL and restricted service networking. Run and verify SQL migrations 001, 002, 003, 004; enable effective per-tenant DB row security before processing non-synthetic personal/customer records.
+3. Deploy authenticated HTTPS service with durable EventStore and secret manager. Require 2A-only flags, TLS, denied public DB access, backups, retention, tracing and kill switch.
+4. Register separate least-privilege Google OAuth grants for the managed service. The native ChatGPT Gmail/Calendar/Drive connections **do not confer** those provider API credentials on the backend. Provision Google Cloud Pub/Sub plus Gmail `users.watch`, Calendar `events.watch` and Drive change processing only after readiness and delivery signature/token verification pass.
+5. Install GitHub App webhook only for authorized repositories, validate its signatures and replay IDs. Poll/reconcile to cover missed webhook deliveries.
+6. Complete full *authorized resource-scoped* scans, exhaust page tokens and store source cursors atomically with items. Test HTTP 410 Calendar cursor reset, Gmail history expiry, Drive change-cursor recovery, duplicate GitHub webhook, process restart and rollback.
+7. Perform independent post-commit readback against the application DB and original provider; validate 03B exclusions, 03D suppression, policy bypass negatives, tenant isolation, source freshness, revocation and data minimization.
+8. Record provider-specific PASS evidence; request the operator's explicit production launch authorization. Level 2B/2C stay HOLD. Continuous sync must not be labelled live until recurring ingestion and reconciliation have actually succeeded.
+
+### Known blockers
+
+- No authenticated cloud subscription/resource-management connector is present in this ChatGPT runtime.
+- No actual managed PostgreSQL database, HTTPS webhook deployment or backend OAuth credential has been verified in this session.
+- Real provider-specific `events.list`, Gmail `history.list`, Drive `changes.list` and GitHub webhook workers remain to be integrated with the staging sink.
+- No independent post-commit readback, database RLS proof or end-to-end staging test has yet been evidenced.
+- Native ChatGPT Tasks/chats/Projects do not have a generally verified external synchronization API; treat as manual/operator-authorized snapshots where applicable.
+
+Repository CI covers synthetic tests only. Treat anything beyond that as `PENDING_REVIEW` or `INFRASTRUCTURE_PENDING`, not production acceptance.
