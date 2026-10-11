@@ -43,3 +43,15 @@ Both active native tasks were explicitly updated to reference 03F and require th
 - `Ea Daily Calendar Briefing` ID `6a9287f458048191ad59286eba6eea2d`: update SUCCESS; daily 07:00 Europe/Oslo `exact_schedule`, enabled; original calendar/commitments controls retained.
 
 This confirms saved prompt changes, **not** successful future scheduled run execution; per-run Gmail drafts still require actual saved-body readback. No schedule changes or new external send authority were introduced.
+
+
+## Continuation validation and Drive reconciliation — 12:44, 11.10.2026
+
+- Created a native Google Docs mirror of the **current GitHub 07B full text** in the Ea-Personal_Assistant Drive folder: [07B 2026-10-11 mirror](https://docs.google.com/document/d/1hWjnqY2jYH1T_FE7C6Cb4Pjj6r3P0YmlPmwa2QAALmo/edit). Insertion, parent location and readback verified, including references to 03F and `update_draft`. The existing raw Drive Markdown file `18zaiG1ykgh_Z0ltdG1Vc9eNJDy8ue2r3` is an **older 29.09.2026 snapshot**, left unchanged. Authority: current GitHub 07B, with Drive mirror as evidence; never silently merge the older Markdown.
+- Read NTSN Gmail profile: primary connected email `nanotech.solutions.norway@gmail.com`. The connector permits draft read/write but `create_draft` and `update_draft` do not expose an explicit `From`/send-as selection or Gmail settings. Thus no live Espen Olsen alias or Gmail UI signature-insertion verification is possible through those actions.
+- Found historical SENT Inster/Oesía correspondence with `From: Espen Olsen <e.olsen@nanotech-solutions.com>`; its body contains **both Espen and Ruben signatures**. `SIGNATURE_PROFILE_HISTORICAL_DEFECT` recorded. It is inappropriate to treat that whole body as the approved Espen signature. **PENDING_REVIEW**: operator verifies active Gmail send-as profile, outgoing Espen signature and Gmail mobile/desktop auto-signature behavior; fail closed for new Inster drafts until the correct sender is selected.
+- Existing NTT-AT draft `r-6459050148385921507` / message `1a12031502aaba59`: read-only check confirms sender displayed as Ruben, in-thread `DRAFT`, no quoted history, no outgoing signature in the stored body. Classify `EXISTING_DRAFT_SIGNATURE_REVIEW`. No customer draft modified, no claim of send-readiness.
+- Existing internal test draft `r6604447729229144822` / message `1a12a528a5f366b3` remains `DRAFT` and clean on repeat readback, no new draft created or sent.
+- 03D recipient-level manual deleted-draft suppression remains **APPROVED / STATIC VALIDATION** only. No simulated manual deletion was performed; absence of a draft never proves deletion. Original received/sent messages remain untouched.
+
+**Disposition:** 03F approved rules and Github/Drive source synchronization PASS; connected Gmail in-place update/readback PASS on internal test; historical signature duplication confirmed; sender alias/UI visual tests PENDING_REVIEW. NO SEND. NO CUSTOMER DRAFT WRITE. No Level 2B/2C promotion.
