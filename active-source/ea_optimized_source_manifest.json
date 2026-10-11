@@ -87,6 +87,7 @@
   },
   "archive_source": "archive/phase-packages/Ea_Phase_Packages_0911_19062026.zip",
   "notes": [
+    "11.10.2026: D-109/D-110 deployment alignment implemented. Ea target commercial runtime is Plugin-first; the approved Private beta/bootstrap path is a customer-owned private ChatGPT Project with generic release package EA-PERSONAL-BETA-0.1.0 and \\install-ea / \\validate-ea / \\ea-update / \\ea-status. Custom GPT material is migration/provenance only.",
     "11.10.2026: 03F Email Draft Hygiene Protocol v1.0 operator-approved; native threading/no copied quotations, one sender-specific signature, spacing, disclaimer exclusion, 03D suppression, readback QA, original email immutability; no send.",
     "Use the compact active-source files for ChatGPT Project operation.",
     "03D is the specific controlling rule when operator deletion of a Gmail draft is known; automatic recreation is suppressed until a new explicit drafting instruction authorizes the specific draft.",
@@ -234,5 +235,18 @@
     "household_budgeting_private_state_rules": "knowledge/finance/EA_HOUSEHOLD_BUDGETING_PRIVATE_STATE_RULES_CURRENT.md",
     "private_household_state": "GOOGLE_DRIVE_PRIVATE_OPERATOR_CONTROLLED",
     "household_state_source_precedence": "explicit_operator > latest_approved_private_state > verified_transactions > authoritative_current_sources > derived > assumptions"
+  },
+  "private_beta_release": {
+    "release_id": "EA-PERSONAL-BETA-0.1.0",
+    "status": "PACKAGE_READY",
+    "path": "releases/ea-personal-beta-v0.1",
+    "activation_command": "\\install-ea",
+    "validation_command": "\\validate-ea",
+    "update_command": "\\ea-update",
+    "status_command": "\\ea-status",
+    "target_runtime": "AtlasOrbit Plugin-first under D-109",
+    "bootstrap_runtime": "customer-owned private ChatGPT Project under D-110",
+    "azure_required_for_bootstrap_beta": false,
+    "customer_data_in_public_repo": "PROHIBITED"
   }
 }
