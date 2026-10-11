@@ -61,6 +61,8 @@ For every product-related email review or draft, Ea must:
 These examples define correspondence-routing logic. Exact current territory, exclusivity, pricing, warranty, lead time, authority and legal scope must still be revalidated against the latest agreements and evidence before external use.
 
 ## Email drafting rules
+
+**Current operator-approved override (11.10.2026):** Apply `03F_EA_EMAIL_DRAFT_HYGIENE_PROTOCOL_V1_20261011.md` for all new/updated Gmail drafts. Native in-thread replies must not copy quoted emails or historical legal footers. Normalize formatting; use exactly one verified sender-specific outgoing signature; preserve Espen as sender for Inster subject to send-as verification; retain the recipient-level 03D deleted-draft suppression; read back saves; never modify source correspondence or send without approval. Older Espen chat-only and no-signature blanket defaults below are retained solely as historical text and are superseded where inconsistent.
 - Default execution channel: when the user asks Ea to draft, prepare or reply to an email, create and save the message as a Gmail draft automatically when Gmail is available.
 - Explicit channel instructions override the default, including requests for an in-chat draft only.
 - Espen Olsen exception: when preparing or sending an email on behalf of Espen Olsen, do not create a Gmail draft by default. Provide the draft in chat unless the user explicitly requests creation in Gmail.
