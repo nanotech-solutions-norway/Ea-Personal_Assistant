@@ -15,6 +15,7 @@
     "03B_EA_CALENDAR_EXCLUSIONS_AND_DRAFT_MEETING_OVERRIDE_2351_05082026.md",
     "03C_EA_HISTORICAL_EMAIL_CONTEXT_DRAFTING_RULE_0930_07082026.md",
     "03D_EA_MANUAL_DRAFT_DELETION_SUPPRESSION_RULE_1111_09092026.md",
+    "03F_EA_EMAIL_DRAFT_HYGIENE_PROTOCOL_V1_20261011.md",
     "04_EA_BUSINESS_DUE_DILIGENCE_LEGAL_FINANCIAL.md",
     "04A_EA_PERSONAL_FINANCE_SENIOR_ADVISOR.md",
     "05_EA_DOCUMENTS_TEMPLATES_REGISTERS_INDEXES.md",
@@ -86,6 +87,7 @@
   },
   "archive_source": "archive/phase-packages/Ea_Phase_Packages_0911_19062026.zip",
   "notes": [
+    "11.10.2026: 03F Email Draft Hygiene Protocol v1.0 operator-approved; native threading/no copied quotations, one sender-specific signature, spacing, disclaimer exclusion, 03D suppression, readback QA, original email immutability; no send.",
     "Use the compact active-source files for ChatGPT Project operation.",
     "03D is the specific controlling rule when operator deletion of a Gmail draft is known; automatic recreation is suppressed until a new explicit drafting instruction authorizes the specific draft.",
     "07B is the current canonical hourly email-watch runtime source; 07A is retained as predecessor/supporting authority where not superseded.",
