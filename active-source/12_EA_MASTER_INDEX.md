@@ -215,3 +215,8 @@ For personal/household finance, precedence is current explicit operator instruct
 ## 10.10.2026 — Daily calendar briefing addition
 
 The explicit operator instruction adds the unified calendar as a section of the Ea daily native scheduled run. Refer to `07C_EA_UNIFIED_CALENDAR_DAILY_BRIEFING_20261010.md`. `Ea Daily Calendar Briefing` was enabled at 07:00 Europe/Oslo daily; the hourly business-email watch is unchanged. The formerly enabled Morning/Mid-Day states in the 29.09 canonical snapshot conflicted with the 10.10 live disabled states. Morning reactivation is based on the new operator instruction, not assumed continued operation. Mid-Day and Evening stay disabled. Do not interpret this as activation of an interactive sidebar calendar or full two-way connector synchronization.
+
+
+## 07B current Google Docs mirror — 11.10.2026
+
+GitHub `active-source/07B_EA_EMAIL_DRAFT_FOLLOWUP_WATCH_CURRENT_1810_25082026.md` is controlling. The verified native Drive mirror is [07B current workflow](https://docs.google.com/document/d/1hWjnqY2jYH1T_FE7C6Cb4Pjj6r3P0YmlPmwa2QAALmo/edit); older raw Drive 07B file `18zaiG1ykgh_Z0ltdG1Vc9eNJDy8ue2r3` remains read-only historical evidence (29.09.2026). Apply 03F formatting, same-draft update/readback and 03D suppression. Espen sender/alias profile and UI signature handling remain PENDING_REVIEW; do not equate historical Espen SENT evidence with current send-as availability. Validation: `validation/EA_EMAIL_DRAFT_HYGIENE_V1_VALIDATION_20261011.md`.
