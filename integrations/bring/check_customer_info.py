@@ -27,7 +27,7 @@ def valid_client_url(value: str) -> bool:
             and bool(parsed.hostname)
             and parsed.username is None
             and parsed.password is None
-            and not any(character in value for character in ("\\r", "\\n"))
+            and all(32 <= ord(character) < 127 for character in value)
         )
     except ValueError:
         return False
@@ -50,6 +50,10 @@ def main() -> int:
         return 2
     if not valid_client_url(os.environ["BRING_CLIENT_URL"]):
         print("BRING_CHECK=BLOCKED_INVALID_CLIENT_URL")
+        return 2
+
+    if any(not all(32 <= ord(character) < 127 for character in os.environ[key]) for key in REQUIRED):
+        print("BRING_CHECK=BLOCKED_INVALID_HEADER_VALUE")
         return 2
 
     request = Request(
