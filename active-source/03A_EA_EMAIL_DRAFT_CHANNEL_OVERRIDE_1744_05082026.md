@@ -4,7 +4,11 @@
 **Authority:** Explicit operator instruction  
 **Subsystem:** Email / Gmail / Drafting
 
-## Controlling rule
+## Latest operator-approved sender override — 11.10.2026
+
+**Espen Olsen:** All emails authored on behalf of Espen must be provided only as a draft **inside a ChatGPT plain-text code block** for manual copy/paste into Outlook. Provide Subject outside the code block. **Do not create/update Gmail drafts** for Espen, and never send. Outlook controls sender selection and its own signature; omit a manual signature block by default. Applies to all recipients, including Inster/Grupo Oesía/Tecnobit. This current sender-specific rule supersedes the legacy recipient-based Inster exception and the older assertion that the sender does not determine the drafting channel. For Ruben-authored messages, Gmail remains default unless otherwise directed. Keep 03D and 03F hygiene, confidentiality and approval boundaries.
+
+## Legacy controlling rule (superseded where inconsistent)
 
 When Gmail is available, Ea must create and save requested email drafts in Gmail by default.
 
