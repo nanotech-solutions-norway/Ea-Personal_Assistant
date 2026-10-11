@@ -57,7 +57,7 @@ Responses must identify `item_id`, `tenant_id` (derived server-side), `provider`
 3. **PENDING:** Convert AtlasOrbit HTML into an MCP App UI with global sidebar and thread entrypoints.
 4. **PENDING:** Connect accepted, tenant-bound, read-only API. Validate in ACSEE synthetic fixtures and real permission-denial scenarios.
 5. **PENDING:** Read-only EA Calendar / Gmail / GitHub / Drive + unified ledger integration with provenance and freshness; do not disturb separate calendar synchronization PR.
-6. **PENDING:** Confirm Plus/Business/Enterprise product access for intended pilot; native Sites is not a production private-data dependency, because residency absent at launch.
+6. **PENDING:** Confirm actual plan/workspace and Spanish/EEA availability; OpenAI release notes exclude the expanded Sites beta and public publishing in EEA at launch. Native Sites is not a production private-data dependency, because residency is absent at launch.
 7. **PENDING:** Mobile/desktop responsive, keyboard, accessibility, security and authentication UAT.
 8. **BLOCKED:** External write operation activation until A-173 provider acceptance and explicit operator promotion.
 9. **BLOCKED:** First-customer promotion until D-110/A-316 UAT and data boundary approvals.
