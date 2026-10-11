@@ -7,7 +7,7 @@ Run only against the customer's current authorized environment. Use read-only or
 ## Mandatory gates
 
 ### V1 Release integrity
-PASS only if all six required release files are present and manifest IDs agree.
+PASS only if all seven required release files are present and manifest IDs agree.
 
 ### V2 Runtime isolation
 PASS only if the user confirms/available UI evidence supports a customer-owned private Project. If isolation cannot be verified, report BLOCKED.
