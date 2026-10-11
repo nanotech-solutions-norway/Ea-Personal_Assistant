@@ -35,7 +35,7 @@ class CustomerInfoContractTests(unittest.TestCase):
     def test_insecure_and_userinfo_urls_rejected(self):
         self.assertFalse(valid_client_url("http://github.com/example"))
         self.assertFalse(valid_client_url("https://user:pass@example.com/"))
-        self.assertFalse(valid_client_url("https://example.com/\\r\\nX-Foo:bar"))
+        self.assertFalse(valid_client_url("https://example.com/" + chr(13) + chr(10) + "X-Foo:bar"))
 
 
 if __name__ == "__main__":
