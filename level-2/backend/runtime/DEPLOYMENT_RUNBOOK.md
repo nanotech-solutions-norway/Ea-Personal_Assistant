@@ -143,3 +143,21 @@ The change is **not a deployed worker**. It does not register Google watches, de
 - Native ChatGPT Tasks/chats/Projects do not have a generally verified external synchronization API; treat as manual/operator-authorized snapshots where applicable.
 
 Repository CI covers synthetic tests only. Treat anything beyond that as `PENDING_REVIEW` or `INFRASTRUCTURE_PENDING`, not production acceptance.
+
+## Disposable PostgreSQL / Calendar source integration checkpoint — 11.10.2026
+
+PR #39 adds a PostgreSQL 16 ephemeral GitHub Actions service and a real (non-mock) database integration test. The test applies migrations `001` through `004` and verifies item insert/revision, cursor advancement, duplicate no-op, cross-collection identity separation, explicit tombstone, stale cursor rollback and failed validation rollback. Synthetic records only; CI is **not** the EA live datastore.
+
+New read-only `src/ea_backend/calendar_source.py` transforms `events.list` into resource-scoped `SourceItem` records and enforces all-pages-before-cursor behavior. Use `nextSyncToken` only from the last Calendar page; retain `showDeleted=true` and the same compatible parameters when making incremental `syncToken` calls. A Calendar HTTP 410 requires new full source reconciliation; do **not** delete prior state before a new complete scan and atomic commit. See Google's official Events.list API documentation for parameter limitations. No OAuth credential or HTTP transport was provisioned by this PR.
+
+### Acceptance evidence required before next phase
+
+- Evidence that a separate private EA staging subscription/resource group and cost ceiling have been approved.
+- PostgreSQL private ingress, secrets in vault, tenant isolation / RLS, independent migration verification, backup and audit proof.
+- A deployed, authenticated HTTPS receiver that answers `/readyz == 200` with actual durable DB and verified provider delivery identity.
+- Independent backend OAuth grants: native ChatGPT connector authorization is not a usable backend token.
+- A full resource-scoped Google Calendar sync, OAuth readback, persisted `nextSyncToken`, incremental follow-on run, and verified 410 recovery.
+- Separately completed Gmail, Drive and GitHub incremental workers, source cursors, signed notifications and reconciliation.
+- Privacy, exclusions, no-send, no-external-calendar-write, deduplication, kill switch and recovery tests passing before any promotion.
+
+**No production deployment or cross-platform data replication is evidenced by this code.** Level 2B and 2C remain HOLD.
