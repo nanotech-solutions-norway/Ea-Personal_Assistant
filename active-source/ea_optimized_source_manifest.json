@@ -248,5 +248,20 @@
     "bootstrap_runtime": "customer-owned private ChatGPT Project under D-110",
     "azure_required_for_bootstrap_beta": false,
     "customer_data_in_public_repo": "PROHIBITED"
+  },
+  "email_draft_hygiene": {
+    "version": "1.0",
+    "approved": "2026-10-11",
+    "canonical_source": "03F_EA_EMAIL_DRAFT_HYGIENE_PROTOCOL_V1_20261011.md",
+    "drive_protocol_doc_id": "1-7frdfoP-aKP5126Vc0M5VOju6hChad8TcMxOcAj6E4",
+    "gmail_watch_canonical_git_path": "active-source/07B_EA_EMAIL_DRAFT_FOLLOWUP_WATCH_CURRENT_1810_25082026.md",
+    "gmail_watch_current_drive_mirror_id": "1hWjnqY2jYH1T_FE7C6Cb4Pjj6r3P0YmlPmwa2QAALmo",
+    "gmail_watch_old_drive_raw_id": "18zaiG1ykgh_Z0ltdG1Vc9eNJDy8ue2r3",
+    "gmail_watch_old_drive_state": "HISTORICAL_STALE_EVIDENCE_NOT_REPLACED",
+    "test_state": "INTERNAL_DRAFT_READBACK_PASS",
+    "sender_alias_espen": "PENDING_REVIEW",
+    "gmail_visual_signature": "PENDING_REVIEW",
+    "manual_deletion_suppression": "03D_APPROVED_STATIC_NO_DESTRUCTIVE_TEST",
+    "validation_path": "validation/EA_EMAIL_DRAFT_HYGIENE_V1_VALIDATION_20261011.md"
   }
 }
