@@ -18,6 +18,11 @@ target_commercial_runtime: AtlasOrbit Plugin + entitlement-controlled Skill Pack
 - INSTALL_EA.md
 - VALIDATE_EA.md
 - UPDATE_EA.md
+- STATUS_EA.md
+
+## Optional customer-facing file
+
+- START_HERE.md
 
 ## Supported bootstrap runtime
 
