@@ -29,6 +29,9 @@ Required files:
 - `INSTALL_EA.md`
 - `VALIDATE_EA.md`
 - `UPDATE_EA.md`
+- `STATUS_EA.md`
+
+Optional customer handoff: `START_HERE.md`.
 
 Canonical commands:
 - `\install-ea`
