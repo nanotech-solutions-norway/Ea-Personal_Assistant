@@ -45,3 +45,14 @@ the key into ChatGPT or open GitHub issues.
 
 No schedule, API write, automation promotion, customer record export, or
 external file write-back is enabled by this workflow.
+
+## Protected-main merge gate
+
+The `main` branch is governed by the active repository ruleset
+`EA Personal Assistant — Protect main (CI + PR)`. Do not merge this pilot
+until GitHub displays all four required PR checks as passing on the
+current head or test-merge commit. Keep `bring-pilot` scoped to `main`.
+
+This documentation does not attest that any Bring API credential-backed
+request has run. Only a subsequently recorded manual Actions run and its
+`BRING_CHECK` status constitute live-authentication evidence.
