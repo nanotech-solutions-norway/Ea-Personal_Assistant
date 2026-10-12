@@ -99,3 +99,8 @@ Apply `03F_EA_EMAIL_DRAFT_HYGIENE_PROTOCOL_V1_20261011.md` before and after ever
 ## Espen Outlook-only rule (approved 11.10.2026)
 
 Espen-authored messages are exclusively ChatGPT drafts: Subject outside, email body inside a fenced plain-text code block for manual Outlook copy. Do not create or update Gmail drafts for Espen, including Inster. The operator selects sender, handles the Outlook signature and sends manually. Omit a full signature from the draft body by default. If a scheduled run cannot display this draft, report PENDING_OPERATOR_CHAT_DRAFT. All earlier Gmail-by-default directions in this file apply only to other authorized senders; preserve 03D suppression, 03F style, confidentiality and no-send safeguards.
+
+
+## Latest approved Gmail signature omission — 12.10.2026
+
+For every non-Espen Gmail draft, Ea must author the email body WITHOUT any signature/name/job title/contact footer. The operator's Gmail standard signature is automatically applied by Gmail; never insert one manually, even if the stored API readback contains none. Validate ZERO Ea-added signatures after same-draft clean-body update, along with unchanged thread, recipients, quotation hygiene and DRAFT state. All older “one signature in draft body” requirements are superseded. Espen stays ChatGPT code-block to manual Outlook, no added signature. Preserve 03D suppression, no-send and Level 2B/2C HOLD.

@@ -61,6 +61,8 @@ For every product-related email review or draft, Ea must:
 These examples define correspondence-routing logic. Exact current territory, exclusivity, pricing, warranty, lead time, authority and legal scope must still be revalidated against the latest agreements and evidence before external use.
 
 ## Email drafting rules
+**LATEST OPERATOR RULE — 12.10.2026 / Gmail signatures:** Do not place a sender signature, name/job title/company/contact footer into ANY Gmail draft body. Gmail applies its standard configured signature automatically. Never manually insert or repair a missing signature, even when the draft's MIME readback has none. Validate zero Ea-authored signatures in the saved body, not visual Gmail auto-insertion. This supersedes contradictory older “exactly one signature in Gmail draft” instructions. Preserve 03F clean text, 03D suppression, Espen chat/Outlook-only channel and no-send rules.
+
 **LATEST OPERATOR RULE — 11.10.2026:** Emails written **on behalf of Espen Olsen** are drafted **only in the ChatGPT conversation**, with the email body in a **plain-text fenced code block** and the Subject separately outside the block, for the operator to copy manually into **Outlook**. Ea must NOT create/update a Gmail draft for Espen and must NOT send. Outlook handles manual From/signature/sending; omit a duplicated signature block by default. This sender-specific exception supersedes any older Gmail-default, Inster recipient-based, or general no-code-block guidance, but does not change non-Espen Gmail drafting. Preserve 03D recipient-level deletion suppression, source checking and all approvals.
 
 

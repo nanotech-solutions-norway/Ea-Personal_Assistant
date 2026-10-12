@@ -225,3 +225,8 @@ GitHub `active-source/07B_EA_EMAIL_DRAFT_FOLLOWUP_WATCH_CURRENT_1810_25082026.md
 ## 11.10.2026 — Espen Outlook manual-copy override
 
 Latest operator-approved sender-specific rule: all emails written on behalf of Espen Olsen must appear in a plain-text code block inside ChatGPT, subject separately, for manual copying into Outlook. Never create/update Gmail drafts or send as Espen. Outlook controls the manual sender, signature and sending; omit a full manual signature by default. This rule overrides the older Gmail-by-default/Inster recipient-only handling for Espen. For Ruben and other sender profiles, default Gmail drafting rules remain effective. See active-source 03F, 03A, 03 and 07B. Preserve 03D suppression and Level 2 boundaries.
+
+
+## 12.10.2026 — Approved Gmail auto-signature rule
+
+Ea must NEVER add signature blocks into saved Gmail draft bodies; Gmail automatically applies the configured signature. QA checks zero Ea-added signatures, without claiming connector readback proves visual Gmail insertion. Supersedes prior 03F/03/07B language to insert “one signature.” Espen's separate in-chat code-block for manual Outlook remains unchanged. Preserve 03D, governance and no-send. Implementation staged in protected-branch PR until checks and merge.
