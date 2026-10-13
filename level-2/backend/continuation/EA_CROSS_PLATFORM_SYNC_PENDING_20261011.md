@@ -106,3 +106,16 @@ PR [#50](https://github.com/nanotech-solutions-norway/Ea-Personal_Assistant/pull
 The corresponding Google Drive handoff was updated in place and read back: https://docs.google.com/document/d/1NBy2gBhM9trFufu47QQGoD6ekax8xSNK687hXoyILlM/edit
 
 **Operational state unchanged:** no live Google, Gmail, Drive or GitHub provider synchronization to EA managed storage; no private EA cloud resources or OAuth identities provisioned; no expansion beyond Level 2A; Level 2B/2C remain HOLD. Complete the separate subscription/region/monthly-budget authorization and runtime/private-DB/provider gates in section 6 to proceed with cloud staging.
+
+## 10. Operator staging-configuration decision — 13.10.2026
+
+The operator explicitly selected a **new dedicated EA staging resource group**, Azure **West Europe**, a maximum **EUR 20 per month** and **a single private EA tenant**. No Azure subscription was provided. The operator expressly prohibited paid-resource provisioning and live-data synchronization until separately verified cloud authorization and approval.
+
+The binding, non-sensitive design record and deployment preparation are:
+- [EA staging decision](../deployment/EA_STAGING_DECISION_WE_EUR20_20261013.json): `DESIGN_APPROVED_DEPLOYMENT_BLOCKED`; Azure `westeurope`, proposed `rg-ea-stg-westeurope`, EUR 20/month.
+- [Predeployment and cost feasibility plan](../deployment/EA_STAGING_PREDEPLOY_PLAN_20261013.md): step-by-step requirements, West Europe quote, private topology, provider auth, security and acceptance gates.
+- [Offline deployment-hold validator](../validation/staging_decision_gate.py) + [regression tests](../tests/test_staging_decision_gate.py): always report `deployment_authorized=false`, explicitly reject enabling paid resources/live synchronization or widening scope.
+
+**Required next input** is only the intended Azure subscription name/ID for read-only eligibility and subscription-specific EUR cost verification. The resource group is a **proposed design name only**, not a deployed Azure resource. A EUR 20 Azure Cost Management budget or alert is **not a hard expenditure cap**. If the complete authenticated quote exceeds the limit, recommend ephemeral synthetic CI and request an explicit architecture/budget decision, never silently provision.
+
+**Classification:** DESIGN_CONSTRAINTS_CAPTURED / CLOUD_SUBSCRIPTION_MISSING / ALL_IN_QUOTE_PENDING / PAID_DEPLOYMENT_NOT_AUTHORIZED / LIVE_SYNC_DISABLED / EA_LEVEL_2B_2C_HOLD. Earlier requests for region, tenant type and a ceiling are now resolved and must not be re-asked.
