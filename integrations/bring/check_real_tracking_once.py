@@ -32,51 +32,52 @@ CUSTOMER_FIELDS = (
 )
 
 
-def validate_real_shipment(payload: bytes, requested: str, expected_customer: str) -> str:
-    """Validate exact shipment identity, company account association and event.
+def diagnose_real_shipment(payload: bytes, requested: str, expected_customer: str):
+    """Return only non-identifying diagnostic labels.
 
-    A public tracking response can succeed for someone else's package.
-    Authentication alone is not tenancy proof. We require a returned company
-    customer number to equal the independently configured operator-owned number.
+    A valid tracking response does not prove that the authenticated Mybring
+    user or its company owns the shipment. The tracking status and account
+    binding are separate, independently evaluated acceptance gates.
     """
+    failed = lambda label: (label, "NOT_VERIFIED", "NOT_ASSESSED", "UNKNOWN")
     response = json.loads(payload)
     if not isinstance(response, dict) or str(response.get("apiVersion")) != "2":
-        return "INVALID_RESPONSE"
+        return failed("INVALID_RESPONSE")
     consignments = response.get("consignmentSet")
     if not isinstance(consignments, list) or not consignments:
-        return "NOT_FOUND"
+        return failed("NOT_FOUND")
     if any(not isinstance(item, dict) or item.get("error") for item in consignments):
-        return "API_ERROR"
+        return failed("API_ERROR")
 
     found = []
     for consignment in consignments:
         packages = consignment.get("packageSet")
-        if not isinstance(packages, list):
-            return "INVALID_RESPONSE"
-        package_matches = [
-            package for package in packages
-            if isinstance(package, dict) and package.get("packageNumber") == requested
-        ]
-        if consignment.get("consignmentId") == requested:
-            selected = [p for p in packages if isinstance(p, dict)]
-        else:
-            selected = package_matches
+        if not isinstance(packages, list) or any(not isinstance(p, dict) for p in packages):
+            return failed("INVALID_RESPONSE")
+        exact_packages = [p for p in packages if p.get("packageNumber") == requested]
+        selected = packages if consignment.get("consignmentId") == requested else exact_packages
         if selected:
             found.append((consignment, selected))
+
+    if not found:
+        return failed("NOT_FOUND")
     if len(found) != 1:
-        return "NOT_FOUND" if not found else "AMBIGUOUS_MATCH"
+        return failed("AMBIGUOUS_MATCH")
 
     consignment, selected_packages = found[0]
-    if not any(str(consignment.get(field) or "") == expected_customer for field in CUSTOMER_FIELDS):
-        return "TENANT_UNVERIFIED"
+    bools = [consignment.get("isLoggedInSenderOrReceiver")]
+    bools.extend(p.get("isLoggedInSenderOrReceiver") for p in selected_packages)
+    relationship = (
+        "LOGGED_IN_PARTY" if True in bools
+        else "NOT_INDICATED" if False in bools
+        else "UNKNOWN"
+    )
 
-    if not selected_packages:
-        return "STATUS_NOT_VERIFIED"
     has_event_status = False
     for package in selected_packages:
         events = package.get("eventSet")
         if not isinstance(events, list):
-            return "STATUS_NOT_VERIFIED"
+            return ("STATUS_NOT_VERIFIED", "NOT_VERIFIED", "NOT_ASSESSED", relationship)
         if any(
             isinstance(event, dict)
             and isinstance(event.get("status"), str)
@@ -84,7 +85,31 @@ def validate_real_shipment(payload: bytes, requested: str, expected_customer: st
             for event in events
         ):
             has_event_status = True
-    return "PASS" if has_event_status else "STATUS_NOT_VERIFIED"
+    if not has_event_status:
+        return ("STATUS_NOT_VERIFIED", "NOT_VERIFIED", "NOT_ASSESSED", relationship)
+
+    # The Tracking v2 examples include these fields but often leave them blank.
+    # Do not treat a public tracking response or an API login relationship flag
+    # as proof that a specific company customer/master number matches.
+    supplied = [
+        str(consignment.get(field)).strip()
+        for field in CUSTOMER_FIELDS
+        if consignment.get(field) not in (None, "")
+    ]
+    if expected_customer in supplied:
+        return ("PASS", "PASS", "CUSTOMER_ID_MATCH", relationship)
+    if supplied:
+        detail = "NONMATCHING_ACCOUNT_FIELD"
+    elif any(field in consignment for field in CUSTOMER_FIELDS):
+        detail = "ACCOUNT_FIELDS_EMPTY"
+    else:
+        detail = "ACCOUNT_FIELDS_ABSENT"
+    return ("TENANT_UNVERIFIED", "PASS", detail, relationship)
+
+
+def validate_real_shipment(payload: bytes, requested: str, expected_customer: str) -> str:
+    """Compatibility wrapper: retain the strict final PASS/fail contract."""
+    return diagnose_real_shipment(payload, requested, expected_customer)[0]
 
 
 def valid_input(tracking: str, expected_customer: str) -> bool:
@@ -145,14 +170,21 @@ def main() -> int:
         print("BRING_REAL_CHECK=RESPONSE_TOO_LARGE")
         return 3
     try:
-        status = validate_real_shipment(
+        status, tracking_result, tenant_detail, relationship = diagnose_real_shipment(
             payload,
             tracking,
             os.environ["BRING_EXPECTED_CUSTOMER_NUMBER"],
         )
     except (UnicodeError, ValueError, TypeError):
-        status = "INVALID_RESPONSE"
+        status, tracking_result, tenant_detail, relationship = (
+            "INVALID_RESPONSE", "NOT_VERIFIED", "NOT_ASSESSED", "UNKNOWN"
+        )
 
+    # Only enumerated labels; never print actual tracking numbers, customer IDs,
+    # status descriptions, event dates/locations, user details or response data.
+    print("BRING_REAL_TRACKING=" + tracking_result)
+    print("BRING_TENANT_DIAGNOSTIC=" + tenant_detail)
+    print("BRING_ACCOUNT_RELATIONSHIP_HINT=" + relationship)
     print("BRING_REAL_CHECK=" + status)
     return 0 if status == "PASS" else 4
 
