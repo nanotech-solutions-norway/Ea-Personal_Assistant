@@ -6,7 +6,7 @@ import unittest
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
-from check_real_tracking_once import valid_input, validate_real_shipment
+from check_real_tracking_once import diagnose_real_shipment, valid_input, validate_real_shipment
 
 REQUESTED = "ABC123456789"
 COMPANY = "999111222"
@@ -57,6 +57,40 @@ class TestRealTrackingAcceptance(unittest.TestCase):
                 fixture(include_customer=False, logged_in=True), REQUESTED, COMPANY
             ),
             "TENANT_UNVERIFIED",
+        )
+
+    def test_company_binding_success_has_distinct_evidence(self):
+        self.assertEqual(
+            diagnose_real_shipment(fixture(), REQUESTED, COMPANY),
+            ("PASS", "PASS", "CUSTOMER_ID_MATCH", "NOT_INDICATED"),
+        )
+
+    def test_missing_fields_reports_separate_tracking_and_tenant_checks(self):
+        self.assertEqual(
+            diagnose_real_shipment(
+                fixture(include_customer=False, logged_in=True), REQUESTED, COMPANY
+            ),
+            ("TENANT_UNVERIFIED", "PASS", "ACCOUNT_FIELDS_ABSENT", "LOGGED_IN_PARTY"),
+        )
+
+    def test_blank_fields_do_not_imply_permission_denial(self):
+        self.assertEqual(
+            diagnose_real_shipment(fixture(customer=""), REQUESTED, COMPANY),
+            ("TENANT_UNVERIFIED", "PASS", "ACCOUNT_FIELDS_EMPTY", "NOT_INDICATED"),
+        )
+
+    def test_other_account_fields_do_not_get_logged_or_accepted(self):
+        self.assertEqual(
+            diagnose_real_shipment(fixture(customer="111222333"), REQUESTED, COMPANY),
+            ("TENANT_UNVERIFIED", "PASS", "NONMATCHING_ACCOUNT_FIELD", "NOT_INDICATED"),
+        )
+
+    def test_status_is_checked_before_account_association(self):
+        self.assertEqual(
+            diagnose_real_shipment(
+                fixture(status="", include_customer=False), REQUESTED, COMPANY
+            ),
+            ("STATUS_NOT_VERIFIED", "NOT_VERIFIED", "NOT_ASSESSED", "NOT_INDICATED"),
         )
 
     def test_wrong_shipment_rejected(self):
