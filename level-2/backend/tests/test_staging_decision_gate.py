@@ -22,7 +22,8 @@ class EAStagingDecisionTests(unittest.TestCase):
         self.assertFalse(result["deployment_authorized"])
         self.assertIn("Azure subscription ownership/RBAC unverified", result["blockers"])
         self.assertIn("Subscription-specific itemized all-in price unverified", result["blockers"])
-        self.assertIn("Explicit deployment authorization missing", result["blockers"])
+        self.assertNotIn("Explicit deployment authorization missing", result["blockers"])
+        self.assertIn("Cloud RBAC not independently verified", result["blockers"])
 
     def test_operator_authorization_does_not_substitute_for_cloud_verification(self):
         self.assertTrue(self.plan["auth"]["operator_deployment_approval"])
