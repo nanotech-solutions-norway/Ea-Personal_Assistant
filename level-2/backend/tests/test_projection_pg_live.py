@@ -15,6 +15,8 @@ sys.path.insert(0, str(ROOT / "src"))
 
 from ea_backend.projection_sink import PostgresProjectionSink, ConcurrentCursorError
 from ea_backend.unified_sync import SourceItem, SyncContractError, source_key
+from ea_backend.calendar_staging_worker import AuthorizedCalendarScope, synchronize_calendar_staging
+from ea_backend.postcommit_readback import PostgresProjectionVerifier, CommittedStateUnverified
 
 DSN = os.getenv("EA_TEST_DATABASE_URL", "")
 
@@ -156,6 +158,69 @@ class RealPostgresProjectionTests(unittest.TestCase):
                 cur.execute("SELECT tenant_scope,collection_key FROM ea_source_cursors "
                             "WHERE tenant_scope=%s", (self.tenant,))
                 self.assertEqual(cur.fetchone(), (self.tenant, self.collection))
+
+    def restricted_verifier(self):
+        def connect_as_reader(dsn):
+            conn = self.psycopg.connect(dsn)
+            try:
+                with conn.cursor() as cur:
+                    cur.execute("SET ROLE ea_ci_scope_reader")
+                conn.commit()
+                return conn
+            except Exception:
+                conn.close()
+                raise
+        return PostgresProjectionVerifier(DSN, connect=connect_as_reader)
+
+    def test_calendar_staging_real_db_postcommit_and_idempotent_timezone(self):
+        scope = AuthorizedCalendarScope(self.tenant, self.collection, "Europe/Madrid")
+        calls = []
+        def transport(params):
+            calls.append(dict(params))
+            return {
+                "items": [{
+                    "id": "event", "etag": '"rev1"', "status": "confirmed",
+                    "summary": "Synthetic", "start": {
+                        "dateTime": "2026-10-13T10:00:00+02:00",
+                        "timeZone": "Europe/Madrid",
+                    }
+                }],
+                "nextSyncToken": "tok2" if "syncToken" in params else "tok1",
+            }
+        verifier = self.restricted_verifier()
+        first = synchronize_calendar_staging(
+            scope=scope, run_id=uuid.uuid4().hex, list_events=transport,
+            sink=self.sink, verifier=verifier, expected_cursor=None, mode="full"
+        )
+        self.assertEqual(first.verified_items, 1)
+        self.assertEqual(first.persisted_changes, 1)
+        # Repeated provider timestamp in +02:00 must equal PostgreSQL UTC readback.
+        second = synchronize_calendar_staging(
+            scope=scope, run_id=uuid.uuid4().hex, list_events=transport,
+            sink=self.sink, verifier=verifier, expected_cursor="tok1",
+            mode="incremental"
+        )
+        self.assertEqual(second.persisted_changes, 0)
+        self.assertEqual(second.verified_items, 1)
+        self.assertEqual(calls[1]["syncToken"], "tok1")
+
+    def test_postcommit_drift_is_reported_not_retried(self):
+        run = uuid.uuid4().hex
+        item = self.item()
+        self.capture([item], run=run)
+        with self.psycopg.connect(DSN) as conn:
+            with conn.cursor() as cur:
+                cur.execute(
+                    "UPDATE ea_source_cursors SET cursor_value=%s WHERE tenant_scope=%s",
+                    ("unexpected", self.tenant)
+                )
+        with self.assertRaises(CommittedStateUnverified):
+            self.restricted_verifier().verify(
+                run_id=run, tenant_scope=self.tenant,
+                source="google_calendar", collection_key=self.collection,
+                next_cursor="tok1", pages_fetched=1, changed=1,
+                fetched=[item]
+            )
 
 
 if __name__ == "__main__":

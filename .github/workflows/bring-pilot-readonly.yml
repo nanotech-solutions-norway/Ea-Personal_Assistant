@@ -1,0 +1,47 @@
+name: EA Bring read-only API pilot
+
+on:
+  pull_request:
+    paths:
+      - ".github/workflows/bring-pilot-readonly.yml"
+      - "integrations/bring/**"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ea-bring-pilot-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  contract-tests:
+    name: Synthetic contract tests (no secrets)
+    runs-on: ubuntu-latest
+    timeout-minutes: 3
+    steps:
+      - name: Checkout without persistent credentials
+        uses: actions/checkout@08eba0b27e820071cde6df949e0beb9ba4906955 # v4.3.0
+        with:
+          persist-credentials: false
+      - name: Verify safe response parsing and configuration
+        run: python3 -m unittest discover -s integrations/bring/tests -p "test_*.py" -v
+
+  live-auth-check:
+    name: Read-only Mybring customer-info access
+    if: github.event_name == 'workflow_dispatch' && github.ref == 'refs/heads/main'
+    needs: contract-tests
+    runs-on: ubuntu-latest
+    timeout-minutes: 3
+    environment: bring-pilot
+    env:
+      BRING_API_UID: ${{ secrets.BRING_API_UID }}
+      BRING_API_KEY: ${{ secrets.BRING_API_KEY }}
+      BRING_CLIENT_URL: ${{ vars.BRING_CLIENT_URL }}
+    steps:
+      - name: Checkout without persistent credentials
+        uses: actions/checkout@08eba0b27e820071cde6df949e0beb9ba4906955 # v4.3.0
+        with:
+          persist-credentials: false
+      - name: Validate read-only access to Bring Customer Info API
+        run: python3 integrations/bring/check_customer_info.py

@@ -181,3 +181,25 @@ All adapters have synthetic unit regression tests. Source watch creation, provid
 6. Observe a second incremental delivery, forced token expiry/reset, replay, provider revocation, and disconnect/restart before marking a source SYNCED.
 
 Provider change notifications are triggers, not authoritative evidence. No user data or credentials were copied into this repository, and no continuous synchronization is active as a result of this change.
+
+## Resumed engineering checkpoint — 13.10.2026 (staging only)
+
+The operator expressly resumed the previously saved EA cross-platform synchronization project on 13 October 2026. The 11 October hold on engineering work is lifted **only for authorized development and synthetic testing**; no production launch, customer data migration, Azure expenditure or credential onboarding was authorized.
+
+### New Calendar atomic-readback pilot
+
+- `src/ea_backend/calendar_staging_worker.py` orchestrates **one authorized, bounded, read-only Google Calendar collection** using injected `events.list` transport. It refuses incremental mode without a trusted persisted cursor and propagates HTTP 410/partial-page failure without changing the datastore.
+- `src/ea_backend/postcommit_readback.py` independently opens another PostgreSQL connection **after** the projection sink commits, sets its RLS tenant scope for the read transaction and compares the recorded run, cursor and item revisions. Its `CommittedStateUnverified` exception **does not imply rollback**, so never blindly replay after a readback error.
+- `src/ea_backend/projection_sink.py` normalizes offset-qualified timestamps to a canonical UTC instant before comparing a provider observation with PostgreSQL `timestamptz`, preventing false source-revision drift when server and provider time zones differ. Ambiguous timestamp input fails closed.
+- New tests cover staged full/incremental paging, incorrect/missing tokens, HTTP 410 failure, postcommit ambiguity and actual PostgreSQL nonowner-role readback/unchanged replay using synthetic Calendar fixtures.
+
+### Deployment hard gates still open
+
+1. Obtain **separate EA** staging subscription/resource group, region, monthly cost cap, account owner, tenant owner and safe data scope. The AtlasOrbit Azure environment is **not** interchangeable.
+2. Provision via an actually authorized cloud administrator/connector. Use managed PostgreSQL with migrations 001–005, private networking, a nonowner/no-BYPASSRLS runtime identity, mandatory TLS, secrets vault, audit/backup/retention and independent readback identity. Legacy EA case/action/watch/audit tables are **not yet tenant-isolated**.
+3. Provide a genuinely authorized **read-only** Google Calendar backend OAuth credential; native ChatGPT Google connector access cannot be exported as a backend OAuth grant.
+4. Fetch an initial complete authorized Calendar collection and incremental token, reconcile 410 with a separately completed full scan, and verify provider/database state without inferring deletions from a partial or filtered scan.
+5. Repeat for Gmail, Drive, GitHub with provider-specific starting cursor, replay guards, permissions/tenant boundaries and independent source readback. Do not claim a worker deployed just because a staging adapter passes unit tests.
+6. Run real staging authorization/revocation, restart, duplicate, crash, wrong-tenant, provider 404/410, rollback, exclusion and no-external-write tests. Require the operator's explicit final production acceptance; Level 2B/2C stay HOLD.
+
+**Important:** independent DB readback proves only DB persistence, not source/provider reconciliation. Do not call it full end-to-end synchronization. A verifier must run using a restricted database role, **not** the CI superuser. A tenant scope must come from trusted workload authorization, never webhook-supplied text. Raw credentials and customer event content must never be checked into this public repository.

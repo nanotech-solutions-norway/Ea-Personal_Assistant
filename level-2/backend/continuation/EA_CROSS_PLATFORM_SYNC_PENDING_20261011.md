@@ -1,7 +1,7 @@
 # EA Cross-Platform Synchronization — Pending Continuation
 
 **Checkpoint date:** 2026-10-11 (Europe/Madrid)  
-**Disposition:** PENDING_CONTINUATION / ENGINEERING_WORK_PAUSED_BY_OPERATOR  
+**Disposition:** RESUMED_ENGINEERING_ONLY on 2026-10-13 / INFRASTRUCTURE_PENDING  
 **Project:** EA Personal Assistant — Level 2 managed backend, cross-platform synchronization  
 **Source-of-truth repository:** https://github.com/nanotech-solutions-norway/Ea-Personal_Assistant  
 **EA Drive project folder:** https://drive.google.com/drive/folders/1XgWMoN69UtwWCTNlc1MGEBfj7hZ7DnoT  
@@ -88,3 +88,21 @@ The public GitHub repository must contain **no Gmail messages, calendar descript
 **Which separately authorized Azure subscription/resource group, region and maximum monthly EA staging budget should be used?**
 
 **Final checkpoint disposition:** SAVED_FOR_LATER; no automatic continuation; live continuous cross-platform sync NOT ACTIVE. This file is a non-sensitive engineering handoff, not a deployment authorization.
+
+## 8. Superseding operator resumption — 13.10.2026
+
+**Operator instruction:** "Resume EA Cross-Platform Synchronization from pending continuation." The preceding pause in sections 1 and 7 is a historical checkpoint, not a current hold on engineering work. Resume is limited to staged software development, repository tests and documentation. It is **not** authority to provision unpriced cloud resources, access private external accounts with new OAuth scopes, synchronize live user data or launch a production service.
+
+Latest resumed implementation: [PR #50](https://github.com/nanotech-solutions-norway/Ea-Personal_Assistant/pull/50), staged Calendar events.list collector -> transactional tenant-scoped PostgreSQL sink -> post-commit independent DB readback; timestamp canonicalization for stable replay; synthetic and real disposable PostgreSQL integration tests. PR must pass checks and merge before claiming implementation in main.
+
+**Next hard dependency:** operator-selected and explicitly authorized separate EA Azure subscription/resource group, region, monthly cost limit, and managed backend OAuth identity/grant. Keep the existing AtlasOrbit and customer private-beta environments separate unless specifically authorized.
+
+**Latest classification:** ENGINEERING_RESUMED / PR_50_MERGED_CI_5_OF_5_PASS / CLOUD_INFRASTRUCTURE_PENDING / LIVE_SYNC_NOT_ACTIVE. EA Level 2B/2C and production cutover remain HOLD. This supersedes only the earlier engineering pause; it does not amend any unrelated scheduled EA tasks or approvals.
+
+## 9. Verification after PR #50 merge — 13.10.2026
+
+PR [#50](https://github.com/nanotech-solutions-norway/Ea-Personal_Assistant/pull/50) was merged into `main` at commit `fb78124c554604dc22f0229d73d001c1e0173700`. All five latest head workflows PASS (including disposable real PostgreSQL integration and unit jobs). Main-branch readback confirms `calendar_staging_worker.py`, `postcommit_readback.py` and `test_calendar_staging_worker.py` exist. These are repository-level staging tests using synthetic records, **not** a production backend deployment.
+
+The corresponding Google Drive handoff was updated in place and read back: https://docs.google.com/document/d/1NBy2gBhM9trFufu47QQGoD6ekax8xSNK687hXoyILlM/edit
+
+**Operational state unchanged:** no live Google, Gmail, Drive or GitHub provider synchronization to EA managed storage; no private EA cloud resources or OAuth identities provisioned; no expansion beyond Level 2A; Level 2B/2C remain HOLD. Complete the separate subscription/region/monthly-budget authorization and runtime/private-DB/provider gates in section 6 to proceed with cloud staging.

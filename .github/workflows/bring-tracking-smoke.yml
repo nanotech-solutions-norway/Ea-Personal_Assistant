@@ -1,0 +1,47 @@
+name: EA Bring Tracking v2 read-only smoke test
+
+on:
+  pull_request:
+    paths:
+      - ".github/workflows/bring-tracking-smoke.yml"
+      - "integrations/bring/**"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ea-bring-tracking-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  tracking-contract-tests:
+    name: Tracking v2 synthetic contract tests (no secrets)
+    runs-on: ubuntu-latest
+    timeout-minutes: 3
+    steps:
+      - name: Checkout without persistent credentials
+        uses: actions/checkout@08eba0b27e820071cde6df949e0beb9ba4906955 # v4.3.0
+        with:
+          persist-credentials: false
+      - name: Run offline synthetic tracking tests
+        run: python3 -m unittest discover -s integrations/bring/tests -p "test_*.py" -v
+
+  tracking-live-smoke:
+    name: Test authenticated synthetic tracking request
+    if: github.event_name == 'workflow_dispatch' && github.ref == 'refs/heads/main'
+    needs: tracking-contract-tests
+    runs-on: ubuntu-latest
+    timeout-minutes: 3
+    environment: bring-pilot
+    env:
+      BRING_API_UID: ${{ secrets.BRING_API_UID }}
+      BRING_API_KEY: ${{ secrets.BRING_API_KEY }}
+      BRING_CLIENT_URL: ${{ vars.BRING_CLIENT_URL }}
+    steps:
+      - name: Checkout without persistent credentials
+        uses: actions/checkout@08eba0b27e820071cde6df949e0beb9ba4906955 # v4.3.0
+        with:
+          persist-credentials: false
+      - name: Request official synthetic Bring package only
+        run: python3 integrations/bring/check_tracking_v2.py
