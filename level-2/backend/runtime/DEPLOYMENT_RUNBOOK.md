@@ -203,3 +203,19 @@ The operator expressly resumed the previously saved EA cross-platform synchroniz
 6. Run real staging authorization/revocation, restart, duplicate, crash, wrong-tenant, provider 404/410, rollback, exclusion and no-external-write tests. Require the operator's explicit final production acceptance; Level 2B/2C stay HOLD.
 
 **Important:** independent DB readback proves only DB persistence, not source/provider reconciliation. Do not call it full end-to-end synchronization. A verifier must run using a restricted database role, **not** the CI superuser. A tenant scope must come from trusted workload authorization, never webhook-supplied text. Raw credentials and customer event content must never be checked into this public repository.
+
+## Operator deployment-design decision — 13.10.2026
+
+The operator confirmed the following **planning-only** constraints:
+- Azure subscription: **NOT PROVIDED**; no tenant/resource-management credential or authority assumed.
+- Resource group: **new dedicated EA staging group**; proposed name `rg-ea-stg-westeurope`, **not created**.
+- Azure region: **West Europe** (`westeurope`); service SKU availability must be checked in the selected subscription.
+- Maximum monthly staging budget: **EUR 20**; this is a non-negotiable cost approval gate, **not** an enforceable billing stop.
+- Environment: **one isolated private EA tenant**, synthetic data until separate account/consent and deployment authorization.
+- Paid infrastructure provisioning and live account synchronization: **NOT AUTHORIZED**.
+
+See [decision file](../deployment/EA_STAGING_DECISION_WE_EUR20_20261013.json), [ordered predeployment plan](../deployment/EA_STAGING_PREDEPLOY_PLAN_20261013.md), and [offline design gate](../validation/staging_decision_gate.py). Do not provision Azure resources based on this entry.
+
+**Cost risk:** Always-on managed PostgreSQL Flexible Server (minimum storage allocation 32 GiB), private networking and auxiliary services may exceed EUR 20/month. Get an itemized **West Europe subscription-specific EUR/month quote** including database, networking, secrets, monitoring, registry and backup costs. Container Apps monthly free grants may be shared with other subscription workloads. Azure budgets can notify but do not terminate billed resources.
+
+**Hard next gate:** Select/verify a dedicated EA subscription, inspect availability and costs, secure out-of-band explicit deployment approval, then and only then consider paid staging. If >EUR 20 or the quote is unavailable, retain disposable GitHub Actions PostgreSQL synthetic CI; present a cheaper/alternative architecture or a new explicit budget decision. EA Level 2B/2C and live synchronization remain HOLD.
