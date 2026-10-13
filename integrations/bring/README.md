@@ -37,11 +37,13 @@ the key into ChatGPT or open GitHub issues.
    - `BRING_CHECK=PASS`: GET returned authorized nonempty customer collection.
    - `BRING_CHECK=HTTP_401`: authentication failed (check UID/key).
    - `BRING_CHECK=HTTP_403`: rights/access may be insufficient.
-   - `BRING_CHECK=AUTHENTICATED_NO_CUSTOMER_ACCESS`: no customer account access.
+   - `BRING_CHECK=CUSTOMER_INFO_EMPTY`: HTTP 200 with an empty list of available booking/checkout service customers; not a general authorization verdict.
    - `BRING_CHECK=BLOCKED_MISSING_CONFIG`: required secret/variable not available.
 5. Never infer that shipment tracking, invoicing, or subsequent data sync is
    enabled from a successful Customer Info check; those require separate scopes
    and authorization/acceptance tests.
+
+See [Tracking v2 synthetic smoke test](TRACKING_SMOKE_TEST.md) for an independent read-only tracking check.
 
 No schedule, API write, automation promotion, customer record export, or
 external file write-back is enabled by this workflow.
