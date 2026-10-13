@@ -18,9 +18,14 @@ proof of company authorization. The new one-shot check requires:
 - No response bodies, identifiers, contacts, dates, locations or credential
   values emitted to job logs or artifacts.
 
-If provider response fields needed to prove the company association are
-redacted, the validation fails closed as TENANT_UNVERIFIED. A sender/receiver
-relationship boolean alone does not establish the specific expected tenant.
+The Tracking API's published examples often contain empty sender/recipient
+customer-number fields. If fields are empty, missing or nonmatching, customer
+account binding remains `TENANT_UNVERIFIED`; do **not** interpret this as
+proof of missing API permissions. The separate non-sensitive diagnostic marker
+identifies `ACCOUNT_FIELDS_EMPTY`, `ACCOUNT_FIELDS_ABSENT` or
+`NONMATCHING_ACCOUNT_FIELD`. The `isLoggedInSenderOrReceiver` flag
+is reported as a relationship *hint*, never as substitute proof of the
+company customer number.
 
 This is a staged company-account confirmation only, not an end-to-end test of
 the EA production identity/RBAC or tenant isolation layer.
@@ -51,7 +56,20 @@ and require approval when supported.
 3. Open:
    https://github.com/nanotech-solutions-norway/Ea-Personal_Assistant/actions/workflows/bring-real-shipment-validation.yml
 4. Choose Run workflow → main → Run workflow. Approve bring-pilot if prompted.
-5. Inspect the status marker in the one-shot read-only live job:
+5. Inspect the strictly non-identifying result markers in the live job:
+
+   - BRING_REAL_TRACKING=PASS: exact real tracking identifier and an event
+     status were validated independently of account binding.
+   - BRING_TENANT_DIAGNOSTIC=CUSTOMER_ID_MATCH: returned company customer ID
+     matches the configured private environment secret.
+   - BRING_TENANT_DIAGNOSTIC=ACCOUNT_FIELDS_EMPTY or ACCOUNT_FIELDS_ABSENT:
+     provider did not supply usable customer association evidence.
+   - BRING_TENANT_DIAGNOSTIC=NONMATCHING_ACCOUNT_FIELD: at least one customer
+     number was present, but none equaled the expected company number.
+     This does not establish which party owns the shipment.
+   - BRING_ACCOUNT_RELATIONSHIP_HINT=LOGGED_IN_PARTY: reported relationship
+     is useful context, but insufficient for company identity proof.
+   - BRING_REAL_CHECK is the strict final result:
 
    - BRING_REAL_CHECK=PASS: exact shipment, expected company customer ID and a
      status event confirmed.
@@ -75,3 +93,37 @@ approved managed Azure EA backend with Key Vault, authenticated tenant mapping,
 encrypted storage, durable audit, rate-limit/backoff and tenant RLS tests.
 
 Documentation: https://developer.bring.com/api/tracking/
+
+## Tested troubleshooting and official resources (13 October 2026)
+
+Initial real-company shipment live run:
+https://github.com/nanotech-solutions-norway/Ea-Personal_Assistant/actions/runs/38378866499
+
+- Offline tests passed; the live test returned `TENANT_UNVERIFIED`.
+- The legacy implementation checked company IDs **before** looking for a
+  shipment event. Consequently the initial run proved a unique tracking ID
+  response was found, but did **not** establish the event status. The revised
+  implementation tests the tracking event first, then independently checks
+  account association, with diagnostic labels only.
+- Bring official Tracking v2 response examples contain blank customer-number
+  fields, so blank/missing values cannot be treated as a permission failure.
+- Bring's test customer numbers are intended for specific transactional
+  Booking/Shipping Guide API test scenarios, **not** for proving ownership of
+  real Tracking API shipments. Do not replace the company's real customer
+  number with sample customer numbers 5/6/7.
+- Synthetic Tracking API identifiers (TESTPACKAGEDELIVERED, TESTPACKAGEEDI,
+  TESTPACKAGEATPICKUPPOINT) prove API behavior, not real company tenancy.
+- If the diagnostic is `ACCOUNT_FIELDS_EMPTY` or `ACCOUNT_FIELDS_ABSENT`,
+  seek separate private account-owned evidence (e.g. shipping label, booking
+  source, authenticated Mybring shipment view or an authorized account-scoped
+  API). Do not print or copy those documents into the public GitHub repo.
+- If the diagnostic is `NONMATCHING_ACCOUNT_FIELD`, privately verify the
+  shipment's role and service/customer number before trying a different
+  authorized shipment. Do not loosen a tenant guard solely to pass CI.
+- Production synchronization still requires vault-backed identity and tenant
+  isolation testing beyond this one-shot GitHub Actions proof.
+
+Official sources:
+https://developer.bring.com/api/testing/
+https://developer.bring.com/api/tracking/
+https://developer.bring.com/api/event-cast/
