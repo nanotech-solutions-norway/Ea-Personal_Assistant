@@ -8,6 +8,8 @@ from __future__ import annotations
 
 import hashlib
 import json
+from dataclasses import replace
+from datetime import datetime, timezone
 from typing import Any, Callable, Iterable
 
 from .unified_sync import SourceItem, SyncContractError, plan_sync
@@ -26,6 +28,26 @@ def cursor_scope(tenant: str, source: str, collection: str) -> str:
         raise SyncContractError("Missing source cursor scope")
     value = "\x1f".join((tenant, source, collection))
     return "ea:sync:" + hashlib.sha256(value.encode("utf-8")).hexdigest()
+
+
+def _normalize_timestamp(item: SourceItem) -> SourceItem:
+    """Compare persisted and provider due times as UTC instants.
+
+    PostgreSQL timestamptz presentation follows DB session timezone, which
+    is not necessarily the offset supplied by the provider. Keep original
+    source timezone label separately; never coerce naive/ambiguous times.
+    """
+    if item.due_at is None:
+        return item
+    try:
+        date_value = (item.due_at.isoformat() if isinstance(item.due_at, datetime)
+                      else item.due_at)
+        parsed = datetime.fromisoformat(date_value)
+    except (TypeError, ValueError) as exc:
+        raise SyncContractError("Invalid due_at timestamp") from exc
+    if parsed.tzinfo is None or parsed.utcoffset() is None:
+        raise SyncContractError("Unqualified due_at timestamp; timezone offset required")
+    return replace(item, due_at=parsed.astimezone(timezone.utc).isoformat())
 
 
 class PostgresProjectionSink:
@@ -93,7 +115,8 @@ class PostgresProjectionSink:
                     ) for row in cur.fetchall()
                 ]
                 plan = plan_sync(
-                    existing, tuple(fetched), tenant_scope=tenant_scope, source=source,
+                    (_normalize_timestamp(item) for item in existing),
+                    (_normalize_timestamp(item) for item in fetched), tenant_scope=tenant_scope, source=source,
                     mode=mode, collection_complete=complete_full_inventory,
                     operator_attested_snapshot=operator_attested_snapshot,
                     collection_key=collection_key,
