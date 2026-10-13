@@ -94,7 +94,7 @@ def main() -> int:
         return 3
 
     if count == 0:
-        print("BRING_CHECK=AUTHENTICATED_NO_CUSTOMER_ACCESS")
+        print("BRING_CHECK=CUSTOMER_INFO_EMPTY")
         return 4
 
     print("BRING_CHECK=PASS (read-only access confirmed; customer data not logged)")
