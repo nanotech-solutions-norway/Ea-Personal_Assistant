@@ -1,0 +1,49 @@
+name: EA Bring real shipment validation (one-time, read-only)
+
+on:
+  pull_request:
+    paths:
+      - ".github/workflows/bring-real-shipment-validation.yml"
+      - "integrations/bring/**"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ea-bring-real-shipment-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  offline-contract:
+    name: Real tracking tenant-scope offline tests (no secrets)
+    runs-on: ubuntu-latest
+    timeout-minutes: 4
+    steps:
+      - name: Checkout without persistent credentials
+        uses: actions/checkout@08eba0b27e820071cde6df949e0beb9ba4906955 # v4.3.0
+        with:
+          persist-credentials: false
+      - name: Run safe offline Bring regression tests
+        run: python3 -m unittest discover -s integrations/bring/tests -p "test_*.py" -v
+
+  authorized-real-check:
+    name: Read-only single real shipment check
+    if: github.event_name == 'workflow_dispatch' && github.ref == 'refs/heads/main'
+    needs: offline-contract
+    environment: bring-pilot
+    runs-on: ubuntu-latest
+    timeout-minutes: 4
+    env:
+      BRING_API_UID: ${{ secrets.BRING_API_UID }}
+      BRING_API_KEY: ${{ secrets.BRING_API_KEY }}
+      BRING_CLIENT_URL: ${{ vars.BRING_CLIENT_URL }}
+      BRING_REAL_TRACKING_NUMBER: ${{ secrets.BRING_REAL_TRACKING_NUMBER }}
+      BRING_EXPECTED_CUSTOMER_NUMBER: ${{ secrets.BRING_EXPECTED_CUSTOMER_NUMBER }}
+    steps:
+      - name: Checkout without persistent credentials
+        uses: actions/checkout@08eba0b27e820071cde6df949e0beb9ba4906955 # v4.3.0
+        with:
+          persist-credentials: false
+      - name: Validate exactly one operator-authorized real shipment
+        run: python3 integrations/bring/check_real_tracking_once.py
