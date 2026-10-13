@@ -2,7 +2,7 @@
   "schema_version": "1.0",
   "project": "Ea-Personal_Assistant",
   "decision_date": "2026-10-13",
-  "status": "DESIGN_APPROVED_DEPLOYMENT_BLOCKED",
+  "status": "OPERATOR_AUTHORIZED_STAGING_PREFLIGHT_CLOUD_ACCESS_UNVERIFIED",
   "cloud_provider": "azure",
   "subscription_id": null,
   "resource_group": {
@@ -31,7 +31,9 @@
       "egress_and_backups",
       "taxes_if_applicable"
     ],
-    "estimate_verified": false
+    "estimate_verified": false,
+    "operator_budget_validated_attestation": true,
+    "operator_cost_validation_evidence_in_repository": false
   },
   "tenant": {
     "mode": "single_private_ea_tenant",
@@ -52,9 +54,10 @@
   },
   "auth": {
     "cloud_resource_management_grant_verified": false,
-    "operator_deployment_approval": false,
+    "operator_deployment_approval": true,
     "google_backend_oauth_verified": false,
-    "github_app_installation_verified": false
+    "github_app_installation_verified": false,
+    "approval_scope": "Staging only; dedicated EA resources in West Europe within EUR 20/month; synthetic data only; no live provider sync"
   },
   "safety": {
     "paid_resource_creation_enabled": false,
@@ -66,21 +69,30 @@
     "customer_data_export_enabled": false
   },
   "predeploy_gates": {
-    "azure_subscription_selected": false,
-    "resource_group_creation_authorized": false,
+    "azure_subscription_selected": true,
+    "resource_group_creation_authorized": true,
     "all_in_cost_quote_verified": false,
     "quote_within_budget": false,
     "private_database_design_verified": false,
     "legacy_tables_isolated_or_single_tenant": true,
     "restricted_postgres_role_verified": false,
     "provider_oauth_scope_approved": false,
-    "explicit_deployment_approval": false
+    "explicit_deployment_approval": true
   },
   "source_handoff": "https://github.com/nanotech-solutions-norway/Ea-Personal_Assistant/blob/main/level-2/backend/continuation/EA_CROSS_PLATFORM_SYNC_PENDING_20261011.md",
   "notes": [
     "No resource has been provisioned by creating this file.",
     "Azure alert thresholds do not automatically suspend charges.",
     "Avoid inferring OAuth access from native ChatGPT connectors.",
-    "Single-tenant isolation is a design constraint, not proof of deployed controls."
-  ]
+    "Single-tenant isolation is a design constraint, not proof of deployed controls.",
+    "13 October 2026: operator supplied subscription UUID, attested budget validation and explicitly authorized synthetic EA staging deployment; cloud authorization/RBAC and all-in quote have not been independently read back.",
+    "The subscription UUID is kept out of this public repository. Set AZURE_SUBSCRIPTION_ID in protected GitHub Actions environment 'ea-staging-preflight'."
+  ],
+  "subscription_reference": {
+    "operator_provided": true,
+    "actual_subscription_id_committed": false,
+    "github_environment": "ea-staging-preflight",
+    "protected_variable": "AZURE_SUBSCRIPTION_ID",
+    "cloud_identity_and_rbac_verified": false
+  }
 }

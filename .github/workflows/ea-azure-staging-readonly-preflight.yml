@@ -1,0 +1,81 @@
+name: EA Azure staging — read-only identity preflight
+
+# Operator-authorized preflight only. NO scheduled run, push trigger, or deployment.
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  id-token: write
+
+concurrency:
+  group: ea-azure-staging-readonly-preflight
+  cancel-in-progress: false
+
+jobs:
+  verify-identity:
+    name: verify-azure-identity-readonly
+    # Run only from reviewed main; do not ingest untrusted PR code with OIDC.
+    if: github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    environment: ea-staging-preflight
+    timeout-minutes: 10
+    env:
+      AZURE_CLIENT_ID: ${{ vars.AZURE_CLIENT_ID }}
+      AZURE_TENANT_ID: ${{ vars.AZURE_TENANT_ID }}
+      AZURE_SUBSCRIPTION_ID: ${{ vars.AZURE_SUBSCRIPTION_ID }}
+    steps:
+      - name: Verify configured environment (no account identifiers in logs)
+        shell: bash
+        run: |
+          set -euo pipefail
+          for variable in AZURE_CLIENT_ID AZURE_TENANT_ID AZURE_SUBSCRIPTION_ID; do
+            if [[ -z "${!variable:-}" ]]; then
+              echo "::error::Protected environment variable ${variable} is missing"
+              exit 1
+            fi
+            if [[ ! "${!variable}" =~ ^[[:xdigit:]]{8}-[[:xdigit:]]{4}-[[:xdigit:]]{4}-[[:xdigit:]]{4}-[[:xdigit:]]{12}$ ]]; then
+              echo "::error::Invalid UUID format in ${variable}"
+              exit 1
+            fi
+          done
+          echo "Three protected Azure identifiers present (values redacted)"
+      - name: Federated Azure sign-in (OIDC; read-only)
+        uses: Azure/login@7184910d9eb2b1c5e48f7073824a90609bb9b6d6 # v2.3.1, pinned
+        with:
+          client-id: ${{ env.AZURE_CLIENT_ID }}
+          tenant-id: ${{ env.AZURE_TENANT_ID }}
+          subscription-id: ${{ env.AZURE_SUBSCRIPTION_ID }}
+          enable-AzPSSession: false
+      - name: Read-only subscription and West Europe eligibility checks
+        shell: bash
+        run: |
+          set -euo pipefail
+          state="$(az account show --subscription "$AZURE_SUBSCRIPTION_ID" --query state -o tsv)"
+          if [[ "$state" != "Enabled" ]]; then
+            echo "::error::Subscription is not enabled"
+            exit 1
+          fi
+          tenant="$(az account show --subscription "$AZURE_SUBSCRIPTION_ID" --query tenantId -o tsv)"
+          if [[ "$tenant" != "$AZURE_TENANT_ID" ]]; then
+            echo "::error::Subscription belongs to an unexpected tenant"
+            exit 1
+          fi
+          region="$(az account list-locations --subscription "$AZURE_SUBSCRIPTION_ID" --query "[?name=='westeurope'].name | [0]" -o tsv)"
+          if [[ "$region" != "westeurope" ]]; then
+            echo "::error::West Europe is unavailable in the selected subscription"
+            exit 1
+          fi
+          for provider in Microsoft.App Microsoft.DBforPostgreSQL Microsoft.KeyVault Microsoft.Network; do
+            registration="$(az provider show --namespace "$provider" --subscription "$AZURE_SUBSCRIPTION_ID" --query registrationState -o tsv)"
+            echo "$provider registration status: $registration"
+          done
+          {
+            echo "### EA Azure read-only preflight"
+            echo "- Subscription enabled: verified"
+            echo "- Tenant ID matches configured operator tenant: verified"
+            echo "- West Europe location available: verified"
+            echo "- Service SKU capacity, RBAC privilege, and **priced €20 total**: NOT verified by this workflow"
+            echo "- Resource creation: NONE"
+            echo "- Real data sync: OFF; EA Level 2B/2C: HOLD"
+          } >> "$GITHUB_STEP_SUMMARY"

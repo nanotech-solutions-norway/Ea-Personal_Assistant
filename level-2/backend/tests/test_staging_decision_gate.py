@@ -20,9 +20,26 @@ class EAStagingDecisionTests(unittest.TestCase):
         result = review_decision(self.plan)
         self.assertTrue(result["design_valid"])
         self.assertFalse(result["deployment_authorized"])
-        self.assertIn("Azure subscription unavailable", result["blockers"])
+        self.assertIn("Azure subscription ownership/RBAC unverified", result["blockers"])
         self.assertIn("Subscription-specific itemized all-in price unverified", result["blockers"])
-        self.assertIn("Explicit deployment authorization missing", result["blockers"])
+        self.assertNotIn("Explicit deployment authorization missing", result["blockers"])
+        self.assertIn("Cloud RBAC not independently verified", result["blockers"])
+
+    def test_operator_authorization_does_not_substitute_for_cloud_verification(self):
+        self.assertTrue(self.plan["auth"]["operator_deployment_approval"])
+        self.assertTrue(self.plan["budget"]["operator_budget_validated_attestation"])
+        self.assertTrue(self.plan["subscription_reference"]["operator_provided"])
+        self.assertIsNone(self.plan["subscription_id"])
+        result = review_decision(self.plan)
+        self.assertFalse(result["deployment_authorized"])
+        self.assertIn("Azure subscription ownership/RBAC unverified", result["blockers"])
+        self.assertIn("Subscription-specific itemized all-in price unverified", result["blockers"])
+
+    def test_public_subscription_identifier_leak_is_rejected(self):
+        d = copy.deepcopy(self.plan)
+        d["subscription_reference"]["actual_subscription_id_committed"] = True
+        with self.assertRaises(StagingDecisionError):
+            review_decision(d)
 
     def test_budget_increase_is_not_implicitly_permitted(self):
         d = copy.deepcopy(self.plan)
