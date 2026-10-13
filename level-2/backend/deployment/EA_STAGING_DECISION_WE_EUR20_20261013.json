@@ -1,0 +1,86 @@
+{
+  "schema_version": "1.0",
+  "project": "Ea-Personal_Assistant",
+  "decision_date": "2026-10-13",
+  "status": "DESIGN_APPROVED_DEPLOYMENT_BLOCKED",
+  "cloud_provider": "azure",
+  "subscription_id": null,
+  "resource_group": {
+    "name": "rg-ea-stg-westeurope",
+    "status": "PROPOSED_NOT_CREATED",
+    "dedicated": true
+  },
+  "region": {
+    "display_name": "West Europe",
+    "azure_location": "westeurope",
+    "service_sku_availability_verified": false
+  },
+  "budget": {
+    "currency": "EUR",
+    "monthly_ceiling": 20,
+    "ceiling_is_deployment_approval_gate": true,
+    "azure_budget_is_hard_stop": false,
+    "subscription_specific_all_in_estimate_eur": null,
+    "estimate_includes": [
+      "database_compute",
+      "database_minimum_storage",
+      "private_networking",
+      "container_apps_compute",
+      "monitoring_and_logs",
+      "secrets",
+      "egress_and_backups",
+      "taxes_if_applicable"
+    ],
+    "estimate_verified": false
+  },
+  "tenant": {
+    "mode": "single_private_ea_tenant",
+    "data_scope": "synthetic_only_until_separate_authorization",
+    "family_atlasorbit_reuse_allowed": false
+  },
+  "architecture": {
+    "target": [
+      "Azure Container Apps Consumption",
+      "Azure Database for PostgreSQL Flexible Server",
+      "Azure Key Vault",
+      "Azure managed identity",
+      "private database networking",
+      "Azure Cost Management"
+    ],
+    "deploy_type": "staging_nonproduction",
+    "cost_optimized_alternative_needed_if_over_budget": true
+  },
+  "auth": {
+    "cloud_resource_management_grant_verified": false,
+    "operator_deployment_approval": false,
+    "google_backend_oauth_verified": false,
+    "github_app_installation_verified": false
+  },
+  "safety": {
+    "paid_resource_creation_enabled": false,
+    "live_provider_sync_enabled": false,
+    "level_2b_enabled": false,
+    "level_2c_enabled": false,
+    "external_email_send_enabled": false,
+    "external_calendar_write_enabled": false,
+    "customer_data_export_enabled": false
+  },
+  "predeploy_gates": {
+    "azure_subscription_selected": false,
+    "resource_group_creation_authorized": false,
+    "all_in_cost_quote_verified": false,
+    "quote_within_budget": false,
+    "private_database_design_verified": false,
+    "legacy_tables_isolated_or_single_tenant": true,
+    "restricted_postgres_role_verified": false,
+    "provider_oauth_scope_approved": false,
+    "explicit_deployment_approval": false
+  },
+  "source_handoff": "https://github.com/nanotech-solutions-norway/Ea-Personal_Assistant/blob/main/level-2/backend/continuation/EA_CROSS_PLATFORM_SYNC_PENDING_20261011.md",
+  "notes": [
+    "No resource has been provisioned by creating this file.",
+    "Azure alert thresholds do not automatically suspend charges.",
+    "Avoid inferring OAuth access from native ChatGPT connectors.",
+    "Single-tenant isolation is a design constraint, not proof of deployed controls."
+  ]
+}
