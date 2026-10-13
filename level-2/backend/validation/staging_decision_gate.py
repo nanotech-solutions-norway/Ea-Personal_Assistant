@@ -56,8 +56,15 @@ def review_decision(data: dict[str, Any]) -> dict[str, Any]:
         raise StagingDecisionError("A safety hold was altered without approval")
 
     blockers = []
-    if not data.get("subscription_id"):
+    # Public source must not contain cloud account identifiers; a protected
+    # GitHub environment variable is the approved storage boundary.
+    subref = data.get("subscription_reference", {})
+    if not data.get("subscription_id") and not subref.get("operator_provided"):
         blockers.append("Azure subscription unavailable")
+    elif subref.get("cloud_identity_and_rbac_verified") is not True:
+        blockers.append("Azure subscription ownership/RBAC unverified")
+    if subref.get("actual_subscription_id_committed") is True:
+        raise StagingDecisionError("Never commit the subscription ID to the public repository")
     if region.get("service_sku_availability_verified") is not True:
         blockers.append("West Europe SKUs unverified for subscription")
     if budget.get("estimate_verified") is not True:
