@@ -1,6 +1,6 @@
 # EA private staging — deployment preparation (13 October 2026)
 
-**Status:** `DESIGN_APPROVED / CLOUD_DEPLOYMENT_NOT_AUTHORIZED / NOT_DEPLOYED`
+**Status (updated 13 Oct 2026):** `OPERATOR_DEPLOYMENT_GRANTED / CLOUD_ACCESS_AND_COST_READBACK_PENDING / NOT_DEPLOYED`
 **Project:** Ea-Personal_Assistant, Level 2A only.
 **Canonical operator decision:** [EA_STAGING_DECISION_WE_EUR20_20261013.json](./EA_STAGING_DECISION_WE_EUR20_20261013.json)
 **Persistent staging report:** https://docs.google.com/document/d/1NBy2gBhM9trFufu47QQGoD6ekax8xSNK687hXoyILlM/edit
@@ -94,3 +94,11 @@ The offline `validation/staging_decision_gate.py` script validates the **design 
 After that input, the next allowed task is **read-only subscription/sku/pricing verification**. Provide an all-in quote, implementation alternatives for EUR 20, and an explicit approval packet. Do not create resources, provide or receive secrets through chat, authorize provider OAuth or activate live synchronization as a side effect of reading subscription metadata.
 
 Source authority: `active-source/` canonical EA rules, `runtime/DEPLOYMENT_RUNBOOK.md`, and the latest merged engineering checkpoint. This plan does not amend EA task schedules or autonomy levels.
+
+## 6. Operator approval update — 13.10.2026 (supersedes earlier "subscription missing" statements)
+
+The operator provided the target Azure subscription UUID privately, attested the EUR 20/month budget is validated and expressly granted the **separate staging deployment authorization**. GitHub PR #54 has now merged. The subscription UUID must not be written into this public repository. Store it in `ea-staging-preflight` environment variable `AZURE_SUBSCRIPTION_ID` instead.
+
+Approval is scoped to a single private synthetic-only EA tenant, West Europe and EUR 20/month maximum. Azure service principal OIDC federation, actual Azure RBAC/ownership, subscription-specific all-in quote and SKU/quotas are **not yet independently verified**. This does not override the prior no-live-sync rule. The next step is an operator-protected **manual read-only preflight**, not immediate paid provisioning.
+
+See [EA Azure preflight handoff](./EA_AZURE_PREFLIGHT_OPERATOR_HANDOFF_20261013.md) and [manual GitHub Actions OIDC check](../../../.github/workflows/ea-azure-staging-readonly-preflight.yml). The original section 5 "subscription missing" applies only before this dated update.
