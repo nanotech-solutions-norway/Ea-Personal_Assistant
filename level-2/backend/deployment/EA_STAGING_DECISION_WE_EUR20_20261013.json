@@ -2,7 +2,7 @@
   "schema_version": "1.0",
   "project": "Ea-Personal_Assistant",
   "decision_date": "2026-10-13",
-  "status": "OPERATOR_AUTHORIZED_STAGING_PREFLIGHT_CLOUD_ACCESS_UNVERIFIED",
+  "status": "OIDC_AND_PROVIDERS_REGISTERED_SKU_QUOTE_AND_DEPLOY_RBAC_PENDING",
   "cloud_provider": "azure",
   "subscription_id": null,
   "resource_group": {
@@ -13,7 +13,8 @@
   "region": {
     "display_name": "West Europe",
     "azure_location": "westeurope",
-    "service_sku_availability_verified": false
+    "service_sku_availability_verified": false,
+    "westeurope_location_access_verified": true
   },
   "budget": {
     "currency": "EUR",
@@ -57,7 +58,8 @@
     "operator_deployment_approval": true,
     "google_backend_oauth_verified": false,
     "github_app_installation_verified": false,
-    "approval_scope": "Staging only; dedicated EA resources in West Europe within EUR 20/month; synthetic data only; no live provider sync"
+    "approval_scope": "Staging only; dedicated EA resources in West Europe within EUR 20/month; synthetic data only; no live provider sync",
+    "readonly_azure_access_verified": true
   },
   "safety": {
     "paid_resource_creation_enabled": false,
@@ -86,13 +88,35 @@
     "Avoid inferring OAuth access from native ChatGPT connectors.",
     "Single-tenant isolation is a design constraint, not proof of deployed controls.",
     "13 October 2026: operator supplied subscription UUID, attested budget validation and explicitly authorized synthetic EA staging deployment; cloud authorization/RBAC and all-in quote have not been independently read back.",
-    "The subscription UUID is kept out of this public repository. Set AZURE_SUBSCRIPTION_ID in protected GitHub Actions environment 'ea-staging-preflight'."
+    "The subscription UUID is kept out of this public repository. Set AZURE_SUBSCRIPTION_ID in protected GitHub Actions environment 'ea-staging-preflight'.",
+    "15 October 2026: GitHub run 38655941349 attempt 2 verified Azure immutable OIDC login, subscribed account and West Europe, and all four providers Registered. These are read-only checks; PostgreSQL SKUs/quota, deployer RBAC and EUR20 full quote remain unverified."
   ],
   "subscription_reference": {
     "operator_provided": true,
     "actual_subscription_id_committed": false,
     "github_environment": "ea-staging-preflight",
     "protected_variable": "AZURE_SUBSCRIPTION_ID",
-    "cloud_identity_and_rbac_verified": false
+    "cloud_identity_and_rbac_verified": false,
+    "immutable_oidc_subject_verified": true,
+    "azure_oidc_login_verified": true,
+    "subscription_active_and_tenant_verified": true
+  },
+  "resource_provider_verification": {
+    "observed_at": "2026-10-15",
+    "github_run_id": 38655941349,
+    "run_attempt": 2,
+    "immutable_oidc_authenticated": true,
+    "subscription_active": true,
+    "tenant_match": true,
+    "westeurope_location_available": true,
+    "providers": {
+      "Microsoft.App": "Registered",
+      "Microsoft.DBforPostgreSQL": "Registered",
+      "Microsoft.KeyVault": "Registered",
+      "Microsoft.Network": "Registered"
+    },
+    "service_sku_eligibility_proven": false,
+    "all_in_cost_quote_verified": false,
+    "resource_creation_performed": false
   }
 }
