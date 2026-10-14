@@ -23,7 +23,7 @@ Repository: `nanotech-solutions-norway/Ea-Personal_Assistant`
    - `AZURE_CLIENT_ID` = a specific Azure app/managed identity client ID approved for read-only GitHub OIDC access, not the principal object ID.
 4. In Microsoft Entra, configure an app registration or user-assigned managed identity with a federated identity credential:
    - Issuer `https://token.actions.githubusercontent.com`
-   - Subject `repo:nanotech-solutions-norway/Ea-Personal_Assistant:environment:ea-staging-preflight`
+   - Subject `repo:nanotech-solutions-norway@215678827/Ea-Personal_Assistant@1289533798:environment:ea-staging-preflight`
    - Audience `api://AzureADTokenExchange`
    - Ensure the subject's exact case matches the GitHub OIDC token.
 5. Grant this preflight identity **Reader** rights on the selected Azure subscription or an appropriately restricted scope sufficient to read subscription/provider metadata. Grant nothing beyond least-privileged inspection. Keep **deployer credentials separate** and do not grant Contributor to the read-only preflight identity.
@@ -65,3 +65,9 @@ The ChatGPT GitHub and Drive connectors **do not** provide Azure Resource Manage
 **Stop state:** `CLOUD_PREFLIGHT_PENDING / NO_AZURE_DEPLOYMENT / NO_LIVE_SYNC / LEVEL_2B_2C_HOLD`.
 
 References: [GitHub OIDC with Azure](https://docs.github.com/en/actions/how-tos/secure-your-work/security-harden-deployments/oidc-in-azure) and [Azure Cost Management budget alerts](https://learn.microsoft.com/en-us/azure/cost-management-billing/costs/tutorial-acm-create-budgets).
+
+## UPDATE — 15 October 2026: OIDC and registration verification
+
+The earlier `CLOUD_PREFLIGHT_PENDING` checklist above is historical. Azure identity checks and provider registrations are now **independently verified** via [GitHub Actions run 38655941349 (attempt 2)](https://github.com/nanotech-solutions-norway/Ea-Personal_Assistant/actions/runs/38655941349). The deployed GitHub OIDC subject uses immutable numeric owner/repository IDs; the original name-based `sub` example is superseded above.
+
+The subscription and tenant matched; Azure OIDC login, West Europe location and four namespaces `Microsoft.App`, `Microsoft.DBforPostgreSQL`, `Microsoft.KeyVault`, `Microsoft.Network` all passed. **Remaining:** actual subscription SKU/quota, Reader-vs-deployer RBAC distinction, documented all-in EUR20 estimate, any Azure resources, private DB/runtime, restricted role, synthetic staging E2E. All external real-provider synchronization and Level 2B/2C remain HOLD. Read-only SKU follow-up: [EA_AZURE_SKU_COST_GATE_20261015.md](./EA_AZURE_SKU_COST_GATE_20261015.md).
