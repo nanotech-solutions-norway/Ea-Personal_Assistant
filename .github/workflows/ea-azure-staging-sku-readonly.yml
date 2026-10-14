@@ -1,0 +1,92 @@
+name: EA Azure staging — read-only SKU and cost gate
+
+# Operator-approved synthetic-only EA staging. This does not deploy.
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  id-token: write
+
+concurrency:
+  group: ea-azure-staging-sku-readonly
+  cancel-in-progress: false
+
+jobs:
+  check-sku-and-provider-readiness:
+    name: verify-provider-and-postgres-skus-readonly
+    if: github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    environment: ea-staging-preflight
+    timeout-minutes: 12
+    env:
+      AZURE_CLIENT_ID: ${{ vars.AZURE_CLIENT_ID }}
+      AZURE_TENANT_ID: ${{ vars.AZURE_TENANT_ID }}
+      AZURE_SUBSCRIPTION_ID: ${{ vars.AZURE_SUBSCRIPTION_ID }}
+    steps:
+      - name: Check configured account identifiers without revealing values
+        shell: bash
+        run: |
+          set -euo pipefail
+          for variable in AZURE_CLIENT_ID AZURE_TENANT_ID AZURE_SUBSCRIPTION_ID; do
+            if [[ ! "${!variable:-}" =~ ^[[:xdigit:]]{8}-[[:xdigit:]]{4}-[[:xdigit:]]{4}-[[:xdigit:]]{4}-[[:xdigit:]]{12}$ ]]; then
+              echo "::error::Missing or malformed Azure environment variable: ${variable}"
+              exit 1
+            fi
+          done
+      - name: Sign in via immutable GitHub OIDC
+        uses: Azure/login@7184910d9eb2b1c5e48f7073824a90609bb9b6d6 # v2.3.1
+        with:
+          client-id: ${{ env.AZURE_CLIENT_ID }}
+          tenant-id: ${{ env.AZURE_TENANT_ID }}
+          subscription-id: ${{ env.AZURE_SUBSCRIPTION_ID }}
+          enable-AzPSSession: false
+      - name: Confirm subscription and all required provider registrations
+        shell: bash
+        run: |
+          set -euo pipefail
+          az account set --subscription "$AZURE_SUBSCRIPTION_ID"
+          [[ "$(az account show --query id -o tsv)" == "$AZURE_SUBSCRIPTION_ID" ]] || { echo "::error::Wrong Azure subscription"; exit 1; }
+          [[ "$(az account show --query tenantId -o tsv)" == "$AZURE_TENANT_ID" ]] || { echo "::error::Wrong Azure tenant"; exit 1; }
+          [[ "$(az account show --query state -o tsv)" == "Enabled" ]] || { echo "::error::Azure subscription not enabled"; exit 1; }
+          for provider in Microsoft.App Microsoft.DBforPostgreSQL Microsoft.KeyVault Microsoft.Network; do
+            status="$(az provider show --namespace "$provider" --query registrationState -o tsv)"
+            echo "$provider: $status"
+            if [[ "$status" != "Registered" ]]; then
+              echo "::error::$provider is not registered; no deployment is permitted"
+              exit 1
+            fi
+          done
+      - name: Read available PostgreSQL Flexible Server SKUs in West Europe
+        shell: bash
+        run: |
+          set -euo pipefail
+          # This is an ARM metadata read. No database or group is created.
+          az postgres flexible-server list-skus --location westeurope -o json > "$RUNNER_TEMP/ea-pg-skus.json"
+          python - "$RUNNER_TEMP/ea-pg-skus.json" <<'PY'
+          import json, pathlib, re, sys
+          raw = json.loads(pathlib.Path(sys.argv[1]).read_text(encoding="utf-8"))
+          if not isinstance(raw, (list, dict)) or not raw:
+              raise SystemExit("Azure returned empty SKU metadata; deployment remains blocked")
+          matches = set()
+          def walk(value):
+              if isinstance(value, dict):
+                  for k, v in value.items():
+                      if k.lower() in {"name", "skuname", "sku", "armskuname"} and isinstance(v, str):
+                          if re.fullmatch(r"Standard_B[0-9][A-Za-z0-9_]*", v):
+                              matches.add(v)
+                      walk(v)
+              elif isinstance(value, list):
+                  for child in value:
+                      walk(child)
+          walk(raw)
+          print("PostgreSQL West Europe SKU metadata: returned successfully")
+          print("Potential Burstable SKU names in returned metadata:", ", ".join(sorted(matches)) if matches else "NONE FOUND")
+          with open(__import__("os").environ["GITHUB_STEP_SUMMARY"], "a", encoding="utf-8") as out:
+              out.write("### EA Azure staging SKU preflight (read-only)\n")
+              out.write("- Subscription, tenant and four provider states: **PASS**\n")
+              out.write("- PostgreSQL West Europe SKU metadata returned: **YES**\n")
+              out.write("- Potential Burstable SKU identifiers: " + (", ".join(sorted(matches)) if matches else "none — investigate before deployment") + "\n")
+              out.write("- Actual SKU capacity/quota, deployment RBAC and EUR 20 all-in architecture quote: **NOT VERIFIED**\n")
+              out.write("- Resource creation: **NONE**; real provider synchronization: **OFF**; EA Level 2B/2C: **HOLD**\n")
+          PY
