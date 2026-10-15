@@ -1,0 +1,87 @@
+name: EA Azure network EUR meters and Burstable quota — read only
+
+on:
+  pull_request:
+    paths:
+      - ".github/workflows/ea-azure-network-quota-readonly.yml"
+      - "level-2/backend/deployment/pricing/azure_network_retail_probe.py"
+      - "level-2/backend/deployment/pricing/azure_quota_readonly.py"
+      - "level-2/backend/deployment/pricing/test_azure_quota_readonly.py"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  retail-meter-research:
+    name: discover-network-support-eur-retail-meters
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - name: Checkout without persisted authentication
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+        with:
+          persist-credentials: false
+      - name: Probe Microsoft public catalog; no Azure account
+        shell: bash
+        run: python3 level-2/backend/deployment/pricing/azure_network_retail_probe.py
+      - name: Preserve public pricing evidence 30 days
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
+        with:
+          name: ea-azure-network-pricing-eur
+          path: ea_azure_network_retail_eur_westeurope.json
+          retention-days: 30
+
+  offline-quota-parser-tests:
+    name: validate-quota-fail-closed-tests
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+        with:
+          persist-credentials: false
+      - run: python3 -m unittest discover -s level-2/backend/deployment/pricing -p 'test_azure_quota_readonly.py' -v
+
+  private-subscription-quota:
+    name: inspect-westeurope-postgres-quota-readonly
+    if: github.event_name == 'workflow_dispatch' && github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    environment: ea-staging-preflight
+    permissions:
+      contents: read
+      id-token: write
+    env:
+      AZURE_CLIENT_ID: ${{ vars.AZURE_CLIENT_ID }}
+      AZURE_TENANT_ID: ${{ vars.AZURE_TENANT_ID }}
+      AZURE_SUBSCRIPTION_ID: ${{ vars.AZURE_SUBSCRIPTION_ID }}
+    steps:
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+        with:
+          persist-credentials: false
+      - name: Check protected Azure ID variables without logging values
+        shell: bash
+        run: |
+          set -euo pipefail
+          for variable in AZURE_CLIENT_ID AZURE_TENANT_ID AZURE_SUBSCRIPTION_ID; do
+            if [[ ! "${!variable:-}" =~ ^[[:xdigit:]]{8}-[[:xdigit:]]{4}-[[:xdigit:]]{4}-[[:xdigit:]]{4}-[[:xdigit:]]{12}$ ]]; then
+              echo "::error::Missing/invalid protected Azure variable: ${variable}"
+              exit 1
+            fi
+          done
+      - name: Authenticate existing Reader principal via immutable GitHub OIDC
+        uses: Azure/login@7184910d9eb2b1c5e48f7073824a90609bb9b6d6 # v2.3.1
+        with:
+          client-id: ${{ env.AZURE_CLIENT_ID }}
+          tenant-id: ${{ env.AZURE_TENANT_ID }}
+          subscription-id: ${{ env.AZURE_SUBSCRIPTION_ID }}
+          enable-AzPSSession: false
+      - name: Assert correct subscription and tenant
+        shell: bash
+        run: |
+          set -euo pipefail
+          az account set --subscription "$AZURE_SUBSCRIPTION_ID"
+          [[ "$(az account show --query id -o tsv)" == "$AZURE_SUBSCRIPTION_ID" ]] || exit 1
+          [[ "$(az account show --query tenantId -o tsv)" == "$AZURE_TENANT_ID" ]] || exit 1
+      - name: Inspect West Europe PostgreSQL quota via supported ARM GET
+        run: python3 level-2/backend/deployment/pricing/azure_quota_readonly.py
