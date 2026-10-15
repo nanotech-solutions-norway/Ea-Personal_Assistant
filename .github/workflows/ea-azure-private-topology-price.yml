@@ -12,6 +12,9 @@ on:
       - "level-2/backend/deployment/pricing/reconcile_public_retail.py"
       - "level-2/backend/deployment/pricing/aca_compute_catalog_probe.py"
       - "level-2/backend/deployment/pricing/private_billing_evidence.py"
+      - "level-2/backend/deployment/pricing/teardown_liability_gate.py"
+      - "level-2/backend/deployment/pricing/test_teardown_liability_gate.py"
+      - "level-2/backend/deployment/pricing/EA_48H_TEARDOWN_OBLIGATIONS_PROPOSED_20261015.json"
       - "level-2/backend/deployment/pricing/test_private_billing_evidence.py"
       - "level-2/backend/deployment/pricing/test_aca_compute_catalog_probe.py"
       - "level-2/backend/deployment/pricing/test_reconcile_public_retail.py"
@@ -38,6 +41,10 @@ jobs:
         run: python3 -m unittest discover -s level-2/backend/deployment/pricing -p 'test_scenario_envelope_gate.py' -v
       - name: Unit-test PRIVATE billing parser using synthetic fixtures ONLY
         run: python3 -m unittest discover -s level-2/backend/deployment/pricing -p 'test_private_billing_evidence.py' -v
+      - name: Validate static managed-infrastructure teardown and delayed-billing sensitivity
+        run: |
+          python3 -m unittest discover -s level-2/backend/deployment/pricing -p 'test_teardown_liability_gate.py' -v
+          python3 level-2/backend/deployment/pricing/teardown_liability_gate.py level-2/backend/deployment/pricing/EA_48H_TEARDOWN_OBLIGATIONS_PROPOSED_20261015.json level-2/backend/deployment/pricing/EA_TIMEBOX_48H_QUOTE_TEMPLATE_20261015.json
       - name: Check public retail partial estimate (must remain deployment BLOCKED)
         run: |
           python3 level-2/backend/deployment/pricing/scenario_envelope_gate.py level-2/backend/deployment/pricing/EA_48H_SYNTHETIC_USAGE_ENVELOPE_PROPOSED_20261015.json level-2/backend/deployment/pricing/EA_TIMEBOX_48H_QUOTE_TEMPLATE_20261015.json
