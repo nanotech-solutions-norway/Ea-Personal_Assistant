@@ -122,7 +122,7 @@ def evaluate(plan: object, quote: object, today: date | None = None) -> dict:
             state = row.get("state")
             url = row.get("source_url")
             explanation = row.get("scope_explanation")
-            if state not in VALID_STATES or not isinstance(explanation, str) or not (12 <= len(explanation) <= 500):
+            if type(state) is not str or state not in VALID_STATES or not isinstance(explanation, str) or not (12 <= len(explanation) <= 500):
                 errors.append(name + ": untrusted state or inadequate scoped explanation")
             if state == "PUBLIC_RETAIL_PARTIAL_UNVERIFIED":
                 if PUBLIC_PARTIAL.get(name) != parent:
