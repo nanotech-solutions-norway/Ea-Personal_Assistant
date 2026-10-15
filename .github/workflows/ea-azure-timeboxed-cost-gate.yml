@@ -1,0 +1,49 @@
+name: EA Azure timeboxed staging cost gate — offline
+
+on:
+  pull_request:
+    paths:
+      - "level-2/backend/deployment/pricing/timeboxed_cost_gate.py"
+      - "level-2/backend/deployment/pricing/test_timeboxed_cost_gate.py"
+      - "level-2/backend/deployment/pricing/EA_TIMEBOX_48H_QUOTE_TEMPLATE_20261015.json"
+      - ".github/workflows/ea-azure-timeboxed-cost-gate.yml"
+  push:
+    branches: [main]
+    paths:
+      - "level-2/backend/deployment/pricing/timeboxed_cost_gate.py"
+      - "level-2/backend/deployment/pricing/test_timeboxed_cost_gate.py"
+      - "level-2/backend/deployment/pricing/EA_TIMEBOX_48H_QUOTE_TEMPLATE_20261015.json"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  offline-cost-safety:
+    name: validate-cost-and-teardown-gates-offline
+    runs-on: ubuntu-latest
+    timeout-minutes: 8
+    steps:
+      - name: Check out code without persistent credentials
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+        with:
+          persist-credentials: false
+      - name: Execute cost-gate negative and positive synthetic cases
+        run: python3 -m unittest discover -s level-2/backend/deployment/pricing -p 'test_timeboxed_cost_gate.py' -v
+      - name: Verify current real-world quote remains blocked
+        shell: bash
+        run: |
+          set -euo pipefail
+          gate="level-2/backend/deployment/pricing/timeboxed_cost_gate.py"
+          quote="level-2/backend/deployment/pricing/EA_TIMEBOX_48H_QUOTE_TEMPLATE_20261015.json"
+          if python3 "$gate" "$quote" > "$RUNNER_TEMP/ea_cost_gate_result.json"; then
+            echo "::error::Incomplete current cloud quote was unexpectedly accepted"
+            exit 1
+          fi
+          python3 - "$RUNNER_TEMP/ea_cost_gate_result.json" <<'PY'
+          import json,sys
+          result=json.load(open(sys.argv[1],encoding="utf8"))
+          assert result.get("status")=="BLOCKED"
+          assert result.get("deployment_authorized") is False
+          print("Current EA staging quote: BLOCKED, no cloud deployment authorized")
+          PY
