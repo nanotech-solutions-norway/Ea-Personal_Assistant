@@ -9,6 +9,8 @@ on:
       - "level-2/backend/deployment/pricing/EA_48H_SYNTHETIC_USAGE_ENVELOPE_PROPOSED_20261015.json"
       - "level-2/backend/deployment/pricing/EA_TIMEBOX_48H_QUOTE_TEMPLATE_20261015.json"
       - "level-2/backend/deployment/pricing/azure_foundation_meter_probe.py"
+      - "level-2/backend/deployment/pricing/reconcile_public_retail.py"
+      - "level-2/backend/deployment/pricing/test_reconcile_public_retail.py"
       - "level-2/backend/deployment/pricing/validate_private_topology.py"
       - "level-2/backend/deployment/pricing/test_validate_private_topology.py"
       - "level-2/backend/deployment/pricing/EA_48H_PRIVATE_TOPOLOGY_PROPOSED_20261015.json"
@@ -46,9 +48,15 @@ jobs:
           persist-credentials: false
       - name: Query Microsoft public IP, standard load balancer, and environment retail meters
         run: python3 level-2/backend/deployment/pricing/azure_foundation_meter_probe.py
+      - name: Verify fail-closed price meter reconciliation and zero-rate ambiguity
+        run: |
+          python3 -m unittest discover -s level-2/backend/deployment/pricing -p 'test_reconcile_public_retail.py' -v
+          python3 level-2/backend/deployment/pricing/reconcile_public_retail.py ea_azure_foundation_eur_catalog_20261015.json ea_azure_public_meter_reconciliation_20261015.json
       - name: Preserve public catalog candidate evidence (not an Azure bill)
         uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
         with:
           name: ea-foundation-eur-public-retail-catalog
-          path: ea_azure_foundation_eur_catalog_20261015.json
+          path: |
+            ea_azure_foundation_eur_catalog_20261015.json
+            ea_azure_public_meter_reconciliation_20261015.json
           retention-days: 30
