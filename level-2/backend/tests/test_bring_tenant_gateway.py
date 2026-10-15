@@ -224,5 +224,15 @@ class BringTenantGatewayTests(unittest.TestCase):
         self.denied("INVALID_TRACKING_REFERENCE", reference="ABC123456789&lang=no")
 
 
+    def test_policy_matrix_still_prohibits_bring_runtime_access(self):
+        from ea_backend.policy import Decision, evaluate
+        import json
+
+        matrix = json.loads((ROOT / "policy" / "policy-matrix.v1.json").read_text())
+        decision = evaluate(matrix, action="bring.tracking.read", level="level_2a")
+        self.assertEqual(decision.decision, Decision.PROHIBIT)
+
+
+
 if __name__ == "__main__":
     unittest.main()
