@@ -52,3 +52,22 @@ Open https://portal.azure.com -> **Subscriptions** -> select the **EA** subscrip
 5. Do not create resources, activate EA Level 2B/2C or start any real Gmail/Calendar/Drive/Bring/GitHub ingestion without separate access and deployment gates.
 
 Evidence: [retail-price assessment](./EA_AZURE_RETAIL_COST_ESTIMATE_20261015.md) and [live pricing probe](./pricing/azure_retail_meter_probe.py). All-in cost verified: **false**; Azure resources created: **none**.
+
+## Observed result — protected manual run on 15 October 2026
+
+**GitHub Actions [run 38717508118](https://github.com/nanotech-solutions-norway/Ea-Personal_Assistant/actions/runs/38717508118): SUCCESS** (billing-read job and offline classifier tests passed; immutable OIDC login and subscription/tenant checks succeeded).
+
+Sanitized status returned by the live job:
+- `billing_property_access: READ_OK`
+- `billing_type_signal: NONFREE_BILLING_TYPE_FREE_SERVICES_STILL_POSSIBLE`
+- `billing_benefits_access: UNAVAILABLE_OR_UNAUTHORIZED`
+- `pg_benefit_record_signal: INCONCLUSIVE`
+- `twelve_month_postgresql_b1ms_750h_and_32gb_entitlement: NOT_INDEPENDENTLY_VERIFIED`
+- `unused_monthly_entitlement_and_credit_balance: NOT_INDEPENDENTLY_VERIFIED`
+- `deployment_authorized: False`
+
+**Decision:** a successfully executed workflow does not mean free services were verified. The subscription billing-property read succeeded and indicated a non-free billing type, which does not exclude a surviving 12-month benefit after upgrading from a trial. The separate free-service benefits read was unavailable or unauthorized under Reader; no amount, eligibility, expiration or usage can be established. Keep the public retail baseline unchanged and full-cost/paid deployment gates closed.
+
+**Only outstanding operator-side fact:** inspect the actual EA subscription **Overview** in https://portal.azure.com → **Subscriptions** → select EA subscription → **Top free services by usage** → **View all free services**. The table's presence, exact PostgreSQL compute/storage/backup meter names, usage/limits and free-benefit expiration are decisive; if the table is absent, Microsoft's official guidance says free-service benefits are not available for that subscription. No account numbers, invoice details or billing screenshots should be put in the public GitHub repository. See https://learn.microsoft.com/en-us/azure/cost-management-billing/manage/check-free-service-usage . Do not broaden the Reader role merely to get the BillingBenefits API to return data.
+
+If the table is absent or ineligible, evaluate either (a) existing CI-only PostgreSQL synthetic tests with no additional Azure infrastructure spend or (b) a complete independently priced **timeboxed** 24–48-hour staging proposal. An all-in cost estimate and actual quotas are still needed before deploying (b). Free benefits, if present, do not eliminate paid private networking.
