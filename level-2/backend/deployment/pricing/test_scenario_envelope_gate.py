@@ -77,6 +77,26 @@ class EnvelopeTests(unittest.TestCase):
         e["caps"]["unreviewed_service"] = 100
         self.assertEqual(self.verify(e, q)["model_validation"], "FAIL")
 
+    def test_proposed_traffic_cap_escalation_is_rejected(self):
+        for field, value in [
+            ("aca_vcpu_per_replica", "0.5"),
+            ("aca_active_seconds_per_replica", 7201),
+            ("aca_http_requests", 10001),
+            ("lb_processed_gb", "1"),
+            ("log_ingested_gb", "0.2"),
+        ]:
+            e, q = evidence()
+            e["caps"][field] = value
+            self.assertEqual(self.verify(e, q)["model_validation"], "FAIL", field)
+
+    def test_cannot_claim_zero_teardown_tail_without_evidence(self):
+        e, q = evidence()
+        e["post_teardown_billable_hours"] = 0
+        self.assertEqual(self.verify(e, q)["model_validation"], "FAIL")
+        e, q = evidence()
+        del e["post_teardown_billable_hours"]
+        self.assertEqual(self.verify(e, q)["model_validation"], "FAIL")
+
     def test_unsupported_claim_of_verified_teardown_fails(self):
         e, q = evidence()
         e["teardown_tail_subscription_evidence_verified"] = True
