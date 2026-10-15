@@ -2,7 +2,7 @@
   "schema_version": "1.0",
   "project": "Ea-Personal_Assistant",
   "decision_date": "2026-10-13",
-  "status": "BURSTABLE_QUOTA_HEADROOM_VERIFIED_ACTUAL_B1MS_CAPACITY_AND_COST_GATES_BLOCKED",
+  "status": "PRIVATE_TOPOLOGY_STATIC_VALIDATION_AND_PUBLIC_IP_LB_METERS_READY_ALL_IN_20EUR_HOLD",
   "cloud_provider": "azure",
   "subscription_id": null,
   "resource_group": {
@@ -88,6 +88,29 @@
       "evidence_job_id": 116363690661,
       "evidence_date": "2026-10-15",
       "next_verification": "EA subscription overview > Top free services by usage > Free services for 12 months; privately verify PostgreSQL B1ms 750h/month, 32GB storage and 32GB backup, used/remaining, expiry"
+    },
+    "azure_48h_foundation_public_retail": {
+      "observed_at": "2026-10-15",
+      "source_run_id": 38725912112,
+      "mode": "proposed_private_pg_vnet_plus_internal_aca_v2_consumption",
+      "runtime_hours": 48,
+      "postgres_compute_eur": 0.84,
+      "postgres_storage_conservative_month_eur": 3.856,
+      "aca_required_static_public_egress_ip_hourly_eur": 0.0044,
+      "aca_required_static_public_ip_48h_eur": 0.2112,
+      "aca_required_standard_lb_rule_hourly_eur": 0.022,
+      "aca_required_standard_lb_48h_eur": 1.056,
+      "known_meter_partial_eur": 5.9632,
+      "private_dns_monthly_candidate_eur": 0.44,
+      "with_full_month_dns_partial_eur": 6.4032,
+      "aca_shared_consumption_allowance_verified": false,
+      "app_runtime_billed_units_verified": false,
+      "load_balancer_data_processed_verified": false,
+      "private_dns_queries_verified": false,
+      "logging_registry_backup_overage_egress_verified": false,
+      "tax_status_verified": false,
+      "complete_subscription_specific_quote_verified": false,
+      "assumed_free_benefit": false
     }
   },
   "tenant": {
@@ -151,7 +174,8 @@
     "15 Oct 2026: Microsoft live EUR West Europe public retail meter audit via GitHub PR #59 confirms B1ms + 32 billed storage ≈EUR16.63/month, adding ACR Basic ≈EUR21.09/month, CA environment private endpoint ≈EUR91.83/month if enabled. This is not the complete account-specific full-design quote; all deployment gates remain blocked.",
     "2026-10-15: Azure public Microsoft documentation confirms possible 12-month B1ms/32GB storage/backup benefit on eligible subscriptions, but EA subscription status, remaining balances and expiry are not independently verified. Added protected, manual-only read-only billing metadata probe; no deployment permissions or pricing gates relaxed.",
     "15 October 2026: manual protected Azure billing probe run 38717508118 SUCCESS; login and subscriptions matched. BillingProperty metadata accessible and nonfree billing type reported; BillingBenefits freeServices unavailable/unauthorized under Reader. Therefore cannot independently confirm PostgreSQL free entitlement nor remaining usage; count no free benefits against EUR20. Paid resource creation remains disabled.",
-    "2026-10-15: protected manually dispatched read-only quota workflow run 38723036350 succeeded using immutable GitHub OIDC Reader. Quota ARM GET READ_OK; standardBSFamily POSITIVE and total cores POSITIVE. This verifies subscription quota headroom only, NOT a guaranteed B1ms allocation in a selected zone, deployment RBAC, free-benefit entitlement, private architecture, full EUR20 cost, or permission to create paid resources. No cloud resource creation."
+    "2026-10-15: protected manually dispatched read-only quota workflow run 38723036350 succeeded using immutable GitHub OIDC Reader. Quota ARM GET READ_OK; standardBSFamily POSITIVE and total cores POSITIVE. This verifies subscription quota headroom only, NOT a guaranteed B1ms allocation in a selected zone, deployment RBAC, free-benefit entitlement, private architecture, full EUR20 cost, or permission to create paid resources. No cloud resource creation.",
+    "15 Oct 2026: public retail run 38725912112 verified ACA VNet-managed standard public egress IP EUR0.0044/h and Standard Load Balancer first rule-bundle EUR0.022/h, adding EUR1.2672 for 48h to prior EUR4.696 PostgreSQL partial baseline. DNS zone and runtime/network data, all-in tax, managed RG teardown and separate deployer remain unresolved. Static nondeployable subnet design is under review; resource creation and live sync remain disabled."
   ],
   "subscription_reference": {
     "operator_provided": true,
