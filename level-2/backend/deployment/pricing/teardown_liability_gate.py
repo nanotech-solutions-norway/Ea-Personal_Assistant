@@ -79,9 +79,12 @@ def assess(plan: object, quote: object) -> dict:
         "subscription_specific_rates_verified": False,
         "independent_teardown_approval_recorded": False,
     }
+    allowed_top_level = set(required) | {"obligations", "memo"}
+    if set(plan) - allowed_top_level:
+        errors.append("unexpected deployment, credential or other top-level fields")
     for name, expected in required.items():
-        if type(plan.get(name)) is not type(expected) or plan.get(name) != expected:
-            errors.append(name + ": unexpected value or type")
+        if name not in plan or type(plan.get(name)) is not type(expected) or plan.get(name) != expected:
+            errors.append(name + ": missing, unexpected value or type")
     inventory = plan.get("obligations")
     if not isinstance(inventory, dict):
         inventory = {}
@@ -106,8 +109,8 @@ def assess(plan: object, quote: object) -> dict:
         if set(item) != set(expected_item):
             errors.append(name + ": unsupported keys or missing evidence fields")
         for field, expected in expected_item.items():
-            if type(item.get(field)) is not type(expected) or item.get(field) != expected:
-                errors.append(name + ": unsupported predeployment assertion in " + field)
+            if field not in item or type(item.get(field)) is not type(expected) or item.get(field) != expected:
+                errors.append(name + ": unsupported or missing predeployment field " + field)
     if not isinstance(quote, dict):
         quote = {}
         errors.append("quote must be a JSON object")
