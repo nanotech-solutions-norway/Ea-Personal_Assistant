@@ -2,7 +2,7 @@
   "schema_version": "1.0",
   "project": "Ea-Personal_Assistant",
   "decision_date": "2026-10-13",
-  "status": "BILLING_PROPERTIES_READ_NONFREE_BENEFITS_INCONCLUSIVE_COST_DEPLOYMENT_BLOCKED",
+  "status": "BURSTABLE_QUOTA_HEADROOM_VERIFIED_ACTUAL_B1MS_CAPACITY_AND_COST_GATES_BLOCKED",
   "cloud_provider": "azure",
   "subscription_id": null,
   "resource_group": {
@@ -27,7 +27,14 @@
       "Standard_B20ms"
     ],
     "postgres_sku_metadata_github_run_id": 38657630948,
-    "actual_subscription_quota_verified": false
+    "actual_subscription_quota_verified": true,
+    "postgres_burstable_series_quota_headroom": "POSITIVE",
+    "postgres_total_core_quota_headroom": "POSITIVE",
+    "postgres_quota_api_status": "READ_OK",
+    "postgres_quota_run_id": 38723036350,
+    "postgres_quota_evidence_date": "2026-10-15",
+    "postgres_b1ms_immediate_allocation_verified": false,
+    "postgres_b1ms_zone_capacity_verified": false
   },
   "budget": {
     "currency": "EUR",
@@ -126,7 +133,10 @@
     "legacy_tables_isolated_or_single_tenant": true,
     "restricted_postgres_role_verified": false,
     "provider_oauth_scope_approved": false,
-    "explicit_deployment_approval": true
+    "explicit_deployment_approval": true,
+    "postgres_burstable_quota_headroom_verified": true,
+    "postgres_b1ms_realtime_capacity_verified": false,
+    "deployer_resource_group_rbac_verified": false
   },
   "source_handoff": "https://github.com/nanotech-solutions-norway/Ea-Personal_Assistant/blob/main/level-2/backend/continuation/EA_CROSS_PLATFORM_SYNC_PENDING_20261011.md",
   "notes": [
@@ -140,7 +150,8 @@
     "15 October 2026: read-only GitHub Actions SKU run 38657630948 PASS. PostgreSQL West Europe metadata contained eight Burstable identifiers; this does not verify live quota/capacity, price, storage, or permission to deploy.",
     "15 Oct 2026: Microsoft live EUR West Europe public retail meter audit via GitHub PR #59 confirms B1ms + 32 billed storage ≈EUR16.63/month, adding ACR Basic ≈EUR21.09/month, CA environment private endpoint ≈EUR91.83/month if enabled. This is not the complete account-specific full-design quote; all deployment gates remain blocked.",
     "2026-10-15: Azure public Microsoft documentation confirms possible 12-month B1ms/32GB storage/backup benefit on eligible subscriptions, but EA subscription status, remaining balances and expiry are not independently verified. Added protected, manual-only read-only billing metadata probe; no deployment permissions or pricing gates relaxed.",
-    "15 October 2026: manual protected Azure billing probe run 38717508118 SUCCESS; login and subscriptions matched. BillingProperty metadata accessible and nonfree billing type reported; BillingBenefits freeServices unavailable/unauthorized under Reader. Therefore cannot independently confirm PostgreSQL free entitlement nor remaining usage; count no free benefits against EUR20. Paid resource creation remains disabled."
+    "15 October 2026: manual protected Azure billing probe run 38717508118 SUCCESS; login and subscriptions matched. BillingProperty metadata accessible and nonfree billing type reported; BillingBenefits freeServices unavailable/unauthorized under Reader. Therefore cannot independently confirm PostgreSQL free entitlement nor remaining usage; count no free benefits against EUR20. Paid resource creation remains disabled.",
+    "2026-10-15: protected manually dispatched read-only quota workflow run 38723036350 succeeded using immutable GitHub OIDC Reader. Quota ARM GET READ_OK; standardBSFamily POSITIVE and total cores POSITIVE. This verifies subscription quota headroom only, NOT a guaranteed B1ms allocation in a selected zone, deployment RBAC, free-benefit entitlement, private architecture, full EUR20 cost, or permission to create paid resources. No cloud resource creation."
   ],
   "subscription_reference": {
     "operator_provided": true,
