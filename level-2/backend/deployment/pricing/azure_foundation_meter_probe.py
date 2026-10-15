@@ -14,6 +14,7 @@ import urllib.request
 URL = "https://prices.azure.com/api/retail/prices"
 QUERIES = {
   "IP Addresses": ("ip address", "ipv4", "static"),
+  "Public IP Meter Discovery": ("public ip", "ipv4", "static public", "standard ip"),
   "Load Balancer": ("standard", "rule", "data processed"),
   "Virtual Network": ("standard private endpoint", "data processed", "peering"),
   "Azure Container Apps": ("environment management hour", "environment private endpoint", "standard memory", "standard vcpu", "standard requests"),
@@ -32,7 +33,7 @@ def get(url):
             if n==2: raise
             time.sleep(n+2)
 def collect(service):
-    q=urllib.parse.urlencode({"currencyCode":"EUR","$filter":f"serviceName eq '{service}' and priceType eq 'Consumption'"})
+    expr = ("serviceFamily eq 'Networking' and contains(meterName, 'IP') and priceType eq 'Consumption'"\n            if service == "Public IP Meter Discovery"\n            else f"serviceName eq '{service}' and priceType eq 'Consumption'")\n    q=urllib.parse.urlencode({"currencyCode":"EUR","$filter":expr})
     url=URL+"?"+q
     rows=[]
     for _ in range(25):
