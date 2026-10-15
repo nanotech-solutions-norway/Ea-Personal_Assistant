@@ -1,0 +1,145 @@
+{
+  "schema_version": "1.0",
+  "project": "Ea-Personal_Assistant",
+  "mode": "STATIC_PROPOSAL_NO_CLOUD_ACCESS",
+  "region": "westeurope",
+  "currency": "EUR",
+  "data_scope": "synthetic_only",
+  "monthly_cost_ceiling_eur": 20,
+  "planned_execution_hours": 48,
+  "resource_creation_enabled": false,
+  "resource_deletion_enabled": false,
+  "live_provider_sync_enabled": false,
+  "customer_data_allowed": false,
+  "unverified_free_grants_counted": false,
+  "delete_operation_state": "NOT_ATTEMPTED",
+  "independent_arm_post_delete_inventory": "UNAVAILABLE_NOT_DEPLOYED",
+  "cost_management_residual_charge_reconciliation": "UNAVAILABLE_NOT_DEPLOYED",
+  "no_resources_or_tail_billing_asserted": false,
+  "actual_managed_resource_group_name": null,
+  "subscription_specific_rates_verified": false,
+  "independent_teardown_approval_recorded": false,
+  "obligations": {
+    "ea_primary_resource_group": {
+      "predeploy_resource_inventory": "NOT_OBSERVED",
+      "post_delete_arm_get": "NOT_PERFORMED",
+      "billing_tail_hours_verified": false,
+      "estimated_tail_eur_verified": false,
+      "evidence_reference": null,
+      "actual_resource_id": null
+    },
+    "aca_environment": {
+      "predeploy_resource_inventory": "NOT_OBSERVED",
+      "post_delete_arm_get": "NOT_PERFORMED",
+      "billing_tail_hours_verified": false,
+      "estimated_tail_eur_verified": false,
+      "evidence_reference": null,
+      "actual_resource_id": null
+    },
+    "aca_managed_infrastructure_resource_group": {
+      "predeploy_resource_inventory": "NOT_OBSERVED",
+      "post_delete_arm_get": "NOT_PERFORMED",
+      "billing_tail_hours_verified": false,
+      "estimated_tail_eur_verified": false,
+      "evidence_reference": null,
+      "actual_resource_id": null
+    },
+    "aca_managed_public_egress_ip": {
+      "predeploy_resource_inventory": "NOT_OBSERVED",
+      "post_delete_arm_get": "NOT_PERFORMED",
+      "billing_tail_hours_verified": false,
+      "estimated_tail_eur_verified": false,
+      "evidence_reference": null,
+      "actual_resource_id": null
+    },
+    "aca_managed_standard_load_balancer": {
+      "predeploy_resource_inventory": "NOT_OBSERVED",
+      "post_delete_arm_get": "NOT_PERFORMED",
+      "billing_tail_hours_verified": false,
+      "estimated_tail_eur_verified": false,
+      "evidence_reference": null,
+      "actual_resource_id": null
+    },
+    "postgres_flexible_server": {
+      "predeploy_resource_inventory": "NOT_OBSERVED",
+      "post_delete_arm_get": "NOT_PERFORMED",
+      "billing_tail_hours_verified": false,
+      "estimated_tail_eur_verified": false,
+      "evidence_reference": null,
+      "actual_resource_id": null
+    },
+    "postgres_storage_and_backup_retention": {
+      "predeploy_resource_inventory": "NOT_OBSERVED",
+      "post_delete_arm_get": "NOT_PERFORMED",
+      "billing_tail_hours_verified": false,
+      "estimated_tail_eur_verified": false,
+      "evidence_reference": null,
+      "actual_resource_id": null
+    },
+    "private_dns_zone": {
+      "predeploy_resource_inventory": "NOT_OBSERVED",
+      "post_delete_arm_get": "NOT_PERFORMED",
+      "billing_tail_hours_verified": false,
+      "estimated_tail_eur_verified": false,
+      "evidence_reference": null,
+      "actual_resource_id": null
+    },
+    "private_dns_vnet_link": {
+      "predeploy_resource_inventory": "NOT_OBSERVED",
+      "post_delete_arm_get": "NOT_PERFORMED",
+      "billing_tail_hours_verified": false,
+      "estimated_tail_eur_verified": false,
+      "evidence_reference": null,
+      "actual_resource_id": null
+    },
+    "virtual_network_and_delegated_subnets": {
+      "predeploy_resource_inventory": "NOT_OBSERVED",
+      "post_delete_arm_get": "NOT_PERFORMED",
+      "billing_tail_hours_verified": false,
+      "estimated_tail_eur_verified": false,
+      "evidence_reference": null,
+      "actual_resource_id": null
+    },
+    "container_registry_and_artifacts": {
+      "predeploy_resource_inventory": "NOT_OBSERVED",
+      "post_delete_arm_get": "NOT_PERFORMED",
+      "billing_tail_hours_verified": false,
+      "estimated_tail_eur_verified": false,
+      "evidence_reference": null,
+      "actual_resource_id": null
+    },
+    "key_vault_and_secrets": {
+      "predeploy_resource_inventory": "NOT_OBSERVED",
+      "post_delete_arm_get": "NOT_PERFORMED",
+      "billing_tail_hours_verified": false,
+      "estimated_tail_eur_verified": false,
+      "evidence_reference": null,
+      "actual_resource_id": null
+    },
+    "logs_monitoring_and_retention": {
+      "predeploy_resource_inventory": "NOT_OBSERVED",
+      "post_delete_arm_get": "NOT_PERFORMED",
+      "billing_tail_hours_verified": false,
+      "estimated_tail_eur_verified": false,
+      "evidence_reference": null,
+      "actual_resource_id": null
+    },
+    "network_egress_and_data_processing": {
+      "predeploy_resource_inventory": "NOT_OBSERVED",
+      "post_delete_arm_get": "NOT_PERFORMED",
+      "billing_tail_hours_verified": false,
+      "estimated_tail_eur_verified": false,
+      "evidence_reference": null,
+      "actual_resource_id": null
+    },
+    "other_service_and_billing_tail": {
+      "predeploy_resource_inventory": "NOT_OBSERVED",
+      "post_delete_arm_get": "NOT_PERFORMED",
+      "billing_tail_hours_verified": false,
+      "estimated_tail_eur_verified": false,
+      "evidence_reference": null,
+      "actual_resource_id": null
+    }
+  },
+  "memo": "NONDEPLOYABLE static design. Azure platform-managed infrastructure may be in ME_ group. No primary resource group or managed group may be deleted by this model; real billing tails remain unknown."
+}
