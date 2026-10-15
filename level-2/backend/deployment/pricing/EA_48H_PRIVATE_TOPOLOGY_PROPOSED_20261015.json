@@ -1,0 +1,76 @@
+{
+  "schema_version": "1.0",
+  "state": "NONDEPLOYABLE_DESIGN_FOR_REVIEW",
+  "project": "EA Personal Assistant",
+  "region": "westeurope",
+  "cost_ceiling_eur": 20,
+  "runtime_hours": 48,
+  "production_data_enabled": false,
+  "provider_sync_enabled": false,
+  "azure_resource_create_enabled": false,
+  "existing_readonly_oidc_identity_reused_for_deployment": false,
+  "network": {
+    "vnet_cidr": "10.88.0.0/24",
+    "subnets": {
+      "postgres": {
+        "cidr": "10.88.0.0/28",
+        "delegation": "Microsoft.DBforPostgreSQL/flexibleServers"
+      },
+      "container_apps": {
+        "cidr": "10.88.0.64/27",
+        "delegation": "Microsoft.App/environments"
+      }
+    },
+    "private_dns_zone": "ea-staging.postgres.database.azure.com",
+    "private_dns_link_to_vnet": true,
+    "public_database_endpoint": false,
+    "public_database_firewall_allow_azure_services": false,
+    "postgres_private_vnet_injection": true,
+    "aca_workload_profiles_environment": true,
+    "aca_profile": "Consumption",
+    "aca_environment_internal": true,
+    "aca_ingress": "internal",
+    "aca_env_private_endpoint_enabled": false,
+    "aca_dedicated_workload_profile_enabled": false,
+    "aca_planned_maintenance_enabled": false,
+    "aca_static_public_ip_for_egress_required": true,
+    "aca_standard_load_balancer_required": true,
+    "aca_managed_resource_group_must_be_included_in_inventory_and_teardown": true,
+    "nat_gateway_enabled": false,
+    "managed_dns_private_resolver_enabled": false,
+    "public_webhooks_enabled": false
+  },
+  "db": {
+    "sku_candidate": "Standard_B1ms",
+    "capacity_reservation_verified": false,
+    "backup_retention_days": 7,
+    "backup_geo_redundant": false,
+    "ha_enabled": false,
+    "storage_billed_units_model": 32,
+    "runtime_role_nonowner_no_bypassrls": true
+  },
+  "runtime": {
+    "replicas_min": 0,
+    "synthetic_only": true,
+    "external_secrets_enabled": false
+  },
+  "cost_assumptions": {
+    "free_pg_benefit_applied": false,
+    "aca_free_grant_unused_verified": false,
+    "aca_load_balancer_price_verified": false,
+    "aca_static_ip_price_verified": false,
+    "aca_management_meter_applies_verified": false,
+    "dns_monthly_billing_unit_verified": false,
+    "all_in_quote_verified": false,
+    "taxes_verified": false,
+    "residual_costs_verified": false
+  },
+  "teardown": {
+    "delete_full_dedicated_resource_group": true,
+    "independent_managed_rg_inventory_required": true,
+    "independent_empty_inventory_readback_required": true,
+    "deadline_hours": 48,
+    "teardown_identity_authorized": false,
+    "failover_operator_assigned": false
+  }
+}
