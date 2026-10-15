@@ -24,6 +24,8 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: "3.12"
+      - name: Install cryptographic JWT verifier
+        run: python -m pip install "PyJWT[crypto]>=2.10,<3"
       - name: Compile backend Python
         run: python -m compileall -q src runtime tests
       - name: Run backend tests
@@ -58,4 +60,4 @@ jobs:
       - name: Install PostgreSQL test client
         run: python -m pip install "psycopg[binary]>=3.2,<4"
       - name: Execute disposable PostgreSQL integration suite
-        run: python -m unittest discover -s tests -p test_projection_pg_live.py -v
+        run: python -m unittest discover -s tests -p "test_*pg_live.py" -v
