@@ -1,0 +1,135 @@
+{
+  "schema_version": "1.0",
+  "project": "Ea-Personal_Assistant",
+  "mode": "timeboxed_synthetic_staging_QUOTE_TEMPLATE",
+  "region": "westeurope",
+  "currency": "EUR",
+  "budget_ceiling_eur": 20,
+  "planned_runtime_hours": 48,
+  "data_scope": "synthetic_only",
+  "count_unverified_free_benefits": false,
+  "resource_creation_enabled": false,
+  "live_provider_sync_enabled": false,
+  "components": {
+    "postgres_compute": {
+      "state": "priced",
+      "amount_eur": "0.840",
+      "source": "https://github.com/nanotech-solutions-norway/Ea-Personal_Assistant/actions/runs/38714329616",
+      "evidence_date": "2026-10-15",
+      "reason": "B1ms EUR 0.0175/hour x 48h retail illustration; account-specific rates not verified"
+    },
+    "postgres_storage": {
+      "state": "priced",
+      "amount_eur": "3.856",
+      "source": "https://github.com/nanotech-solutions-norway/Ea-Personal_Assistant/actions/runs/38714329616",
+      "evidence_date": "2026-10-15",
+      "reason": "Assume 32 billed GB units retained a full month even if timebox deletes early; conservative partial baseline"
+    },
+    "postgres_backup": {
+      "state": "unverified",
+      "amount_eur": null,
+      "source": null,
+      "evidence_date": null,
+      "reason": null
+    },
+    "container_apps_usage": {
+      "state": "unverified",
+      "amount_eur": null,
+      "source": null,
+      "evidence_date": null,
+      "reason": null
+    },
+    "container_apps_environment_fee": {
+      "state": "unverified",
+      "amount_eur": null,
+      "source": null,
+      "evidence_date": null,
+      "reason": null
+    },
+    "container_apps_private_endpoint": {
+      "state": "unverified",
+      "amount_eur": null,
+      "source": null,
+      "evidence_date": null,
+      "reason": null
+    },
+    "vnet_subnets": {
+      "state": "unverified",
+      "amount_eur": null,
+      "source": null,
+      "evidence_date": null,
+      "reason": null
+    },
+    "private_dns": {
+      "state": "unverified",
+      "amount_eur": null,
+      "source": null,
+      "evidence_date": null,
+      "reason": null
+    },
+    "nat_or_egress_gateway": {
+      "state": "unverified",
+      "amount_eur": null,
+      "source": null,
+      "evidence_date": null,
+      "reason": null
+    },
+    "private_link": {
+      "state": "unverified",
+      "amount_eur": null,
+      "source": null,
+      "evidence_date": null,
+      "reason": null
+    },
+    "container_registry": {
+      "state": "unverified",
+      "amount_eur": null,
+      "source": null,
+      "evidence_date": null,
+      "reason": null
+    },
+    "key_vault": {
+      "state": "unverified",
+      "amount_eur": null,
+      "source": null,
+      "evidence_date": null,
+      "reason": null
+    },
+    "logs_monitoring": {
+      "state": "unverified",
+      "amount_eur": null,
+      "source": null,
+      "evidence_date": null,
+      "reason": null
+    },
+    "data_egress": {
+      "state": "unverified",
+      "amount_eur": null,
+      "source": null,
+      "evidence_date": null,
+      "reason": null
+    },
+    "other_cloud": {
+      "state": "unverified",
+      "amount_eur": null,
+      "source": null,
+      "evidence_date": null,
+      "reason": null
+    },
+    "taxes": {
+      "state": "unverified",
+      "amount_eur": null,
+      "source": null,
+      "evidence_date": null,
+      "reason": null
+    },
+    "contingency": {
+      "state": "unverified",
+      "amount_eur": null,
+      "source": null,
+      "evidence_date": null,
+      "reason": null
+    }
+  },
+  "note": "This JSON is deliberately incomplete; it MUST fail the offline quote gate and MUST NOT be taken as deployment authorization."
+}
