@@ -87,3 +87,23 @@ Potential conditional total **without DNS, app consumption, network data, backup
 **Pricing source:** [Microsoft Azure Retail Prices API](https://learn.microsoft.com/en-us/rest/api/cost-management/retail-prices/azure-retail-prices). Retail EUR values are reference rates, not an account-specific contracted quote. Missing/unmatched serviceName (for example `Azure Private Link` returned zero, whereas a Private Link endpoint meter appeared under `Virtual Network`) means catalog search mismatch, **not free**.
 
 The new `pricing/azure_quota_readonly.py` has passed PR offline unit tests. It is deliberately **not executed during PR CI**; the subscription-specific GET requires manual dispatch from `main` after merge. Thus actual PostgreSQL B-series quota/placement remain **NOT VERIFIED**.
+
+## Subscription-specific manual quota result — 15 October 2026
+
+**Workflow [38723036350](https://github.com/nanotech-solutions-norway/Ea-Personal_Assistant/actions/runs/38723036350): SUCCESS**, `workflow_dispatch` from merged `main`, immutable GitHub OIDC Reader login and approved tenant/subscription assertions both passed.
+
+Sanitized actual Azure quota GET output:
+
+| Azure response signal | Observed value |
+| --- | --- |
+| `quota_api` | `READ_OK` |
+| `burst_family_headroom` | `POSITIVE` |
+| `total_core_headroom` | `POSITIVE` |
+| `capacity_guaranteed` | `False` |
+| `exact_B1ms_SKU_realtime_allocation` | `NOT_VERIFIED` |
+| `deployer_RBAC` | `NOT_VERIFIED` |
+| `deployment_authorized` | `False` |
+
+**Decision:** the separate *quota-headroom discovery* gate is now confirmed; do **not** conflate positive quota with a resource's immediate capacity or zone-specific placement. Maintain `service_sku_availability_verified=false`, `budget.estimate_verified=false`, `paid_resource_creation_enabled=false`, and the unmodified existing `ea-staging-preflight` Reader role. No Azure database, subnet, resource group or Container App was created by this read-only check.
+
+**Next:** price the exact private PostgreSQL + separate VNet-integrated Container Apps topology, including whichever environment-management and endpoint meters actually apply, DNS, runtime, backup, log data, registry, Key Vault and taxes; verify final all-in EUR20 for the approved 48h deployment and its cleanup tail. Carry out independent networking/security/teardown review. Only after these separate cost and scope gates pass should an authorized Azure administrator create a separate protected `ea-staging-deploy` federated credential and scoped deployer identity. Keep B1ms live capacity check until placement time. The protected quota GET may be rerun before an eventual deployment to catch changing quota.
