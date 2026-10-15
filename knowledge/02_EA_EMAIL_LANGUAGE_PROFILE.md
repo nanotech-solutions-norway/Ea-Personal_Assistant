@@ -79,3 +79,7 @@ Do not store private customer details in the style profile. Convert examples int
 ## Approval rule
 
 The first generated email language profile must be PENDING_REVIEW until Ruben approves it.
+
+## Operator update — 15.10.2026: all business inquiries and replies
+
+Apply `knowledge/product/PRODUCT_INQUIRY_REPLY_RULE_20261015.md` before answering business inquiries. Relevant source verification (Ea knowledge, current GitHub product index, Drive product truth files, related Gmail and official company website) is mandatory when material to the inquiry. Use the knowledge naturally; do not mention TDS/SDS, technical documents or research procedures unless a specific evidence report warrants a natural reference. Preserve all previously approved direct-writing, claim-control and exact Gmail reply signature/visual-format rules above. This does not approve new public product claims.
