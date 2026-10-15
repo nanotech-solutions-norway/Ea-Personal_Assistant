@@ -23,9 +23,13 @@ class QuotaTests(unittest.TestCase):
         self.assertEqual(q["burst_family_headroom"],"ZERO")
         self.assertEqual(q["total_core_headroom"],"UNKNOWN")
     def test_invalid_payloads_do_not_prove_headroom(self):
-        for n in [None,True,-1,2.3,30]:
+        for n in [None,True,-1,2.3,"30"]:
             q=m.classify({"value":[{"name":{"value":"standardBSFamily"},"limit":n,"currentValue":0}]})
             self.assertEqual(q["burst_family_headroom"],"UNKNOWN")
+    def test_current_value_exceeds_limit_never_passes(self):
+        q=m.classify({"value":[{"name":{"value":"standardBSFamily"},"limit":5,"currentValue":6}]})
+        self.assertEqual(q["burst_family_headroom"],"UNKNOWN")
+
     def test_no_raw_identifiers_echoed(self):
         q=m.classify({"value":[{"name":{"value":"standardBSFamily"},"limit":20,"currentValue":3,
             "subscriptionId":"PRIVATE-SUB-ID"}]})
