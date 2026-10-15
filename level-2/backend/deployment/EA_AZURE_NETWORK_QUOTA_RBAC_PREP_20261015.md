@@ -64,3 +64,26 @@ Do **not** reuse `ea-github-oidc-preflight` or alter its **Reader** permission. 
 4. Only then discuss the separate deployer identity, specific resource approvals, teardown rehearsal and possible synthetic test launch. Existing production/live scopes remain **HOLD**.
 
 No paid resources, account changes or external data synchronization are performed in this PR.
+
+## Actual Microsoft public retail meter evidence — 15 Oct 2026
+
+[Public EUR network/catalog run 38722335284](https://github.com/nanotech-solutions-norway/Ea-Personal_Assistant/actions/runs/38722335284) **PASS** on the proposed PR; 30-day public artifact contains all matching meter IDs and prices. This is **not** a subscription bill or a priced approved topology. Price units and tier applicability still require human mapping.
+
+| Potential feature/meter | Public retail EUR unit rate | Illustration for 48h, only if enabled | Important caveat |
+| --- | ---: | ---: | --- |
+| PostgreSQL B1ms compute | €0.0175/hour | €0.840 | plus storage, backup etc. [earlier verified] |
+| PostgreSQL assumed full-month 32 storage units | €0.1205/billed GB-month | €3.856 | conservative full-month assumption [earlier verified] |
+| Virtual Network Private Link — **Standard Private Endpoint** | €0.0088/hour | €0.4224 | optional endpoint; data processed is additional |
+| NAT Gateway — **Standard Gateway** | €0.0396/hour | €1.9008 | exclude only when secure topology proves not required; data processing is additional |
+| Azure Container Apps — **Environment Management Hour** | €0.1258/hour | €6.0384 | verify plan/environment billing applicability; distinct from app consumption |
+| Azure Container Apps — **Environment Private Endpoint** | €0.1258/hour | €6.0384 | only for this endpoint feature; do not automatically assume required |
+| Azure DNS — **Private Zone** | €0.44 for unit `1` (also lower volume-tier row €0.088) | **No 48h estimate** | meter unit lacks explicit month; tier and billing basis must be corroborated before quote |
+| Azure Container Registry — Basic Registry Unit | €0.1466/day | €0.2932 for 2 full days | only if ACR actually used; image data and external transfers can add costs |
+| Log Analytics — Analytics Logs Data Ingestion | €2.6311/billed GB (a zero-rated tier row also exists) | depends on actual billable ingestion | do not assume `0` without account allowance proof |
+| Key Vault Standard — Operations | €0.0264 per 10,000 ops | depends on operations | actual transaction mix and retention still unknown |
+
+Potential conditional total **without DNS, app consumption, network data, backup, log usage or tax** if PostgreSQL base + both Container Apps environment meters + NAT + standard Private Link endpoint + two days of ACR Basic are all active: `€4.696 + €6.0384 + €6.0384 + €1.9008 + €0.4224 + €0.2932 = €19.3888`. This is **only arithmetic of selected conditional meters** and **not** evidence that they can or should be deployed together, nor a feasible complete €20 bill. Even small additional charges could exceed the ceiling.
+
+**Pricing source:** [Microsoft Azure Retail Prices API](https://learn.microsoft.com/en-us/rest/api/cost-management/retail-prices/azure-retail-prices). Retail EUR values are reference rates, not an account-specific contracted quote. Missing/unmatched serviceName (for example `Azure Private Link` returned zero, whereas a Private Link endpoint meter appeared under `Virtual Network`) means catalog search mismatch, **not free**.
+
+The new `pricing/azure_quota_readonly.py` has passed PR offline unit tests. It is deliberately **not executed during PR CI**; the subscription-specific GET requires manual dispatch from `main` after merge. Thus actual PostgreSQL B-series quota/placement remain **NOT VERIFIED**.
