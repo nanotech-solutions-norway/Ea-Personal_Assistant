@@ -28,6 +28,19 @@ INTEGER_CAPS = {
     "aca_http_requests", "dns_queries", "keyvault_operations",
     "static_public_ip_count", "standard_lb_rule_bundle_count",
 }
+MAX_PROPOSED = {
+    "aca_vcpu_per_replica": "0.25",
+    "aca_gib_per_replica": "0.5",
+    "aca_active_seconds_per_replica": "7200",
+    "aca_http_requests": "10000",
+    "dns_queries": "10000",
+    "lb_processed_gb": "0.5",
+    "egress_gb": "0.5",
+    "log_ingested_gb": "0.1",
+    "keyvault_operations": "1000",
+    "backup_excess_gb_month": "0.1",
+    "registry_storage_gb_month": "0.2",
+}
 BLOCKED = "BLOCKED_NO_DEPLOYMENT"
 
 def decimal_value(value):
@@ -78,18 +91,18 @@ def assess(envelope: object, quote: object, today: date | None = None) -> dict:
         except ValueError as exc:
             errors.append(key + ": " + str(exc))
     if len(values) == len(CAPS):
+        for key, upper in MAX_PROPOSED.items():
+            if values[key] > Decimal(upper):
+                errors.append(key + ": exceeds pending-review maximum")
         if values["aca_peak_replicas"] != 1 or values["static_public_ip_count"] != 1 or values["standard_lb_rule_bundle_count"] != 1:
             errors.append("model supports only one replica, one managed IP and first LB bundle")
         if values["aca_vcpu_per_replica"] <= 0 or values["aca_gib_per_replica"] <= 0:
             errors.append("replica CPU and memory must be positive")
         if values["aca_active_seconds_per_replica"] > Decimal(48 * 3600):
             errors.append("active replica seconds exceed 48-hour timebox")
-    tail = envelope.get("post_teardown_billable_hours")
-    if tail is not None:
-        try:
-            decimal_value(tail)
-        except ValueError as exc:
-            errors.append("post_teardown_billable_hours: " + str(exc))
+    # No claimed zero-cost tail may substitute for independent teardown readback.
+    if "post_teardown_billable_hours" not in envelope or envelope["post_teardown_billable_hours"] is not None:
+        errors.append("post-teardown billed hours must remain UNKNOWN until independently evidenced")
     if envelope.get("teardown_tail_subscription_evidence_verified") is not False:
         errors.append("no verified teardown tail has been established")
     if not isinstance(quote, dict):
