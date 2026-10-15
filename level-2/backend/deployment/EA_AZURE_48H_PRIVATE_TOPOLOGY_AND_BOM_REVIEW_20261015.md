@@ -61,3 +61,26 @@ The only previous directly price-verified base case remains the conservative 48-
 5. Only if a complete independently audited quote ≤€20 and deployment safety proof exist: define a **separate** `ea-staging-deploy` identity with resource-group-scoped RBAC for reviewed exact resources. Keep existing Reader untouched. No Azure resources created in this engineering batch.
 
 **Project flags:** `paid_resource_creation_enabled=false`, `live_provider_sync_enabled=false`, `level_2b_enabled=false`, `level_2c_enabled=false`. No cloud write/role assignment/e-mail action is authorized by this document.
+
+## 5. Public cost meter readback — successfully observed (15 Oct 2026)
+
+The corrected [GitHub EUR retail probe run 38725912112](https://github.com/nanotech-solutions-norway/Ea-Personal_Assistant/actions/runs/38725912112) **PASS** included explicit Standard IPv4 and Standard Load Balancer catalog meters:
+
+| Price component | Meter exactly selected | Public EUR rate | Conservative amount |
+| --- | --- | ---: | ---: |
+| B1ms PostgreSQL compute | `Standard_B1ms` prior verified | €0.0175/hour | €0.8400 (48h) |
+| PostgreSQL 32 billed storage units | `Storage Data Stored` prior verified | €0.1205/billed GB-month | €3.8560 (entire month) |
+| **Required ACA managed standard egress IP** | Virtual Network / IP Addresses / `Standard IPv4 Static Public IP`, meter `9c150bf9-2bad-430e-a53c-c213804f49ef` | €0.0044/hour | **€0.2112** (48h) |
+| **Required ACA managed standard LB** | Load Balancer / `Standard Included LB Rules and Outbound Rules`, meter `27827eb0-7f60-4928-940b-f5fe15e7a4cb` | €0.022/hour | **€1.0560** (48h) |
+| **Known selected-meter partial subtotal** | | | **€5.9632** |
+| Azure DNS private zone (candidate) | Private Zone retail €0.44 first tier, unit `1` | billed per zone-month (prorated daily, per [Microsoft pricing](https://azure.microsoft.com/en-us/pricing/details/dns/)) | €0.44 if retaining a full month, *candidate, not yet signed into quote* |
+| Container Apps consumption, Key Vault, backup overage, app registry/pulls, LB processed GB, DNS queries, egress/monitoring | Not fully modeled and usage evidence lacking | UNKNOWN | **NOT YET PRICED** |
+| Taxes | Customer-specific billing tax status unverified | UNKNOWN | **NOT YET PRICED** |
+
+Illustratively, adding an entire month of the first-tier DNS private zone to the known subtotal produces **€6.4032 before any other service, data transfer or tax**. This is a *partial bill*, NOT an all-in amount. A hypothetical 21% VAT on that partial total would give €7.747872, but the user's actual Azure tax treatment has not been established.
+
+**Billing scope caveats:** public rate service name for the managed static public IP is `Virtual Network`, **not** `IP Addresses`, which explains why an earlier exact serviceName query returned zero. The corrected meter search explicitly found both West Europe and Global records with matching €0.0044/hour rates. The LB catalog also contains free/tier-specific rule meters; use the non-free €0.022/hour first-bundle rate for **conservative modeling** unless subscription-specific evidence proves an applicable alternative. The LB processed-data meter is €0.0044/billed GB and must be covered by usage assumptions separately. Azure Container Apps v2 Consumption is not a blanket exemption from separately billed VNet-managed infrastructure. Neither the fully modeled app run rate nor remaining shared subscription-free allowance has been confirmed.
+
+**Decision remains:** `all_in_cost_quote_verified=false`, `deployment_authorized=false`, and no paid Azure resource creation, no real provider synchronization. The reader OIDC identity remains Reader.
+
+Next economic work: price a **bounded** synthetic workload (e.g. peak replicas, vCPU/GiB seconds, logs GB, DNS queries, egress GB, managed LB rules/data, Key Vault operations, ACR/GHCR billing and backup excess) from authoritative meters and actual service quotas; then full cost under €20 including tax and teardown residuals must be independently approved.
