@@ -15,16 +15,16 @@ import urllib.request
 BASE="https://prices.azure.com/api/retail/prices"
 SERVICES=(
     "Virtual Network", "Azure DNS", "Azure Private Link", "NAT Gateway",
-    "Bandwidth", "Container Apps", "Container Registry", "Key Vault",
+    "Bandwidth", "Azure Container Apps", "Container Registry", "Key Vault",
     "Log Analytics", "Azure Database for PostgreSQL",
 )
 TERMS={
-    "Virtual Network": ("gateway","peering","nat","private"),
-    "Azure DNS": ("private","zone","query"),
+    "Virtual Network": ("private endpoint","standard data processed","peering"),
+    "Azure DNS": ("private zone","private queries"),
     "Azure Private Link": ("endpoint","link","data processed"),
     "NAT Gateway": ("nat","gateway","data processed"),
-    "Bandwidth": ("inter region","outbound","data transfer","internet"),
-    "Container Apps": ("environment","vcpu","memory","request"),
+    "Bandwidth": ("standard data transfer out",),
+    "Azure Container Apps": ("environment","vcpu","memory","request"),
     "Container Registry": ("basic registry unit","data stored"),
     "Key Vault": ("operations","transaction"),
     "Log Analytics": ("data ingestion","analytics logs"),
