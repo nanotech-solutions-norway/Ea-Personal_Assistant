@@ -131,18 +131,18 @@
       "reason": null
     },
     "container_apps_managed_public_ip": {
-      "state": "unverified",
-      "amount_eur": null,
-      "source": null,
-      "evidence_date": null,
-      "reason": "The chosen VNet-integrated Container Apps environment may create managed infrastructure resources. Verify exact billable pricing separately."
+      "state": "priced",
+      "amount_eur": "0.2112",
+      "source": "https://github.com/nanotech-solutions-norway/Ea-Personal_Assistant/actions/runs/38725912112",
+      "evidence_date": "2026-10-15",
+      "reason": "Azure Retail Prices API Virtual Network / IP Addresses Standard IPv4 Static Public IP €0.0044/hour x 48h, one managed ACA outbound IP, no other IP/egress included"
     },
     "container_apps_managed_load_balancer": {
-      "state": "unverified",
-      "amount_eur": null,
-      "source": null,
-      "evidence_date": null,
-      "reason": "The chosen VNet-integrated Container Apps environment may create managed infrastructure resources. Verify exact billable pricing separately."
+      "state": "priced",
+      "amount_eur": "1.056",
+      "source": "https://github.com/nanotech-solutions-norway/Ea-Personal_Assistant/actions/runs/38725912112",
+      "evidence_date": "2026-10-15",
+      "reason": "Load Balancer Standard Included LB Rules and Outbound Rules €0.022/hour x 48h (assumes first rule bundle); data processing/extra rules remain separately unverified"
     },
     "container_apps_managed_auxiliary_resources": {
       "state": "unverified",
@@ -152,5 +152,5 @@
       "reason": "The chosen VNet-integrated Container Apps environment may create managed infrastructure resources. Verify exact billable pricing separately."
     }
   },
-  "note": "DELIBERATELY INCOMPLETE / BLOCKED. ACA public egress static IP, standard load balancer and managed infrastructure now explicit mandatory cost categories; no deployment authorized."
+  "note": "NONDEPLOYABLE, BLOCKED. 48h PG €4.696 + required VNet-integrated ACA Standard public egress IP €0.2112 and Standard Load Balancer first-rule hourly €1.056 = €5.9632 partial verified retail meters. DNS, app execution, managed data processing, backup exceedance, log data, tax and all-in costs remain UNKNOWN. These are public catalog references, not customer billing."
 }
