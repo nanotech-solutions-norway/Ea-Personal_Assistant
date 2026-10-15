@@ -2,7 +2,7 @@
   "schema_version": "1.0",
   "project": "Ea-Personal_Assistant",
   "decision_date": "2026-10-13",
-  "status": "OIDC_AND_PROVIDERS_REGISTERED_SKU_QUOTE_AND_DEPLOY_RBAC_PENDING",
+  "status": "AZURE_SKU_METADATA_VERIFIED_COST_AND_QUOTA_GATE_PENDING",
   "cloud_provider": "azure",
   "subscription_id": null,
   "resource_group": {
@@ -14,7 +14,20 @@
     "display_name": "West Europe",
     "azure_location": "westeurope",
     "service_sku_availability_verified": false,
-    "westeurope_location_access_verified": true
+    "westeurope_location_access_verified": true,
+    "postgres_westeurope_sku_metadata_verified": true,
+    "postgres_burstable_sku_names": [
+      "Standard_B1ms",
+      "Standard_B2s",
+      "Standard_B2ms",
+      "Standard_B4ms",
+      "Standard_B8ms",
+      "Standard_B12ms",
+      "Standard_B16ms",
+      "Standard_B20ms"
+    ],
+    "postgres_sku_metadata_github_run_id": 38657630948,
+    "actual_subscription_quota_verified": false
   },
   "budget": {
     "currency": "EUR",
@@ -89,7 +102,8 @@
     "Single-tenant isolation is a design constraint, not proof of deployed controls.",
     "13 October 2026: operator supplied subscription UUID, attested budget validation and explicitly authorized synthetic EA staging deployment; cloud authorization/RBAC and all-in quote have not been independently read back.",
     "The subscription UUID is kept out of this public repository. Set AZURE_SUBSCRIPTION_ID in protected GitHub Actions environment 'ea-staging-preflight'.",
-    "15 October 2026: GitHub run 38655941349 attempt 2 verified Azure immutable OIDC login, subscribed account and West Europe, and all four providers Registered. These are read-only checks; PostgreSQL SKUs/quota, deployer RBAC and EUR20 full quote remain unverified."
+    "15 October 2026: GitHub run 38655941349 attempt 2 verified Azure immutable OIDC login, subscribed account and West Europe, and all four providers Registered. These are read-only checks; PostgreSQL SKUs/quota, deployer RBAC and EUR20 full quote remain unverified.",
+    "15 October 2026: read-only GitHub Actions SKU run 38657630948 PASS. PostgreSQL West Europe metadata contained eight Burstable identifiers; this does not verify live quota/capacity, price, storage, or permission to deploy."
   ],
   "subscription_reference": {
     "operator_provided": true,
