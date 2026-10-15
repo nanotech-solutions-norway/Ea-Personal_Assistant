@@ -85,8 +85,7 @@ def reconcile(catalog: object, today: date | None = None) -> dict:
                 continue
             if (row.get("serviceName") != service or row.get("productName") != product
                 or row.get("meterId") != meter_id or row.get("meterName") != meter_name
-                or row.get("unitOfMeasure") != unit or row.get("skuName") != "Standard" if name.startswith("aca_") and name != "aca_managed_egress_ip" else False):
-                # Condition above is limited to ACA/managed-LB SKU; other rows checked below.
+                or row.get("unitOfMeasure") != unit):
                 continue
             try:
                 tier = _decimal(row.get("tierMinimumUnits"))
