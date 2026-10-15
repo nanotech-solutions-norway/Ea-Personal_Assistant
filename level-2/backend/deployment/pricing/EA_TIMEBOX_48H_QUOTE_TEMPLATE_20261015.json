@@ -129,7 +129,28 @@
       "source": null,
       "evidence_date": null,
       "reason": null
+    },
+    "container_apps_managed_public_ip": {
+      "state": "unverified",
+      "amount_eur": null,
+      "source": null,
+      "evidence_date": null,
+      "reason": "The chosen VNet-integrated Container Apps environment may create managed infrastructure resources. Verify exact billable pricing separately."
+    },
+    "container_apps_managed_load_balancer": {
+      "state": "unverified",
+      "amount_eur": null,
+      "source": null,
+      "evidence_date": null,
+      "reason": "The chosen VNet-integrated Container Apps environment may create managed infrastructure resources. Verify exact billable pricing separately."
+    },
+    "container_apps_managed_auxiliary_resources": {
+      "state": "unverified",
+      "amount_eur": null,
+      "source": null,
+      "evidence_date": null,
+      "reason": "The chosen VNet-integrated Container Apps environment may create managed infrastructure resources. Verify exact billable pricing separately."
     }
   },
-  "note": "This JSON is deliberately incomplete; it MUST fail the offline quote gate and MUST NOT be taken as deployment authorization."
+  "note": "DELIBERATELY INCOMPLETE / BLOCKED. ACA public egress static IP, standard load balancer and managed infrastructure now explicit mandatory cost categories; no deployment authorized."
 }
