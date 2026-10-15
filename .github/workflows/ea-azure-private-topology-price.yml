@@ -1,0 +1,45 @@
+name: EA Azure private topology and foundation EUR pricing (no deployment)
+
+on:
+  pull_request:
+    paths:
+      - ".github/workflows/ea-azure-private-topology-price.yml"
+      - "level-2/backend/deployment/pricing/azure_foundation_meter_probe.py"
+      - "level-2/backend/deployment/pricing/validate_private_topology.py"
+      - "level-2/backend/deployment/pricing/test_validate_private_topology.py"
+      - "level-2/backend/deployment/pricing/EA_48H_PRIVATE_TOPOLOGY_PROPOSED_20261015.json"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  topology-lint:
+    name: check-private-topology-no-cloud-auth
+    runs-on: ubuntu-latest
+    timeout-minutes: 6
+    steps:
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+        with:
+          persist-credentials: false
+      - name: Validate independent synthetic negative security tests
+        run: python3 -m unittest discover -s level-2/backend/deployment/pricing -p 'test_validate_private_topology.py' -v
+      - name: Verify proposed 48-hour topology only (never deploy)
+        run: |
+          python3 level-2/backend/deployment/pricing/validate_private_topology.py level-2/backend/deployment/pricing/EA_48H_PRIVATE_TOPOLOGY_PROPOSED_20261015.json
+  retail-foundation:
+    name: inspect-public-ip-load-balancer-eur-rates
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+        with:
+          persist-credentials: false
+      - name: Query Microsoft public IP, standard load balancer, and environment retail meters
+        run: python3 level-2/backend/deployment/pricing/azure_foundation_meter_probe.py
+      - name: Preserve public catalog candidate evidence (not an Azure bill)
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
+        with:
+          name: ea-foundation-eur-public-retail-catalog
+          path: ea_azure_foundation_eur_catalog_20261015.json
+          retention-days: 30
