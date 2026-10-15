@@ -51,7 +51,7 @@ def slim(v):
 def relevant(service, v):
     s = " ".join(str(v.get(k, "")) for k in ("armSkuName", "skuName", "meterName", "productName")).lower()
     if service == SERVICES[0]:
-        return ("b1ms" in s or "flexible server storage" in s or "storage data stored" in s or "backup" in s)
+        return ("b1ms" in s or "flex server storage" in s or "storage data stored" in s or "backup" in s)
     if service == "Azure Container Apps":
         return any(q in s for q in ["vCPU", "vcpu", "memory", "request", "management", "private"])
     if service == "Azure DNS":
@@ -79,7 +79,7 @@ def main():
         json.dump({"currency":"EUR","region":"westeurope","source":API,"meters":report,"note":"Retail reference rates, not subscription-specific quotes, taxes, quotas or Azure spend limits."},f,indent=2)
     pg = report.get(SERVICES[0], [])
     b1 = [i for i in pg if str(i.get("armSkuName","")).lower() in ("b1ms","standard_b1ms") and "1 Hour" in str(i.get("unitOfMeasure",""))]
-    storage = [i for i in pg if "storage data stored" in str(i.get("meterName","")).lower() and "flexible server storage" in str(i.get("productName","")).lower()]
+    storage = [i for i in pg if str(i.get("meterName","")).lower() == "storage data stored" and "flex server storage" in str(i.get("productName","")).lower()]
     print("B1MS_CANDIDATES "+json.dumps(b1),flush=True)
     print("STORAGE_CANDIDATES "+json.dumps(storage),flush=True)
     if len(b1)==1 and len(storage)==1:
@@ -88,6 +88,16 @@ def main():
         print(f"PG_32GIB_STORAGE_EUR={h*32:.3f}",flush=True)
         print(f"PG_B1MS_32GIB_BASE_730H_EUR={b*730+h*32:.3f}",flush=True)
         print(f"PG_B1MS_32GIB_BASE_120H_EUR={b*120+h*32:.3f}",flush=True)
+        registry=[i for i in report.get("Container Registry",[]) if i.get("meterName")=="Basic Registry Unit" and i.get("unitOfMeasure")=="1/Day"]
+        private=[i for i in report.get("Azure Container Apps",[]) if i.get("meterName")=="Environment Private Endpoint" and i.get("unitOfMeasure")=="1 Hour"]
+        if len(registry)==1:
+            cost=registry[0]["retailPrice"]*(730/24)
+            print(f"ACR_BASIC_730H_EUR={cost:.3f}",flush=True)
+            print(f"PG_B1MS_PLUS_ACR_730H_EUR={b*730+h*32+cost:.3f}",flush=True)
+        if len(private)==1:
+            rate=private[0]["retailPrice"]
+            print(f"ACA_ENV_PRIVATE_ENDPOINT_730H_EUR={rate*730:.3f}",flush=True)
+            print(f"PG_B1MS_PLUS_ACA_ENDPOINT_730H_EUR={b*730+h*32+rate*730:.3f}",flush=True)
     else:
         print("PRICE_TOTAL_NOT_COMPUTED: ambiguous/missing metering; inspect candidates",flush=True)
     print("NOTE: private network, Container Apps, logs, backup, DNS, registry, tax and quota require explicit separate verification.")
