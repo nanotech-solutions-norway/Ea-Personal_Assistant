@@ -1,0 +1,32 @@
+name: EA Azure EUR retail price discovery (no Azure access)
+
+on:
+  pull_request:
+    paths:
+      - .github/workflows/ea-azure-retail-prices-readonly.yml
+      - level-2/backend/deployment/pricing/azure_retail_meter_probe.py
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  retail-price-probe:
+    name: read-westeurope-eur-retail-meters
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    steps:
+      - name: Check out repository without credentials
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+        with:
+          persist-credentials: false
+      - name: Query Microsoft public Azure Retail Prices API (no deployment)
+        shell: bash
+        run: python3 level-2/backend/deployment/pricing/azure_retail_meter_probe.py
+      - name: Attach dated raw rate evidence
+        if: success()
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
+        with:
+          name: ea-azure-retail-westeurope-eur
+          path: ea_azure_retail_eur_westeurope.json
+          retention-days: 30

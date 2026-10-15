@@ -2,7 +2,7 @@
   "schema_version": "1.0",
   "project": "Ea-Personal_Assistant",
   "decision_date": "2026-10-13",
-  "status": "AZURE_SKU_METADATA_VERIFIED_COST_AND_QUOTA_GATE_PENDING",
+  "status": "RETAIL_COST_LOWER_BOUND_VERIFIED_FULL_EUR20_DEPLOYMENT_GATE_BLOCKED",
   "cloud_provider": "azure",
   "subscription_id": null,
   "resource_group": {
@@ -47,7 +47,24 @@
     ],
     "estimate_verified": false,
     "operator_budget_validated_attestation": true,
-    "operator_cost_validation_evidence_in_repository": false
+    "operator_cost_validation_evidence_in_repository": false,
+    "public_retail_730h_eur": {
+      "observed_at": "2026-10-15",
+      "source": "Azure Retail Prices API (EUR, westeurope)",
+      "github_run_id": 38714329616,
+      "compute_sku": "Standard_B1ms",
+      "compute_hourly_eur": 0.0175,
+      "postgres_compute_eur": 12.775,
+      "storage_billed_units_assumed": 32,
+      "storage_unit_eur_month": 0.1205,
+      "postgres_compute_plus_storage_eur": 16.631,
+      "acr_basic_730h_eur": 4.459,
+      "postgres_plus_basic_acr_eur": 21.09,
+      "container_apps_env_private_endpoint_hourly_eur": 0.1258,
+      "container_apps_endpoint_730h_eur": 91.834,
+      "full_architecture_cost_verified": false,
+      "free_account_entitlement_verified": false
+    }
   },
   "tenant": {
     "mode": "single_private_ea_tenant",
@@ -103,7 +120,8 @@
     "13 October 2026: operator supplied subscription UUID, attested budget validation and explicitly authorized synthetic EA staging deployment; cloud authorization/RBAC and all-in quote have not been independently read back.",
     "The subscription UUID is kept out of this public repository. Set AZURE_SUBSCRIPTION_ID in protected GitHub Actions environment 'ea-staging-preflight'.",
     "15 October 2026: GitHub run 38655941349 attempt 2 verified Azure immutable OIDC login, subscribed account and West Europe, and all four providers Registered. These are read-only checks; PostgreSQL SKUs/quota, deployer RBAC and EUR20 full quote remain unverified.",
-    "15 October 2026: read-only GitHub Actions SKU run 38657630948 PASS. PostgreSQL West Europe metadata contained eight Burstable identifiers; this does not verify live quota/capacity, price, storage, or permission to deploy."
+    "15 October 2026: read-only GitHub Actions SKU run 38657630948 PASS. PostgreSQL West Europe metadata contained eight Burstable identifiers; this does not verify live quota/capacity, price, storage, or permission to deploy.",
+    "15 Oct 2026: Microsoft live EUR West Europe public retail meter audit via GitHub PR #59 confirms B1ms + 32 billed storage ≈EUR16.63/month, adding ACR Basic ≈EUR21.09/month, CA environment private endpoint ≈EUR91.83/month if enabled. This is not the complete account-specific full-design quote; all deployment gates remain blocked."
   ],
   "subscription_reference": {
     "operator_provided": true,
