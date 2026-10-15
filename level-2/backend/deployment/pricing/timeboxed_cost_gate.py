@@ -15,6 +15,8 @@ import sys
 REQUIRED = (
     "postgres_compute", "postgres_storage", "postgres_backup",
     "container_apps_usage", "container_apps_environment_fee",
+    "container_apps_managed_public_ip", "container_apps_managed_load_balancer",
+    "container_apps_managed_auxiliary_resources",
     "container_apps_private_endpoint", "vnet_subnets", "private_dns",
     "nat_or_egress_gateway", "private_link", "container_registry",
     "key_vault", "logs_monitoring", "data_egress", "other_cloud",
