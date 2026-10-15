@@ -2,7 +2,7 @@
   "schema_version": "1.0",
   "project": "Ea-Personal_Assistant",
   "decision_date": "2026-10-13",
-  "status": "RETAIL_COST_LOWER_BOUND_VERIFIED_FULL_EUR20_DEPLOYMENT_GATE_BLOCKED",
+  "status": "FREE_ACCOUNT_BILLING_READ_PENDING_COST_GATE_BLOCKED",
   "cloud_provider": "azure",
   "subscription_id": null,
   "resource_group": {
@@ -64,6 +64,16 @@
       "container_apps_endpoint_730h_eur": 91.834,
       "full_architecture_cost_verified": false,
       "free_account_entitlement_verified": false
+    },
+    "azure_free_account": {
+      "status": "NOT_VERIFIED",
+      "postgres_b1ms_750h_eligible": null,
+      "postgres_32gb_storage_eligible": null,
+      "postgres_32gb_backup_eligible": null,
+      "entitlement_expiry": null,
+      "subscription_benefit_usage_verified": false,
+      "assumed_in_existing_cost_forecast": false,
+      "verification_workflow": ".github/workflows/ea-azure-free-benefits-readonly.yml"
     }
   },
   "tenant": {
@@ -121,7 +131,8 @@
     "The subscription UUID is kept out of this public repository. Set AZURE_SUBSCRIPTION_ID in protected GitHub Actions environment 'ea-staging-preflight'.",
     "15 October 2026: GitHub run 38655941349 attempt 2 verified Azure immutable OIDC login, subscribed account and West Europe, and all four providers Registered. These are read-only checks; PostgreSQL SKUs/quota, deployer RBAC and EUR20 full quote remain unverified.",
     "15 October 2026: read-only GitHub Actions SKU run 38657630948 PASS. PostgreSQL West Europe metadata contained eight Burstable identifiers; this does not verify live quota/capacity, price, storage, or permission to deploy.",
-    "15 Oct 2026: Microsoft live EUR West Europe public retail meter audit via GitHub PR #59 confirms B1ms + 32 billed storage ≈EUR16.63/month, adding ACR Basic ≈EUR21.09/month, CA environment private endpoint ≈EUR91.83/month if enabled. This is not the complete account-specific full-design quote; all deployment gates remain blocked."
+    "15 Oct 2026: Microsoft live EUR West Europe public retail meter audit via GitHub PR #59 confirms B1ms + 32 billed storage ≈EUR16.63/month, adding ACR Basic ≈EUR21.09/month, CA environment private endpoint ≈EUR91.83/month if enabled. This is not the complete account-specific full-design quote; all deployment gates remain blocked.",
+    "2026-10-15: Azure public Microsoft documentation confirms possible 12-month B1ms/32GB storage/backup benefit on eligible subscriptions, but EA subscription status, remaining balances and expiry are not independently verified. Added protected, manual-only read-only billing metadata probe; no deployment permissions or pricing gates relaxed."
   ],
   "subscription_reference": {
     "operator_provided": true,
