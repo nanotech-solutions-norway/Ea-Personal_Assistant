@@ -33,7 +33,10 @@ def get(url):
             if n==2: raise
             time.sleep(n+2)
 def collect(service):
-    expr = ("serviceFamily eq 'Networking' and contains(meterName, 'IP') and priceType eq 'Consumption'"\n            if service == "Public IP Meter Discovery"\n            else f"serviceName eq '{service}' and priceType eq 'Consumption'")\n    q=urllib.parse.urlencode({"currencyCode":"EUR","$filter":expr})
+    expr = ("serviceFamily eq 'Networking' and contains(meterName, 'IP') and priceType eq 'Consumption'"
+            if service == "Public IP Meter Discovery"
+            else f"serviceName eq '{service}' and priceType eq 'Consumption'")
+    q=urllib.parse.urlencode({"currencyCode":"EUR","$filter":expr})
     url=URL+"?"+q
     rows=[]
     for _ in range(25):
