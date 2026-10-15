@@ -32,13 +32,19 @@ class StageCostGateTests(unittest.TestCase):
     def test_even_complete_synthetic_quote_never_authorizes_azure(self):
         x = mod.assess(synthetic_quote(), TODAY)
         self.assertEqual(x["status"],"QUOTE_WITHIN_CAP_PENDING_INDEPENDENT_GATES")
-        self.assertEqual(x["estimated_eur"],"8.500")
+        self.assertEqual(x["estimated_eur"],str((__import__("decimal").Decimal("0.5")*len(mod.REQUIRED)).quantize(__import__("decimal").Decimal("0.001"))))
         self.assertFalse(x["deployment_authorized"])
 
     def test_public_incomplete_template_holds(self):
         x = json.loads((HERE/"EA_TIMEBOX_48H_QUOTE_TEMPLATE_20261015.json").read_text())
         self.check_blocked(x)
         self.assertIsNone(mod.assess(x,TODAY)["estimated_eur"])
+
+    def test_managed_container_apps_resources_must_all_be_accounted_for(self):
+        for component in ('container_apps_managed_public_ip','container_apps_managed_load_balancer','container_apps_managed_auxiliary_resources'):
+            q=synthetic_quote()
+            del q['components'][component]
+            self.check_blocked(q)
 
     def test_missing_categories_holds(self):
         x=synthetic_quote()
