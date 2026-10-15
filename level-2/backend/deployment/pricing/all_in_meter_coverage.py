@@ -9,6 +9,7 @@ create/delete cloud resources, or authorize provider synchronization.
 from __future__ import annotations
 
 from datetime import date
+from decimal import Decimal, InvalidOperation
 import json
 from pathlib import Path
 import sys
@@ -46,6 +47,14 @@ PUBLIC_PARTIAL = {
     "pg_provisioned_storage_month": "postgres_storage",
     "aca_managed_static_ip_hours": "container_apps_managed_public_ip",
     "aca_standard_lb_base_rules_hours": "container_apps_managed_load_balancer",
+}
+# Exact previously documented partial RETAIL arithmetic; these constants are
+# historical samples, not account-specific tariffs or a cost cap.
+PUBLIC_PARTIAL_AMOUNTS_EUR = {
+    "pg_b1ms_instance_hours": Decimal("0.840"),
+    "pg_provisioned_storage_month": Decimal("3.856"),
+    "aca_managed_static_ip_hours": Decimal("0.2112"),
+    "aca_standard_lb_base_rules_hours": Decimal("1.056"),
 }
 PARTIAL_PUBLIC_EVIDENCE_BASE = (
     "https://github.com/nanotech-solutions-norway/"
@@ -150,8 +159,18 @@ def evaluate(plan: object, quote: object, today: date | None = None) -> dict:
         quote_row = components.get(parent) if isinstance(components.get(parent), dict) else {}
         if evidence_state != "PUBLIC_RETAIL_PARTIAL_UNVERIFIED":
             errors.append(name + ": existing cited candidate missing from coverage matrix")
-        if quote_row.get("state") != "priced" or not quote_row.get("amount_eur"):
-            errors.append(name + ": existing partial quote not correctly mapped")
+        if quote_row.get("state") != "priced" or quote_row.get("source") != (
+            meters.get(parent, {}).get(name, {}).get("source_url")
+            if isinstance(meters.get(parent), dict) and isinstance(meters[parent].get(name), dict)
+            else None
+        ):
+            errors.append(name + ": existing partial quote source/state not correctly mapped")
+        try:
+            actual = Decimal(str(quote_row.get("amount_eur")))
+            if not actual.is_finite() or actual != PUBLIC_PARTIAL_AMOUNTS_EUR[name]:
+                errors.append(name + ": previous public retail arithmetic changed without review")
+        except (InvalidOperation, ValueError, TypeError):
+            errors.append(name + ": existing partial retail amount invalid")
     # A mathematically filled quote can only become a candidate for independent
     # review; this instrument cannot verify account rates or billable tail.
     return {
