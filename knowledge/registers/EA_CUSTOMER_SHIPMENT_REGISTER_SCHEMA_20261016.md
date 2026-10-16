@@ -29,3 +29,10 @@ Shipment ID; customer ID; ordering and receiving entity; PO; canonical goods; qu
 6. No bank, accounting, pricing, customer-contact, shipment-tracking or confidential attachments in public GitHub.
 7. Private register existence and readback verified.
 8. End-to-end four-year backfill and cross-source deduplication NOT YET CERTIFIED.
+
+## Account normalization update (16 October 2026)
+- Use one legal-entity record per invoicing party, receiving company and any corporate parent, even where a relationship is within one group.
+- Group affiliation is recorded as a relationship; not consent to reassign invoice entity, bank details, shipment consignee or commercial obligation.
+- For overlaps, preserve verified dated operational evidence, exact known legal identifiers and existing CRM linkage. No source CSV line dates means no automatic latest-by-date resolution.
+- Source-only customer candidates remain distinct from confirmed accounts until a legal-identity key is matched; do not invent merges or invoice-recipient authority.
+- Redaction boundary remains mandatory for public GitHub; all commercial rows live in restricted Google Drive.
