@@ -115,6 +115,43 @@ def extract_allowlisted_prices(pages: list[object]) -> dict:
     return {"status": "ACCOUNT_PRICE_SHEET_READ_BUT_NOT_DEPLOYMENT_APPROVAL", "rates": summary}
 
 
+# Only permit these fixed classifications in public GitHub logs. Azure CLI
+# stderr must NEVER be included in a diagnostic, because it may contain
+# account IDs, resource identifiers, request URIs or tenant-specific text.
+AZURE_FAILURES = {
+    "AuthorizationFailed": "AUTHORIZATION_FAILED",
+    "Forbidden": "FORBIDDEN",
+    "Unauthorized": "UNAUTHORIZED",
+    "InvalidAuthenticationToken": "AUTHENTICATION_TOKEN_INVALID",
+    "ResourceNotFound": "RESOURCE_NOT_FOUND",
+    "NotFound": "NOT_FOUND",
+    "SubscriptionNotFound": "SUBSCRIPTION_NOT_FOUND",
+    "NoRegisteredProviderFound": "PROVIDER_NOT_AVAILABLE",
+    "InvalidApiVersionParameter": "UNSUPPORTED_API_VERSION",
+    "InvalidResourceType": "UNSUPPORTED_RESOURCE_TYPE",
+    "FeatureNotSupported": "FEATURE_NOT_SUPPORTED",
+    "BadRequest": "BAD_REQUEST",
+    "MethodNotAllowed": "METHOD_NOT_ALLOWED",
+}
+
+
+def classify_azure_cli_failure(stderr: object) -> str:
+    """Allowlisted error code ONLY, not raw Azure response or exception."""
+    if not isinstance(stderr, str):
+        return "UNAVAILABLE_OR_UNAUTHORIZED"
+    code = re.search(r"\(([A-Za-z]+)\)", stderr[:32768])
+    if code and code.group(1) in AZURE_FAILURES:
+        return AZURE_FAILURES[code.group(1)]
+    # Some versions of Azure CLI emit HTTP status without a service code.
+    if re.search(r"\b(?:HTTP(?: Error)?|StatusCode)\s*[:= ]\s*403\b", stderr):
+        return "HTTP_403"
+    if re.search(r"\b(?:HTTP(?: Error)?|StatusCode)\s*[:= ]\s*404\b", stderr):
+        return "HTTP_404"
+    if re.search(r"\b(?:HTTP(?: Error)?|StatusCode)\s*[:= ]\s*400\b", stderr):
+        return "HTTP_400"
+    return "UNAVAILABLE_OR_UNAUTHORIZED"
+
+
 def read_page(url: str) -> dict | None:
     try:
         r = subprocess.run(
@@ -123,7 +160,7 @@ def read_page(url: str) -> dict | None:
             capture_output=True, text=True, timeout=90, check=False,
         )
         if r.returncode:
-            return None
+            return {"_ea_safe_error": classify_azure_cli_failure(r.stderr)}
         return json.loads(r.stdout)
     except (subprocess.TimeoutExpired, FileNotFoundError, OSError, json.JSONDecodeError):
         return None
@@ -142,6 +179,11 @@ def read_private_pricesheet(sub: str, fetcher=read_page) -> dict:
         page = fetcher(url)
         if not isinstance(page, dict):
             return {"status": "UNAVAILABLE_OR_UNAUTHORIZED", "rates": {}}
+        if "_ea_safe_error" in page:
+            code = page["_ea_safe_error"]
+            if code not in set(AZURE_FAILURES.values()) | {"HTTP_403", "HTTP_404", "HTTP_400", "UNAVAILABLE_OR_UNAUTHORIZED"}:
+                code = "UNAVAILABLE_OR_UNAUTHORIZED"
+            return {"status": code, "rates": {}}
         pages.append(page)
         props = page.get("properties")
         if not isinstance(props, dict):
