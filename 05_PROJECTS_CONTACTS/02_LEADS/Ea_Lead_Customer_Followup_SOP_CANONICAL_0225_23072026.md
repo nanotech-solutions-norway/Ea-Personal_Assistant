@@ -153,3 +153,18 @@ A case is compliant only when:
 - duplicate reminders were avoided;
 - the reminder contains a useful case summary and risk boundary;
 - no external action or commitment occurred without explicit approval.
+
+## 13. Pre-draft correspondence and attachment verification (operator directive 16.10.2026)
+
+For every business lead, customer or supplier reply and follow-up:
+
+1. Retrieve the latest complete relevant Gmail thread, related side threads, recipient and CC routing, prior sent proposals, current payment/shipment state, and any existing drafts before drafting. Respect intentionally deleted drafts as a suppression signal unless the operator explicitly requests a fresh draft.
+2. Check Google Calendar, the current CRM lead register, approved Ea product-truth sources, Google Drive and GitHub case evidence.
+3. Decide if a customer-facing email is warranted. When the recipient was just answered, a meeting is already scheduled, or the case was expressly paused, prepare only an internal task/preparation record instead of unnecessary repeat contact.
+4. Identify the appropriate recipient-specific attachments: approved quotations, invoices, price tables, agreements, TDS/SDS, application instructions or technical packages. Fetch and verify the exact existing file, newest authoritative version, product formulation, recipient, date, currency, supersession, validity, disclosure rights and technical/commercial approval before attaching. Prefer existing valid evidence over inventing or regenerating documents.
+5. Do **not** attach supplier wholesale price lists, unrelated customer records, proprietary third-party material, expired draft quotations, unapproved technical claims or unreconciled invoices as current customer offers. Missing or conflicting material becomes a PENDING_REVIEW approval/verification action; create non-binding internal quote/invoice/technical-preparation instructions where appropriate.
+6. Use the existing email thread and correct owner/sender where technically possible. Inster/Oesía/Tecnobit communications must be authored by Espen Olsen; if his mailbox is unavailable, prepare an internal handoff instead of an external draft under the wrong sender. Never send a message without approval.
+7. After drafting, record recipient, thread, Gmail draft URL, intended/attached/missing documents, lead status, owner, due date and source in the lead register, and create or update one deduplicated, private, no-attendee Calendar follow-up with no Meet link and no external notifications.
+8. Verify each draft's recipient, CC, subject, wording, actual attachment presence, evidence boundaries and next action before marking ready. If a customer-facing quotation, invoice, regulatory claim or document requires qualified review, retain PENDING_REVIEW until separately approved.
+
+Level 2 automatic mailbox write-back and autonomous sending remain HOLD.
