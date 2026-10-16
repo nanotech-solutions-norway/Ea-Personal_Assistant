@@ -4,6 +4,10 @@ Status: READY_FOR_LEVEL_1_CUSTOMIZATION
 Authority: Active-source framework  
 Level: Level 1 active
 
+## Inster / Grupo Oesía / Tecnobit received in a personal Gmail inbox (16.10.2026)
+
+**OPERATOR-APPROVED:** Apply `03H_EA_INSTER_TECNOBIT_EMAIL_ROUTING_20261016.md` to read, reconcile, register and duplicate-check incoming Inster/Oesía/Tecnobit business correspondence from the configured personal source inbox. Keep the original; maintain one independently verified business-inbox copy upon specific authorization; update existing CRM lead/opportunity/activity/follow-up without duplicates; retain only minimized context in access-controlled memory. Unattended forwarding is not proven active. The latest Espen Olsen Outlook-only drafting rule remains unchanged.
+
 ## Website-form enquiries received in a personal Gmail inbox (15.10.2026)
 
 **Operator-instructed rule:** Apply `03G_EA_WEBSITE_FORM_BUSINESS_INBOX_ROUTING_20261015.md` when NanoTech Solutions Norway AS website submissions (e.g. Hirec new-submission notifications from the company's website mailer) enter the configured operator personal inbox. Treat the enquiry as business correspondence; identify the actual submitter from Reply-To or form email; retain the original while verifying a single copy in the NTSN business inbox; prepare unsent customer reply with verified authorized business send-as identity. Cross-account automatic forwarding remains unverified until an approved live configuration is tested. Exact private inbox identities are retained outside this public repository.
