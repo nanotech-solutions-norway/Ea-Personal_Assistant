@@ -68,10 +68,6 @@ class GithubSecretsStagingTests(unittest.TestCase):
     def test_reject_unprintable_secrets(self):
         for key in ("BRING_API_UID", "BRING_API_KEY"):
             for value in ("a\nb", "\x00secret", " ", "x" * 1025):
-                if value == " ":
-                    # A space is printable; but still not an acceptable
-                    # populated credential. Test dangerous control chars here.
-                    continue
                 with self.subTest(key=key, length=len(value)):
                     entry = dict(STAGING, **{key: value})
                     self.assertEqual(checker.assess(entry), "BLOCKED_INVALID_SECRET_FORMAT")
