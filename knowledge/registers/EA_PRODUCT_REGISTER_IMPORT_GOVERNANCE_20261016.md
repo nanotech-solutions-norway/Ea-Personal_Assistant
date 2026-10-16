@@ -33,3 +33,11 @@ Classification: PUBLIC METADATA AND SCHEMA ONLY — NO PRIVATE CUSTOMER, CONTACT
 - Only a verified comparable, operator-approved general list price supersedes a baseline price. A later quote to one customer does not update a global price. Manufacturer and service availability remain independently verified release gates.
 - Sensitive operational data and numeric product prices stay in restricted Sheets, not this repository.
 - CSV account overlap and SKU identity normalization are complete for the supplied source files; enterprise-wide historical coverage, product availability and commercial current-price validation are not certified by this step.
+
+## Current dated manufacturer price authority
+- The supplier's fiscal-2026 wholesale schedule has superseding versions with **1 April 2026** and **1 June 2026** effective dates. The later version is authoritative for its supplier wholesale category and scope unless a later dated supplier quote applies to a specific transaction.
+- Supplier prices are in JPY, and category-specific. Distinguish vendor acquisition cost from NTSN's customer-facing selling prices and from historic accounting CSV values; NEVER convert/copy a supplier amount into a customer quotation by default.
+- Manufacturer price revisions are recorded in the access-controlled Product Register, including source date, pack, category, source documents, scope and provenance, and flags for source-to-source contradictions.
+- Outdated seller-side procurement-price columns remain historical evidence. A contradictory value from an earlier seller price table requires a conflict flag rather than overwriting dated supplier records.
+- New supplier dates or quotes must not erase baseline accounting records, unrelated customer-specific quotes, or time-bounded historical list prices.
+- Product availability (including any legacy restricted-range items), current stock, transit, cross-border classification and legal/commercial claims remain independent of pricing verification.
