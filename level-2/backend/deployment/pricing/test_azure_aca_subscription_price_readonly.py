@@ -71,6 +71,41 @@ class PriceSheetPrivacyTests(unittest.TestCase):
         out = mod.read_private_pricesheet(SUB, fetcher=lambda _: page([], url))
         self.assertEqual(out["status"], "BLOCKED_UNTRUSTED_NEXT_LINK")
 
+    def test_allowlisted_azure_errors_never_expose_private_data(self):
+        cases = {
+            "AuthorizationFailed": "AUTHORIZATION_FAILED",
+            "ResourceNotFound": "RESOURCE_NOT_FOUND",
+            "InvalidApiVersionParameter": "UNSUPPORTED_API_VERSION",
+            "NoRegisteredProviderFound": "PROVIDER_NOT_AVAILABLE",
+            "Forbidden": "FORBIDDEN",
+            "FeatureNotSupported": "FEATURE_NOT_SUPPORTED",
+        }
+        for raw_code, status in cases.items():
+            with self.subTest(raw_code=raw_code):
+                message = f"ERROR: ({raw_code}) secret=FAKE_TOKEN subscription={SUB}"
+                result = mod.classify_azure_cli_failure(message)
+                self.assertEqual(result, status)
+                self.assertNotIn(SUB, result)
+                self.assertNotIn("FAKE_TOKEN", result)
+                probe = mod.read_private_pricesheet(
+                    SUB,
+                    fetcher=lambda _: {"_ea_safe_error": result},
+                )
+                self.assertEqual(probe["status"], status)
+                self.assertEqual(probe["rates"], {})
+                self.assertNotIn(SUB, str(probe))
+
+    def test_unknown_errors_are_not_forwarded(self):
+        error = "ERROR: (UnexpectedSensitiveData) token=FAKE_TOKEN"
+        self.assertEqual(
+            mod.classify_azure_cli_failure(error),
+            "UNAVAILABLE_OR_UNAUTHORIZED",
+        )
+        self.assertEqual(
+            mod.classify_azure_cli_failure("HTTP Error 403: hidden URI"),
+            "HTTP_403",
+        )
+
     def test_auth_failure_reports_no_identifiers(self):
         out = mod.read_private_pricesheet(SUB, fetcher=lambda _: None)
         self.assertEqual(out["status"], "UNAVAILABLE_OR_UNAUTHORIZED")
