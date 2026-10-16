@@ -168,3 +168,33 @@ For every business lead, customer or supplier reply and follow-up:
 8. Verify each draft's recipient, CC, subject, wording, actual attachment presence, evidence boundaries and next action before marking ready. If a customer-facing quotation, invoice, regulatory claim or document requires qualified review, retain PENDING_REVIEW until separately approved.
 
 Level 2 automatic mailbox write-back and autonomous sending remain HOLD.
+
+## 14. Sample-request intake, dispatch planning and carrier-cost estimate (operator directive 16.10.2026)
+
+For **every new or outstanding sample request** identified in business/personal email, CRM or meeting follow-up, create and maintain a structured **sample-request list** as an internal linked record before claiming shipment readiness. Reconcile existing entries and past dispatches to avoid duplicate requests. Record one request header and one line per requested product/variant/packaging; do not silently conflate samples with confirmed paid orders.
+
+Mandatory request-header fields:
+
+| Field | Requirement |
+|---|---|
+| Sample request ID / lead / project | Stable identity linked to the CRM lead, opportunity and source email/thread |
+| Request date | Exact original date of request, with timezone if relevant; distinguish original request from later amendments |
+| Recipient | Verified addressee/contact and legal company, distinct from any invoicing/procurement entity where applicable |
+| Delivery address | Full ship-to name/company, street, suite, postal code, city, region and country; phone/email when carrier requires them; protect private address data from public repositories |
+| Dispatch origin and intended ship date | Verified ship-from location and proposed dispatch date; distinguish requested versus approved/confirmed date |
+| Status and owner | REQUESTED, MISSING_DETAILS, PENDING_TECHNICAL_APPROVAL, RATE_PENDING, PENDING_COMMERCIAL_APPROVAL, READY_FOR_APPROVAL, APPROVED_FOR_DISPATCH, SHIPPED, DELIVERED or CLOSED; owner and next action |
+
+Mandatory item-level fields: canonical **sample product name and exact variant/SKU**, requested **amount and unit (mL, L, g or kg)**, number of bottles/cans/packs, volume/weight **per unit and aggregate total**, whether amount is requested/proposed/confirmed, sample purpose, and applicable product suitability, SDS/CLP/DG and disclosure review. Never infer sample quantity, formulation or packaging when unverified; mark MISSING_DETAILS and ask the requester/owner.
+
+Mandatory transportation estimate procedure:
+
+1. Check accessible, actually operational **Bring and/or FedEx** rate-quote services, choosing only a carrier that supports the ship-from/ship-to route, parcel and commodity. Prefer a defensible service comparison (standard vs express when supported). FedEx or Bring MCP repository existence does **not** prove a functioning live rate connection.
+2. Collect validated origin and destination postcodes/countries, contact delivery requirements, shipment date, dimensions, **gross packed weight**, parcel count, declared shipment value and shipment restrictions (including solvent, flammable/air-transport/DG conditions), export/customs requirements when relevant. Product volume is not parcel gross weight. Ask for missing values; do not fabricate them.
+3. Record **estimated transport cost per carrier/service** with numerical amount, currency, rate source (live carrier quote/reference or clearly labeled nonbinding historical/manual estimate), quote retrieval date/time, validity, transit estimate when carrier provides it, and whether fuel surcharge, handling, VAT, duties, clearance or insurance are included/excluded/unknown.
+4. If carrier API, account or live rates are inaccessible, record `RATE_PENDING_CARRIER_ACCESS` and exact missing inputs instead of inventing a freight price; a historical manual benchmark may be recorded distinctly but never represented as a live Bring/FedEx quotation.
+5. Display a concise internal sample-request table for the operator showing **sample(s), quantity and total volume, recipient, full private shipping address in authorized context, original request date, and estimated Bring/FedEx shipping cost/status**, with links to the originating correspondence and rate evidence. Protect the private address in public GitHub documents, shared files or cross-customer outputs.
+6. Before packing, dispatch, invoice, freight agreement or customer confirmation, obtain applicable operator approval and any required technical, commercial and qualified transport/DG/export review. No booking, waybill generation, rate acceptance, shipping purchase or commercial promise is authorized merely by this checklist.
+
+Update the CRM's existing sample/shipment/follow-up tracking **only in an explicitly authorized interactive write workflow**; scheduled Ea Business Email Watch runs prepare the table, pending-data requests and PROPOSED changes without autonomous Google Drive, GitHub, carrier or accounting writeback. Deduplicate items and update status from actual evidence when available.
+
+**Sample intake quality gate:** each requested sample has an identified quantity or MISSING_DETAILS, the true original request date, verified recipient and address or a clear missing-data marker, and a sourced price quote or RATE_PENDING_CARRIER_ACCESS. No invented recipient details, shipping amount or shipment completion.
