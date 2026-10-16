@@ -61,7 +61,7 @@ def assess(values: Mapping[str, str]) -> str:
         return "BLOCKED_LIVE_PROVIDER_OR_PRODUCTION_FLAG"
     if any(not values.get(name) for name in REQUIRED):
         return "BLOCKED_MISSING_GITHUB_ENVIRONMENT_CONFIG"
-    if any(not _header_ok(values[name]) for name in REQUIRED):
+    if any(not _header_ok(values[name]) for name in ("BRING_API_UID", "BRING_API_KEY")):
         return "BLOCKED_INVALID_SECRET_FORMAT"
     if not _client_url_ok(values["BRING_CLIENT_URL"]):
         return "BLOCKED_INVALID_CLIENT_URL"
