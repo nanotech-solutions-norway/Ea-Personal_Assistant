@@ -1,5 +1,7 @@
 # EA Bring — protected vault read contract (synthetic only)
 
+> **DECISION UPDATE — 2026-10-16:** Azure Key Vault provisioning and production resolver integration are **ON HOLD** by operator direction. For the current *synthetic-only workflow preflight*, GitHub Environment Secrets in existing `bring-pilot` have been selected; see [BRING_GITHUB_SECRETS_STAGING_20261016.md](./BRING_GITHUB_SECRETS_STAGING_20261016.md). This legacy Key Vault contract and adapter remain dormant and must NOT be treated as approved deployment requirements for the current preflight. Runtime Bring authorization and production synchronization remain disabled. No GitHub workflow can silently replace the server-side, tenant-bound credential resolver.
+
 **Status:** CODE_ONLY / KEY_VAULT_NOT_PROVISIONED / PRODUCTION_SYNC_DISABLED
 
 This change follows operator-reported local Entra access-token validation success
