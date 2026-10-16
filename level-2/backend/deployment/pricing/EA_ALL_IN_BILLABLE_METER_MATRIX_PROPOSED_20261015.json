@@ -1,0 +1,244 @@
+{
+  "schema_version": "1.0",
+  "project": "Ea-Personal_Assistant",
+  "region": "westeurope",
+  "currency": "EUR",
+  "hours": 48,
+  "data_scope": "synthetic_only",
+  "scope_state": "NONDEPLOYABLE_PUBLIC_COVERAGE_INVENTORY",
+  "billing_agreement_independently_verified": false,
+  "subscription_specific_rates_verified": false,
+  "tax_inclusive_total_verified": false,
+  "tail_liability_verified": false,
+  "independent_reviewer_approved": false,
+  "resource_creation_enabled": false,
+  "live_provider_sync_enabled": false,
+  "meters": {
+    "postgres_compute": {
+      "pg_b1ms_instance_hours": {
+        "state": "PUBLIC_RETAIL_PARTIAL_UNVERIFIED",
+        "source_url": "https://github.com/nanotech-solutions-norway/Ea-Personal_Assistant/actions/runs/38714329616",
+        "scope_explanation": "Public retail candidate recorded for a selected unit/period; private subscription charges and teardown tail NOT established."
+      }
+    },
+    "postgres_storage": {
+      "pg_provisioned_storage_month": {
+        "state": "PUBLIC_RETAIL_PARTIAL_UNVERIFIED",
+        "source_url": "https://github.com/nanotech-solutions-norway/Ea-Personal_Assistant/actions/runs/38714329616",
+        "scope_explanation": "Public retail candidate recorded for a selected unit/period; private subscription charges and teardown tail NOT established."
+      },
+      "pg_post_deletion_storage_tail": {
+        "state": "UNKNOWN",
+        "source_url": null,
+        "scope_explanation": "This charge dimension has no independently verified subscription-applicable full-horizon EUR rate, safe exclusion, or billable-tail bound."
+      }
+    },
+    "postgres_backup": {
+      "pg_excess_backup_gb_month": {
+        "state": "UNKNOWN",
+        "source_url": null,
+        "scope_explanation": "This charge dimension has no independently verified subscription-applicable full-horizon EUR rate, safe exclusion, or billable-tail bound."
+      },
+      "pg_backup_retention_tail": {
+        "state": "UNKNOWN",
+        "source_url": null,
+        "scope_explanation": "This charge dimension has no independently verified subscription-applicable full-horizon EUR rate, safe exclusion, or billable-tail bound."
+      }
+    },
+    "container_apps_usage": {
+      "aca_active_vcpu_seconds": {
+        "state": "UNKNOWN",
+        "source_url": null,
+        "scope_explanation": "This charge dimension has no independently verified subscription-applicable full-horizon EUR rate, safe exclusion, or billable-tail bound."
+      },
+      "aca_active_gib_seconds": {
+        "state": "UNKNOWN",
+        "source_url": null,
+        "scope_explanation": "This charge dimension has no independently verified subscription-applicable full-horizon EUR rate, safe exclusion, or billable-tail bound."
+      },
+      "aca_http_requests": {
+        "state": "UNKNOWN",
+        "source_url": null,
+        "scope_explanation": "This charge dimension has no independently verified subscription-applicable full-horizon EUR rate, safe exclusion, or billable-tail bound."
+      },
+      "aca_idle_resource_usage": {
+        "state": "UNKNOWN",
+        "source_url": null,
+        "scope_explanation": "This charge dimension has no independently verified subscription-applicable full-horizon EUR rate, safe exclusion, or billable-tail bound."
+      }
+    },
+    "container_apps_environment_fee": {
+      "aca_environment_management_fee": {
+        "state": "PROPOSED_EXCLUSION_NOT_ACCEPTED",
+        "source_url": null,
+        "scope_explanation": "Pure-Consumption environment proposed; no dedicated workload management charge anticipated, not yet independently validated."
+      }
+    },
+    "container_apps_managed_public_ip": {
+      "aca_managed_static_ip_hours": {
+        "state": "PUBLIC_RETAIL_PARTIAL_UNVERIFIED",
+        "source_url": "https://github.com/nanotech-solutions-norway/Ea-Personal_Assistant/actions/runs/38725912112",
+        "scope_explanation": "Public retail candidate recorded for a selected unit/period; private subscription charges and teardown tail NOT established."
+      },
+      "aca_managed_static_ip_tail": {
+        "state": "UNKNOWN",
+        "source_url": null,
+        "scope_explanation": "This charge dimension has no independently verified subscription-applicable full-horizon EUR rate, safe exclusion, or billable-tail bound."
+      }
+    },
+    "container_apps_managed_load_balancer": {
+      "aca_standard_lb_base_rules_hours": {
+        "state": "PUBLIC_RETAIL_PARTIAL_UNVERIFIED",
+        "source_url": "https://github.com/nanotech-solutions-norway/Ea-Personal_Assistant/actions/runs/38725912112",
+        "scope_explanation": "Public retail candidate recorded for a selected unit/period; private subscription charges and teardown tail NOT established."
+      },
+      "aca_standard_lb_processed_gb": {
+        "state": "UNKNOWN",
+        "source_url": null,
+        "scope_explanation": "This charge dimension has no independently verified subscription-applicable full-horizon EUR rate, safe exclusion, or billable-tail bound."
+      },
+      "aca_standard_lb_extra_rule_hours": {
+        "state": "UNKNOWN",
+        "source_url": null,
+        "scope_explanation": "This charge dimension has no independently verified subscription-applicable full-horizon EUR rate, safe exclusion, or billable-tail bound."
+      },
+      "aca_standard_lb_tail": {
+        "state": "UNKNOWN",
+        "source_url": null,
+        "scope_explanation": "This charge dimension has no independently verified subscription-applicable full-horizon EUR rate, safe exclusion, or billable-tail bound."
+      }
+    },
+    "container_apps_managed_auxiliary_resources": {
+      "aca_managed_rg_other_billable_resources": {
+        "state": "UNKNOWN",
+        "source_url": null,
+        "scope_explanation": "This charge dimension has no independently verified subscription-applicable full-horizon EUR rate, safe exclusion, or billable-tail bound."
+      }
+    },
+    "container_apps_private_endpoint": {
+      "aca_private_endpoint_hours": {
+        "state": "PROPOSED_EXCLUSION_NOT_ACCEPTED",
+        "source_url": null,
+        "scope_explanation": "Private ACA endpoint is not in current VNet injected design, but actual Azure architecture and charges remain unverified."
+      }
+    },
+    "vnet_subnets": {
+      "vnet_network_metered_features": {
+        "state": "UNKNOWN",
+        "source_url": null,
+        "scope_explanation": "This charge dimension has no independently verified subscription-applicable full-horizon EUR rate, safe exclusion, or billable-tail bound."
+      }
+    },
+    "private_dns": {
+      "private_dns_zone_billing_period": {
+        "state": "UNKNOWN",
+        "source_url": null,
+        "scope_explanation": "This charge dimension has no independently verified subscription-applicable full-horizon EUR rate, safe exclusion, or billable-tail bound."
+      },
+      "private_dns_queries": {
+        "state": "UNKNOWN",
+        "source_url": null,
+        "scope_explanation": "This charge dimension has no independently verified subscription-applicable full-horizon EUR rate, safe exclusion, or billable-tail bound."
+      }
+    },
+    "nat_or_egress_gateway": {
+      "nat_gateway_and_attached_egress": {
+        "state": "PROPOSED_EXCLUSION_NOT_ACCEPTED",
+        "source_url": null,
+        "scope_explanation": "Standalone NAT Gateway absent from proposed network design; managed ACA public egress remains separately mandatory."
+      }
+    },
+    "private_link": {
+      "private_link_endpoints_or_link_data": {
+        "state": "PROPOSED_EXCLUSION_NOT_ACCEPTED",
+        "source_url": null,
+        "scope_explanation": "No standalone Azure Private Link endpoint proposed; VNet-integrated PostgreSQL still requires private networking verification."
+      }
+    },
+    "container_registry": {
+      "acr_storage_gb_month": {
+        "state": "UNKNOWN",
+        "source_url": null,
+        "scope_explanation": "This charge dimension has no independently verified subscription-applicable full-horizon EUR rate, safe exclusion, or billable-tail bound."
+      },
+      "acr_billable_tier_or_operations": {
+        "state": "UNKNOWN",
+        "source_url": null,
+        "scope_explanation": "This charge dimension has no independently verified subscription-applicable full-horizon EUR rate, safe exclusion, or billable-tail bound."
+      }
+    },
+    "key_vault": {
+      "key_vault_secret_operations": {
+        "state": "UNKNOWN",
+        "source_url": null,
+        "scope_explanation": "This charge dimension has no independently verified subscription-applicable full-horizon EUR rate, safe exclusion, or billable-tail bound."
+      },
+      "key_vault_service_tier": {
+        "state": "UNKNOWN",
+        "source_url": null,
+        "scope_explanation": "This charge dimension has no independently verified subscription-applicable full-horizon EUR rate, safe exclusion, or billable-tail bound."
+      }
+    },
+    "logs_monitoring": {
+      "log_ingestion_gb": {
+        "state": "UNKNOWN",
+        "source_url": null,
+        "scope_explanation": "This charge dimension has no independently verified subscription-applicable full-horizon EUR rate, safe exclusion, or billable-tail bound."
+      },
+      "log_retention_billable_period": {
+        "state": "UNKNOWN",
+        "source_url": null,
+        "scope_explanation": "This charge dimension has no independently verified subscription-applicable full-horizon EUR rate, safe exclusion, or billable-tail bound."
+      },
+      "monitor_other_metered_features": {
+        "state": "UNKNOWN",
+        "source_url": null,
+        "scope_explanation": "This charge dimension has no independently verified subscription-applicable full-horizon EUR rate, safe exclusion, or billable-tail bound."
+      }
+    },
+    "data_egress": {
+      "internet_egress_gb": {
+        "state": "UNKNOWN",
+        "source_url": null,
+        "scope_explanation": "This charge dimension has no independently verified subscription-applicable full-horizon EUR rate, safe exclusion, or billable-tail bound."
+      },
+      "network_interregion_or_other_transfer": {
+        "state": "UNKNOWN",
+        "source_url": null,
+        "scope_explanation": "This charge dimension has no independently verified subscription-applicable full-horizon EUR rate, safe exclusion, or billable-tail bound."
+      }
+    },
+    "other_cloud": {
+      "misc_auxiliary_platform_resources": {
+        "state": "UNKNOWN",
+        "source_url": null,
+        "scope_explanation": "This charge dimension has no independently verified subscription-applicable full-horizon EUR rate, safe exclusion, or billable-tail bound."
+      },
+      "late_post_delete_charges": {
+        "state": "UNKNOWN",
+        "source_url": null,
+        "scope_explanation": "This charge dimension has no independently verified subscription-applicable full-horizon EUR rate, safe exclusion, or billable-tail bound."
+      }
+    },
+    "taxes": {
+      "applicable_vat": {
+        "state": "UNKNOWN",
+        "source_url": null,
+        "scope_explanation": "This charge dimension has no independently verified subscription-applicable full-horizon EUR rate, safe exclusion, or billable-tail bound."
+      },
+      "other_applicable_taxes": {
+        "state": "UNKNOWN",
+        "source_url": null,
+        "scope_explanation": "This charge dimension has no independently verified subscription-applicable full-horizon EUR rate, safe exclusion, or billable-tail bound."
+      }
+    },
+    "contingency": {
+      "residual_spend_contingency": {
+        "state": "UNKNOWN",
+        "source_url": null,
+        "scope_explanation": "This charge dimension has no independently verified subscription-applicable full-horizon EUR rate, safe exclusion, or billable-tail bound."
+      }
+    }
+  },
+  "note": "Current public GitHub artifact contains selected public retail samples and proposed exclusions ONLY. Every meter is unverified for the operator's actual subscription; no clearance for paid Azure or live calendars."
+}
