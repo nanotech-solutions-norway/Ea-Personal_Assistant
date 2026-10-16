@@ -27,6 +27,7 @@ def _header_ok(value: object) -> bool:
     return (
         isinstance(value, str)
         and 1 <= len(value) <= 1024
+        and bool(value.strip())
         and all(32 <= ord(char) < 127 for char in value)
     )
 
