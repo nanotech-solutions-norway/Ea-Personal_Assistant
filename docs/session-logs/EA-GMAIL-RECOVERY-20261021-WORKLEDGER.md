@@ -12,3 +12,6 @@ Rollback: automation task prompt/status can be restored after exact prior-state 
 | E001 | PREPARED | Operator / Ea | One recovery workstream | Email watch enabled, drafts sparse | No customer writes | Existing Gmail+Calendar readbacks; PASS | Reconcile cases |
 | E002 | AUTHORIZED | Operator / Ea | Bounded recovery + governance bug fix | User approval received | No external message sent | Operator message; PASS | Execute eligible internal changes |
 | E003 | STARTED | GitHub connector | Feature-branch preparation | main canonical untouched | isolated feature branch | branch create returned feature/ea-gmail-recovery-20261021; PASS | add safe fixes |
+| E004 | ATTEMPTED | Gmail create_draft | One new contractual acknowledgement, native reply; no send | No draft for current conversation | One draft exists, DRAFT label | Gmail returned ID, readback verified thread and addressing; PARTIAL | Clean auto-quote |
+| E005 | BLOCKED | Gmail update_draft | Same draft ID, clean body only | Draft includes auto-quoted correspondence | Unchanged | Connector safety blocked update; no retry; FAIL | Mark DRAFT_QA_FAILED |
+| E006 | READBACK | Gmail read_email | Original created draft | Quote-history unresolved | Quote history present, DRAFT, not SENT | Provider readback confirms exact failure; PASS | Manual correction or provider fix |
