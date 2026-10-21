@@ -104,3 +104,17 @@ Espen-authored messages are exclusively ChatGPT drafts: Subject outside, email b
 ## Latest approved Gmail signature omission — 12.10.2026
 
 For every non-Espen Gmail draft, Ea must author the email body WITHOUT any signature/name/job title/contact footer. The operator's Gmail standard signature is automatically applied by Gmail; never insert one manually, even if the stored API readback contains none. Validate ZERO Ea-added signatures after same-draft clean-body update, along with unchanged thread, recipients, quotation hygiene and DRAFT state. All older “one signature in draft body” requirements are superseded. Espen stays ChatGPT code-block to manual Outlook, no added signature. Preserve 03D suppression, no-send and Level 2B/2C HOLD.
+
+
+## 21.10.2026 — Operator-approved action-first reliability correction (feature-branch review)
+Trigger: Hourly Ea Business Email Watch stayed enabled and ran, yet only two pre-existing drafts remained. A newly created correctly threaded acknowledgment appended old quotation; the same-draft clean-body replacement was blocked by provider safety checks. This is not proof every old calendar draft link is unsent.
+Live native task update: Task 6a6336e9994c8191b25966dc451c2db0 updated in place on 21.10.2026, retaining enabled/condition_watch/HOURLY recurrence. Prompt prioritizes highest-priority real Gmail reply cases before broad CRM/Calendar discovery to avoid read-only starvation, bounds cases per cycle, keeps unprocessed cases as PENDING_COVERAGE and requires verified case dispositions. Task configuration correction is not proof of later successful runs or any customer sends.
+Mandatory controls:
+1. A timestamped scheduled run does not prove drafts were made. Record candidate counts, actual inbox+sent reconciliation, actionable cases, backlog, exact per-case disposition and provider readback.
+2. create_draft success proves draft existence, NOT clean body. Gmail may append quoted history. If in-place update_draft fails, mark DRAFT_QA_FAILED, preserve same ID, read back, do not retry blindly, recreate, or send. Manual body cleanup may be needed.
+3. Threads addressed to the r.meyer@nanotech-solutions.com alias in account nanotech.solutions.norway@gmail.com require a verified From/send-as capability before claiming a ready-to-send or sent Ruben-persona message. Current connector does not expose the alias selector.
+4. Preserve 03D deliberate deletion suppression, latest 03F no Ea-authored signature and Espen Outlook-only sender exception. Missing draft alone does not establish intentional deletion; old calendar links do not establish extant drafts; latest SENT messages prevent duplicate outreach.
+5. No automatic representation-agreement acceptance, price/sample/transport commitment, qualification, dangerous-goods or health/technical claim without exact verified source and required approvals.
+6. This feature-branch proposal is not canonical main until PR merge/readback. The independently updated native ChatGPT task is active configuration, not proof of unattended execution.
+Acceptance: demonstrate a future controlled hourly source read, case-specific decision, one correctly threaded clean unsent Gmail draft and readback/no-duplicate QA; until then NOT_RUNTIME_ACCEPTED. If the connector blocks same-draft quote stripping, FAIL and manual-only fallback. Notification enablement must be verified separately; native task update does not expose notification toggle.
+Event ledger: docs/session-logs/EA-GMAIL-RECOVERY-20261021-WORKLEDGER.md; redacted. Level 2B/2C HOLD.
