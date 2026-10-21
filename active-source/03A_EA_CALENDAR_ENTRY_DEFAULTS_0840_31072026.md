@@ -97,3 +97,11 @@ External invitations, attendee changes, cancellations and other externally effec
 - No upcoming primary-calendar entry containing `Microsoft Teams` or `Teams` was found in the reviewed period.
 - Meeting and appointment reminders were not removed.
 - No external invitation was sent and no attendee list was changed.
+
+## 7. Operator clarification — 20.10.2026 (merged 21.10.2026)
+
+- Follow-up and internal task/action entries must not trigger **any** event reminders, whether popup or email: set `reminders.useDefault=false` and `reminders.overrides=[]` on the relevant privately owned Google Calendar event. Do not change unrelated meeting or appointment reminders.
+- Meetings/appointments retain their existing reminders (normally one day and two hours before confirmed business meetings where configured). Do not convert tasks into meeting events to obtain reminders.
+- Existing and newly created follow-ups/tasks are to be checked for legacy notification overrides and corrected when within operator-approved scope; read back each changed event. No invitations, attendees, titles, times or conference details are to be changed by a reminders-only reconciliation.
+- Google Calendar's native `Daily agenda → Email` is a per-calendar/account setting in the Calendar web interface; event-level tools do not activate or verify it. A separate custom daily email to `nanotech.solutions.norway@gmail.com` requires independently authorized execution; a one-off email request is not a recurring send authorization.
+- **Merge-verified:** This clarification was incorporated in `main` through PR #93 on 21.10.2026 (merge commit `2545c1a2e1880d6e4764af98098dd4192457d5b4`). The earlier 03A/03B/07B no-reminder rules remain effective and are consistent with this clarification. This line records provenance only; it does not authorize recurring external emails or assert activation of Google Calendar's native Daily agenda email setting.
