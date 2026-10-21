@@ -26,3 +26,10 @@
 - 2026-10-20T09:12:35.978Z | POLICY_PENDING | 03A task-alert clarification staged on the feature branch only. No claim of merged or independently approved canonical promotion.
 
 **Verified outcome:** 19 of 19 identified upcoming Ea business follow-ups reminder-free; 17 actual changes, 2 pre-compliant. **Open:** Google Calendar native daily agenda toggle; branch PR review/merge; new-clarification Drive mirror after approved merge if required. **Rollback reference:** historical pre-change snapshot in the write-ahead section (17 popup 30 minutes; 2 none). Automatic rollback not attempted.
+
+## POSTMERGE_READBACK_20261021 — governance reconciliation
+
+- 2026-10-21T07:26:55Z | PR_MERGE_VERIFIED | PR #93 (`Ea-Personal_Assistant`) merged into `main`; merge commit `2545c1a2e1880d6e4764af98098dd4192457d5b4`. The 03A clarification is therefore present on the canonical branch. The original ledger's `POLICY_PENDING` was a historical pre-merge snapshot, not current state.
+- 2026-10-21 | DRIVE_SOP_RECONCILED | Existing July 2026 native Google Doc SOP (original ID, parent and sharing preserved) received a prominent supersession notice specifying that follow-up and internal task event reminders are disabled and meeting/appointment reminders are preserved. Historical body retained, independent Docs readback verified.
+- 2026-10-21 | MAIN_WRITE_PROTECTED | Direct metadata-only status correction rejected by GitHub with required PR and four status checks. Corrective metadata-only changes to 03A and this append-only ledger prepared on a feature branch; PR must satisfy repository protection before merge. The rejected write did not change `main`.
+- 2026-10-21 | OPEN | Native Google Calendar `Daily agenda → Email` per-calendar setting still unverified/unactivated via the current connector. No repeat email sent, no reminder mutations repeated, no standalone Google Tasks audit claimed. Level 2 remains HOLD.
