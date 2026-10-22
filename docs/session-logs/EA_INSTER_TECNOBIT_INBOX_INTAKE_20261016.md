@@ -15,3 +15,19 @@ Completion gate: approved protocol merged after required checks; Drive Vault rea
 - Historical correspondence and the 16 October intake/routing evidence are retained. The internal calendar reminder is marked completed with alerts disabled; no external message, forward, or customer-facing commitment was made.
 - The canonical 03H routing/discovery policy remains valid for future new correspondence. Its unattended cross-account synchronization is still unverified, not newly enabled by this closure.
 - Source: explicit operator instruction on 21 October 2026; operational CRM current record; no customer email or confidential invoice detail reproduced in GitHub.
+
+
+## Archive reconciliation — 22.10.2026 (work ID EA-ESPEN-ARCHIVE-20261022)
+- Classification: `PENDING_REVIEW_EVIDENCE`. Source: operator-supplied Outlook OST plus Adobe PDF portfolio (96 exported email PDFs), and the two already routed Gmail copies. The PDF portfolio was extractable and reviewed; native OST item-level parsing was not independently completed. PDF count does not equal a count of independent threads because exported messages carry quoted history.
+- Correspondence is historical evidence up to 16 October, **not** evidence of new activity after the operator's 21 October closure. Preserve `CLOSED_WON` for the existing handled case; `EA-L26-002`, `EA-O26-002` and `EA-F26-20261016-OESIA-001` must not be duplicated or reopened solely from the archive.
+- Evidence-only clarification: the earlier sample-fee deduction was explicitly confirmed in a July email. Do not apply it again in any provisional credit scenario without authoritative accounting-ledger verification. This is a double-counting warning, not a verified accounting posting or balance.
+- Preserve separate buyer/invoice entity, interim consignee and final delivery site. A later request for invoice correction was observed historically; final correction/payment/warehouse processing occurred outside the connected sources and remains unverified in this review. Do not infer open customer action from stale archive mail.
+- The possible follow-on volume was only a quotation request; no confirmed additional order is established by this evidence set. No external customer email, sending, forwarding or commercial commitment is authorized by this extraction.
+- Write-ahead event: `EA-ESPEN-ARCHIVE-20261022/PREPARED/01`; actor: GitHub connector; scope: sanitized EA continuity update on a feature branch, Drive pending-review mirror and narrowly scoped CRM stale-description correction only; source revision: EA main `16f61e379791199505a00e01e9e5060e2479ba53`; target: this session record, EA CRM, AI-Memory-Vault; before state: existing closure verified; status: PREPARED; attempt=1; idempotency key: `EA-ESPEN-ARCHIVE-20261022`; rollback: preserve old revision, stop if conflict; open: independently verify any new source material beyond 16 October before revising closure.
+
+
+### Verified events — 22.10.2026
+- `EA-ESPEN-ARCHIVE-20261022/CRM/READBACK/01` — PASS: original `CLOSED_WON` and completed follow-up preserved; only stale descriptive Accounts/Opportunities cells updated; append-only CRM audit record `EA-AUD-20261022-ESPEN-01` independently read back. Attempt 1; no duplicate action.
+- `EA-ESPEN-ARCHIVE-20261022/DRIVE/READBACK/01` — PASS: redacted pending-review document ID `1YfedOHgg7K3yumWv04XikkVcFXMLwfREgNQAiKdyo_A` imported to pre-existing `08_PENDING_REVIEW` folder and verified by document content and parent metadata. No customer payload saved to Drive mirror.
+- `EA-ESPEN-ARCHIVE-20261022/GITHUB/READBACK/01` — PARTIAL: this feature-branch session record committed and independently fetched. Promotion to main requires normal PR and protected-branch checks; do not interpret feature-branch readback as merged.
+- No outward customer messages, invoices, commercial commitments, active follow-up reminders or unattended automation were created.
