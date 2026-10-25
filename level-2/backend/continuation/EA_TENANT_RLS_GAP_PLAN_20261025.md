@@ -2,7 +2,7 @@
 
 **Work ID:** `EA-SYNC` · **Decision:** A1 source-only documentation preparation · **Status:** PREPARED_FOR_OWNING_ENGINEERING_REVIEW; NOT IMPLEMENTED / NOT ACCEPTED.
 **Owner:** EA Personal Assistant. **Operator authorization:** Control Tower v2.2 exact 11-disposition confirmation on 25.10.2026, restricted to this document on a nonprotected feature branch. No schema/code changes, CI dispatch, database modification, tenant ingestion, OAuth, Azure deployment, real account synchronization, merge or release are authorized by this document.
-**Canonical operational log:** [EA-SYNC work ledger](../../../../docs/session-logs/EA-SYNC-WORKLEDGER-20261025.md).
+**Canonical operational log:** [EA-SYNC work ledger](../../../docs/session-logs/EA-SYNC-WORKLEDGER-20261025.md).
 
 ## 1. Sources and existing acceptance boundary
 
