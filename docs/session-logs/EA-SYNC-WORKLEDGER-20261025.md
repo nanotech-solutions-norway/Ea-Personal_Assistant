@@ -68,3 +68,18 @@
 |---|---|---|---|---|---|
 | E015 | 26.10.2026 | PREPARED | PR #99: open, draft, mergeable; two documentation files only; compare source and canonical ledger | GitHub PR #99; source plan blob `09c35c4552d62755230814a62eb21c17fc2f6968`; previous ledger blob `56834fa3ab44d342b94ea1ab669255d59c1921b6` | PASS; no reviewer decision inferred |
 | E016 | 26.10.2026 | AUTHORIZED | Operator asked to proceed with exact PR #99; move `draft` to `ready for review` only after GitHub head checks qualify. Stop if required checks fail or protected condition changes | Previous head `75895d626d5fbba40ac60a3b31ac9d92590a3089`: five CI workflow runs SUCCESS (CodeQL, Repository security baseline, Security baseline, EA Level 2 tests, Dependency review), initial reviews 0; CODEOWNERS `@nanotech-solutions-norway` no validated independent named principal | PREPARED; after this ledger commit recheck current head CI before changing PR metadata. No review request without independently established eligible identity. |
+
+## PR #99 ready-for-review transition — 26.10.2026
+
+| Event | Phase | Provider action and scope | Verified evidence | Outcome |
+|---|---|---|---|---|
+| E017 | READBACK | Pre-transition exact head `b9079fa3fb57b6304cddb9583594553a358fbb29`, GitHub PR #99; 5 completed checks | Backend foundation, CodeQL, Repository security baseline, Security baseline and Dependency review each SUCCESS | PASS; no independent reviewer identified |
+| E018 | ATTEMPTED | GitHub `mark_pull_request_ready_for_review` once for PR #99, only reversible PR metadata; do not merge or alter runtime | Provider returned `open`, `draft=false`, `merged=false` | PASS; review-ready, not approved |
+| E019 | ATTEMPTED | Update PR #99 description to accurately describe review-ready but not accepted state, and preserve no-merge/no-deployment gates | GitHub PR metadata accepted; exact PR later fetched as `open`, `draft=false`, `merged=false` | PASS; no reviewer identity assumed |
+| E020 | READBACK | Independent `fetch_pr` plus head-specific CI readback | Head `b9079fa3fb57b6304cddb9583594553a358fbb29`, five workflows all SUCCESS; GitHub CODEOWNERS only references organization, not a verified independent principal | REVIEW_READY_VERIFIED; PENDING_INDEPENDENT_REVIEW |
+
+**Current effect:** EA documentation and audit remain in the existing nonprotected branch. PR #99 is now non-draft and awaiting an actual project reviewer. This audit-only append changes the PR head SHA and may cause CI to run again; the prior head's passing checks must not be copied to a new head. No auto-merge, migration, cloud provisioning or customer data access.
+
+**Separate workstreams:** Conta #98 synthetic review, FEA/PIP #3 host-release mapping and SolarEX #1 asset/functional QA are R0 follow-ups only; no protected new approval or cross-project dispatch. Original source dispositions stay in place.
+
+**Persistent mirror:** Google Drive `MIRROR_PENDING`, not accepted. **Workstream completion:** N/A% (no accepted independent denominator).
