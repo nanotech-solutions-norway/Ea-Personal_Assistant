@@ -36,3 +36,12 @@
 **Open actions:** Owning EA engineering review of the isolated document; independently qualify migration/test scope, nonowner DB role, infrastructure and protected approvals. No automatic follow-on work.
 
 **Mirror:** Google Drive summary not written within this scope; `MIRROR_PENDING`. Final ledger readback required.
+
+## Review-intake continuation — 01:44, 26.10.2026 Europe/Madrid
+
+**New operator instruction:** "Proceed as recommended" following the 25.10.2026 batch report. For EA-SYNC, this authorizes preparing the existing validated documentation for owning-project engineering review. It does not grant independent assurance, migration, CI dispatch, merge, deployment or protected provider authority. This is an append-only continuation of the same canonical work-ID ledger.
+
+| Event | Date (Europe/Madrid) | Phase | Actor and authorized target | Before / evidence | Outcome and next action |
+|---|---|---|---|---|---|
+| E010 | 26.10.2026 | PREPARED | Operator-confirmed Control Tower via GitHub; create one documentation-only review PR, head `feature/ea-sync-tenant-rls-gap-plan-20261025`, base `main` | Exact EA continuation source blob `5aa65205b69a9c1a0fba850ac1563efd8fa8fc26`, plan blob `09c35c4552d62755230814a62eb21c17fc2f6968`, existing ledger blob `138549d7ab75efe35c6ef315fa18b69df8eb3e7f`, no matching PR found by exact head search, GitHub push/admin exposed, no root AGENTS.md found | PREPARED; create at most one draft PR; if ambiguous result, do not retry without independent PR search |
+| E011 | 26.10.2026 | AUTHORIZED | Same scope / `EA-SYNC/20261026/A1-PR-INTAKE/1`; reversible review metadata only | Operator continuation; policy `0951387416b6cc175132d47394305834fd5ae60c`; current event log protocol `0171fa4518ddfffef4c05254893da2bfe04ee9ac` | AUTHORIZED for draft PR review intake, NOT review acceptance; no reviewer identity is presumed; no merge |
