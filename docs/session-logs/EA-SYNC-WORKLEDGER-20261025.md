@@ -59,3 +59,12 @@
 **Source conflict handling:** This continuation did not modify the already finished documentation scope or the other three workstreams. The unrelated Conta, FEA/PIP and SolarEX re-scope decisions remain R0 proposals under Control Tower; there is no cross-project dispatch.
 
 **Drive mirror:** `MIRROR_PENDING` — not persisted or verified. No invented cross-project canonical ledger.
+
+## Operator-authorized PR #99 review-readiness continuation — 26.10.2026
+
+**Authorization:** Current operator instruction "Proceed with EA-SYNC PR #99 + the three projects that's ready for narrowly scoped follow-up." Exact effect for EA-SYNC is review readiness, not merge, release, synthetic CI triggering outside normal GitHub PR checks, provider access or cross-tenant data operation. Maintain approved A1 documentation scope only, project owner and independent reviewer still required. **Idempotency:** `EA-SYNC/20261026/PR99-READY/1`. No duplicate transitions or retries if response is ambiguous.
+
+| Event | Date (Europe/Madrid) | Phase | Target and condition | Source/proof | Status |
+|---|---|---|---|---|---|
+| E015 | 26.10.2026 | PREPARED | PR #99: open, draft, mergeable; two documentation files only; compare source and canonical ledger | GitHub PR #99; source plan blob `09c35c4552d62755230814a62eb21c17fc2f6968`; previous ledger blob `56834fa3ab44d342b94ea1ab669255d59c1921b6` | PASS; no reviewer decision inferred |
+| E016 | 26.10.2026 | AUTHORIZED | Operator asked to proceed with exact PR #99; move `draft` to `ready for review` only after GitHub head checks qualify. Stop if required checks fail or protected condition changes | Previous head `75895d626d5fbba40ac60a3b31ac9d92590a3089`: five CI workflow runs SUCCESS (CodeQL, Repository security baseline, Security baseline, EA Level 2 tests, Dependency review), initial reviews 0; CODEOWNERS `@nanotech-solutions-norway` no validated independent named principal | PREPARED; after this ledger commit recheck current head CI before changing PR metadata. No review request without independently established eligible identity. |
