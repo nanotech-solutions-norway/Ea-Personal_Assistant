@@ -45,3 +45,17 @@
 |---|---|---|---|---|---|
 | E010 | 26.10.2026 | PREPARED | Operator-confirmed Control Tower via GitHub; create one documentation-only review PR, head `feature/ea-sync-tenant-rls-gap-plan-20261025`, base `main` | Exact EA continuation source blob `5aa65205b69a9c1a0fba850ac1563efd8fa8fc26`, plan blob `09c35c4552d62755230814a62eb21c17fc2f6968`, existing ledger blob `138549d7ab75efe35c6ef315fa18b69df8eb3e7f`, no matching PR found by exact head search, GitHub push/admin exposed, no root AGENTS.md found | PREPARED; create at most one draft PR; if ambiguous result, do not retry without independent PR search |
 | E011 | 26.10.2026 | AUTHORIZED | Same scope / `EA-SYNC/20261026/A1-PR-INTAKE/1`; reversible review metadata only | Operator continuation; policy `0951387416b6cc175132d47394305834fd5ae60c`; current event log protocol `0171fa4518ddfffef4c05254893da2bfe04ee9ac` | AUTHORIZED for draft PR review intake, NOT review acceptance; no reviewer identity is presumed; no merge |
+
+## Review-intake provider readback — 26.10.2026
+
+| Event | Date (Europe/Madrid) | Phase | Target / actor | Evidence | Status / open action |
+|---|---|---|---|---|---|
+| E012 | 26.10.2026 | ATTEMPTED | GitHub integration; one draft PR, `EA-SYNC/20261026/A1-PR-INTAKE/1`; base `main` | [EA draft PR #99](https://github.com/nanotech-solutions-norway/Ea-Personal_Assistant/pull/99); initial provider response `open`, `draft=true`, `merged=false`, head commit `cd50df067f8d5580ed4eb840345b0990f3cf9fff` | PASS; no duplicate retry |
+| E013 | 26.10.2026 | READBACK | Exact PR #99 | Separate `fetch_pr` readback `open`, `draft=true`, `merged=false`, two changed files; `list_pull_request_reviews` returned an empty list | VERIFIED review intake only; no reviewer acceptance or merge |
+| E014 | 26.10.2026 | CLOSED | A1 review-intake step ended | Canonical GitHub PR + branch ledger | `REVIEW_INTAKE_VERIFIED`; `PENDING_ENGINEERING_REVIEW`, downstream infrastructure/protected release gates unchanged |
+
+**Before → after:** one documentation feature branch with validated plan and ledger, **no PR** → one **draft PR #99**, still no accepted owning engineer review, no CI or runtime acceptance claims, no merge, no provider/account/SQL mutation. The owning EA project must explicitly assign/perform review and separately authorize any implementation.
+
+**Source conflict handling:** This continuation did not modify the already finished documentation scope or the other three workstreams. The unrelated Conta, FEA/PIP and SolarEX re-scope decisions remain R0 proposals under Control Tower; there is no cross-project dispatch.
+
+**Drive mirror:** `MIRROR_PENDING` — not persisted or verified. No invented cross-project canonical ledger.
