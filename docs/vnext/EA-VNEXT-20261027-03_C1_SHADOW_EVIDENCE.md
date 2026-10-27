@@ -29,7 +29,7 @@
 | Calendar follow-up search | Bounded October–early November primary Calendar window returned 40 follow-up events, complete page | `SEARCH_PASS`; entries classified by event-detail reads only |
 | Calendar event details | Seven existing private, transparent, attendee-free, 15-minute examples read | Three `FOLLOWUP_REMINDER_POLICY_MISMATCH`; four `FOLLOWUP_REMINDERS_OFF_BY_POLICY` |
 | Calendar historical duplicates | Two case examples had multiple past follow-up entries | `HISTORICAL_DUPLICATE_RECONCILIATION_REQUIRED`, do not delete without scope/approval |
-| CRM reference (stored Excel-format Drive artifact) | Bounded source fetch succeeded; last-modified metadata 22 October; status excerpts compared to newer Gmail/provider evidence | `CRM_STALE_STATUS_CANDIDATES`, **not** authoritative state overwrite; exact current CRM source/version must be confirmed |
+| CRM reference (native Google Sheets master; prior fetch exported content as XLSX) | Independent Drive search plus `get_spreadsheet_metadata` verified MIME `application/vnd.google-apps.spreadsheet`, 17 named tabs and Europe/Oslo timezone. Native bounded ranges read successfully; last modified 22 October. | `CRM_STALE_STATUS_CANDIDATES`; source identity is resolved but external cell mutations remain unapproved |
 
 ### Observed limitations and no-success inflation
 
@@ -38,7 +38,7 @@
 - An existing draft may still be unusable if the verified source sender alias is unsupported, its body contains unexpected quoted content, or the recipient/attachment differs. The one in-thread draft is verified **as in-thread and unsent**, not certified send-ready after full independent draft-body QA.
 - The separate technical drafts cannot be silently moved or recreated; doing so risks duplicates and violates scope.
 - Three popup mismatches are provider verified. Calendar search summaries are not reliable reminder evidence; `read_event` was used for each selected event.
-- The Drive CRM reference resolved to an Excel-format stored file rather than a native editable Google Sheet, despite its supplied Sheets-shaped URL. Therefore **do not assume direct native range edits or conclude that this is the latest writable CRM master.**
+- **Correction after independent source metadata/readback:** The earlier `fetch` response used XLSX-style export representation, not the underlying Drive MIME type. Drive search and the native Sheets metadata API independently confirm this exact CRM ID is a native Google spreadsheet with 17 tabs. Direct bounded range reads succeeded; **no cells were edited**. The previous `stored Excel-format` diagnosis was inaccurate and must not be reused as a blocker.
 - No controlled cohort backlog was closed; no missing provider action should be inferred completed from task-run completion.
 
 ## C1 acceptance matrix
@@ -61,9 +61,13 @@
 
 1. **R1 Calendar:** Identify the three verified historical popup mismatches, confirm per-event owner/type/exact canonical 03A scope, propose removal of popup override **without modifying event time, visibility, attendees or descriptions**, and perform provider readback only after explicit scoped approval. Historic instances remain evidence; any irrelevant past-event adjustment must be justified.
 2. **R2 Gmail threading:** Review the two separate technical drafts against their original conversation, full body, attachment manifest, sender identity, 03D suppression and existing draft provenance. Propose a safe owner-approved in-place reconciliation; do **not** make an unthreaded replacement or bypass unsupported sender alias.
-3. **R3 CRM:** Confirm actual current writable master, compare status rows to latest Gmail SENT and Calendar event before any individual write, preserve operator-closed cases. Avoid propagating stale Excel mirror metadata.
+3. **R3 CRM:** Verified the specific native Google Sheets master and exact 17-tab schema. Compare precise candidate rows/cells to latest Gmail SENT and Calendar evidence before any individually authorized write, preserve operator-closed cases, and never mistake the exported text format for a separate workbook.
 4. **R4 Fairness:** In a future bounded scheduled run, show oldest-overdue carried-forward case dispositions and case cursor, not just 5 recent cases, until all originally pending case IDs have an independently evidenced state.
 5. **R5 Notification:** Keep Calendar event popup delivery, ChatGPT scheduled task delivery, and case-execution routing as separate systems. Do not claim delivery or add an external sending channel without authorization.
 6. **R6 Level 2A C2 canary:** Before any **real** unsent Gmail or internal Calendar write, request an exact cohort, account, recipient/identity, event, suppression and business-case authorization; source-verify once more immediately before mutation.
 
 **Exit status:** `C1_READ_ONLY_SAMPLE_COMPLETE / M5_NOT_ACCEPTED / NEXT_REPAIR_BATCH_PENDING_EXACT_AUTHORIZATION / LEVEL_2B_C_HOLD / CUTOVER_HOLD`.
+
+## Evidence correction logged — 27 October 2026, post-PR creation
+
+The earlier M5 C1 draft incorrectly inferred that the CRM file was a stored Excel workbook based on a `fetch` response. Its correct Drive-native metadata and independent `get_spreadsheet_metadata` response establish a Google Sheet. Native bounded `get_spreadsheet_range` succeeded on `Leads`, `Pipeline_6M`, `Follow_Ups`, `Draft_Attachment_Gate` and `Activities`. This correction changes the **diagnosis of accessible source type**, not source authority, completed customer states or consent for production cell writes. The live CRM remains unchanged.
