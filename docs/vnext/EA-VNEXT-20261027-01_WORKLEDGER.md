@@ -72,3 +72,14 @@
 | E020 | PREPARED | GitHub feature-branch write-ahead metadata | Current baseline and PR #101 unchanged → prepare `M4_CONNECTOR_DIAGNOSTICS_20261027.md` and scoped CR-01 clarification on same branch | `EA-VNEXT-20261027-01/M4/REPORT`, attempt 1 planned | Scope restriction: `docs/vnext/` only; source PR already draft/unmerged; no existing provider write | Write report, read back, update review status |
 
 **Privacy:** Gmail account identities and message/recipient IDs, Calendar titles/event IDs, and full provider payloads are deliberately excluded from this public ledger. No sensitive material is saved. **Persistent production runtime logging:** NOT_VERIFIED. **External provider writes:** 0. **Drive mirror:** MIRROR_PENDING. **Release:** HOLD.
+
+## M4 feature-branch report and repaired-classification proposal — 27.10.2026
+
+| Event | Phase | Actor/tool | Before → after | Idempotency/attempt | Evidence/readback | Open action |
+| --- | --- | --- | --- | --- | --- | --- |
+| E021 | VERIFIED | GitHub create_file + fetch_file | No M4 diagnostics file → `M4_CONNECTOR_DIAGNOSTICS_20261027.md` created on proposal branch | EA-VNEXT-20261027-01/M4/REPORT, 1 | Commit `3232dea6c12b487e1859a3411139a3e10ef55130`; exact content/blob `de60b4bb25959f03351771c2fc242e4766d4ee4e` readback PASS | Record current provider limitations; no live mutations |
+| E022 | VERIFIED | GitHub create_file + fetch_file | No exact-scope Email Watch policy-fix proposal → `M4_RUNTIME_POLICY_REPAIR_PROPOSAL_20261027.md` created; no native task modification | EA-VNEXT-20261027-01/M4/PROPOSAL, 1 | Commit `3a2117ab60c1d94d13abc5dda2896189039aff25`, blob `0600a2d045c229399cb2a97223c60e6d9958daeb` readback PASS | Operator review before runtime edit |
+| E023 | VERIFIED | GitHub update_file + fetch_file | README and M1 authority register lacked M4 checkpoint → appended M4 index and source-consistent CR-01 adjudication, preserving prior text | EA-VNEXT-20261027-01/M4/INDEX, attempts 1 per file | Commits `f84565859e9110942f71b8c31bcdb4cff3dd6dfe` and `c42a52c538af2642e04d24590f3fe80e6637b6ad`; exact readbacks PASS | Recheck draft PR diff and CI |
+| E024 | PREPARED | GitHub PR #101 readback | Branch content expanded from eight to ten `docs/vnext` files; current 4/4 CI applied to **earlier** commit only | EA-VNEXT-20261027-01/M4/PR_READBACK, attempt 1 planned | `PENDING_RECHECK`; do not count older CI as passing latest head | Inspect latest PR and GitHub Checks |
+ 
+**No current production Ea rules, automations, provider drafts, Calendar events, CRM, product records, Drive files, cloud resources or protected-main files changed by M4.** GitHub branch ledger `READBACK_VERIFIED` after this update. Drive mirror remains `MIRROR_PENDING`. Live backend and notification delivery remain unverified. Level 2B/C and production cutover HOLD.
