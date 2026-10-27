@@ -37,3 +37,10 @@ Expected baseline: 19 tests PASS (tested offline 27 October 2026). This is **not
 ## After review
 
 A separate scoped source-cleanup PR may be proposed after the operator adjudicates pending conflicts. M4 connector probes and M5 Level 2A canaries require their own exact grants and provider evidence; M8 cutover requires explicit release approval.
+
+## Read-only M4 results and runtime repair proposal (27 October)
+
+8. `M4_CONNECTOR_DIAGNOSTICS_20261027.md` — bounded Gmail/Calendar reads, sender-alias tool boundary and reminder policy evidence.
+9. `M4_RUNTIME_POLICY_REPAIR_PROPOSAL_20261027.md` — **nonexecuting** proposed correction of current hourly Email Watch reminder classifications; no native task or event mutation.
+
+M4 outcome: private internal follow-ups correctly carry zero reminders under approved 03A/03B. The watch's contrary 30-minute popup recommendation requires scoped rule adjudication; it must not be treated as automatically authorized. No production cutover or send-capable capability is implied.
