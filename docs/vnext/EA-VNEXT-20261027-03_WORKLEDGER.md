@@ -15,7 +15,7 @@
 | E006 | PARTIAL_VERIFIED | Drive CRM stored workbook `fetch` | CRM status evidence from modified 22 October artifact → compared cautiously against fresher provider evidence | `EA-VNEXT-20261027-03/C1/CRM` | Provider MIME indicates stored Excel not native sheet; cannot assume authoritative editable master or promote stale statuses |
 | E007 | VERIFIED | GitHub `search_branches`/`search_prs`, `create_branch` | No matching M5 shadow branch/PR → new scoped branch from PR #102 merged source | `EA-VNEXT-20261027-03/BRANCH` | `feature/ea-vnext-m5-c1-shadow-20261027`; no main edits |
 | E008 | VERIFIED | GitHub `create_file` then `fetch_file` | No C1 evidence file → redacted `EA-VNEXT-20261027-03_C1_SHADOW_EVIDENCE.md` | `EA-VNEXT-20261027-03/REPORT` | Commit `8603a58c3c8d3eba7adcea20ef2f4f722c1b5309`; exact content readback PASS |
-| E009 | PENDING | GitHub proposal PR/readback | No C1 report PR → draft PR expected | `EA-VNEXT-20261027-03/PR` | Must read back one PR and scoped diff, test status, leave unmerged |
+| E009 | VERIFIED | GitHub `create_pull_request` | No C1 report PR → PR #103 opened DRAFT, UNMERGED against pinned PR #102 merge | `EA-VNEXT-20261027-03/PR`, attempt 1 | `https://github.com/nanotech-solutions-norway/Ea-Personal_Assistant/pull/103`; head commit before ledger correction `66eea98d470a18c0363242f2cc7904560d8f357c`; independent changed-file/CI readback pending |
 
 **Next action:** propose R1 (three historical popup overrides), R2 (two detached technical drafts), R3 (CRM state), R4 (fair backlog cursor) for **separately scoped operator approval**. Do not silently repair external objects. Preserve 03A/03D/03F/07B approved rules.
 
