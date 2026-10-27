@@ -26,3 +26,14 @@
 | E004 | PREPARED | Single native watch D-paragraph replacement | Not executed; readback pending |
 
 **Provider external effects:** no emails, meeting invitations, customer Calendar writes, CRM, Drive or Azure mutations in this preparation stage. `LEVEL_2B_2C_HOLD`, `PRODUCTION_CUTOVER_HOLD`.
+
+## Verified repair continuation — 27.10.2026
+
+| ID | State | Before → after | Provider evidence / restriction |
+| --- | --- | --- | --- |
+| E004 | VERIFIED | Live prompt previously contained exactly one old reminder paragraph → only that paragraph replaced | Native `Automations.update` success then separate `peek`: full 10,038-character prompt exact match; unchanged task ID/title/enabled=true/hourly `condition_watch` recurrence; previous prompt length 9,601; no Calendar event writes |
+| E005 | VERIFIED | No scoped post-change report → `EA-VNEXT-20261027-02_RUNTIME_READBACK.md` added on feature branch | Commit `96379e9da03a16b09ed78a8df8571abca5e08412`; blob `ae5b33c87e95b9ebcc3c6de7eaf141607608e33f`; independent text readback PASS |
+| E006 | VERIFIED | No M5 plan → bounded synthetic/shadow/internal-only canary proposal added | Commit `3535f755a1d197538c52b8c0857f5da283b473be`; blob `3f859ebdf788d8f73311fb890750b70bbec95869`; independent text readback PASS; C2/C3 writes not executed |
+| E007 | VERIFIED | Canonical 07B lacked exact new runtime classification provenance → feature-branch addendum proposed | Commit `79fa981e54955e4e1ac9302c2e9dbc0679470d8f`; blob `63c4aa2e46727ddcb13b8deada8a9eb2a13c0661`; source old prefix preserved; exact readback PASS. **Not yet merged, not new canonical authority.** |
+
+**Provider result:** confirmed task prompt replacement only, no uncontrolled retries; no customer data, Gmail draft, send, Calendar event, CRM or Drive mutation. Sender-alias control unsupported in exposed draft action schema; both Gmail profiles and draft metadata reachability PASS but `from` absent in returned draft summaries. **Operational hourly outcome after repair: NOT_YET_ACCEPTED**. Production cutover and Level 2B/C HOLD.
