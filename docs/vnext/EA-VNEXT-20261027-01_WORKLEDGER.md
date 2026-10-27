@@ -48,3 +48,14 @@
 | E012 | PREPARED | GitHub PR creation (pending) | Feature branch verified → draft PR proposed, no merge or effect on production | EA-VNEXT-20261027-01/PR, attempt 1 planned | Exact PR URL/readback not yet available | Create one draft PR; verify and record |
 
 **Scope remains:** feature branch only; no existing Ea task, customer provider record, product archive, Google Drive mirror or main branch changed. **Drive mirror:** `MIRROR_PENDING`. **Live backend:** `NOT_DEPLOYED`. **Canonical promotion:** `NONE`. **Release:** `HOLD`.
+
+## Draft PR and independent provider readback — 27.10.2026
+
+| Event | Phase | Actor / tool | Before → after | Idempotency / attempt | Evidence / readback | Remaining |
+| --- | --- | --- | --- | --- | --- | --- |
+| E013 | VERIFIED | GitHub create_pull_request + get_pr_info | Draft PR absent → PR #101 OPEN, DRAFT, `merged=false`, base `370891a`, branch head `158e781` | EA-VNEXT-20261027-01/PR, attempt 1 | `https://github.com/nanotech-solutions-norway/Ea-Personal_Assistant/pull/101`; native PR readback PASS | PR review / CI after ledger amendment |
+| E014 | VERIFIED | GitHub list_pr_changed_filenames | Expected eight newly added `docs/vnext/` files → exactly eight scoped additions; existing runtime files untouched | EA-VNEXT-20261027-01/PRFILES, attempt 1 | 8/8 matching proposal paths; additions only; PASS | Independent code/security review |
+| E015 | VERIFIED | GitHub fetch_file main | Preflight canonical main `12_EA_MASTER_INDEX.md` blob SHA `b4578573cc8cc228d0e5dc2e3f5128d581892e4b` → unchanged after opening PR | EA-VNEXT-20261027-01/MAIN, attempt 1 | Verified same main blob SHA; PR base matches pinned `370891a`; PASS | No merge or main edit |
+| E016 | READBACK | GitHub fetch_commit_workflow_runs | First observed PR security workflows → 2 SUCCESS and 2 IN_PROGRESS at verification | EA-VNEXT-20261027-01/CI, attempt 1 | Repository security baseline and Dependency review passed; Security baseline and CodeQL not complete. **CI_NOT_YET_ACCEPTED** | Do not infer full CI pass |
+
+**External mutation summary:** feature branch, eight new non-sensitive proposal files, one draft PR, and this append-only ledger amendment. No existing user/customer provider mutation, no Drive mirror write, no Ea automation change, no protected-main merge, no cloud deployment. **LOGGING:** GitHub feature-branch ledger recorded and independently read back; Drive memory mirror `MIRROR_PENDING`; this is not evidence of durable production runtime logging. **Release:** `HOLD`.
