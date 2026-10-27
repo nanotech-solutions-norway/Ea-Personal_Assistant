@@ -37,3 +37,12 @@
 | E007 | VERIFIED | Canonical 07B lacked exact new runtime classification provenance → feature-branch addendum proposed | Commit `79fa981e54955e4e1ac9302c2e9dbc0679470d8f`; blob `63c4aa2e46727ddcb13b8deada8a9eb2a13c0661`; source old prefix preserved; exact readback PASS. **Not yet merged, not new canonical authority.** |
 
 **Provider result:** confirmed task prompt replacement only, no uncontrolled retries; no customer data, Gmail draft, send, Calendar event, CRM or Drive mutation. Sender-alias control unsupported in exposed draft action schema; both Gmail profiles and draft metadata reachability PASS but `from` absent in returned draft summaries. **Operational hourly outcome after repair: NOT_YET_ACCEPTED**. Production cutover and Level 2B/C HOLD.
+
+## PR #102 scope and CI observation — 27.10.2026
+
+| ID | State | Before → after | Provider evidence / restriction |
+| --- | --- | --- | --- |
+| E008 | VERIFIED | No open repair PR → one draft feature-branch PR #102, unmerged | GitHub `get_pr_info` readback: `draft=true`, `merged=false`, base `2946ab1cff106be20820e3c3472f7a9a132f0754`, 4 files (one proposed 07B addendum + three `docs/vnext` records); `https://github.com/nanotech-solutions-norway/Ea-Personal_Assistant/pull/102` |
+| E009 | READBACK | Security workflows for pre-ledger-amendment PR head → 5/5 SUCCESS | Dependency review, Ea Personal Finance Integration, Security baseline, Repository security baseline, CodeQL succeeded for preceding feature head `6ca498f21a70edfce837298dcb556c19eb5b4fb1`. This **does not** prove newly committed ledger amendment has passed CI. New-head CI must be checked again before treating PR ready for acceptance. |
+
+**Final at this event:** native Email Watch only had one reviewed D-paragraph policy correction, exact task readback PASS; no autonomous outbound email, no change to customer Calendar reminders, no private data in public repo, no M5 live canary executed. **PR102 draft/unmerged. Level 2B/C, Azure live deployment and production cutover HOLD.**
