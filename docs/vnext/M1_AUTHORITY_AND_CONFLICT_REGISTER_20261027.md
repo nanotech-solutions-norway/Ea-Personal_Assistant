@@ -56,3 +56,9 @@ Global slash-command lookup is governed by the current `ai-memory-ops` global re
 Future `EA_RULE_MANIFEST_VNEXT` should expose: `rule_id`, `owner_repo`, `source_path`, `source_blob_sha`, `approval_state`, `effective_date`, `scope`, `supersedes`, `conflicts`, `tested_at` and `runtime_distribution_provenance`. No rule becomes active until confirmed approved owner revision and release-readback.
 
 **Decision required:** CR-01 reminder policy and CR-02/CR-03 document/mirror cleanup scopes; until then retain existing approved behavior.
+
+## CR-01 — Read-only adjudication checkpoint, 16:26, 27.10.2026
+
+Live `Ea Business Email Watch` paragraph D was re-read after PR #101 had 4/4 GitHub checks pass. It proposes marking disabled reminders as a fault and adding 30-minute popup reminders to future follow-ups. The approved 03A/03B rule explicitly prohibits reminders on those internal follow-ups, and an existing sampled Calendar private follow-up showed `use_default=false`, no overrides, no attendees and transparent availability. These facts are source-consistent. The observed status `REMINDER_DISABLED` may be accurate as *metadata*, but treating it as a policy defect is unsupported. **Effective approved behavior remains reminder-free.**
+
+This is an **implementation/reporting inconsistency** for the current policy. Any *desire to change policy* remains `PENDING_REVIEW` and needs exact operator authorization. A separate nonexecuting replacement prompt proposal is provided at `docs/vnext/M4_RUNTIME_POLICY_REPAIR_PROPOSAL_20261027.md`. No live prompts/events were altered, no policy promoted.
