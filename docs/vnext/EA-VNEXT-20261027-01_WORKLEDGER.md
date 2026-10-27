@@ -33,3 +33,18 @@
 - [ ] Run offline synthetic rule tests; capture count and failures without claiming backend acceptance.
 - [ ] Open a draft proposal PR, read back PR and changed files; do not merge.
 - [ ] Drive mirroring: defer pending an exact authorized destination and provenance plan; **MIRROR_PENDING**.
+
+## Continuation events (append-only; 27.10.2026)
+
+| Event | Phase | Actor / tool | Before → after | Idempotency / attempt | Evidence / readback | Remaining |
+| --- | --- | --- | --- | --- | --- | --- |
+| E005 | VERIFIED | GitHub fetch_file | Proposed branch ledger created → text read back, no conflicting existing work-ID file | EA-VNEXT-20261027-01/LEDGER, attempt 1 | Exact branch path SHA `6f5df44b2c44a490f5e3075123ef0141b5b8509a`; PASS | Baseline capture |
+| E006 | VERIFIED | GitHub create_file + fetch_file | No `M1_BASELINE_20261027.md` → source/SHA/task snapshot file recorded | EA-VNEXT-20261027-01/BASELINE, attempt 1 | Commit `3a7ab017d7ace2e030f9b0ad475a1823897a59dd`; exact content readback PASS | No external data backup inferred |
+| E007 | VERIFIED | GitHub create_file + fetch_file | No scoped authority/conflict inventory → CR-01..CR-07 proposed without rule promotion | EA-VNEXT-20261027-01/AUTHORITY, attempt 1 | Commit `4034ade9f8d653df5f7556700aa9f88786b7340f`; exact content readback PASS | Operator review required |
+| E008 | VERIFIED | GitHub create_file + fetch_file | No target architecture/acceptance pack → M1–M8 gates documented | EA-VNEXT-20261027-01/PLAN, attempt 1 | Commit `22c50bb66f05230fcde3e6b122e23f17bb638e85`; exact content readback PASS | M4+ separately gated |
+| E009 | VERIFIED | GitHub create_file + fetch_file | No synthetic policy artifacts → Python fixture and 19 tests added | EA-VNEXT-20261027-01/SYNTHETICS, attempts 1 per file | Source commit `7af69ce81b71bc762a025b7adaf8031e6ee1c260`; tests commit `507b2720d149ed8732a64e01332270d3ea26f580`; exact content readback PASS | Not production rule engine |
+| E010 | VERIFIED | Python local unittest | Synthetic fixture untested → 19/19 test functions PASS, return code 0 | EA-VNEXT-20261027-01/LOCALTEST, attempt 1 | Offline output `Ran 19 tests ... OK`; unrelated non-fatal startup warning noted in test report | Remote CI not yet verified |
+| E011 | VERIFIED | GitHub create_file + fetch_file | No index and test-report file → two reviewable artifacts added | EA-VNEXT-20261027-01/REVIEWPACK, attempt 1 per file | Commits `0552a4df5f1ee395e0b91aa10ff922831d1274c0` and `e930be536a3bb4f6d6402e7bf61487ee66ce460c`; exact readback PASS | Draft PR preparation |
+| E012 | PREPARED | GitHub PR creation (pending) | Feature branch verified → draft PR proposed, no merge or effect on production | EA-VNEXT-20261027-01/PR, attempt 1 planned | Exact PR URL/readback not yet available | Create one draft PR; verify and record |
+
+**Scope remains:** feature branch only; no existing Ea task, customer provider record, product archive, Google Drive mirror or main branch changed. **Drive mirror:** `MIRROR_PENDING`. **Live backend:** `NOT_DEPLOYED`. **Canonical promotion:** `NONE`. **Release:** `HOLD`.
