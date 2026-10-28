@@ -17,7 +17,7 @@
 - Approved baseline and controlled operational checks: `█████░░░░` **5 / 9** checked gates PASS. The nine gates are defined below, not weighted by engineering difficulty.
 - Verified corrected content in the two existing authorized drafts: `██` **2 / 2** case-level in-place address/subject/body-preservation corrections PASS.
 - Actual source Gmail thread placement of those drafts: `░░` **0 / 2** true in-thread corrections PASS. Neither draft is send-ready.
-- Most recent reported bounded hourly watch cohort: `█████░░░░░░░░░░░░░░░░░░░░░░` **5 / 27** cases evaluated in that one cycle; **22 pending coverage**. This is an observation for that single cycle, **not cumulative acceptance**.
+- Most recent bounded hourly watch: **5 priority cases evaluated** and **22 controlled-cohort cases reported pending coverage**. The 5 reviewed cases are not independently proven to be distinct members of the 22-case pending set, or unique cases in the total longitudinal cohort. **Do not display a 5/27 percentage without a verified unique case denominator.**
 - Release endurance: `NOT CERTIFIED` against both **100 consecutive actionable cases** and **at least 14 days** of normal operation. Do not enter 0/100 or 0/14 as measured progress without a provider-backed longitudinal cohort ledger.
 
 ## Nine defined diagnostic gates — 5 PASS / 4 NOT MET
@@ -57,4 +57,4 @@
 - The 55.6% checklist is an explanatory display, not an approval status or product release percentage.
 - Update this report only through separately reviewed, source-bound revisions; do not embed private case identifiers in the public repository.
 
-**Disposition:** `SOURCE_MERGE_VERIFIED / CHECKLIST_5_OF_9 / DRAFTS_2_OF_2_CONTENT_CORRECTED / DRAFTS_0_OF_2_THREADED / LATEST_WATCH_5_OF_27_REVIEWED / ENDURANCE_NOT_CERTIFIED / CUTOVER_HOLD`.
+**Disposition:** `SOURCE_MERGE_VERIFIED / CHECKLIST_5_OF_9 / DRAFTS_2_OF_2_CONTENT_CORRECTED / DRAFTS_0_OF_2_THREADED / LATEST_WATCH_5_REVIEWED_22_REPORTED_PENDING_NO_UNIQUE_DENOMINATOR / ENDURANCE_NOT_CERTIFIED / CUTOVER_HOLD`.
