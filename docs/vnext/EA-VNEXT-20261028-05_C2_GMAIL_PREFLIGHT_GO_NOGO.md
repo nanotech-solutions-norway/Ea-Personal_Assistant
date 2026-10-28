@@ -19,15 +19,15 @@
 | Draft attachment summary | Zero | Zero |
 | Current Gmail draft-summary `From` | Not populated | Not populated |
 | Explicit send-as alias selection in connector create/update API | UNAVAILABLE | UNAVAILABLE |
-| Exact overlap between current draft primary recipient and latest original inbound's reply mailbox | None in bounded metadata comparison | None in bounded metadata comparison |
-| Primary recipient overlap with any observed original inbound sender/reply mailbox | None in bounded metadata comparison | None in bounded metadata comparison |
+| Exact overlap between current draft primary recipient and latest original inbound's reply mailbox | **MATCH — per-message Gmail `read_email(reply_detail=true)`** | **NO MATCH — per-message Gmail `read_email(reply_detail=true)`** |
+| Primary recipient overlap with historical sender/reply mailboxes | Not needed for latest authoritative Reply-To; latest match confirmed | Historical per-message Reply-To not yet exhaustively compared; latest authoritative Reply-To mismatched |
 | Latest source inbound CC recipients | None | Two |
 | Draft CC matches latest source CC | No CC expected on latest inbound | None of the two matched; present draft has one CC |
 | Can be independently marked send-ready | NO | NO |
 
-**Conflict classification C2-A:** The 28 October current source-metadata comparison found zero overlap with the original thread's latest/earlier incoming reply mailboxes, whereas an earlier automation summary had reported the draft's recipient as correct. Do not silently reconcile those competing observations; categorize `RECIPIENT_AUTHORITY_PENDING_REVIEW` until the responsible operator verifies the intended technical counterpart and the original specific reply anchor. This is **not** proof that the raw email metadata alone identifies every possible authorized recipient.
+**Resolved C2-A mailbox observation:** A first thread-summary read returned blank `from` and no `reply_recipients`, so an attempted mailbox comparison falsely appeared to indicate a mismatch. Subsequent **single-message `read_email(reply_detail=true)`** returned the original authoritative reply mailbox and it exactly matched C2-A's draft primary recipient (one of one). This confirms the destination for a response to the latest inbound, agreeing with the earlier watch summary; it **does not** fix the detached thread, verify the sender-alias or independently approve the technical text. The initial absence-of-overlap statement is superseded, not silently treated as real mismatch.
 
-**C2-B recipient classification:** Both the primary-recipient and original CC comparisons fail, consistent with earlier sender/recipient and confidentiality cautions. `DRAFT_QA_FAILED_WRONG_RECIPIENT_UNTHREADED` remains appropriate. Do not copy a third party on technical formulation disclosures without verifying relevance and authorization.
+**C2-B recipient classification:** A single-message `read_email(reply_detail=true)` of the latest inbound provided its authoritative reply mailbox, which does **not** match C2-B's primary recipient. It also returned two source CC addresses, neither of which matches the draft's single CC. `DRAFT_QA_FAILED_WRONG_RECIPIENT_UNTHREADED` remains appropriate. Do not copy a third party on technical formulation disclosures without verifying relevance and authorization.
 
 ## 2. Connector capability decision
 
@@ -75,3 +75,9 @@ A previous complete business Gmail draft listing returned **four** unsent drafts
 | Level 2B/C, Azure managed backend and production cutover | HOLD |
 
 **Disposition:** `M5_C2_READ_ONLY_PREFLIGHT_COMPLETE / LIVE_GMAIL_WRITE_NO_GO / MANUAL_SENDER_AND_DRAFT_SCOPE_AUTHORIZATION_REQUIRED`.
+
+## Per-message Reply-To verification addendum (same read-only session)
+
+**Why the correction matters:** Bulk Gmail `read_email_thread` returned original inbound message bodies but blank `from` and `reply_recipients` for all inspected inbound messages. Consequently the first source-recipient comparison lacked valid expected mailbox values; zero overlap was an artifact of absent source metadata. It could not be used to call C2-A's actual recipient wrong.
+
+A subsequent `read_email(message_id,reply_detail=true)` on each case's latest source inbound returned authoritative `reply_recipients` and CC fields. It verified C2-A `To` as correct (1/1 match), and C2-B `To` as wrong (0/1 match) with no overlap against the two relevant CC addresses (0/1 draft CC match). The corrected table above now reflects this evidence. **No Gmail mutation** occurred, and `C2_WRITE_NO_GO` remains unchanged due to lack of in-place rethread capability, sender-alias proof, case-specific consent and approved duplicate-handling sequence.
