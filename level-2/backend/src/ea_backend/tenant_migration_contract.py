@@ -30,6 +30,20 @@ class MigrationContract:
 
 def migration_blockers(contract: MigrationContract) -> tuple[str, ...]:
     """Return deterministic blockers; an empty result is NOT deployment authority."""
+    # Dataclass annotations do not validate runtime values. In particular,
+    # bool is an int subclass and nonempty strings are truthy: neither proves
+    # the contract version nor a verified isolation assertion.
+    if type(contract) is not MigrationContract:
+        return ('malformed_contract',)
+    if (type(contract.version) is not int
+            or type(contract.architecture) is not str
+            or type(contract.decision_reference) is not str
+            or type(contract.shared_runtime) is not bool
+            or type(contract.dedicated_database_verified) is not bool):
+        return ('malformed_contract',)
+    for values in (contract.table_inventory, contract.proofs, contract.forced_rls_tables):
+        if type(values) is not frozenset or not all(type(value) is str for value in values):
+            return ('malformed_contract',)
     blockers = []
     if contract.version != 1:
         blockers.append('unsupported_contract_version')
