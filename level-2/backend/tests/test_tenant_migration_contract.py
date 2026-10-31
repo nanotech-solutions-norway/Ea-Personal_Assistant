@@ -45,6 +45,24 @@ class TenantMigrationContractTests(unittest.TestCase):
                           replace(single, dedicated_database_verified=False)):
             self.assertIn('single_tenant_database_isolation_required', migration_blockers(candidate))
 
+    def test_malformed_contract_types_fail_closed(self):
+        mutations = (
+            {'version': True}, {'version': '1'},
+            {'dedicated_database_verified': 'false'}, {'dedicated_database_verified': 1},
+            {'shared_runtime': 0}, {'decision_reference': None},
+            {'architecture': None}, {'table_inventory': list(LEGACY_TABLES)},
+            {'proofs': dict.fromkeys(REQUIRED_PROOFS)},
+            {'forced_rls_tables': set(LEGACY_TABLES)},
+            {'proofs': frozenset({None})},
+        )
+        for mutation in mutations:
+            with self.subTest(mutation=mutation):
+                self.assertEqual(migration_blockers(replace(self.contract, **mutation)),
+                                 ('malformed_contract',))
+        for invalid in (None, {}, object()):
+            with self.subTest(invalid=type(invalid).__name__):
+                self.assertEqual(migration_blockers(invalid), ('malformed_contract',))
+
     def test_unknown_version_and_extra_table_denied(self):
         self.assertIn('unsupported_contract_version', migration_blockers(replace(self.contract, version=2)))
         self.assertIn('legacy_table_inventory_mismatch', migration_blockers(

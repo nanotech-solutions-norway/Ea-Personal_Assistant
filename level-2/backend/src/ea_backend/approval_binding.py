@@ -53,7 +53,7 @@ def _aware(value):
 
 
 def _digest(value):
-    return isinstance(value, str) and len(value) == 64 and all(c in '0123456789abcdef' for c in value)
+    return type(value) is str and len(value) == 64 and all(c in '0123456789abcdef' for c in value)
 
 
 def validate_approval_binding(*, authenticated_tenant, case, action, approval,
@@ -64,11 +64,20 @@ def validate_approval_binding(*, authenticated_tenant, case, action, approval,
     recomputed revision/hash. This does not authenticate an approver or persist
     consumption. Never treat this return value alone as permission to execute.
     """
+    # Reject malformed records through the declared denial boundary rather
+    # than incidental attribute errors or duck-typed mutable accessors.
+    if (type(case) is not CaseBinding or type(action) is not ActionBinding
+            or type(approval) is not ApprovalBinding):
+        raise ApprovalBindingDenied('malformed_binding_record')
+    if not all(type(value) is str for value in (
+            action.action_revision, action.payload_hash, action.policy_decision,
+            action.status, approval.action_revision, approval.payload_hash, approval.status)):
+        raise ApprovalBindingDenied('malformed_binding_field')
     identities = (authenticated_tenant, case.tenant_scope, action.tenant_scope,
                   approval.tenant_scope, case.case_id, action.case_id, approval.case_id,
                   action.action_id, approval.action_id, action.action_type,
                   approval.action_type, approval.approval_id, approval.approved_by)
-    if not all(isinstance(value, str) and value.strip() for value in identities):
+    if not all(type(value) is str and value.strip() for value in identities):
         raise ApprovalBindingDenied('missing_binding_identity')
     if not (case.tenant_scope == action.tenant_scope == approval.tenant_scope == authenticated_tenant):
         raise ApprovalBindingDenied('tenant_binding_mismatch')

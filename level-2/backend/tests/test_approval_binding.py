@@ -45,6 +45,25 @@ class ApprovalBindingTests(unittest.TestCase):
                 'synthetic.preview', revision, digest, 'synthetic-reviewer', now-timedelta(minutes=1), now+timedelta(minutes=1)),
             current_revision=revision, current_payload_hash=digest, now=now)
 
+    def test_malformed_records_have_explicit_denial(self):
+        for field in ('case', 'action', 'approval'):
+            for invalid in (None, {}, object()):
+                with self.subTest(field=field, invalid=type(invalid).__name__):
+                    with self.assertRaises(ApprovalBindingDenied):
+                        validate_approval_binding(**{**self.binding, field: invalid})
+
+    def test_naive_or_missing_current_time_denied(self):
+        for invalid in (None, self.binding['now'].replace(tzinfo=None)):
+            with self.assertRaises(ApprovalBindingDenied):
+                validate_approval_binding(**{**self.binding, 'now': invalid})
+
+    def test_nonstring_binding_fields_denied(self):
+        for entity, field in (('case', 'case_id'), ('action', 'action_type'),
+                              ('approval', 'approved_by'), ('approval', 'status')):
+            with self.subTest(entity=entity, field=field), self.assertRaises(ApprovalBindingDenied):
+                validate_approval_binding(**{**self.binding,
+                    entity: replace(self.binding[entity], **{field: 1})})
+
     def test_exact_binding_is_deterministic(self):
         self.assertEqual(validate_approval_binding(**self.binding), validate_approval_binding(**self.binding))
 
