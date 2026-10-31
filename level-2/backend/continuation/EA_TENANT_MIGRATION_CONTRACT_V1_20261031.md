@@ -1,4 +1,4 @@
-# EA tenant migration contract v1 — 03:19, 31.10.2026
+# EA tenant migration contract v1 — 02:08, 31.10.2026
 
 Work ID EA-SYNC. Status PENDING_REVIEW; S/M architecture UNDECIDED. This proposal adds offline executable contract evaluation and disposable PostgreSQL regression cases. It neither applies a legacy migration nor chooses a tenancy architecture.
 
