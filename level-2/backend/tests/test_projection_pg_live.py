@@ -151,6 +151,89 @@ class RealPostgresProjectionTests(unittest.TestCase):
                 cur.execute("SELECT COUNT(*) FROM ea_source_cursors")
                 self.assertEqual(cur.fetchone()[0], 0)
 
+    def test_runtime_role_is_nonowner_nonprivileged_and_all_policies_forced(self):
+        tables = ("ea_unified_items", "ea_unified_links", "ea_sync_runs", "ea_source_cursors")
+        with self.psycopg.connect(DSN) as conn, conn.cursor() as cur:
+            cur.execute("SET ROLE ea_ci_scope_reader")
+            cur.execute("SELECT rolsuper,rolbypassrls FROM pg_roles WHERE rolname=current_user")
+            self.assertEqual(cur.fetchone(), (False, False))
+            for table in tables:
+                cur.execute("SELECT relrowsecurity,relforcerowsecurity,pg_get_userbyid(relowner) "
+                            "FROM pg_class WHERE oid=%s::regclass", (table,))
+                enabled, forced, owner = cur.fetchone()
+                self.assertTrue(enabled and forced, table)
+                self.assertNotEqual(owner, "ea_ci_scope_reader")
+                cur.execute("SELECT count(*) FROM pg_policies WHERE tablename=%s "
+                            "AND qual IS NOT NULL AND with_check IS NOT NULL", (table,))
+                self.assertEqual(cur.fetchone()[0], 1, table)
+
+    def test_missing_and_foreign_scope_dml_is_denied_by_rls(self):
+        # Grant DML transactionally to prove policy denial, not SELECT-only grants.
+        self.capture([self.item()])
+        with self.psycopg.connect(DSN) as conn:
+            with conn.cursor() as cur:
+                cur.execute("GRANT INSERT,UPDATE,DELETE ON ea_unified_items,ea_unified_links,"
+                            "ea_sync_runs,ea_source_cursors TO ea_ci_scope_reader")
+                cur.execute("SET ROLE ea_ci_scope_reader")
+                for scope in ("", self.tenant + "_foreign"):
+                    cur.execute("SELECT set_config('ea.tenant_scope', %s, true)", (scope,))
+                    for table in ("ea_unified_items", "ea_unified_links", "ea_sync_runs", "ea_source_cursors"):
+                        cur.execute("SELECT count(*) FROM " + table)
+                        self.assertEqual(cur.fetchone()[0], 0, table)
+                        cur.execute("DELETE FROM " + table)
+                        self.assertEqual(cur.rowcount, 0, table)
+                    cur.execute("UPDATE ea_source_cursors SET cursor_value='forbidden'")
+                    self.assertEqual(cur.rowcount, 0)
+                    with conn.transaction():
+                        with self.assertRaises(self.psycopg.errors.InsufficientPrivilege):
+                            # Savepoint rollback is required after the expected policy error.
+                            with conn.transaction():
+                                cur.execute("INSERT INTO ea_source_cursors "
+                                            "(source,tenant_scope,collection_key,cursor_kind) VALUES (%s,%s,%s,'full')",
+                                            (uuid.uuid4().hex, self.tenant, self.collection))
+            conn.rollback()  # Also remove temporary DML grants.
+        self.assertEqual(self.verify_row()[0], "rev1")
+
+    def test_transaction_local_scope_does_not_leak_across_connection_reuse(self):
+        self.capture([self.item()])
+        with self.psycopg.connect(DSN) as conn:
+            with conn.cursor() as cur:
+                cur.execute("SET ROLE ea_ci_scope_reader")
+            conn.commit()
+            for terminate in (conn.commit, conn.rollback):
+                with conn.cursor() as cur:
+                    cur.execute("SELECT set_config('ea.tenant_scope', %s, true)", (self.tenant,))
+                    cur.execute("SELECT count(*) FROM ea_unified_items")
+                    self.assertEqual(cur.fetchone()[0], 1)
+                terminate()
+                with conn.cursor() as cur:
+                    cur.execute("SELECT count(*) FROM ea_unified_items")
+                    self.assertEqual(cur.fetchone()[0], 0)
+                conn.commit()
+
+    def test_null_legacy_cursor_is_invisible_and_failed_transaction_restores_state(self):
+        legacy_key = "synthetic-null-" + uuid.uuid4().hex
+        with self.psycopg.connect(DSN) as conn, conn.cursor() as cur:
+            cur.execute("INSERT INTO ea_source_cursors(source,cursor_kind) VALUES (%s,'full')", (legacy_key,))
+        with self.psycopg.connect(DSN) as conn:
+            with conn.cursor() as cur:
+                cur.execute("SET ROLE ea_ci_scope_reader")
+                cur.execute("SELECT set_config('ea.tenant_scope', %s, true)", (self.tenant,))
+                cur.execute("SELECT count(*) FROM ea_source_cursors WHERE source=%s", (legacy_key,))
+                self.assertEqual(cur.fetchone()[0], 0)
+            conn.rollback()
+        with self.psycopg.connect(DSN) as conn:
+            with self.assertRaises(self.psycopg.errors.CheckViolation):
+                with conn.transaction():
+                    with conn.cursor() as cur:
+                        cur.execute("UPDATE ea_source_cursors SET cursor_value='must-rollback' WHERE source=%s", (legacy_key,))
+                        cur.execute("INSERT INTO ea_sync_runs(run_id,tenant_scope,source,collection_key,mode,status) "
+                                    "VALUES (%s,%s,'gmail','synthetic','invalid','STARTED')", (uuid.uuid4().hex, self.tenant))
+            with conn.cursor() as cur:
+                cur.execute("SELECT cursor_value,tenant_scope FROM ea_source_cursors WHERE source=%s", (legacy_key,))
+                self.assertEqual(cur.fetchone(), (None, None))
+                cur.execute("DELETE FROM ea_source_cursors WHERE source=%s", (legacy_key,))
+
     def test_tenant_scoped_cursor_saved_with_identity(self):
         self.capture([self.item()])
         with self.psycopg.connect(DSN) as conn:
