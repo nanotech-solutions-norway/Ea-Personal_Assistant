@@ -1,0 +1,13 @@
+# EA Path S executable synthetic foundation — 16:29, 02.11.2026
+
+Work ID EA-SYNC. Implements the Path S decision recorded in merged PR113 with an optional reusable `SingleTenantSession` transaction guard and synthetic adapters. No production wiring, DB provisioning, schema migration, real account data or provider calls.
+
+A fixed immutable tenant/database/role binding rejects missing or mismatched authenticated tenant before opening a connection or invoking the identity reader. A trusted injected reader must independently obtain the effective database, role, owner/superuser/BYPASSRLS status and other-database CONNECT reachability. Exact typed snapshots and authorization are checked before application work and again before commit. The factory receives no caller-supplied tenant routing, query or DSN.
+
+The application, factory, authorization callback and identity reader are trusted adapters, not a SQL sandbox or authenticator. Synthetic identity assertions are NOT evidence of PostgreSQL grants or actual CONNECT isolation. Actual dual-disposable-PostgreSQL acceptance, independently implemented role/identity reader, least privilege, application integration and protected deployment gates remain OPEN. The migration-readiness contract is not marked verified.
+
+The two fictional in-memory stores exercise all six legacy-table containers and source cursors with identical keys, replay denial, foreign database/role and elevated/owner/other-CONNECT denials, revoked/missing identity, fresh connections, identity drift, interrupted cursor rollback and readback. Existing approval-binding tests continue to verify tenant/case/action references; the in-memory stores do not claim real SQL foreign-key behavior.
+
+Cancellation before commit attempts rollback and closes the connection. A failed commit acknowledgement signals `TransactionStateUnknown`, without automatic replay or a claimed rollback. Failed rollback also signals unverified state. Close failures preserve the primary denial/cancellation/uncertain-state exception and record only the cleanup exception class; a lone cleanup failure is explicit unverified state. Connection/driver exceptions may retain original causes for trusted local diagnosis; do not publish unredacted driver errors. No actual crash-safe durable adapter is claimed.
+
+Reproduce from `level-2/backend`: `python -m unittest discover -s tests -p test_single_tenant_session.py -v` (12 cases), then the existing full suite and backend CI. No workflow/dependency changes. Closing the unmerged draft PR withdraws this source-only proposal; no external state requires rollback. Process progress remains N/A% independently unverified.
