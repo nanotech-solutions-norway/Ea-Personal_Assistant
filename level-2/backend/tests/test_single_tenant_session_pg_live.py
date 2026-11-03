@@ -201,12 +201,14 @@ class PathSTwoDisposableDatabaseTests(unittest.TestCase):
         tenant = "synthetic-alpha"
         owner = "ea_ci_path_s_owner_" + uuid.uuid4().hex[:10]
         table = "ea_ci_path_s_owner_probe"
+        schema = "ea_ci_owner_schema_" + uuid.uuid4().hex[:10]
         admin_dsn = self.psycopg.conninfo.make_conninfo(DSN, dbname=self.databases[tenant])
         with self.psycopg.connect(admin_dsn, autocommit=True) as admin:
             try:
                 admin.execute(self.sql.SQL("CREATE ROLE {} NOLOGIN NOSUPERUSER NOBYPASSRLS").format(self.sql.Identifier(owner)))
-                admin.execute(self.sql.SQL("CREATE TABLE {} (id INTEGER)").format(self.sql.Identifier(table)))
-                admin.execute(self.sql.SQL("ALTER TABLE {} OWNER TO {}").format(self.sql.Identifier(table), self.sql.Identifier(owner)))
+                admin.execute(self.sql.SQL("CREATE SCHEMA {}").format(self.sql.Identifier(schema)))
+                admin.execute(self.sql.SQL("CREATE TABLE {} (id INTEGER)").format(self.sql.Identifier(schema,table)))
+                admin.execute(self.sql.SQL("ALTER TABLE {} OWNER TO {}").format(self.sql.Identifier(schema,table), self.sql.Identifier(owner)))
                 admin.execute(self.sql.SQL("GRANT {} TO {}").format(self.sql.Identifier(owner), self.sql.Identifier(self.roles[tenant])))
                 self.assertTrue(admin.execute("SELECT pg_has_role(%s, %s, 'USAGE')", (self.roles[tenant], owner)).fetchone()[0])
                 with self.connect_as(tenant) as conn:
@@ -216,7 +218,8 @@ class PathSTwoDisposableDatabaseTests(unittest.TestCase):
                         self.fail("inherited owner must not reach application work")
             finally:
                 admin.execute(self.sql.SQL("REVOKE {} FROM {}").format(self.sql.Identifier(owner), self.sql.Identifier(self.roles[tenant])))
-                admin.execute(self.sql.SQL("DROP TABLE IF EXISTS {}").format(self.sql.Identifier(table)))
+                admin.execute(self.sql.SQL("DROP TABLE IF EXISTS {}").format(self.sql.Identifier(schema,table)))
+                admin.execute(self.sql.SQL("DROP SCHEMA IF EXISTS {}").format(self.sql.Identifier(schema)))
                 admin.execute(self.sql.SQL("DROP ROLE IF EXISTS {}").format(self.sql.Identifier(owner)))
 
     def test_source_reader_detects_new_peer_connect_grant_and_guard_denies(self):

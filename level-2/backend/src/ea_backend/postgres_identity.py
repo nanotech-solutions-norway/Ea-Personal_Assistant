@@ -7,25 +7,25 @@ Default DB-API tuple rows are required; malformed evidence fails closed.
 from .single_tenant_session import EffectiveDatabaseIdentity, TenantSessionDenied
 
 IDENTITY_SQL = (
-    "SELECT current_database(), current_user, r.rolsuper, r.rolbypassrls, "
-    "EXISTS (SELECT 1 FROM pg_class AS c "
-    "JOIN pg_namespace AS n ON n.oid = c.relnamespace "
-    "WHERE n.nspname = 'public' AND c.relkind IN ('r', 'p') "
-    "AND pg_has_role(current_user, c.relowner, 'USAGE')) "
-    "FROM pg_roles AS r WHERE r.rolname = current_user"
+    "SELECT pg_catalog.current_database(), current_user, r.rolsuper, r.rolbypassrls, "
+    "EXISTS (SELECT 1 FROM pg_catalog.pg_class AS c "
+    "JOIN pg_catalog.pg_namespace AS n ON n.oid = c.relnamespace "
+    "WHERE n.nspname NOT IN ('pg_catalog', 'information_schema') AND n.nspname NOT LIKE 'pg_toast%' AND c.relkind IN ('r', 'p') "
+    "AND pg_catalog.pg_has_role(current_user, c.relowner, 'USAGE')) "
+    "FROM pg_catalog.pg_roles AS r WHERE r.rolname = current_user"
 )
 OTHER_CONNECT_SQL = (
-    "SELECT datname FROM pg_database "
-    "WHERE datallowconn AND datname <> current_database() "
-    "AND has_database_privilege(current_user, datname, 'CONNECT')"
+    "SELECT datname FROM pg_catalog.pg_database "
+    "WHERE datallowconn AND datname <> pg_catalog.current_database() "
+    "AND pg_catalog.has_database_privilege(current_user, datname, 'CONNECT')"
 )
 
 
 def read_postgres_identity(connection):
     """Return a fresh catalog snapshot; never treat it as immutable IAM proof.
 
-    Ownership includes inherited owner-role privileges, not just direct table
-    ownership. All connectable peer databases are included, including built-ins.
+    Ownership covers all non-system tables (including named schemas) and
+    inherited owner-role privileges, not just direct public-table ownership. All connectable peer databases are included, including built-ins.
     Database policy may change after observation; database-enforced permissions
     and independent protected runtime acceptance remain required.
     """
