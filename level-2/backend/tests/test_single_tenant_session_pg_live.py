@@ -55,7 +55,21 @@ class PathSTwoDisposableDatabaseTests(unittest.TestCase):
             for tenant in cls.databases
         }
         cls.connections = []
+        cls.restore_public_connect = []
         with psycopg.connect(DSN, autocommit=True) as admin:
+            acl_rows = admin.execute(
+                "SELECT d.datname, EXISTS (SELECT 1 FROM aclexplode("
+                "COALESCE(d.datacl, acldefault('d', d.datdba))) AS a "
+                "WHERE a.grantee = 0 AND a.privilege_type = 'CONNECT') "
+                "FROM pg_database AS d WHERE d.datallowconn"
+            ).fetchall()
+            cls.restore_public_connect = [name for name, allowed in acl_rows if allowed]
+            for name, _allowed in acl_rows:
+                admin.execute(
+                    cls.sql.SQL("REVOKE CONNECT ON DATABASE {} FROM PUBLIC").format(
+                        cls.sql.Identifier(name)
+                    )
+                )
             for tenant in cls.databases:
                 database = cls.databases[tenant]
                 role = cls.roles[tenant]
@@ -95,6 +109,12 @@ class PathSTwoDisposableDatabaseTests(unittest.TestCase):
                 admin.execute(cls.sql.SQL("DROP DATABASE IF EXISTS {}").format(cls.sql.Identifier(database)))
             for role in cls.roles.values():
                 admin.execute(cls.sql.SQL("DROP ROLE IF EXISTS {}").format(cls.sql.Identifier(role)))
+            for database in cls.restore_public_connect:
+                admin.execute(
+                    cls.sql.SQL("GRANT CONNECT ON DATABASE {} TO PUBLIC").format(
+                        cls.sql.Identifier(database)
+                    )
+                )
 
     def identity_reader(self, conn):
         with conn.cursor() as cursor:
@@ -107,9 +127,8 @@ class PathSTwoDisposableDatabaseTests(unittest.TestCase):
             row = cursor.fetchone()
             cursor.execute(
                 "SELECT datname FROM pg_database "
-                "WHERE datname = ANY (%s) AND datname <> current_database() "
+                "WHERE datallowconn AND datname <> current_database() "
                 "AND has_database_privilege(current_user, datname, 'CONNECT')",
-                (list(self.databases.values()),),
             )
             peers = frozenset(result[0] for result in cursor.fetchall())
         return EffectiveDatabaseIdentity(
@@ -156,8 +175,11 @@ class PathSTwoDisposableDatabaseTests(unittest.TestCase):
             cursor.execute("INSERT INTO ea_ingest_events VALUES (%s, %s)", ("event-" + tag, tag))
             cursor.execute("INSERT INTO ea_source_cursors VALUES (%s, %s)", ("source-" + tag, "cursor-" + tag))
 
-    def test_each_role_can_connect_only_to_its_assigned_peer_database(self):
+    def test_each_role_can_connect_only_to_its_assigned_database(self):
         with self.psycopg.connect(DSN) as admin:
+            all_databases = [row[0] for row in admin.execute(
+                "SELECT datname FROM pg_database WHERE datallowconn"
+            ).fetchall()]
             for tenant, peer in (
                 ("synthetic-alpha", "synthetic-beta"),
                 ("synthetic-beta", "synthetic-alpha"),
@@ -170,8 +192,15 @@ class PathSTwoDisposableDatabaseTests(unittest.TestCase):
                     "SELECT has_database_privilege(%s, %s, 'CONNECT')",
                     (self.roles[tenant], self.databases[peer]),
                 ).fetchone()[0]
+                all_access = admin.execute(
+                    "SELECT datname FROM pg_database WHERE datallowconn "
+                    "AND has_database_privilege(%s, datname, 'CONNECT')",
+                    (self.roles[tenant],),
+                ).fetchall()
                 self.assertTrue(result)
                 self.assertFalse(denied)
+                self.assertEqual([row[0] for row in all_access], [self.databases[tenant]])
+                self.assertEqual(set(all_databases) >= {self.databases[tenant], self.databases[peer]}, True)
         for tenant, peer in (
             ("synthetic-alpha", "synthetic-beta"),
             ("synthetic-beta", "synthetic-alpha"),
