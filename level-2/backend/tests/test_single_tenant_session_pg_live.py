@@ -214,6 +214,10 @@ class PathSTwoDisposableDatabaseTests(unittest.TestCase):
                     with self.subTest(inherit=inherit):
                         command = "ALTER ROLE {} INHERIT" if inherit else "ALTER ROLE {} NOINHERIT"
                         admin.execute(self.sql.SQL(command).format(self.sql.Identifier(self.roles[tenant])))
+                        # Regrant after changing the role default: PostgreSQL 16+
+                        # stores inheritance on each membership grant.
+                        admin.execute(self.sql.SQL("REVOKE {} FROM {}").format(self.sql.Identifier(owner),self.sql.Identifier(self.roles[tenant])))
+                        admin.execute(self.sql.SQL("GRANT {} TO {}").format(self.sql.Identifier(owner),self.sql.Identifier(self.roles[tenant])))
                         with self.connect_as(tenant) as conn:
                             membership = conn.execute("SELECT pg_catalog.pg_has_role(current_user, %s, 'MEMBER'), "
                                 "pg_catalog.pg_has_role(current_user, %s, 'USAGE')", (owner,owner)).fetchone()
