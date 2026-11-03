@@ -11,7 +11,7 @@ IDENTITY_SQL = (
     "EXISTS (SELECT 1 FROM pg_catalog.pg_class AS c "
     "JOIN pg_catalog.pg_namespace AS n ON n.oid = c.relnamespace "
     "WHERE n.nspname NOT IN ('pg_catalog', 'information_schema') AND n.nspname NOT LIKE 'pg_toast%' AND c.relkind IN ('r', 'p') "
-    "AND pg_catalog.pg_has_role(current_user, c.relowner, 'USAGE')) "
+    "AND pg_catalog.pg_has_role(current_user, c.relowner, 'MEMBER')) "
     "FROM pg_catalog.pg_roles AS r WHERE r.rolname = current_user"
 )
 OTHER_CONNECT_SQL = (
@@ -25,7 +25,9 @@ def read_postgres_identity(connection):
     """Return a fresh catalog snapshot; never treat it as immutable IAM proof.
 
     Ownership covers all non-system tables (including named schemas) and
-    inherited owner-role privileges, not just direct public-table ownership. All connectable peer databases are included, including built-ins.
+    all owner-role membership, including NOINHERIT potential SET ROLE access.
+    This deliberately rejects membership even when current USAGE is false.
+    All connectable peer databases are included, including built-ins.
     Database policy may change after observation; database-enforced permissions
     and independent protected runtime acceptance remain required.
     """

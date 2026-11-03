@@ -210,13 +210,23 @@ class PathSTwoDisposableDatabaseTests(unittest.TestCase):
                 admin.execute(self.sql.SQL("CREATE TABLE {} (id INTEGER)").format(self.sql.Identifier(schema,table)))
                 admin.execute(self.sql.SQL("ALTER TABLE {} OWNER TO {}").format(self.sql.Identifier(schema,table), self.sql.Identifier(owner)))
                 admin.execute(self.sql.SQL("GRANT {} TO {}").format(self.sql.Identifier(owner), self.sql.Identifier(self.roles[tenant])))
-                self.assertTrue(admin.execute("SELECT pg_has_role(%s, %s, 'USAGE')", (self.roles[tenant], owner)).fetchone()[0])
-                with self.connect_as(tenant) as conn:
-                    self.assertTrue(read_postgres_identity(conn).owns_application_tables)
-                with self.assertRaises(TenantSessionDenied):
-                    with self.guard_for(tenant).transaction(tenant):
-                        self.fail("inherited owner must not reach application work")
+                for inherit in (True, False):
+                    with self.subTest(inherit=inherit):
+                        command = "ALTER ROLE {} INHERIT" if inherit else "ALTER ROLE {} NOINHERIT"
+                        admin.execute(self.sql.SQL(command).format(self.sql.Identifier(self.roles[tenant])))
+                        with self.connect_as(tenant) as conn:
+                            membership = conn.execute("SELECT pg_catalog.pg_has_role(current_user, %s, 'MEMBER'), "
+                                "pg_catalog.pg_has_role(current_user, %s, 'USAGE')", (owner,owner)).fetchone()
+                            self.assertEqual(membership,(True,inherit))
+                            self.assertTrue(read_postgres_identity(conn).owns_application_tables)
+                            conn.execute(self.sql.SQL("SET ROLE {}").format(self.sql.Identifier(owner)))
+                            self.assertEqual(conn.execute("SELECT current_user").fetchone()[0],owner)
+                            conn.execute("RESET ROLE")
+                        with self.assertRaises(TenantSessionDenied):
+                            with self.guard_for(tenant).transaction(tenant):
+                                self.fail("owner-role membership must not reach application work")
             finally:
+                admin.execute(self.sql.SQL("ALTER ROLE {} INHERIT").format(self.sql.Identifier(self.roles[tenant])))
                 admin.execute(self.sql.SQL("REVOKE {} FROM {}").format(self.sql.Identifier(owner), self.sql.Identifier(self.roles[tenant])))
                 admin.execute(self.sql.SQL("DROP TABLE IF EXISTS {}").format(self.sql.Identifier(schema,table)))
                 admin.execute(self.sql.SQL("DROP SCHEMA IF EXISTS {}").format(self.sql.Identifier(schema)))
