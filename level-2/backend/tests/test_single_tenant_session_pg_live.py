@@ -165,14 +165,15 @@ class PathSTwoDisposableDatabaseTests(unittest.TestCase):
             authorized=lambda selected: selected in self.databases,
         )
 
-    def insert_graph(self, conn, tag):
+    def insert_graph(self, conn, tag, payload=None):
+        payload = tag if payload is None else payload
         with conn.cursor() as cursor:
-            cursor.execute("INSERT INTO ea_cases VALUES (%s, %s)", ("case-" + tag, tag))
-            cursor.execute("INSERT INTO ea_actions VALUES (%s, %s, %s)", ("action-" + tag, "case-" + tag, tag))
+            cursor.execute("INSERT INTO ea_cases VALUES (%s, %s)", ("case-" + tag, payload))
+            cursor.execute("INSERT INTO ea_actions VALUES (%s, %s, %s)", ("action-" + tag, "case-" + tag, payload))
             cursor.execute("INSERT INTO ea_approvals VALUES (%s, %s)", ("approval-" + tag, "action-" + tag))
             cursor.execute("INSERT INTO ea_audit VALUES (%s, %s)", ("audit-" + tag, "action-" + tag))
-            cursor.execute("INSERT INTO ea_watch_registrations VALUES (%s, %s)", ("watch-" + tag, tag))
-            cursor.execute("INSERT INTO ea_ingest_events VALUES (%s, %s)", ("event-" + tag, tag))
+            cursor.execute("INSERT INTO ea_watch_registrations VALUES (%s, %s)", ("watch-" + tag, payload))
+            cursor.execute("INSERT INTO ea_ingest_events VALUES (%s, %s)", ("event-" + tag, payload))
             cursor.execute("INSERT INTO ea_source_cursors VALUES (%s, %s)", ("source-" + tag, "cursor-" + tag))
 
     def test_each_role_can_connect_only_to_its_assigned_database(self):
@@ -222,7 +223,7 @@ class PathSTwoDisposableDatabaseTests(unittest.TestCase):
     def test_same_identifiers_are_isolated_and_replay_is_denied_per_database(self):
         for tenant in self.databases:
             with self.guard_for(tenant).transaction(tenant) as conn:
-                self.insert_graph(conn, "same-key")
+                self.insert_graph(conn, "same-key", tenant)
         for tenant in self.databases:
             guard = self.guard_for(tenant)
             with guard.transaction(tenant) as conn:
