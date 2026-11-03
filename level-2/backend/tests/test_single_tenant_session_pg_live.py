@@ -231,7 +231,8 @@ class PathSTwoDisposableDatabaseTests(unittest.TestCase):
                     conn.execute("SELECT payload FROM ea_cases WHERE case_id = 'case-same-key'").fetchone()[0],
                     tenant,
                 )
-                with self.assertRaises(self.psycopg.IntegrityError):
+            with self.assertRaises(self.psycopg.IntegrityError):
+                with guard.transaction(tenant) as conn:
                     self.insert_graph(conn, "same-key")
         self.assertTrue(all(conn.closed for conn in self.connections))
 
