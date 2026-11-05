@@ -102,3 +102,15 @@
 **Interpretation:** General `create_draft` is operational. Both original-thread draft creations succeeded when the subject was copied *exactly* from the source inbound, whereas the earlier modified subjects failed. This correlation strongly suggests reply-subject matching/normalization within the connector, but it is not a controlled proof: previous attempts also differed in content formatting. An automatic quoted-history insertion is separately confirmed. In-place quote removal works for the shorter C-A thread but was blocked by a safety check for the long C-B thread. No automated bypass attempted.
 
 **Open actions:** C-B draft requires operator UI cleanup of quoted conversation before use; verify supplier shipping facts and From alias before any external send. Technical root cause of `GmailConnectorError` should be tested with controlled synthetic cases by connector maintainers. Do not change approved 07B/03D/03F rules based only on this evidence. Derived Drive mirror remains `MIRROR_PENDING`; branch/PR requires review.
+
+### Calendar readback and diagnostic closeout
+
+| Event | Phase | Actor/tool and exact scope | Evidence | Outcome |
+|---|---|---|---|---|
+| E035 | VERIFIED | Google Calendar.update_event/read_event; C-A existing solo event | Description updated from obsolete failed-write status to verified unsent Gmail draft; same event ID/time, zero guests, reminders explicitly disabled | PASS |
+| E036 | VERIFIED | Google Calendar.update_event/read_event; C-B existing solo event | Description updated to created-unsent with outstanding quote cleanup/factual verification; same event ID/time, zero guests, reminders explicitly disabled | PASS |
+| E037 | READBACK | Gmail final active draft list | Original 2 unrelated customer drafts intact; C-A and C-B original-thread drafts present (4 total); synthetic control not in active inventory; no SENT event generated | PASS |
+
+**QA scorecard:** Gmail profile/read=PASS; standalone create=PASS; original-thread create with exact inbound subject=2/2 PASS; in-place quote removal=1/2 PASS, 1/2 BLOCKED; test-draft cleanup=PASS; external send=0. Initial connector error is reproducibly avoided in these cases by exact source subject plus current request encoding, but no controlled single-variable experiment establishes the sole root cause.
+
+**Final owner action:** C-A can be reviewed manually for send-from identity and actual billing recipient confirmation. C-B must have quoted reply history deleted manually in Gmail UI before use, and shipment status must be independently checked. Sender alias remains `UNVERIFIED` because connector omits a From selector and readback lacks authenticated send-as identity. No email was sent. No automatic post-send or quote-release commitment made. `MIRROR_PENDING`; this ledger remains a noncanonical proposal until branch PR review/merge.
