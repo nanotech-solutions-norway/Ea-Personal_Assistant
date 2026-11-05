@@ -62,3 +62,17 @@
 | E018 | READBACK | Nonprotected branch ledger proposal | Readback and review/merge pending | PENDING_REVIEW |
 
 **Security and operational limits:** No email send, recipient changes, calendar writes or duplicate draft creation. The two original unrelated drafts remain saved. The reason for the write failure is not established; it must not be classified as a proven OAuth scope, sender-alias or provider outage. The operator should manually reauthorize the NTSN Gmail plugin via ChatGPT Settings → Plugins and then request a single bounded retry with fresh thread and draft readback. GitHub branch work is merely redacted operational documentation, not a connector reset.
+
+## Post-reconnection original-thread draft verification — 05.11.2026
+
+**Operator statement:** Reconnected NTSN Gmail account, then explicitly requested one new attempt to create exactly two unsent original-thread drafts. This is an operator statement, not independent proof that a new OAuth token or scope was issued. No changes were requested to the existing email drafts or calendar.
+
+| Event | Phase | Scope and attempt | Before / after | Provider readback |
+|---|---|---|---|---|
+| E019 | READBACK | Profile, canonical approved 07B, original 2 Gmail threads and full draft inventory | Business profile readable; both target source threads unchanged; no target drafts; two unrelated active drafts | PASS; no sender alias claim |
+| E020 | FAILED | Gmail.create_draft, one authorized in-thread attempt for C-A after operator reconnect | Target draft absent → provider returned `UNKNOWN: GmailConnectorError: Failed to create draft` | Fresh list_drafts confirms no target draft; no send |
+| E021 | FAILED | Gmail.create_draft, one authorized in-thread attempt for C-B after operator reconnect | Target draft absent → provider returned `UNKNOWN: GmailConnectorError: Failed to create draft` | Fresh list_drafts confirms no target draft; no send |
+| E022 | READBACK | Final NTSN Gmail draft inventory | Exactly two original unrelated drafts preserved, no new case drafts | VERIFIED; original-thread draft acceptance remains FAILED |
+| E023 | PENDING_REVIEW | Redacted GitHub same-work-ID ledger continuation | Branch-only documentation append; no production or policy mutation | Readback required; PR #122 existing and unmerged |
+
+**Disposition:** `GMAIL_DRAFT_WRITE_FAILED_POST_RECONNECT`; Gmail profile/read/search work but draft creation is blocked; provider error is opaque. Do not infer OAuth failure, sender alias mismatch, policy rejection or internal Gmail outage without provider evidence. Escalate a reproducible connector diagnostic with redacted tool/action/type, preserve supplied replies for manual use, and avoid further blind attempts. Google Drive mirror not written. No email sent, no calendar change, no customer content recorded.
