@@ -76,3 +76,74 @@
 | E023 | PENDING_REVIEW | Redacted GitHub same-work-ID ledger continuation | Branch-only documentation append; no production or policy mutation | Readback required; PR #122 existing and unmerged |
 
 **Disposition:** `GMAIL_DRAFT_WRITE_FAILED_POST_RECONNECT`; Gmail profile/read/search work but draft creation is blocked; provider error is opaque. Do not infer OAuth failure, sender alias mismatch, policy rejection or internal Gmail outage without provider evidence. Escalate a reproducible connector diagnostic with redacted tool/action/type, preserve supplied replies for manual use, and avoid further blind attempts. Google Drive mirror not written. No email sent, no calendar change, no customer content recorded.
+
+## Gmail original-thread creation and hygiene diagnostic — 05.11.2026
+
+**Work ID:** `EA-MAIL-FOLLOWUP-20261105-01` (continuation of the existing canonical per-workstream ledger).  
+**Authority:** Operator "Merged. Run diagnostic"; approved 07B (main blob `63c4aa2e46727ddcb13b8deada8a9eb2a13c0661`) and 03D/03F, approved global event log protocol `0171fa4518ddfffef4c05254893da2bfe04ee9ac`.  
+**Provider preconditions:** PR #122 independently MERGED (merge SHA `63b636be3ea34a7b08e1f1e93fac9f4e6a14bb9b`). Business Gmail access and original two case threads verified; only two unrelated original drafts before testing. This redacted report includes no email body or private recipient identities.
+
+### Append-only diagnostic events
+
+| Event | Phase | Actor/tool and exact scope | Before / after, evidence | Outcome |
+|---|---|---|---|---|
+| E024 | VERIFIED | GitHub PR and approved source readback | PR #122 merged; approved 07B and log protocol read; workstream ledger on main | PASS |
+| E025 | READBACK | Gmail.get_profile/list_drafts/read original threads | NTSN account readable; 2 unrelated active drafts, 0 intended case drafts; originals intact | PASS |
+| E026 | READBACK | Gmail plugin permission inspection | Plugin setting `Allow all actions` at ChatGPT layer; OAuth/Google scopes not exposed | PASS, does not establish API grant |
+| E027 | VERIFIED | Gmail.create_draft minimal UNSENT self-addressed control | No diagnostic draft -> one internal synthetic draft created and independently searched with DRAFT label | PASS; proves general draft creation |
+| E028 | VERIFIED | Gmail.create_draft C-A, original sender subject preserved verbatim | Earlier modified `Re:` reply subject led to failures. Exact source subject and original Gmail anchor -> new in-thread DRAFT | PASS, subject-line sensitivity suspected but not proved |
+| E029 | VERIFIED | Gmail.create_draft C-B, original sender subject preserved verbatim | Earlier modified subject and creation failed. Exact source subject + original Gmail anchor -> correct thread/To/CC/DRAFT | PASS; unverified From alias remains |
+| E030 | VERIFIED | Gmail.update_draft same draft ID C-A | Provider auto-added quote chain; controlled in-place clean-body rewrite then independent readback: exact body, original thread/To/subject, no autoquote, signature, attachment; unsent | PASS 03F |
+| E031 | BLOCKED | Gmail.update_draft same draft ID C-B | Provider auto-added extensive quote chain; clean-body update blocked by explicit provider/host safety check | DRAFT_QA_FAILED; do not blindly retry |
+| E032 | VERIFIED | Gmail.delete_emails synthetic self-draft message only | Internally created test moved to Trash; independent full draft inventory confirms removed. Four remaining drafts include original 2 and newly created 2; no sends | PASS |
+| E033 | VERIFIED | Private CRM Google Sheets precise 9-cell updates | 2 statuses reconciled: C-A verified unsent, C-B unsent but hygiene blocked. Provider batchUpdate accepted; targeted cell reads confirm changes | PASS |
+| E034 | PREPARED | Existing 2 solo private Calendar event descriptions | Scope: update only stale draft-state descriptions; no start/end, alerts, guest or invitation changes. Check preimages and readback before marking complete | PENDING |
+
+**Interpretation:** General `create_draft` is operational. Both original-thread draft creations succeeded when the subject was copied *exactly* from the source inbound, whereas the earlier modified subjects failed. This correlation strongly suggests reply-subject matching/normalization within the connector, but it is not a controlled proof: previous attempts also differed in content formatting. An automatic quoted-history insertion is separately confirmed. In-place quote removal works for the shorter C-A thread but was blocked by a safety check for the long C-B thread. No automated bypass attempted.
+
+**Open actions:** C-B draft requires operator UI cleanup of quoted conversation before use; verify supplier shipping facts and From alias before any external send. Technical root cause of `GmailConnectorError` should be tested with controlled synthetic cases by connector maintainers. Do not change approved 07B/03D/03F rules based only on this evidence. Derived Drive mirror remains `MIRROR_PENDING`; branch/PR requires review.
+
+### Calendar readback and diagnostic closeout
+
+| Event | Phase | Actor/tool and exact scope | Evidence | Outcome |
+|---|---|---|---|---|
+| E035 | VERIFIED | Google Calendar.update_event/read_event; C-A existing solo event | Description updated from obsolete failed-write status to verified unsent Gmail draft; same event ID/time, zero guests, reminders explicitly disabled | PASS |
+| E036 | VERIFIED | Google Calendar.update_event/read_event; C-B existing solo event | Description updated to created-unsent with outstanding quote cleanup/factual verification; same event ID/time, zero guests, reminders explicitly disabled | PASS |
+| E037 | READBACK | Gmail final active draft list | Original 2 unrelated customer drafts intact; C-A and C-B original-thread drafts present (4 total); synthetic control not in active inventory; no SENT event generated | PASS |
+
+**QA scorecard:** Gmail profile/read=PASS; standalone create=PASS; original-thread create with exact inbound subject=2/2 PASS; in-place quote removal=1/2 PASS, 1/2 BLOCKED; test-draft cleanup=PASS; external send=0. Initial connector error is reproducibly avoided in these cases by exact source subject plus current request encoding, but no controlled single-variable experiment establishes the sole root cause.
+
+**Final owner action:** C-A can be reviewed manually for send-from identity and actual billing recipient confirmation. C-B must have quoted reply history deleted manually in Gmail UI before use, and shipment status must be independently checked. Sender alias remains `UNVERIFIED` because connector omits a From selector and readback lacks authenticated send-as identity. No email was sent. No automatic post-send or quote-release commitment made. `MIRROR_PENDING`; this ledger remains a noncanonical proposal until branch PR review/merge.
+
+### 05 November 2026 continued follow-up preflight
+
+**Authority:** current operator instruction "Cleanup complete. Email sent. Proceed with the remaining emails and follow-ups"; 07B/03D/03F and canonical operational logging protocol read back. **Not authority to send** newly prepared emails, invite external participants, attach unapproved files, issue quotes or make claims. Gmail user action verified for the two earlier original threads: exactly two SENT messages on 05.11.2026, no remaining drafts in those threads; other two original drafts preserved.
+
+| Event | Phase | Scope | Verified precondition | Intended effect / idempotency / recovery |
+|---|---|---|---|---|
+| E038 | READBACK | Gmail + Calendar + Drive + GitHub | Original two messages SENT; current business draft inventory is two unrelated drafts; current source authority accessible; selected eight old private internal follow-up records have been read | Reconcile state without re-creating sent correspondence |
+| E039 | VERIFIED | Gmail.create_draft/update_draft (two other existing threads) | Fresh no-duplicate preflight; original inbound anchor and exact source subject; both new drafts read back with original thread, To/subject, exact concise body and no copied quote | 2 new UNSENT replies; no send; retain stable draft IDs |
+| E040 | VERIFIED | Gmail/Drive evidence | One previously outdated invoice follow-up has documented outbound credit-note confirmation and replacement invoice. Another case awaits technical acceptance. Unresolved customer shipment cases lack verified tracking | CRM status changes only, no pricing/accounting commitment |
+| E041 | WRITE_AHEAD | Google Calendar 8 existing case events only | Confirmed existing events; 7 solo/zero guest and one only self-attendee; private visibility, transparent and reminders off. No protected external guests or conference creation. Current next-day availability checked. | One exact-ID rescheduling/description update per ongoing case: R-PO-1, R-SJ-1, R-SHIP-1, R-SAMPLE-1, R-PV-1, R-LAB-1, R-UTILITY-1, R-SOURCE-1. Keep IDs/titles/visibility/reminders/attendees, read back each. No retry after ambiguous failure. Before state recorded by provider under existing IDs. |
+| E042 | WRITE_AHEAD | Private existing CRM Google Sheet only | Metadata sheet IDs previously verified, rows and validation to be freshly read before cell changes | Reconcile only verified statuses/actions; provider batch-update plus exact range readback. No new customer payloads in GitHub log. |
+| E043 | WRITE_AHEAD | Gmail pending final check | Draft creation/resend suppression flags re-evaluated | Confirm no accidentally duplicated original threads and expected draft count. |
+
+**Status at preflight:** `CALENDAR_WRITES_NOT_YET_EXECUTED`, `CRM_WRITES_NOT_YET_EXECUTED`. The follow-up event rescheduling does not claim an actual meeting, supplier confirmation, shipment or test outcome. This is a preparatory event log, not proof of later effects. GitHub PR #123 remains open and unmerged; Drive summary mirror still pending.
+
+### 05 November 2026 follow-up readback and disposition
+
+| Event | Phase | Scope, pre/post and provider evidence | Outcome |
+|---|---|---|---|
+| E044 | VERIFIED | Gmail current SENT messages: two earlier case replies independently in original threads with SENT labels. User's reported cleanup/send reconciled. | `SENT_VERIFIED=2` — do not draft duplicates |
+| E045 | VERIFIED | Gmail new original-thread drafts in two different overdue cases: exact subject from incoming messages, correct reply anchors, no quotes/signatures after same-draft cleanup. Final `list_drafts` returned **exactly 4**: prior two plus new two; previous sent cases have no drafts. | `DRAFT_VERIFIED_UNSENT=4` |
+| E046 | VERIFIED | Private Google Calendar: eight existing events checked. Seven exact-ID internal follow-ups moved, rescheduled and reread: two on 05 Nov, three on 06 Nov, two on 09 Nov. Private/transparent/reminders-off/no external attendees preserved. One event carries authenticated self-attendee only. | `CALENDAR_UPDATED_VERIFIED=7` |
+| E047 | BLOCKED / VERIFIED_NO_EFFECT | Remaining eighth Calendar case update returned explicit host safety-block. After unknown partial parallel-batch abort, a single batch_read of all eight authoritative provider records confirmed this exact event stayed at original 29 Oct time and description. No retry or alternate-write workaround attempted. | `CALENDAR_WRITE_BLOCKED=1`, `NO_CHANGE_VERIFIED` |
+| E048 | VERIFIED | Existing private CRM Sheet `Follow_Ups` and `Draft_Attachment_Gate`: exact metadata and bounded cell preimages read, then **35** accepted content-cell update requests across existing cases; one new uniquely keyed row added for time-critical document-delivery obligation. Targeted postwrite `get_spreadsheet_cells` independently confirmed expected statuses, due dates and gates. No unapproved quote/price/accounting data written to GitHub. | `CRM_WRITE_VERIFIED=35/35` |
+| E049 | VERIFIED | Recent thread replay: external customer billing correction had already been handled by credit-note confirmation and replacement invoice. Important separate technical acceptance still pending. Another high-priority customer promised technical docs on 05 Nov, but only mixed-version technical documentation and unapproved contract drafts were located. Do not attach or send unverified contract. | `NO_REPEAT`; `ATTACHMENT_APPROVAL_PENDING` |
+| E050 | PENDING_REVIEW | GitHub branch `work/ea-gmail-thread-diagnostic-20261105`, draft PR #123. This append-only ledger continuation is a branch proposal, **not** a production/approved canonical merge. Google Drive 03_SESSION_LOGS mirror not created. | `GITHUB_BRANCH_LOG_VERIFICATION_PENDING_READBACK`; `MIRROR_PENDING` |
+
+**Case action classes:** (1) original two SENT / waiting external or shipment evidence; (2) prior two unsent customer drafts preserved awaiting operator review; (3) two new unsent customer drafts verified; (4) laboratory/product/supplier qualification holds; (5) outstanding verified shipment evidence and technical document package; (6) intentionally deleted historic cases remain suppressed; (7) closed owner cases not reopened. No external messages sent by Ea; no external Calendar invitations/participants changed; no provider file moves or sharing.
+
+**Current blockers:** unresolved exact dispatch evidence for two customer orders; unapproved technical/contract version for an upcoming meeting; separate recipient billing-mailbox confirmation; supplier-validated sample and 760.14A channel; Zaar Calendar event safety-blocked and remains historically dated; sender-alias identity is not verifiable from exposed connector. The synthetic standalone Gmail test from the previous session remains out of active Drafts.
+
+**Manual operator decisions:** review/send four saved Gmail drafts individually if appropriate; reconcile pending document/quote release approvals; approve and merge GitHub draft PR #123 if satisfied. Never interpret this operational log as authority to send external email, make commitments, or change approved policies.
