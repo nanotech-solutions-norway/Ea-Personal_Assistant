@@ -36,3 +36,14 @@
 
 **Rollback reference:** Non-recurring Calendar event and two description updates are individually reconcilable by provider IDs; no rollback requested or claimed. CRM edits are versioned by the provider; targeted restoration would require a fresh original-preimage and separate current approval. Gmail attempts produced no observed active drafts.  
 **Security:** No customer data or mail body uploaded; only abstract operational outcomes and opaque internal event ID appear here.
+
+## Operator-requested Gmail retry — 05.11.2026
+
+| Event ID | Phase | Scope / provider | Before -> after | Independent evidence / result | Open action |
+|---|---|---|---|---|---|
+| E009 | READBACK | Business Gmail, C-A/C-B draft preflight | Both case drafts absent; two unrelated approved drafts remain | Current `in:drafts` inventory PASS; original in-thread messages re-read, no material case change | One bounded retry per failed case authorized by operator |
+| E010 | FAILED | Gmail create_draft retry, C-A | Intended in-thread draft -> provider `UNKNOWN: GmailConnectorError: Failed to create draft` | Fresh `in:drafts` read after failure confirms no case draft; existing drafts preserved | `WRITE_FAILED`; do not create unthreaded fallback |
+| E011 | FAILED | Gmail create_draft retry, C-B | Intended in-thread draft -> provider `UNKNOWN: GmailConnectorError: Failed to create draft` | Fresh `in:drafts` read after failure confirms no case draft; existing drafts preserved | `WRITE_FAILED`; supplier shipment evidence still required |
+| E012 | VERIFIED | GitHub feature-branch ledger | Existing redacted workstream ledger -> appended retry and provider readback events | Readback required after branch-only write; main and draft PR #121 remain review-scoped | Diagnose Gmail draft-create connector; no send |
+
+**Retry disposition:** Gmail read/search works, but native `create_draft` remains blocked with an opaque provider error for both intended threads; two case drafts still absent. No messages sent. Draft PR #121 remains unmerged and is not approved/canonical.
