@@ -47,3 +47,18 @@
 | E012 | VERIFIED | GitHub feature-branch ledger | Existing redacted workstream ledger -> appended retry and provider readback events | Readback required after branch-only write; main and draft PR #121 remain review-scoped | Diagnose Gmail draft-create connector; no send |
 
 **Retry disposition:** Gmail read/search works, but native `create_draft` remains blocked with an opaque provider error for both intended threads; two case drafts still absent. No messages sent. Draft PR #121 remains unmerged and is not approved/canonical.
+
+## Continuation — operator-requested connector reset and third bounded draft attempt (05.11.2026)
+
+**Authority:** Explicit operator instruction after confirmed PR #121 merge; same existing work ID and two originally eligible cases. **Reset limitation:** No Gmail connector reset/re-authentication action is exposed to the assistant by current plugin tools; no reset, disconnect, uninstall, or permission escalation was attempted. **PR #121 merge:** independently verified merged into main as `8485e04a0d343dbf65eea84a560aed2b2d08a6f2`.
+
+| Event | Phase | Provider / action | Readback evidence | Status / remaining action |
+|---|---|---|---|---|
+| E013 | READBACK | GitHub #121 + canonical 07B and 03D | Merged #121 and unchanged canonicals verified | PASS |
+| E014 | READBACK | Gmail profile, original threads, full draft inventory; private Calendar reference and Drive Vault access | Gmail read/search and both original threads accessible; no C-A/C-B drafts, two other existing drafts preserved; no new substantive email | PASS |
+| E015 | FAILED | One alternate-format native in-thread Gmail create_draft for C-A | `GmailConnectorError: Failed to create draft`; separate draft list shows no case draft | WRITE_FAILED |
+| E016 | FAILED | One alternate-format native in-thread Gmail create_draft for C-B | `GmailConnectorError: Failed to create draft`; separate draft list shows no case draft | WRITE_FAILED |
+| E017 | BLOCKED | Gmail connection reset | No reset/reconnect provider action supported in this chat; OAuth/token state cannot be inspected or altered | OPERATOR_REAUTH_REQUIRED |
+| E018 | READBACK | Nonprotected branch ledger proposal | Readback and review/merge pending | PENDING_REVIEW |
+
+**Security and operational limits:** No email send, recipient changes, calendar writes or duplicate draft creation. The two original unrelated drafts remain saved. The reason for the write failure is not established; it must not be classified as a proven OAuth scope, sender-alias or provider outage. The operator should manually reauthorize the NTSN Gmail plugin via ChatGPT Settings → Plugins and then request a single bounded retry with fresh thread and draft readback. GitHub branch work is merely redacted operational documentation, not a connector reset.
