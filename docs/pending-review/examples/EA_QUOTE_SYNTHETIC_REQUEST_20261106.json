@@ -1,0 +1,54 @@
+{
+  "quote_reference": "DEMO-20261106-01",
+  "quote_date": "2026-11-06",
+  "recipient_company": "Example Energy Co. (synthetic)",
+  "recipient_vat": "",
+  "recipient_contact": "Example Contact",
+  "recipient_address": [
+    "123 Example Street",
+    "Example City",
+    "Example Country"
+  ],
+  "ref_rfq": "Synthetic QA only",
+  "terms": {
+    "payment": "In advance",
+    "currency": "EUR",
+    "discount_percent": "0",
+    "lead_time": "10 days from payment confirmation",
+    "quote_approval_display": "Upon payment confirmation",
+    "transportation_terms": "FCA Incoterm 2020",
+    "carrier": "Example Courier",
+    "application_method": "Custom",
+    "validity": "30 days"
+  },
+  "product": {
+    "name": "SolarEX Quartz SiO₂",
+    "site": "Example Plant",
+    "unit": "L",
+    "base_quantity": "2.00",
+    "allowance_percent": "15",
+    "unit_price": "10.00"
+  },
+  "freight": {
+    "description": "Example freight estimate",
+    "amount": "5.00",
+    "provisional": true
+  },
+  "handling": {
+    "description": "Example handling fee",
+    "parcel_count": 1,
+    "fee_per_parcel": "2.00"
+  },
+  "owner_spv": {
+    "legal_name": "Example SPV LLC (synthetic)",
+    "vat": "TEST-NO-VAT"
+  },
+  "pv_area_m2": "20.00",
+  "notes_extra": [],
+  "governance": {
+    "commercial_status": "PENDING_REVIEW",
+    "approved_for_external_issue": false,
+    "price_evidence_date": "synthetic",
+    "freight_verified_quote": false
+  }
+}
