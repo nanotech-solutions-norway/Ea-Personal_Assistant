@@ -182,3 +182,20 @@ Before reporting a quotation as complete:
 ## 13. Confidentiality
 
 Public GitHub instructions and learning records must not contain customer addresses, personal email addresses, confidential correspondence or private commercial attachments. Customer-specific quotation files belong in controlled Google Drive storage.
+
+## 14. Proposed 06.11.2026 transfer addendum — PENDING_REVIEW (NOT YET CANONICAL)
+
+**Review status:** Proposed on isolated feature branch under work ID `EA-QUOTE-PLAYBOOK-20261106`. The existing approved sections 1–13 remain controlling. Do not treat this subsection or its linked proposal as approved until separately reviewed and explicitly promoted.
+
+Proposed supplemental controls from operator-corrected quotation output:
+
+1. Render and verify the **actual PDF exported from the validated Quote worksheet** before reporting completion. Do not rely solely on editable source previews or temporary online design links.
+2. Independently inspect every grey item-row divider, especially the full-width grey line **between the first product line and the second line (freight or other item)**. Restore and compare its stroke continuity, position and colour against adjacent dividers.
+3. Match the current approved top-right logo anchor and, for the operator-calibrated pilot, leave approximately **10 px visible clearance** between logo bottom and the horizontal header rule; preserve date, heading and rule positions.
+4. Check all notes, footers, source stamp/signature, item descriptions and contact fields against A4 portrait bounds at 150–200 dpi. A text extraction or successful export alone is not visual QA.
+5. Keep **customer-visible `Quote approval` text** separate from Ea's **internal `PENDING_REVIEW` commercial-release status**. A field such as `Upon payment confirmation` is not blanket approval to issue or send.
+6. Treat a **quantity allowance** as physical material, not a selling-price discount. Separately verify product variant, dated price evidence, freight, parcel count and handling fees; do not extrapolate transaction-specific terms.
+7. When owner SPV/VAT appears only in the `Note:` field by operator instruction, do not add it as a billable item. All note text must fit within the original note border.
+8. Explicit Incoterms and estimated carrier costs require separate commercial/logistics checks. In particular, an FCA term alongside quoted freight must have a verified handover/cost allocation before external issue.
+
+Detailed sanitized proposal: `docs/pending-review/EA_QUOTATION_GENERATION_TRANSFER_PLAYBOOK_20261106.md`. Private worked customer examples, original master source and transport evidence remain outside this public repository in operator-controlled storage.
