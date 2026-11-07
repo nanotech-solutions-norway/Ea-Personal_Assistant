@@ -22,6 +22,9 @@ Authority: Active-source framework
 | 05A_EA_DOCUMENT_TEMPLATE_RECREATION_CONVERSION_STATIC_RULES_0349_08082026.md | Default rules for template creation, document drafting, conversion, recreation, extraction and template population for DOCX/PDF/XLSM | Canonical / operator-instructed |
 | 05B_EA_CANONICAL_XLTM_TEMPLATE_USAGE_RULE_0405_08082026.md | Automatic canonical Quote, Packing List, RFQ and legacy editable PO template selection/use | Canonical / operator-instructed |
 | 05C_EA_CANONICAL_PO_DRAFTING_PDF_LAYOUT_STANDARD_0219_09092026.md | Canonical PO drafting, A4 layout, Libre Baskerville typography, branding, signature placement and final-PDF QA | Canonical / operator-instructed |
+| docs/approved/EA_QUOTATION_GENERATION_WORKFLOW_1111_05082026.md | Quote creation and approval; visual-template amendment dated 07.11.2026 | APPROVED / CANONICAL |
+| docs/approved/EA_INVOICE_APPROVAL_AND_DRIVE_FILING_WORKFLOW_1153_02082026.md | Invoice approval and filing; visual-template and tax amendment dated 07.11.2026 | APPROVED / CANONICAL |
+
 | 06_EA_CUSTOM_GPT_AND_PROJECT_SETUP.md | GPT and Project setup | Active |
 | 07_EA_SCHEDULED_TASKS_AND_ROUTINES.md | Scheduled routines and execution boundaries | Active |
 | 07A_EA_GMAIL_BUSINESS_EMAIL_WATCH_PROMPT_2351_05082026.md | Historical approved hourly business-email schedule prompt | Canonical predecessor / supporting |
@@ -66,7 +69,7 @@ Apply current explicit operator instructions first. For the hourly email watch, 
 For document/template work, apply:
 
 1. current explicit operator instruction;
-2. the designated current APPROVED/CANONICAL document-specific workflow or explicitly designated alternative template;
+2. the designated current APPROVED/CANONICAL document-specific workflow or explicitly designated alternative template; for NTSN workspace quote/invoice visual output, apply the 07.11.2026 amendments in the indexed quotation and invoice workflows;
 3. `05C_EA_CANONICAL_PO_DRAFTING_PDF_LAYOUT_STANDARD_0219_09092026.md` for PO drafting and final PDF;
 4. `05B_EA_CANONICAL_XLTM_TEMPLATE_USAGE_RULE_0405_08082026.md` for Quote, Packing List, RFQ and for PO editable-workbook retrieval/functionality when applicable;
 5. `05A_EA_DOCUMENT_TEMPLATE_RECREATION_CONVERSION_STATIC_RULES_0349_08082026.md`;
