@@ -24,7 +24,6 @@ Authority: Active-source framework
 | 05C_EA_CANONICAL_PO_DRAFTING_PDF_LAYOUT_STANDARD_0219_09092026.md | Canonical PO drafting, A4 layout, Libre Baskerville typography, branding, signature placement and final-PDF QA | Canonical / operator-instructed |
 | docs/approved/EA_QUOTATION_GENERATION_WORKFLOW_1111_05082026.md | Quote creation and approval; visual-template amendment dated 07.11.2026 | APPROVED / CANONICAL |
 | docs/approved/EA_INVOICE_APPROVAL_AND_DRIVE_FILING_WORKFLOW_1153_02082026.md | Invoice approval and filing; visual-template and tax amendment dated 07.11.2026 | APPROVED / CANONICAL |
-
 | 06_EA_CUSTOM_GPT_AND_PROJECT_SETUP.md | GPT and Project setup | Active |
 | 07_EA_SCHEDULED_TASKS_AND_ROUTINES.md | Scheduled routines and execution boundaries | Active |
 | 07A_EA_GMAIL_BUSINESS_EMAIL_WATCH_PROMPT_2351_05082026.md | Historical approved hourly business-email schedule prompt | Canonical predecessor / supporting |
