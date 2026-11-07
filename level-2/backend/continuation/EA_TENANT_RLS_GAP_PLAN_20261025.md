@@ -1,5 +1,26 @@
 # EA Cross-Platform Sync — Tenant Isolation Gap and Synthetic Acceptance Plan — 23:56, 25.10.2026
 
+## Current owner-selected W2 direction — 03.11.2026
+
+**Decision:** The owner selected Path S, a dedicated single-tenant database per tenant, as the proposal and synthetic-test basis. The exact scope was confirmed for source-only engineering. This is an interim design selection for continued W2 work; it is not approval to provision a database, migrate records, deploy, or activate synchronization.
+
+The 25.10.2026 status and authority text below is historical baseline context. The later owner W2 authorization permits nonprotected source changes, synthetic fixtures/tests, offline CI, and a draft PR while preserving every protected stop.
+
+### Selected contract
+
+- Resolve a tenant only from a trusted server-side authenticated identity. Never select the database from a request/UI tenant string.
+- Map one verified tenant identity to one isolated database and a dedicated restricted runtime role. Missing, unknown, revoked, or ambiguous mapping denies before a database read or write; there is no shared-database fallback.
+- Keep tenant-owned cases, actions, approvals, audit records, watch registrations, ingest events, source cursors, idempotency, and foreign references inside the selected tenant database. Do not infer tenant ownership for legacy or NULL-scope rows.
+- Keep FORCE RLS and least-privilege role checks as defense in depth where applicable. The runtime role must not own protected tables and must not be superuser or BYPASSRLS.
+- Define migration as an owner-reviewed, staged contract: inventory existing references; snapshot and reconcile only under separately approved authority; provision/configure only under protected authority; verify policies, grants, database binding and cursor isolation; then run a bounded tenant-local canary. This document contains no migration SQL and executes no live migration.
+- Synthetic rollback tests may restore only disposable fixtures. A failed or uncertain live migration remains closed for separate recovery authority; never automatically retry or fall back to shared storage.
+
+### Existing W2 evidence and remaining gates
+
+PR #115’s synthetic Path S tests and PR #116’s disposable PostgreSQL role/database tests are accepted existing evidence and are not reopened. PR #116 merged at `66eb4864c0ba3bb55d63834076d5a9f396739e36`; its exact-hosted tests and security checks are recorded in the canonical ledger.
+
+EA-SYNC remains PARTIAL. Independent review, actual trusted identity-to-database binding, live database role/grant acceptance, legacy-row reconciliation, deployment and any real synchronization remain open or protected. No customer or personal data was used.
+
 **Work ID:** `EA-SYNC` · **Decision:** A1 source-only documentation preparation · **Status:** PREPARED_FOR_OWNING_ENGINEERING_REVIEW; NOT IMPLEMENTED / NOT ACCEPTED.
 **Owner:** EA Personal Assistant. **Operator authorization:** Control Tower v2.2 exact 11-disposition confirmation on 25.10.2026, restricted to this document on a nonprotected feature branch. No schema/code changes, CI dispatch, database modification, tenant ingestion, OAuth, Azure deployment, real account synchronization, merge or release are authorized by this document.
 **Canonical operational log:** [EA-SYNC work ledger](../../../docs/session-logs/EA-SYNC-WORKLEDGER-20261025.md).
