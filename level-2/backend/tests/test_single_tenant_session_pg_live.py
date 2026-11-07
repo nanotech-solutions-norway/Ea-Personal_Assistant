@@ -14,11 +14,12 @@ ROOT = pathlib.Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "src"))
 
 from ea_backend.single_tenant_session import (
-    EffectiveDatabaseIdentity,
     SingleTenantSession,
     TenantDatabaseBinding,
     TenantSessionDenied,
 )
+
+from ea_backend.postgres_identity import read_postgres_identity
 
 DSN = os.environ.get("EA_TEST_DATABASE_URL", "")
 TABLE_NAMES = (
@@ -116,30 +117,6 @@ class PathSTwoDisposableDatabaseTests(unittest.TestCase):
                     )
                 )
 
-    def identity_reader(self, conn):
-        with conn.cursor() as cursor:
-            cursor.execute(
-                "SELECT current_database(), current_user, r.rolsuper, r.rolbypassrls, "
-                "EXISTS (SELECT 1 FROM pg_tables WHERE schemaname = 'public' "
-                "AND tableowner = current_user) "
-                "FROM pg_roles AS r WHERE r.rolname = current_user"
-            )
-            row = cursor.fetchone()
-            cursor.execute(
-                "SELECT datname FROM pg_database "
-                "WHERE datallowconn AND datname <> current_database() "
-                "AND has_database_privilege(current_user, datname, 'CONNECT')",
-            )
-            peers = frozenset(result[0] for result in cursor.fetchall())
-        return EffectiveDatabaseIdentity(
-            database_name=row[0],
-            runtime_role=row[1],
-            superuser=row[2],
-            bypass_rls=row[3],
-            owns_application_tables=row[4],
-            other_connectable_databases=peers,
-        )
-
     def connect_as(self, tenant):
         conn = self.psycopg.connect(
             self.psycopg.conninfo.make_conninfo(
@@ -161,7 +138,7 @@ class PathSTwoDisposableDatabaseTests(unittest.TestCase):
                 runtime_role=self.roles[tenant],
             ),
             connect=connect or (lambda: self.connect_as(tenant)),
-            read_identity=self.identity_reader,
+            read_identity=read_postgres_identity,
             authorized=lambda selected: selected in self.databases,
         )
 
@@ -219,6 +196,60 @@ class PathSTwoDisposableDatabaseTests(unittest.TestCase):
                         connect_timeout=5,
                     )
                 )
+
+    def test_source_reader_detects_inherited_owner_role_and_guard_denies(self):
+        tenant = "synthetic-alpha"
+        owner = "ea_ci_path_s_owner_" + uuid.uuid4().hex[:10]
+        table = "ea_ci_path_s_owner_probe"
+        schema = "ea_ci_owner_schema_" + uuid.uuid4().hex[:10]
+        admin_dsn = self.psycopg.conninfo.make_conninfo(DSN, dbname=self.databases[tenant])
+        with self.psycopg.connect(admin_dsn, autocommit=True) as admin:
+            try:
+                admin.execute(self.sql.SQL("CREATE ROLE {} NOLOGIN NOSUPERUSER NOBYPASSRLS").format(self.sql.Identifier(owner)))
+                admin.execute(self.sql.SQL("CREATE SCHEMA {}").format(self.sql.Identifier(schema)))
+                admin.execute(self.sql.SQL("CREATE TABLE {} (id INTEGER)").format(self.sql.Identifier(schema,table)))
+                admin.execute(self.sql.SQL("ALTER TABLE {} OWNER TO {}").format(self.sql.Identifier(schema,table), self.sql.Identifier(owner)))
+                admin.execute(self.sql.SQL("GRANT {} TO {}").format(self.sql.Identifier(owner), self.sql.Identifier(self.roles[tenant])))
+                for inherit in (True, False):
+                    with self.subTest(inherit=inherit):
+                        command = "ALTER ROLE {} INHERIT" if inherit else "ALTER ROLE {} NOINHERIT"
+                        admin.execute(self.sql.SQL(command).format(self.sql.Identifier(self.roles[tenant])))
+                        # Regrant after changing the role default: PostgreSQL 16+
+                        # stores inheritance on each membership grant.
+                        admin.execute(self.sql.SQL("REVOKE {} FROM {}").format(self.sql.Identifier(owner),self.sql.Identifier(self.roles[tenant])))
+                        admin.execute(self.sql.SQL("GRANT {} TO {}").format(self.sql.Identifier(owner),self.sql.Identifier(self.roles[tenant])))
+                        with self.connect_as(tenant) as conn:
+                            membership = conn.execute("SELECT pg_catalog.pg_has_role(current_user, %s, 'MEMBER'), "
+                                "pg_catalog.pg_has_role(current_user, %s, 'USAGE')", (owner,owner)).fetchone()
+                            self.assertEqual(membership,(True,inherit))
+                            self.assertTrue(read_postgres_identity(conn).owns_application_tables)
+                            conn.execute(self.sql.SQL("SET ROLE {}").format(self.sql.Identifier(owner)))
+                            self.assertEqual(conn.execute("SELECT current_user").fetchone()[0],owner)
+                            conn.execute("RESET ROLE")
+                        with self.assertRaises(TenantSessionDenied):
+                            with self.guard_for(tenant).transaction(tenant):
+                                self.fail("owner-role membership must not reach application work")
+            finally:
+                admin.execute(self.sql.SQL("ALTER ROLE {} INHERIT").format(self.sql.Identifier(self.roles[tenant])))
+                admin.execute(self.sql.SQL("REVOKE {} FROM {}").format(self.sql.Identifier(owner), self.sql.Identifier(self.roles[tenant])))
+                admin.execute(self.sql.SQL("DROP TABLE IF EXISTS {}").format(self.sql.Identifier(schema,table)))
+                admin.execute(self.sql.SQL("DROP SCHEMA IF EXISTS {}").format(self.sql.Identifier(schema)))
+                admin.execute(self.sql.SQL("DROP ROLE IF EXISTS {}").format(self.sql.Identifier(owner)))
+
+    def test_source_reader_detects_new_peer_connect_grant_and_guard_denies(self):
+        tenant, peer = "synthetic-alpha", "synthetic-beta"
+        with self.psycopg.connect(DSN, autocommit=True) as admin:
+            try:
+                admin.execute(self.sql.SQL("GRANT CONNECT ON DATABASE {} TO {}").format(
+                    self.sql.Identifier(self.databases[peer]), self.sql.Identifier(self.roles[tenant])))
+                with self.connect_as(tenant) as conn:
+                    self.assertIn(self.databases[peer],read_postgres_identity(conn).other_connectable_databases)
+                with self.assertRaises(TenantSessionDenied):
+                    with self.guard_for(tenant).transaction(tenant):
+                        self.fail("peer CONNECT grant must deny application work")
+            finally:
+                admin.execute(self.sql.SQL("REVOKE CONNECT ON DATABASE {} FROM {}").format(
+                    self.sql.Identifier(self.databases[peer]), self.sql.Identifier(self.roles[tenant])))
 
     def test_same_identifiers_are_isolated_and_replay_is_denied_per_database(self):
         for tenant in self.databases:
