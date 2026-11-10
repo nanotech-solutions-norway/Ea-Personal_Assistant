@@ -113,3 +113,18 @@
 | E035 | VERIFIED | Failed target draft check | Draft-create exception → no target draft in subsequent Gmail inventory | The failed original-thread target remains absent; zero sends. Content supplied as manual review draft in session response only. |
 
 **Concurrent provenance:** The source of the second draft is not established (may be another agent/user or scheduled process). There was no modification to that draft during this session. This is an append-only correction to the earlier time-bounded inventory statement, not a silent rewrite.
+
+## Continuation — 10.11.2026, 10:43–11:00 Europe/Madrid — CRM reconciliation after PR #130
+
+**Work ID:** `EA-MAIL-FOLLOWUP-20261105-01` (existing owning workstream). **Authority:** explicit operator continuation after PR #130 merge `d7c5ee1af17bb9b67d8b871ba1ed8b5090694853`. **Policy:** approved Ea 03A/03D, canonical follow-up SOP, event logging protocol `0171fa4518ddfffef4c05254893da2bfe04ee9ac`. **Source:** fresh Gmail thread and draft reads; primary calendar event inventory; NTSN CRM workbook `1JLt5KHX9D7OsCd989VeSxj4zuu6N3uWd_w7332EERQ0` with tab IDs Leads=1001 and Follow_Ups=1006. **Risk:** current CRM holds superseded original-source states/dates.
+
+| Event ID | Phase | Tier | Target/action | Before → expected after | Idempotency / evidence | Status |
+|---|---|---|---|---|---|---|
+| E036 | VERIFIED | A0 | PR #130 merge readback | Draft PR → merged on provider with commit and current ledger on main | GitHub get_pr_info + main fetch_file | PASS |
+| E037 | READBACK | A0 | Business and private Gmail plus Calendar | Latest relevant threads, current draft inventory and internal event state rechecked | Provider Gmail IDs and current Calendar results | PASS |
+| E038 | PREPARED | A1 | NTSN CRM `Follow_Ups`: existing known rows | Superseded actions and dates → current factual classification and verified private event references | Current cell metadata/preimages, targeted change mask, Google Sheet readback | WRITE_PENDING |
+| E039 | PREPARED | A1 | NTSN CRM `Leads`: existing known rows | Superseded email status and next action → current factual case with correct owner/due date | Current cell metadata/preimages, targeted change mask, Google Sheet readback | WRITE_PENDING |
+| E040 | BLOCKED | A1 | Gmail new draft creation | Prior opaque provider write errors; no reconnection signal → do not blindly retry | Current 2 business drafts preserved; original reply drafts supplied in chat | GMAIL_WRITE_BLOCKED |
+| E041 | READBACK | A0 | Meeting and travel reconciliation | Verified December meeting; separate old travel plan still present | Calendar provider event reads | TRAVEL_REVIEW_PENDING |
+
+**Side-effect boundary:** No emails sent, no external invitations, no product/price/refund/contract commitments, no secrets. Change only targeted CRM status/action/due/calendar references. Do not delete rows or promote unsupported facts. **Write-ahead:** feature-branch readback completed before CRM changes; branch is review-scoped and not canonical main until PR merge/approval. **Rollback:** each cell change to be re-read against existing values; no auto rollback asserted. Canonical logging after write remains unverified until merged.
