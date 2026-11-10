@@ -88,3 +88,20 @@
 | E027 | BLOCKED | A2 | Meeting date conflict | Later agreed date in mail; earlier calendar occurrence | External-event change held for distinct approval | Gmail/Calendar comparison | PENDING_REVIEW |
 
 **Security:** redacted identifiers only; no customer names, body text, addresses, quotations or monetary data. **Logging qualification:** feature branch proposal pending PR approval, not yet canonical; no protected main write.
+
+### Verified outcomes — 10.11.2026
+
+| Event ID | Phase | Tier | Target/action (redacted) | Before state → after state | Provider readback / evidence | Disposition |
+|---|---|---|---|---|---|---|
+| E028 | FAILED | A1 | Business Gmail: one original-thread draft creation | Eligible thread, no matching draft → connector opaque error | `UNKNOWN: GmailConnectorError: Failed to create draft`; no send action performed | `GMAIL_WRITE_FAILED`; no blind retry |
+| E029 | VERIFIED | A1 | Calendar: 12 new internal follow-up control points | Existing case reminders absent for updated actions → 12 new private solo entries | Each read back with 15-minute duration, exact action, priority color, private+transparent, no attendees, no Meet, reminders disabled | `PASS` |
+| E030 | VERIFIED | A1 | Calendar: self-only technical meeting moved | Prior meeting-date entry → updated to newly email-confirmed December date/time, original identifier preserved | Same event ID `gpe6e2t54vbvg9stoa1jh66b60`; unchanged 1-day/2-hour popup reminders, one self attendee only, private, no external notifications | `PASS`; clarifies E027: no external invitation existed |
+| E031 | READBACK | A0 | Business and personal Gmail drafts | Existing one current business draft + personal legacy drafts → unchanged | Prior inventory and no further writes to existing draft IDs; in-thread attachment check not done | `PRESERVED` |
+| E032 | PENDING_REVIEW | A1 | CRM discrepancy analysis | Several source rows stale since 06.11 → proposed statuses/next actions only | Current CRM cells and latest relevant Gmail sent/inbox read; no workbook mutation | `CRM_RECONCILIATION_PENDING` |
+| E033 | BLOCKED | A1 | Obsolete prior travel plan | Earlier planned trip remains on calendar after change to technical meeting | No booking/ticket evidence; travel record not moved or cancelled | `OPERATOR_TRAVEL_REVIEW` |
+
+**Execution counts:** 12 new verified internal follow-up events; one existing self-only meeting updated and independently verified; zero Gmail drafts saved in this pass; zero messages sent; zero attendee invitations; zero CRM mutations. Gmail reply text can be furnished for manual use, but is not represented as a provider-saved draft.
+
+**Idempotency/rollback note:** Calendar event IDs are provider-grounded in the underlying session but intentionally not copied here as client metadata; the sole updated meeting ID is documented for future focused correction. Additional writes must re-read current provider state and never recreate these same controls without new action evidence. No rollback performed or claimed. Prior November travel plan remains an independent item requiring booking check.
+
+**Governance:** Branch-scoped append/readback, pending merge/approval and CI gates. It is not a verified canonical-main durable event ledger. Derived Drive mirror not written. `LOGGING_NOT_VERIFIED` as canonical operational persistence.
