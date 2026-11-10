@@ -197,3 +197,17 @@
 **Source and scope discipline:** Operator's current request extends the same owning workstream. Approved rules are unchanged; any new policy, release claim, legal identity merge or attachment release remains PENDING_REVIEW. Provisional end-time for the rescheduled technical meeting remains provisional. No future user action/scheduled task falsely claimed. Provider readback verifies writes, but not independent human approval of their subject-matter implications.
 
 **Rollback/incident:** No rollback attempted. Restore any exact changed cell only after user approval, source revision confirmation, and preimage recovery; prior full per-cell preimages were read but not durably retained as a reversible checkpoint. Gmail draft-create connector remains historical write-failure evidence, not a diagnosed provider-wide outage.
+
+### Post-merge verification and Google Drive derived memory mirror — 10.11.2026, 11:27 Europe/Madrid
+
+**Same owning work ID:** `EA-MAIL-FOLLOWUP-20261105-01`. **User authority:** operator's explicit merged/proceed continuation. **Approved routing:** 03A/03D and operational logging protocol revision `0171fa4518ddfffef4c05254893da2bfe04ee9ac`. No policy or deployment permission changed. The original ledger remains the sole canonical operational record.
+
+| Event ID | Phase | Tier | Scoped target/action | Before → after; evidence/readback | Status |
+|---|---|---|---|---|---|
+| E071 | VERIFIED | A0 | Ea owning repo PR #132 and ai-memory-ops PR #131 | Ea PR #132 merge commit `3460c62389af7d85d38e8a3db1fad737a28a0529`; ai-memory-ops PR #131 merge commit `bfd778d594e85b3bfbf8a6fa1ddb8a89a15729e8`. Both PR metadata and main contents independently read back, crossproject redacted work-ID pointer confirmed on main | PASS |
+| E072 | VERIFIED | A1 | Derived Drive Vault session pointer | `AI-Memory-Vault/03_SESSION_LOGS`: no pre-existing same-workstream document → one new non-canonical, redacted native Google Doc `1J4grotVhLffR4i_F6a2v266JYkQfA7NvjU9MkF4NnqI` authored, new file confirmed under approved folder `1nEzKgBXzanpGyDHbX3PuWiCmWKn4DWmd`; sharing state private, content readback confirms work ID, both merges, missing external permissions and no retained source template text | PASS |
+| E073 | VERIFIED | A0 | Preservation and idempotency | Previously verified 100+134 restricted register cell edits and 6 activity / 1 meeting / 4 audit rows not replayed; prior single private follow-up, external email and booking states unchanged by this closeout | PASS |
+| E074 | PENDING_REVIEW | A0 | Commercial and technical external gates | Supplier dispatch/refund/technical approval/legal identity and connector draft-write issues remain unresolved; no new confidential evidence or external release authority | OPEN |
+| E075 | PREPARED | A1 | Canonical audit closeout commit/merge | Append-only redacted completion events written on scoped protected-branch PR; must merge/read back before claiming latest ledger closeout on main | PENDING_MERGE |
+
+**Provider evidence:** GitHub PR #132 (Ea) and #131 (ai-memory-ops) verified merged; derived Google Doc https://docs.google.com/document/d/1J4grotVhLffR4i_F6a2v266JYkQfA7NvjU9MkF4NnqI/edit . The Drive file is non-authoritative; this GitHub workstream ledger is the single owning audit source. The crossproject source pointer is redacted and nonauthoritative. No new Gmail draft, email send, supplier/customer order, refund, shipment, calendar invite or payment occurred. No automatic rollback executed. Old travel placeholder remains separate for evidence review.
