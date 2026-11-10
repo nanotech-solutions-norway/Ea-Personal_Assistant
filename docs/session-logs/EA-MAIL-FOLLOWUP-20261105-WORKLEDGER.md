@@ -105,3 +105,11 @@
 **Idempotency/rollback note:** Calendar event IDs are provider-grounded in the underlying session but intentionally not copied here as client metadata; the sole updated meeting ID is documented for future focused correction. Additional writes must re-read current provider state and never recreate these same controls without new action evidence. No rollback performed or claimed. Prior November travel plan remains an independent item requiring booking check.
 
 **Governance:** Branch-scoped append/readback, pending merge/approval and CI gates. It is not a verified canonical-main durable event ledger. Derived Drive mirror not written. `LOGGING_NOT_VERIFIED` as canonical operational persistence.
+
+### Concurrent Gmail state reconciliation (10.11.2026, after event readback)
+| Event ID | Phase | Redacted target/action | Before -> after | Evidence / disposition |
+|---|---|---|---|---|
+| E034 | READBACK | Business Gmail draft inventory | Initial inventory one existing draft; later inventory two active drafts | A second pre-existing-or-concurrently-created in-thread draft is now confirmed for a newly changed bulk enquiry, generated at provider timestamp after initial inventory. Its creation was **not** performed by this work session. Do not create a duplicate or attribute it to this session. |
+| E035 | VERIFIED | Failed target draft check | Draft-create exception → no target draft in subsequent Gmail inventory | The failed original-thread target remains absent; zero sends. Content supplied as manual review draft in session response only. |
+
+**Concurrent provenance:** The source of the second draft is not established (may be another agent/user or scheduled process). There was no modification to that draft during this session. This is an append-only correction to the earlier time-bounded inventory statement, not a silent rewrite.
