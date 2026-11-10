@@ -157,3 +157,20 @@
 | E050 | READBACK | Rescheduled technical meeting documentation | Correspondence confirms datasheets and contract proposal are requested before December meeting. Drive search surfaced multiple agreement revisions, including older dated drafts and later expressly UNSIGNED/PENDING_REVIEW working documents; no final approved counterpart agreement established. Technical-product mapping/SDS age and agreement approval must be verified before external attachment. |
 
 **Note:** Search absence ≠ global proof of nonexistence. These are bounded read-only source checks, not a warranty, legal determination or customs/regulatory conclusion. The old internal November travel placeholder remains unchanged pending actual travel booking information. PR status stays DRAFT / PENDING_REVIEW; no operator approval silently inferred.
+
+## Post-PR-131 reconciliation — 10.11.2026, 11:03 Europe/Madrid
+
+**Same work ID:** `EA-MAIL-FOLLOWUP-20261105-01`. **Authority:** operator's explicit 10 Nov continuation after merge of PR #131. **Canonical merge:** `0610605d009cd3f26e8b98559279c0ecef46680d` (verified provider); previous workbook 100 targeted cells retained. **Approved policies:** Ea 03A blob `66ca58343758e55dcddd679d498f2731e38a2fe3`, 03D blob `596c5f90d64114a73caaae386d9007be189de43b`, event logging `0171fa4518ddfffef4c05254893da2bfe04ee9ac`. **Preflight readbacks:** current CRM metadata and targeted obsolete cells; 2 Gmail existing unsent drafts; verified own-calendar meeting in December and internal private follow-ups. Private CRM remains the account/lead authority, not GitHub.
+
+| Event ID | Phase | Tier | Scope / target | Before → authorized expected after | Attempt/idempotency, readback | State |
+|---|---|---|---|---|---|---|
+| E051 | VERIFIED | A0 | GitHub PR #131 merge verification | Previous draft PR and feature-branch ledger → merged main with provider commit | PR metadata and main ledger SHA | PASS |
+| E052 | PREPARED | A1 | Google CRM Pipeline_6M | Select existing case status, last-date and next-action cells that conflict with merged Leads/Follow_Ups | One targeted Google Sheets batch; per-cell original state read; post-write exact readback | PREPARED |
+| E053 | PREPARED | A1 | Google CRM Draft_Attachment_Gate | Replace superseded unsent-draft claims and dates, preserve known manual-deletion suppression | One targeted Google Sheets batch; post-write exact readback | PREPARED |
+| E054 | PREPARED | A1 | Restricted Customer Register | Update only verified relationship/next-action descriptions on already matched existing account rows; no entity merges | Read original cells and statuses; post-write readback | PREPARED |
+| E055 | PREPARED | A1 | CRM Meetings/Activities/Audit_Log | Record confirmed internal meeting adjustment and bounded activity/audit trail if no identical row exists | Existing tab preimages; stable unique record IDs; post-write readback | PREPARED |
+| E056 | BLOCKED | A1 | Shipment Register exceptions | No verified DRW/Zaar dispatch and no established distinct shipment foreign key | No fabricated shipment creation/receipt or vendor record match; unresolved legal identity remains PENDING_REVIEW | BLOCKED |
+| E057 | READBACK | A0 | Gmail draft/Calendar preservation | Two existing drafts and prior follow-ups intact | Provider original-thread and event refs; no external sending/meeting invitation | PASS |
+| E058 | PREPARED | A1 | Derived AI-Memory-Vault session pointer | Existing same-workstream mirror not found; possible scoped redacted summary only | Folder and permission gate; independent Drive readback if created | MIRROR_PENDING |
+
+**Confidentiality:** Never put customer identities, email content, finance data, pricing, account numbers or private shipment values in GitHub or derived memory pointers; private operational CRM may retain fact-based statuses without unverified promises. Do not silently synchronize disputed legal-entity IDs, force old deleted drafts to reappear, or make customer-facing/contractual claims. Keep append-only log semantics and preserve original rows/formulas. This branch is a prepared non-canonical ledger until PR acceptance.
