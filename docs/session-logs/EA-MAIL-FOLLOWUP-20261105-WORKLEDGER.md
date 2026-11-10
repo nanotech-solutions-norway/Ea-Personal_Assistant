@@ -76,3 +76,40 @@
 | E023 | PENDING_REVIEW | Redacted GitHub same-work-ID ledger continuation | Branch-only documentation append; no production or policy mutation | Readback required; PR #122 existing and unmerged |
 
 **Disposition:** `GMAIL_DRAFT_WRITE_FAILED_POST_RECONNECT`; Gmail profile/read/search work but draft creation is blocked; provider error is opaque. Do not infer OAuth failure, sender alias mismatch, policy rejection or internal Gmail outage without provider evidence. Escalate a reproducible connector diagnostic with redacted tool/action/type, preserve supplied replies for manual use, and avoid further blind attempts. Google Drive mirror not written. No email sent, no calendar change, no customer content recorded.
+
+## Continuation — 10.11.2026, 10:24 Europe/Madrid — user-directed mailbox/calendar/CRM reconciliation
+
+**Work ID:** `EA-MAIL-FOLLOWUP-20261105-01` (same owning workstream); **events:** E024 onward. **Authority:** user request 10.11.2026; calendar default 03A blob `66ca58343758e55dcddd679d498f2731e38a2fe3`; manual-deletion rule 03D blob `596c5f90d64114a73caaae386d9007be189de43b`; operational logging protocol `0171fa4518ddfffef4c05254893da2bfe04ee9ac`. **No external sends, invitations or unapproved commitments.**
+| Event ID | Phase | Tier | Redacted target/action | Before state | Expected after | Idempotency / verification | Status |
+|---|---|---|---|---|---|---|---|
+| E024 | PREPARED | A1 | Gmail, three business threads; draft only if absent | Latest inbound/outbound and draft inventory read | One unsent in-thread draft per eligible thread | case/thread + source message; Gmail draft readback | PREPARED |
+| E025 | PREPARED | A1 | Calendar private follow-up reconciliation | Existing Nov-Dec events read | Duplicate-free 15-minute private transparent solo entries; no reminders | case/date + provider event readback | PREPARED |
+| E026 | PREPARED | A1 | CRM and lead reconciliation | Current workbook read; no register edits requested | Source-supported discrepancies catalogued without unapproved mutation | source version + register readback | PREPARED |
+| E027 | BLOCKED | A2 | Meeting date conflict | Later agreed date in mail; earlier calendar occurrence | External-event change held for distinct approval | Gmail/Calendar comparison | PENDING_REVIEW |
+
+**Security:** redacted identifiers only; no customer names, body text, addresses, quotations or monetary data. **Logging qualification:** feature branch proposal pending PR approval, not yet canonical; no protected main write.
+
+### Verified outcomes — 10.11.2026
+
+| Event ID | Phase | Tier | Target/action (redacted) | Before state → after state | Provider readback / evidence | Disposition |
+|---|---|---|---|---|---|---|
+| E028 | FAILED | A1 | Business Gmail: one original-thread draft creation | Eligible thread, no matching draft → connector opaque error | `UNKNOWN: GmailConnectorError: Failed to create draft`; no send action performed | `GMAIL_WRITE_FAILED`; no blind retry |
+| E029 | VERIFIED | A1 | Calendar: 12 new internal follow-up control points | Existing case reminders absent for updated actions → 12 new private solo entries | Each read back with 15-minute duration, exact action, priority color, private+transparent, no attendees, no Meet, reminders disabled | `PASS` |
+| E030 | VERIFIED | A1 | Calendar: self-only technical meeting moved | Prior meeting-date entry → updated to newly email-confirmed December date/time, original identifier preserved | Same event ID `gpe6e2t54vbvg9stoa1jh66b60`; unchanged 1-day/2-hour popup reminders, one self attendee only, private, no external notifications | `PASS`; clarifies E027: no external invitation existed |
+| E031 | READBACK | A0 | Business and personal Gmail drafts | Existing one current business draft + personal legacy drafts → unchanged | Prior inventory and no further writes to existing draft IDs; in-thread attachment check not done | `PRESERVED` |
+| E032 | PENDING_REVIEW | A1 | CRM discrepancy analysis | Several source rows stale since 06.11 → proposed statuses/next actions only | Current CRM cells and latest relevant Gmail sent/inbox read; no workbook mutation | `CRM_RECONCILIATION_PENDING` |
+| E033 | BLOCKED | A1 | Obsolete prior travel plan | Earlier planned trip remains on calendar after change to technical meeting | No booking/ticket evidence; travel record not moved or cancelled | `OPERATOR_TRAVEL_REVIEW` |
+
+**Execution counts:** 12 new verified internal follow-up events; one existing self-only meeting updated and independently verified; zero Gmail drafts saved in this pass; zero messages sent; zero attendee invitations; zero CRM mutations. Gmail reply text can be furnished for manual use, but is not represented as a provider-saved draft.
+
+**Idempotency/rollback note:** Calendar event IDs are provider-grounded in the underlying session but intentionally not copied here as client metadata; the sole updated meeting ID is documented for future focused correction. Additional writes must re-read current provider state and never recreate these same controls without new action evidence. No rollback performed or claimed. Prior November travel plan remains an independent item requiring booking check.
+
+**Governance:** Branch-scoped append/readback, pending merge/approval and CI gates. It is not a verified canonical-main durable event ledger. Derived Drive mirror not written. `LOGGING_NOT_VERIFIED` as canonical operational persistence.
+
+### Concurrent Gmail state reconciliation (10.11.2026, after event readback)
+| Event ID | Phase | Redacted target/action | Before -> after | Evidence / disposition |
+|---|---|---|---|---|
+| E034 | READBACK | Business Gmail draft inventory | Initial inventory one existing draft; later inventory two active drafts | A second pre-existing-or-concurrently-created in-thread draft is now confirmed for a newly changed bulk enquiry, generated at provider timestamp after initial inventory. Its creation was **not** performed by this work session. Do not create a duplicate or attribute it to this session. |
+| E035 | VERIFIED | Failed target draft check | Draft-create exception → no target draft in subsequent Gmail inventory | The failed original-thread target remains absent; zero sends. Content supplied as manual review draft in session response only. |
+
+**Concurrent provenance:** The source of the second draft is not established (may be another agent/user or scheduled process). There was no modification to that draft during this session. This is an append-only correction to the earlier time-bounded inventory statement, not a silent rewrite.
