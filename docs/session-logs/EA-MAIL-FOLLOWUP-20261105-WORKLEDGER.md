@@ -76,3 +76,15 @@
 | E023 | PENDING_REVIEW | Redacted GitHub same-work-ID ledger continuation | Branch-only documentation append; no production or policy mutation | Readback required; PR #122 existing and unmerged |
 
 **Disposition:** `GMAIL_DRAFT_WRITE_FAILED_POST_RECONNECT`; Gmail profile/read/search work but draft creation is blocked; provider error is opaque. Do not infer OAuth failure, sender alias mismatch, policy rejection or internal Gmail outage without provider evidence. Escalate a reproducible connector diagnostic with redacted tool/action/type, preserve supplied replies for manual use, and avoid further blind attempts. Google Drive mirror not written. No email sent, no calendar change, no customer content recorded.
+
+## Continuation — 10.11.2026, 10:24 Europe/Madrid — user-directed mailbox/calendar/CRM reconciliation
+
+**Work ID:** `EA-MAIL-FOLLOWUP-20261105-01` (same owning workstream); **events:** E024 onward. **Authority:** user request 10.11.2026; calendar default 03A blob `66ca58343758e55dcddd679d498f2731e38a2fe3`; manual-deletion rule 03D blob `596c5f90d64114a73caaae386d9007be189de43b`; operational logging protocol `0171fa4518ddfffef4c05254893da2bfe04ee9ac`. **No external sends, invitations or unapproved commitments.**
+| Event ID | Phase | Tier | Redacted target/action | Before state | Expected after | Idempotency / verification | Status |
+|---|---|---|---|---|---|---|---|
+| E024 | PREPARED | A1 | Gmail, three business threads; draft only if absent | Latest inbound/outbound and draft inventory read | One unsent in-thread draft per eligible thread | case/thread + source message; Gmail draft readback | PREPARED |
+| E025 | PREPARED | A1 | Calendar private follow-up reconciliation | Existing Nov-Dec events read | Duplicate-free 15-minute private transparent solo entries; no reminders | case/date + provider event readback | PREPARED |
+| E026 | PREPARED | A1 | CRM and lead reconciliation | Current workbook read; no register edits requested | Source-supported discrepancies catalogued without unapproved mutation | source version + register readback | PREPARED |
+| E027 | BLOCKED | A2 | Meeting date conflict | Later agreed date in mail; earlier calendar occurrence | External-event change held for distinct approval | Gmail/Calendar comparison | PENDING_REVIEW |
+
+**Security:** redacted identifiers only; no customer names, body text, addresses, quotations or monetary data. **Logging qualification:** feature branch proposal pending PR approval, not yet canonical; no protected main write.
