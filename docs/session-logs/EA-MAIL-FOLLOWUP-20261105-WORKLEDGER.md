@@ -113,3 +113,47 @@
 | E035 | VERIFIED | Failed target draft check | Draft-create exception → no target draft in subsequent Gmail inventory | The failed original-thread target remains absent; zero sends. Content supplied as manual review draft in session response only. |
 
 **Concurrent provenance:** The source of the second draft is not established (may be another agent/user or scheduled process). There was no modification to that draft during this session. This is an append-only correction to the earlier time-bounded inventory statement, not a silent rewrite.
+
+## Continuation — 10.11.2026, 10:43–11:00 Europe/Madrid — CRM reconciliation after PR #130
+
+**Work ID:** `EA-MAIL-FOLLOWUP-20261105-01` (existing owning workstream). **Authority:** explicit operator continuation after PR #130 merge `d7c5ee1af17bb9b67d8b871ba1ed8b5090694853`. **Policy:** approved Ea 03A/03D, canonical follow-up SOP, event logging protocol `0171fa4518ddfffef4c05254893da2bfe04ee9ac`. **Source:** fresh Gmail thread and draft reads; primary calendar event inventory; NTSN CRM workbook `1JLt5KHX9D7OsCd989VeSxj4zuu6N3uWd_w7332EERQ0` with tab IDs Leads=1001 and Follow_Ups=1006. **Risk:** current CRM holds superseded original-source states/dates.
+
+| Event ID | Phase | Tier | Target/action | Before → expected after | Idempotency / evidence | Status |
+|---|---|---|---|---|---|---|
+| E036 | VERIFIED | A0 | PR #130 merge readback | Draft PR → merged on provider with commit and current ledger on main | GitHub get_pr_info + main fetch_file | PASS |
+| E037 | READBACK | A0 | Business and private Gmail plus Calendar | Latest relevant threads, current draft inventory and internal event state rechecked | Provider Gmail IDs and current Calendar results | PASS |
+| E038 | PREPARED | A1 | NTSN CRM `Follow_Ups`: existing known rows | Superseded actions and dates → current factual classification and verified private event references | Current cell metadata/preimages, targeted change mask, Google Sheet readback | WRITE_PENDING |
+| E039 | PREPARED | A1 | NTSN CRM `Leads`: existing known rows | Superseded email status and next action → current factual case with correct owner/due date | Current cell metadata/preimages, targeted change mask, Google Sheet readback | WRITE_PENDING |
+| E040 | BLOCKED | A1 | Gmail new draft creation | Prior opaque provider write errors; no reconnection signal → do not blindly retry | Current 2 business drafts preserved; original reply drafts supplied in chat | GMAIL_WRITE_BLOCKED |
+| E041 | READBACK | A0 | Meeting and travel reconciliation | Verified December meeting; separate old travel plan still present | Calendar provider event reads | TRAVEL_REVIEW_PENDING |
+
+**Side-effect boundary:** No emails sent, no external invitations, no product/price/refund/contract commitments, no secrets. Change only targeted CRM status/action/due/calendar references. Do not delete rows or promote unsupported facts. **Write-ahead:** feature-branch readback completed before CRM changes; branch is review-scoped and not canonical main until PR merge/approval. **Rollback:** each cell change to be re-read against existing values; no auto rollback asserted. Canonical logging after write remains unverified until merged.
+
+### CRM provider write results — 10.11.2026 (same user-directed workstream)
+
+| Event ID | Phase | Tier | Target/action | Before → after | Evidence/readback | Status |
+|---|---|---|---|---|---|---|
+| E042 | VERIFIED | A1 | NTSN CRM Follow_Ups (tab 1006) | 53 exact cells across 12 existing case rows: source-corrected statuses, next actions, due dates and private calendar refs | Google Sheets batchUpdate 53/53 replies; independent get_range readback of all 12 rows and key action/status/date fields | PASS |
+| E043 | VERIFIED | A1 | NTSN CRM Leads (tab 1001) | 34 exact cells across 10 existing lead rows: source-corrected statuses, next actions, qualification details and due dates | Google Sheets batchUpdate 34/34 replies; independent get_range readback of all 10 rows | PASS |
+| E044 | VERIFIED | A1 | NTSN CRM Opportunities (tab 1004) | 13 exact cells across 7 existing opportunity rows: evidence-based stage/status/outcome updates, no projected values changed | Google Sheets batchUpdate 13/13 replies; independent get_range readback for each selected row | PASS |
+| E045 | READBACK | A0 | Calendar and Gmail after reconciliation | 12 new prior private follow-ups remain and December meeting date still verified; current Gmail inventory has two saved drafts, with no new direct draft write | Calendar search and Gmail drafts readback | PASS |
+| E046 | BLOCKED | A1 | Additional Gmail in-thread drafting | Historical create-draft connector failures; new source/authorization does not establish repaired provider | No repeated ambiguous write and no send; pre-existing customer drafts preserved | GMAIL_DRAFT_WRITE_UNVERIFIED |
+| E047 | PENDING_REVIEW | A1 | Existing old travel plan and other lower-priority historical CRM rows | Source evidence insufficient to change travel booking or close stale cases automatically | No itinerary cancellation or unrelated lead rows modified | OPERATOR_REVIEW_REQUIRED |
+
+**Result accounting:** 100 exact CRM cell updates accepted and independently read back (53 Follow_Ups + 34 Leads + 13 Opportunities). No row insertions/deletions, no changes to amounts, sales probabilities, formulas, styles or file permissions. The broad historical mailbox is not represented as exhaustively reconciled; changes limited to the cases substantiated by the current provider threads and the already verified 12 Calendar entries.
+
+**Source conflicts resolved:** A private CRM row previously claimed a response remained in an unsent draft even though a later SENT message was verified; these were corrected to waiting-external. Bulk enquiry now supersedes earlier sample logistics; refund request supersedes shipment-only resolution path. No external technical or financial commitments made.
+
+**Rollback checkpoint:** Provider sheet ID and tab/row/column references as above; original cell preimages were read before writes, but they were not durably stored as a complete rollback set. A selective rollback would require fresh preimages, event scope review, and operator approval; no rollback occurred or is claimed.
+
+**Persistence:** Feature branch ledger appended and read back; PR/merge and any derived Drive mirror remain pending. `LOGGING_NOT_VERIFIED` on canonical main until merge; operational provider changes are independently verified.
+
+### Final targeted blocker evidence check — 10.11.2026
+
+| Event ID | Phase | Redacted target | Source check and disposition |
+|---|---|---|---|
+| E048 | READBACK | Historical order/refund | Original customer correspondence confirms explicit instruction to proceed months earlier, repeated subsequent unfulfilled-order complaints and later refund request. No independent supplier dispatch/receipt/refund approval proof located by the bounded indexed Drive/mail search. Refund/finance determination stays PENDING_REVIEW; do not conclude no supplier order exists. |
+| E049 | READBACK | Customer instrument shipment | Customer was promised carrier tracking in most recent sent mail; bounded Gmail/Drive search found no later tracking reference. Verify separately with actual fulfilment/courier records; do not infer shipment. |
+| E050 | READBACK | Rescheduled technical meeting documentation | Correspondence confirms datasheets and contract proposal are requested before December meeting. Drive search surfaced multiple agreement revisions, including older dated drafts and later expressly UNSIGNED/PENDING_REVIEW working documents; no final approved counterpart agreement established. Technical-product mapping/SDS age and agreement approval must be verified before external attachment. |
+
+**Note:** Search absence ≠ global proof of nonexistence. These are bounded read-only source checks, not a warranty, legal determination or customs/regulatory conclusion. The old internal November travel placeholder remains unchanged pending actual travel booking information. PR status stays DRAFT / PENDING_REVIEW; no operator approval silently inferred.
