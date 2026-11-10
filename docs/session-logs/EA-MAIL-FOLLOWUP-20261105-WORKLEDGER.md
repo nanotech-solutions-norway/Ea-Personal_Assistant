@@ -147,3 +147,13 @@
 **Rollback checkpoint:** Provider sheet ID and tab/row/column references as above; original cell preimages were read before writes, but they were not durably stored as a complete rollback set. A selective rollback would require fresh preimages, event scope review, and operator approval; no rollback occurred or is claimed.
 
 **Persistence:** Feature branch ledger appended and read back; PR/merge and any derived Drive mirror remain pending. `LOGGING_NOT_VERIFIED` on canonical main until merge; operational provider changes are independently verified.
+
+### Final targeted blocker evidence check — 10.11.2026
+
+| Event ID | Phase | Redacted target | Source check and disposition |
+|---|---|---|---|
+| E048 | READBACK | Historical order/refund | Original customer correspondence confirms explicit instruction to proceed months earlier, repeated subsequent unfulfilled-order complaints and later refund request. No independent supplier dispatch/receipt/refund approval proof located by the bounded indexed Drive/mail search. Refund/finance determination stays PENDING_REVIEW; do not conclude no supplier order exists. |
+| E049 | READBACK | Customer instrument shipment | Customer was promised carrier tracking in most recent sent mail; bounded Gmail/Drive search found no later tracking reference. Verify separately with actual fulfilment/courier records; do not infer shipment. |
+| E050 | READBACK | Rescheduled technical meeting documentation | Correspondence confirms datasheets and contract proposal are requested before December meeting. Drive search surfaced multiple agreement revisions, including older dated drafts and later expressly UNSIGNED/PENDING_REVIEW working documents; no final approved counterpart agreement established. Technical-product mapping/SDS age and agreement approval must be verified before external attachment. |
+
+**Note:** Search absence ≠ global proof of nonexistence. These are bounded read-only source checks, not a warranty, legal determination or customs/regulatory conclusion. The old internal November travel placeholder remains unchanged pending actual travel booking information. PR status stays DRAFT / PENDING_REVIEW; no operator approval silently inferred.
