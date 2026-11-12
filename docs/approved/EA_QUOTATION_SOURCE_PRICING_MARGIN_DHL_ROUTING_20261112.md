@@ -1,6 +1,6 @@
 # Ea Quotation Pricing, Margin, Carrier and Fulfilment Disclosure Rule — 12.11.2026
 
-**Status:** OPERATOR-INSTRUCTED / SCOPED RULE, proposed for repository adoption in this PR. Merge/readback required for repository activation; not a blanket approval of prices, products, discounts, logistics or external issue.
+**Status:** MERGED / OPERATOR-INSTRUCTED SCOPED RULE. PR #134 merged to `main` on 12.11.2026 at 13:09:11 UTC; verified main blob `74b18c97a45bde8caad6c79ac573d1c08e3b9dc2`. Adopted for quotation-process routing only; not a blanket approval of prices, products, discounts, logistics or external issue.
 **Authority:** Explicit operator instruction dated 12.11.2026.
 **Scope:** NanoTech Solutions Norway AS quotation generation only. This supplements, and does not replace, the approved quotation, discounted-product, product-knowledge, confidentiality and Drive-filing controls.
 
