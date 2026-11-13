@@ -19,3 +19,4 @@ Open: Verify source commit and PR readback; operator to paste instructions into 
 
 - READBACK_VERIFIED: Proposed instructions created, then public-source personal account identifier redacted; provider re-read confirms 7,809 characters, index-first, account separation, approval gates, Level 2B/C HOLD. No ChatGPT Project setting was edited.
 - SECURITY_CORRECTION: Before PR submission, removed personal-email literal from the public proposed source; current blob verified without it. No personal Drive data or documents copied.
+- PR_OPEN / PROVIDER_READBACK: PR #137 https://github.com/nanotech-solutions-norway/Ea-Personal_Assistant/pull/137; state OPEN, merged=false, mergeable=true; changed paths are exactly the proposed Project-instructions file and this ledger. No CI verdict or native ChatGPT Project installation claimed. Open: owner review/merge if desired, then manually update Project instructions and verify runtime behavior.
