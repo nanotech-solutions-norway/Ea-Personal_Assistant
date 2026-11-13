@@ -16,3 +16,6 @@ Events (append-only):
 - REVIEW: Index-first content applies to NTSN business Drive only. Live file verification required. Personal Drive excluded.
 - SOURCE_DRAFT: Prepared <=8,000 character instruction body, to be independently checked and read back.
 Open: Verify source commit and PR readback; operator to paste instructions into ChatGPT Project settings or use Work/browser as available; direct native Project settings update is unavailable in this chat.
+
+- READBACK_VERIFIED: Proposed instructions created, then public-source personal account identifier redacted; provider re-read confirms 7,809 characters, index-first, account separation, approval gates, Level 2B/C HOLD. No ChatGPT Project setting was edited.
+- SECURITY_CORRECTION: Before PR submission, removed personal-email literal from the public proposed source; current blob verified without it. No personal Drive data or documents copied.
