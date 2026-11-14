@@ -17,6 +17,7 @@ Authority: Active-source framework
 | 03C_EA_HISTORICAL_EMAIL_CONTEXT_DRAFTING_RULE_0930_07082026.md | Mandatory review of prior email threads and NTSN sent replies before materially relevant drafting | Canonical / operator-instructed |
 | 03D_EA_MANUAL_DRAFT_DELETION_SUPPRESSION_RULE_1111_09092026.md | Known operator-deleted Gmail drafts suppress automatic recreation until a new explicit drafting instruction | Approved / Canonical / operator-instructed |
 | 03F_EA_EMAIL_DRAFT_HYGIENE_PROTOCOL_V1_20261011.md | Operator-approved Gmail body/thread/signature/QA standard | Approved / Canonical / operator-instructed |
+| 03I_EA_SUPPLIER_TO_CUSTOMER_SAMPLE_FULFILMENT_20261114.md | Full manufacturer-to-customer sample shipping, costs, LOT/labels and downstream unsent-draft follow-up | Operator-approved 14.11.2026; implementation through reviewed PR |
 | 04_EA_BUSINESS_DUE_DILIGENCE_LEGAL_FINANCIAL.md | Business support workflows | Active |
 | 05_EA_DOCUMENTS_TEMPLATES_REGISTERS_INDEXES.md | Templates, registers and indexes | Active framework |
 | 05A_EA_DOCUMENT_TEMPLATE_RECREATION_CONVERSION_STATIC_RULES_0349_08082026.md | Default rules for template creation, document drafting, conversion, recreation, extraction and template population for DOCX/PDF/XLSM | Canonical / operator-instructed |
@@ -232,3 +233,8 @@ Latest operator-approved sender-specific rule: all emails written on behalf of E
 ## 12.10.2026 — Approved Gmail auto-signature rule
 
 Ea must NEVER add signature blocks into saved Gmail draft bodies; Gmail automatically applies the configured signature. QA checks zero Ea-added signatures, without claiming connector readback proves visual Gmail insertion. Supersedes prior 03F/03/07B language to insert “one signature.” Espen's separate in-chat code-block for manual Outlook remains unchanged. Preserve 03D, governance and no-send. Implementation staged in protected-branch PR until checks and merge.
+
+
+## 14.11.2026 — Supplier sample workflow and schedule verification
+
+The operator-approved 03I lifecycle governs multi-party source reconciliation, clean unsent supplier/customer drafts, manufacturer LOT and final PDF-label gating, freight/handling/dispatch estimates and duplicate-safe private Calendar follow-ups. See 03/05/07/07B/08 for scoped links and test gates. Independent native task read on 14.11.2026 shows `Ea Business Email Watch` **DISABLED** despite historical enabled text in 07B; `Ea Lead Changes` remains ENABLED daily. Do not assume unattended hourly watch operates or re-enable it without scoped authority. Level 2B/C and external sending remain HOLD.
