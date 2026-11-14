@@ -113,3 +113,8 @@ Before storing any learning update, check that it does not contain:
 - bank/accounting details;
 - private customer data;
 - confidential legal/financial/transcript content unless explicitly approved.
+
+
+## 14.11.2026 — Operator-approved reusable cross-party email workflow
+
+The operator explicitly approved automatic internal reuse of the supplier→intermediary→NTSN→customer sample-fulfilment workflow in `03I_EA_SUPPLIER_TO_CUSTOMER_SAMPLE_FULFILMENT_20261114.md`. Treat the generic procedural steps as scoped operator-approved learning; current supplier/customer email bodies, batch/LOT values, prices, delivery dates, destination details and other changing commercial information remain evidence to reverify before every draft, not standing instructions or facts. Any conflicting or regulatory assertion remains PENDING_REVIEW. Public GitHub receives only general rules, not source correspondence; private work-ID events belong in the existing approved workstream ledger and derived Drive pointer.
