@@ -45,3 +45,9 @@ When a business customer requests product samples, quotes, labels or delivery, o
 5. A new supplier reply triggers a source-reconciled downstream in-thread DRAFT only, not an external SEND.
 6. Scheduled task active/paused state and each provider readback are verified independently; no claims of always-on automation without a successful observed run.
 7. Public source contains no personal/customer payload or sensitive commercial/financial data; restricted workstream ledger and approved Drive pointer use redacted provenance.
+
+## 14.11.2026 — Manufacturer bottle/dispensing-hardware specification supplement
+
+For physical bottle samples, request exact bottle **overall height, diameter, nominal capacity and neck/closure specification** for every relevant container size; the **usable print/label area (width × height)** and where the label sits on curved/round bottles; and a **dimensioned drawing or photo** where available. Confirm the **trigger spray-gun, spray-head, pump or other dispensing mechanism**, nozzle type/pattern where known, materials/chemical compatibility where manufacturer can substantiate it, and whether the mechanism is fitted or separately packed. Seek packaging/outer-carton measurements and gross packed weight only where needed for actual carrier quotations; never assume them.
+
+Classify unknown dimensions/sprayer specification `PACKAGING_SPECS_PENDING` or `MISSING_RATE_INPUT`, and avoid asserting label-fit or shipping compatibility without independent evidence. These checks extend, but do not replace, the existing independent approvals for Norwegian/EU label artwork, applicable product safety/transport obligations and external dispatch. The case may have an existing unsent supplier draft; do not send or duplicate it when watching for manufacturer replies. This scoped addition is operator-instructed; it does not automatically approve product claims, print files or material dispatch.
