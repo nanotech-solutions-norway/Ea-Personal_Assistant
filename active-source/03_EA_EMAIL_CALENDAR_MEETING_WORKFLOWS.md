@@ -181,3 +181,8 @@ Native Level 1 live advice is manual: the user supplies notes or transcript chun
 
 ## Consent rule
 The user is responsible for obtaining legally sufficient consent before recording, transcription, storage or downstream processing. Ea may process material when the user classifies the meeting as consent-cleared.
+
+
+## 14.11.2026 — Approved supplier-to-customer sample fulfilment lifecycle
+
+For sample requests, direct shipment/dropshipping, supplier labels or LOT/batch details, apply `03I_EA_SUPPLIER_TO_CUSTOMER_SAMPLE_FULFILMENT_20261114.md` as the operator-approved scoped workflow. Reconcile manufacturer, owner/intermediary, NTSN and customer conversations, verify individual sample variants/allocations and shipping addresses, request written transport/handling/other costs and expected dispatch date, and coordinate final approved PDF labels only after manufacturer LOT confirmation. Preserve 03C historical correspondence, 03D deleted-draft suppression and latest 03F no-manual-signature Gmail drafting hygiene. Prepare separate supplier and customer unsent drafts with source/readback checks; do not auto-send, disclose confidential supplier data or authorize dispatch.

@@ -189,3 +189,8 @@ Each new out-of-protocol skill must include:
 - validation tests;
 - recommended storage location;
 - proposed authority level.
+
+
+## 14.11.2026 — Sample fulfilment document and label control
+
+Apply `03I_EA_SUPPLIER_TO_CUSTOMER_SAMPLE_FULFILMENT_20261114.md` to product-sample and dropship cases. For each variant, maintain internally traceable manufacturer LOT/batch, actual quantity/packaging, approved/current label version, language, source document and exact intended recipient. Request manufacturer-controlled LOT/date information; do not invent batch codes, certify regulatory compliance or declare a PDF attached before the exact PDF is added and its filename/version verified. Reconcile packing-list/order allocation separately from extra samples. Use the restricted source case and canonical work-ID ledger for private particulars; public indexes hold generic rules only.

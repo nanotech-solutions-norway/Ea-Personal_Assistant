@@ -76,3 +76,8 @@ Open validation items:
 - validate stable case identity/idempotency/freshness controls in the managed Level 2A backend;
 - validate event-driven Gmail/Calendar ingestion before reducing reliance on polling;
 - retain Level 2B/2C HOLD until separate promotion gates are met.
+
+
+## 14.11.2026 — Current live task state and sample-fulfilment handling
+
+Live native task inspection on 14 November 2026 shows `Ea Business Email Watch` (ID `6a6336e9994c8191b25966dc451c2db0`) **DISABLED**, notwithstanding earlier historical enabled assertions in this document and 07B. The separately configured `Ea Lead Changes` (ID `6ad1dc166c888191b928bc03c96934ff`) is **ENABLED** on its existing daily schedule. Live provider state controls any claim of current execution; do not silently re-enable the hourly task. The operator-approved `03I_EA_SUPPLIER_TO_CUSTOMER_SAMPLE_FULFILMENT_20261114.md` is eligible for bounded source-reconciled internal processing only within an enabled, specifically authorized routine. No such schedule guarantees push delivery, full coverage or source readback without an observed run; no autonomous send, shipping release, public claims or Level 2B/2C activation.
