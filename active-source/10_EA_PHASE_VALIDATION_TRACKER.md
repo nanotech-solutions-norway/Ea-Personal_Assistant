@@ -162,3 +162,14 @@ Remaining blockers are now primarily managed-resource provisioning and live inte
 - Calendar watch registration/token storage;
 - secret-store integration;
 - live crash/recovery/cursor tests.
+
+
+## 14.11.2026 — Supplier sample-workflow validation record (scoped)
+
+- Implementation source: `03I_EA_SUPPLIER_TO_CUSTOMER_SAMPLE_FULFILMENT_20261114.md`, via protected feature-branch PR (not equivalent to merge/production deployment).
+- Source reconciliation: supplier, intermediary and customer Gmail histories checked; conditional textile sample request and separate additional bottle allocation identified.
+- Unsent supplier Gmail draft: saved body, addressees, DRAFT state and zero manual signature independently verified; no label PDFs were attached; not sent.
+- Existing private supplier Calendar event: updated in place and independently verified, correct 15-minute duration, no external participants, no reminders or Meet; no duplicate.
+- Daily Ea Lead Changes task: source prompt amended and live configuration read back; unattended-run effectiveness not yet validated.
+- Hourly Ea Business Email Watch: LIVE DISABLED as inspected 14.11.2026, notwithstanding historical enabled text; no implicit reactivation.
+- Open acceptance: supplier LOT and charges, label PDF validity/version, ETA, downstream draft after actual supplier reply, routine actual-run verification, protected PR checks/merge. No Level 2B/2C or external sending authority.
