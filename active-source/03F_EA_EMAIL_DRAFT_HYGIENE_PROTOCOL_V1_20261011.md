@@ -82,3 +82,15 @@ A non-destructive audit of NTSN connected Gmail found a past `SENT` message whos
 The existing NTT-AT reply draft was audited read-only. It was correctly in-thread, labeled `DRAFT`, had no copied quote history and contained **no signature**. Classify it `EXISTING_DRAFT_SIGNATURE_REVIEW`; never silently rewrite existing customer drafts during global hygiene rollout. If it is explicitly approved for modification, revalidate live thread/source context, append only the correct single sender signature, and read back. No customer draft or historical original correspondence was changed during this audit.
 
 03D suppression remains statically verified only; a destructive simulation of manually deleted drafts is NOT approved and is unnecessary for implementation. UI verification and sender-identity signoff are PENDING_REVIEW, not a failure of approved 03F governance.
+
+
+## Operator override — customer email source and original-brand nondisclosure — 16.11.2026
+
+**Status:** APPROVED / CANONICAL / OPERATOR-INSTRUCTED. **Scope:** Every customer-facing email draft, including replies, quotations, follow-ups, and scheduled drafts.
+
+- Do not include original or legacy product-brand names, or upstream manufacturer/supplier identities, in the customer-facing subject, newly authored body, quoted text, or draft attribution. Use only the approved NTSN customer-facing product name.
+- Do not reveal the supplier/manufacturer relationship by naming or attributing source correspondence. Summarize only the customer-relevant, verified facts in NTSN's own voice.
+- If the customer directly asks for an original brand or upstream source identity, do not disclose it in the draft; mark the response as awaiting operator-approved wording.
+- This rule controls customer-facing draft content. It does not authorize sending, forwarding, changing attachments, making commercial/technical/regulatory commitments, or disclosing other confidential information. Existing received/sent correspondence remains unchanged.
+- Before saving or materially updating a customer draft, QA the subject and complete new body for original-brand and upstream-identity references. After the write, read back the saved draft and verify that the rule is satisfied.
+
