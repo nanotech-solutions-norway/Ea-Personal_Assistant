@@ -203,3 +203,40 @@ Quotation tax display: do not show a VAT/tax line or mention VAT in the quote, i
 Packing lists remain separate logistics documents and must use their own approved sample/layout. They must not be folded into the quotation or inherit quote totals as delivered quantities or weights. Use operator-entered or verified shipping details; leave unknown fields blank and do not infer actual delivery.
 
 Before delivery, render and visually compare the generated PDF with the supplied quotation examples, check page size/count, logo, table geometry, note/signature/footer placement, arithmetic, clipping and text overflow. A visual-template approval does not approve commercial content, recipient data, prices, issue or sending.
+
+## 15. Mandatory quote fidelity and arithmetic gate — 16.11.2026
+
+Apply this gate to every quotation created or corrected from the approved workbook and visual references. Follow the canonical workflow and the selected reference layout exactly; do not use an improvised PDF recreation or export path that drops template assets, changes scaling, or alters typography. If the workbook export cannot preserve the approved layout, stop and correct the source/template or use a verified export route before providing the quotation.
+
+### Source and visual fidelity
+
+- Start from the current approved quotation workbook/template and edit only the `Quote` sheet for quotation content. Preserve macros, formulas, styles, images, row heights, page setup and print area.
+- Match the selected recent reference quote’s one-page A4 portrait proportions: customer/vendor columns, vertical spacing, line positions, item table, total block, note box, signature area and footer. Check at actual page size and high zoom after export.
+- Confirm the NTSN logo is visible in the upper-right header. A logo asset merely existing in the workbook package is not sufficient; confirm it appears in the exported PDF.
+- Preserve the exact customer legal name and contact placement, with the same company-to-contact spacing and address line rhythm as the selected reference.
+- Use the correct authorized signer’s approved combined stamp/signature asset once. Align its image and handwritten signature to the signature line as in the reference. Do not duplicate a stamp embedded in a combined signature asset, substitute another signer, or report success if either mark is missing or misaligned.
+- Use Libre Baskerville with the reference’s regular, bold and italic hierarchy. Confirm the email and web links use the reference blue and underline treatment; verify both links remain correct and active.
+- Keep every line in the note box flush left with no first-line indent. Preserve the note font and line spacing from the selected reference, fit all note text inside the box, and do not let any line touch or cross the border.
+- Use the approved product name and net quantity/weight in the item description. Exclude internal article/SKU numbers unless the operator explicitly requests them.
+
+### Price and discount calculation
+
+- The `Price` column shows the unit price before discount.
+- The `Sub total` column equals quantity × pre-discount unit price, less the applicable discount under the approved product discount rules. The order total equals the sum of discounted subtotals.
+- Preserve the underlying formulas and number formats. Do not replace formulas with pasted display values. Ensure the exported PDF displays the pre-discount unit price and discounted subtotal/total consistently.
+- Show the discount percentage visibly with a percent sign and in regular weight unless the approved template specifies otherwise. Use a numeric percent format or a single literal percent sign; never omit the sign, duplicate it, or bold the value unintentionally.
+- The note must describe the price/subtotal basis accurately and must not contradict the displayed arithmetic.
+
+### Stop-before-export checklist
+
+Before export, verify all of the following against both the workbook and rendered PDF:
+
+1. Product name and weight are exact, with no unrequested article number.
+2. Unit price is pre-discount; discounted subtotal and total recalculate correctly; displayed discount includes exactly one `%` character.
+3. Customer company/contact spacing, page proportions, logo, email/web colors and working links match the approved reference.
+4. Note font, box fit and flush-left alignment are correct on every line.
+5. The correct single stamp/signature asset aligns with the signature line.
+6. The PDF has the expected page size/count and contains no missing glyphs, clipping, overlap, accidental bolding, displaced elements or absent artwork.
+7. The workbook’s formulas/macros and source styles remain intact; provider readback confirms the saved files are the versions just inspected.
+
+If any check fails, do not provide the export as complete. Correct the source and re-render/review it first. Keep the quotation `PENDING_REVIEW` and unsent until the operator approves its commercial content and issue.
