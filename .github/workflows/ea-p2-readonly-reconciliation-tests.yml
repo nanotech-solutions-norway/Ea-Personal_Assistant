@@ -1,0 +1,48 @@
+name: Ea P2 read-only case reconciliation
+
+on:
+  pull_request:
+    paths:
+      - "workstreams/p2/**"
+      - ".github/workflows/ea-p2-readonly-reconciliation-tests.yml"
+  push:
+    branches: [main]
+    paths:
+      - "workstreams/p2/**"
+      - ".github/workflows/ea-p2-readonly-reconciliation-tests.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  read-only-contracts:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - name: Compile P1 and P2 modules
+        run: python -m compileall -q workstreams/p1 workstreams/p2
+      - name: Confirm read-only P2 package has no provider adapters
+        run: |
+          python - <<'PY'
+          import ast
+          from pathlib import Path
+          p=Path('workstreams/p2/read_only.py')
+          tree=ast.parse(p.read_text())
+          banned_roots={'requests','httpx','urllib','socket','subprocess','googleapiclient','boto3','smtplib','sqlite3','psycopg','os','pathlib'}
+          for n in ast.walk(tree):
+              if isinstance(n, ast.Import):
+                  for a in n.names:
+                      assert a.name.split('.')[0] not in banned_roots, a.name
+              if isinstance(n, ast.ImportFrom) and n.module:
+                  assert n.module.split('.')[0] not in banned_roots, n.module
+          print('Read-only pilot module passes banned I/O import check')
+          PY
+      - name: Run P1 regression suite
+        run: python -m unittest discover -s workstreams/p1/tests -p 'test_*.py' -v
+      - name: Run P2 regression suite
+        run: python -m unittest discover -s workstreams/p2/tests -p 'test_*.py' -v
