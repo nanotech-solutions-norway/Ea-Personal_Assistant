@@ -136,7 +136,9 @@ def reconcile_read_only(state: CaseState) -> Disposition:
     if (most_recent_sent and most_recent_inbound
             and _parse_aware(most_recent_sent.observed_at_utc)
             > _parse_aware(most_recent_inbound.observed_at_utc)):
-        add("SENT_AFTER_LATEST_INBOUND", "GMAIL", "source timestamp ordering")
+        if (state.crm_claims_unsent_draft or state.crm_next_actor == "NTSN"
+                or state.order_next_actor == "NTSN"):
+            add("SENT_AFTER_LATEST_INBOUND", "GMAIL", "source timestamp ordering")
         if state.crm_claims_unsent_draft:
             add("CRM_DRAFT_STATE_STALE", "CRM", "CRM action vs Gmail SENT")
         if state.crm_next_actor == "NTSN":
