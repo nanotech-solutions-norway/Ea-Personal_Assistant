@@ -1,0 +1,42 @@
+name: Ea P1 synthetic workstream contracts
+
+on:
+  pull_request:
+    paths:
+      - "workstreams/p1/**"
+      - ".github/workflows/ea-p1-workstream-contract-tests.yml"
+  push:
+    branches: [main]
+    paths:
+      - "workstreams/p1/**"
+      - ".github/workflows/ea-p1-workstream-contract-tests.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  synthetic-contracts:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - name: Compile pure P1 engine and tests
+        run: python -m compileall -q workstreams/p1
+      - name: Validate JSON contracts are synthetic and non-deployed
+        run: |
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          obj=json.loads(Path("workstreams/p1/contracts.json").read_text())
+          assert obj["status"] == "PENDING_REVIEW_NOT_CANONICAL"
+          assert obj["runtime"] == "NOT_DEPLOYED_SYNTHETIC_ONLY"
+          assert len(obj["workflow_definitions"]) == 2
+          assert all(x["external_status"] == "AWAITING_OPERATOR_APPROVAL" for x in obj["workflow_definitions"])
+          print("P1 contracts parsed; external execution excluded")
+          PY
+      - name: Run synthetic-only workstream regression suite
+        run: python -m unittest discover -s workstreams/p1/tests -p 'test_*.py' -v
