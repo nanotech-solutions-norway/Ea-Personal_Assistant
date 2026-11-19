@@ -134,8 +134,8 @@ class ReadOnlyReconciliationTests(unittest.TestCase):
                         crm_last_source_message="m-out-2",
                         source_coverage="BOUNDED_COMPLETE")
         report = reconcile_read_only(state)
-        self.assertEqual(report.status, "RECONCILIATION_PROPOSED")
-        self.assertEqual(summarize_codes(report), ("SENT_AFTER_LATEST_INBOUND",))
+        self.assertEqual(report.status, "READ_ONLY_NO_DISCREPANCY")
+        self.assertEqual(summarize_codes(report), ())
 
     def test_source_coverage_never_assumed_complete_for_bounded_partial(self):
         self.assertIn("SOURCE_COVERAGE_PARTIAL",
