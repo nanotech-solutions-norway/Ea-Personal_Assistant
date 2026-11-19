@@ -1,10 +1,10 @@
-# 05D — NTSN Unified PO, Quotation and Invoice Generation Playbook — 10:10, 19.11.2026 (Europe/Madrid)
+# 05D — NTSN Unified PO, Quotation, RFQ, Packing List and Invoice Playbook — 13:32, 19.11.2026 (Europe/Madrid)
 
 **Status:** CONSOLIDATED CANDIDATE / PENDING_REVIEW FOR CANONICAL PROMOTION.
 **Authority sought:** operator's explicit 19.11.2026 consolidation instruction, subject to prior APPROVED/CANONICAL scope rules and source verification.
 **Scope:** NanoTech Solutions Norway AS (NTSN) commercial document drafting, source population, design fidelity, output, validation, Gmail attachment and approved Drive filing. **No automatic sending, invoice posting or commercial release.**
 **Work ID:** EA-COMM-DOC-20261119-01.
-**Implementation principle:** ONE governance entry point, **THREE distinct locked template families**. A PO, quotation and invoice must be consistent *within its own document class*, not visually identical to each other.
+**Implementation principle:** ONE governance entry point, **FIVE distinct document families**, each with its own controlled layout and functional master. A PO, quotation and invoice must be consistent *within its own document class*, not visually identical to each other.
 
 ## 1. Invocation, authority and source selection
 
@@ -129,11 +129,29 @@ A checklist tick or a successful connector response without rendered visual comp
 
 | ID | Evidence tension | Governing treatment now | Required resolution |
 |---|---|---|---|
-| P-01 PO QR/delivery/purpose layout | 05C default explicitly excludes QR and uses Terms; 19Nov recent special PO contains QR and Delivery information/Purpose | **05C default** for new PO PDFs; newer sample is transaction-specific | Explicit owner choice of permanent PO design and replacement reference/version |
+| P-01 PO QR/delivery/purpose layout | 05C default excludes QR and uses Terms; the operator directly approved the new QR/Delivery/Purpose PO PDF as visual template on 19Nov | **19Nov operator-selected PO visual governs the new review layout**; August/September Excel/PDF master revision and migration still pending | Register approved PDF in controlled Drive, qualify editable source, version/merge successor to 05C |
 | Q-01 Pre-discount vs net unit price | 19Aug discount rule sometimes changes displayed Price; latest 16Nov approved quote rule shows pre-discount Price with net Sub total | Apply **16Nov display rule**; validate each workbook formula | Confirm reusable discount formula/schema matches selected master |
 | Q-02 Workbook lineage | 05B XLTM traced to v5.38; older quote workflow names v5.31; unverified later v6.x may exist | Registered XLTM + approved example control; do not auto-switch to v6.x | Verify latest official master and regression test Excel macro/function |
 | Q-03 Pilot layout calibration | 06Nov 10px logo clearance addendum is explicitly pending | Follow exact selected approved source, no blind 10px constant | Owner promotion only after visual comparison |
 | I-01 Invoice master/editable file | Approved invoice family and sample exist; no current signed-off master DOCX/XLSM identified in this pass | Use NTSN 07Nov invoice reference layout and controlled PDF/DOCX draft | Register an exact immutable invoice master revision and visual QA |
 | R-01 Individual documents/signers | New PO/quote examples contain multiple signer choices and variable legal/header addresses | Per-template authorized controlled mark + current company identity, verified for each transaction | Validate signer and company legal/footer fields before release |
+| F-01 Uploaded RFQ PDF | 19Nov uploaded RFQ PDF is visually pixel-identical to PO and shows Purchase Order title | **RFQ visual NOT_VERIFIED**; retain registered 05B RFQ master pending valid RFQ export | Obtain correct RFQ sheet preview and inspect source workbook |
+| F-02 Workbook cached errors/VBA drift | Uploaded three .xlsm contain cached Quote!AA34:AA36 #VALUE! and changed VBA hashes | Approved visual only; **functional master promotion BLOCKED** | Excel runtime formula/VBA regression, secure master replacement |
+| Q-04 Selected contact and signer variants | Ruben quote PDF vendor attention differs from bottom signature identity; Espen editable XLSM not uploaded | Preserve variants as visual evidence, do not infer authorized signing identity | Verify signed artwork ownership and source per variant |
+| P-02 Packing List orientation | Two newly selected operator references are A4 landscape, not generic portrait | Apply **A4 landscape** to both packing-list variants | Register both PDF variants and validate corresponding workbook exports |
 
 **Until these items are resolved, this playbook is an integrated implementation candidate only; it must not be described as superseding the approved 05A/05B/05C or quote/invoice authorities.** When approved, promote it through an operator-verified decision, update the master index and register, validate one synthetic PO, quote (including discounted quote) and invoice (domestic and export), and record GitHub/Drive readback. No customer document issue or external posting is authorized by playbook approval alone.
+
+
+## 11. 19.11.2026 operator approval — PO, Quote, RFQ, Packing List source reconciliation
+
+**Approval event:** operator explicitly states "Approved templates attached"; see **[05E operator-selected visual sources](./05E_NTSN_OPERATOR_APPROVED_TEMPLATE_SOURCE_SELECTION_20261119.md)** and **[source evidence register](../registers/EA_OPERATOR_APPROVED_COMMERCIAL_TEMPLATE_SOURCE_EVIDENCE_20261119.md)**. The uploaded samples control only their verified visual family and not any embedded customer/transaction values.
+
+- **PO:** use the approved **QR / Delivery information / Purpose of use** A4 portrait reference as the visual target. This directly selects the alternative that P-01 previously lacked. Do not mix with the 05C Terms-grid/no-QR layout; maintain 05C as historical authority until version-controlled successor is reviewed and the new source is registered in Drive. Loaded .xls functional parity is NOT_VERIFIED.
+- **Quote:** use the two approved A4-portrait contact variants (Ruben / Espen), preserving `Costumer`, ruled Terms, item table, lower-left note, signature line, and current discount-display instructions. A previous sample's `Approved` cell does not approve subsequent transactions. The Ruben contact sample contains an Espen bottom signatory; **signer mismatch pending review**. Espen .xlsm missing; Ruben source .xlsm has cached formula errors and a different VBA hash from 05B.
+- **RFQ:** the uploaded RFQ PDF renders a **Purchase Order** and is pixel-identical to the uploaded PO PDF; therefore no approved standalone RFQ PDF appearance has been validated from this set. Keep existing RFQ 05B operational fallback and do not issue an RFQ under PO wording.
+- **Packing List:** apply two approved sender/contact variants in **A4 landscape**, with shipper/consignee columns; item columns Ordered, Delivered, Remaining, Weight (KG), sub total Weight (KG); dated/parcel/freight/reference metadata and note. Weight and shipping facts must be independently sourced. Both editable .xlsm variants require Excel runtime tests; do not flatten or transplant their VBA blindly.
+- **Invoice:** no invoice reference in this batch. The 07.11.2026 approved NTSN invoice workflow is unchanged. A separately approved invoice master and VAT calculation test remain outstanding.
+- **General:** original source PDFs/workbooks remain private conversation attachments. No Drive source IDs for the 11 new files have been verified; publishing source hashes/QA metadata in GitHub is not a substitute for controlled archival. No commercial issue, invoice posting, external email, VBA master overwrite or automatic template promotion.
+
+**Technical STOP gate:** In all three uploaded .xlsm files the Quote sheet has cached `#VALUE!` values at `AA34:AA36`. VBA packages are present but differ from the old registered template and have not been run in Excel. Correct/qualify those errors, compare macros with approved baseline and render each target sheet before substituting the files as production masters.
