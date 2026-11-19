@@ -23,6 +23,7 @@ Authority: Active-source framework
 | 05A_EA_DOCUMENT_TEMPLATE_RECREATION_CONVERSION_STATIC_RULES_0349_08082026.md | Default rules for template creation, document drafting, conversion, recreation, extraction and template population for DOCX/PDF/XLSM | Canonical / operator-instructed |
 | 05B_EA_CANONICAL_XLTM_TEMPLATE_USAGE_RULE_0405_08082026.md | Automatic canonical Quote, Packing List, RFQ and legacy editable PO template selection/use | Canonical / operator-instructed |
 | 05C_EA_CANONICAL_PO_DRAFTING_PDF_LAYOUT_STANDARD_0219_09092026.md | Canonical PO drafting, A4 layout, Libre Baskerville typography, branding, signature placement and final-PDF QA | Canonical / operator-instructed |
+| 05D_EA_COMMERCIAL_DOCUMENT_NAMING_AND_VERSIONED_DRIVE_FILING_20261119.md | Reference-only filenames, every draft/version retained in specified company-subfolder Drive roots; accounting-controlled invoice exception | Approved / Canonical / operator-instructed 19.11.2026 |
 | docs/approved/EA_QUOTATION_GENERATION_WORKFLOW_1111_05082026.md | Quote creation and approval; visual-template amendment dated 07.11.2026 | APPROVED / CANONICAL |
 | docs/approved/EA_INVOICE_APPROVAL_AND_DRIVE_FILING_WORKFLOW_1153_02082026.md | Invoice approval and filing; visual-template and tax amendment dated 07.11.2026 | APPROVED / CANONICAL |
 | 06_EA_CUSTOM_GPT_AND_PROJECT_SETUP.md | GPT and Project setup | Active |
