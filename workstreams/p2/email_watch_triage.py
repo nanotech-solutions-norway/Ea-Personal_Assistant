@@ -188,3 +188,64 @@ def private_followup_state(event: Mapping[str, object] | None) -> str:
     if event.get("hangout_link"):
         return "FOLLOWUP_PRIVACY_POLICY_MISMATCH"
     return "FOLLOWUP_REMINDERS_OFF_BY_POLICY"
+
+@dataclass(frozen=True)
+class OneTimeDraftAuthorization:
+    """Explicit operator evidence for exactly one already identified reply.
+
+    Approval is an external assertion supplied by the operator workflow, not
+    inferred from a send-as selector, existing drafts, or another case.
+    This record is not persistent runtime authority or reusable authorization.
+    """
+    case_key: str
+    account: str
+    original_message_id: str
+    intended_sender: str
+    explicit_operator_approval: bool
+    already_consumed: bool = False
+
+
+def one_time_draft_gate(authorization: OneTimeDraftAuthorization | None,
+                        *, case_key: str, account: str,
+                        original_message_id: str, intended_sender: str,
+                        suppression_clear: bool, espens_outlook_only: bool,
+                        complete_preflight: bool) -> str:
+    """Manual exception only: still require independent post-write Gmail QA.
+
+    NEVER treat this result as DRAFT_VERIFIED or permission to send.
+    Ordinary unattended preflight_disposition keeps the alias gate unchanged.
+    """
+    if not suppression_clear:
+        return "OPERATOR_DELETED_SUPPRESS_RECREATE"
+    if espens_outlook_only:
+        return "PENDING_OPERATOR_CHAT_DRAFT"
+    if not complete_preflight:
+        return "PENDING_COVERAGE"
+    if (authorization is None or not authorization.explicit_operator_approval
+            or authorization.already_consumed):
+        return "SENDER_ALIAS_UNVERIFIED"
+    if not all((case_key, account, original_message_id, intended_sender)):
+        return "SENDER_ALIAS_UNVERIFIED"
+    if (authorization.case_key != case_key
+            or authorization.account.casefold() != account.casefold()
+            or authorization.original_message_id != original_message_id
+            or _address(authorization.intended_sender) != _address(intended_sender)):
+        return "SENDER_ALIAS_UNVERIFIED"
+    return "ONE_TIME_DRAFT_WRITE_ALLOWED_QA_REQUIRED"
+
+
+def same_draft_cleanup_status(*, original_draft_id: str,
+                              updated_draft_id: str,
+                              original_thread_id: str,
+                              updated_thread_id: str,
+                              stored_body: str | None,
+                              expected_clean_body: str,
+                              current_message_read: bool) -> str:
+    """Model provider's automatic reply quotation; no unthreaded fallback."""
+    if (not original_draft_id or original_draft_id != updated_draft_id
+            or not original_thread_id or original_thread_id != updated_thread_id
+            or not current_message_read or stored_body is None):
+        return "DRAFT_QA_FAILED"
+    if stored_body != expected_clean_body:
+        return "DRAFT_QA_FAILED"
+    return "SAME_DRAFT_CLEAN_BODY_VERIFIED"

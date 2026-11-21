@@ -3,8 +3,9 @@ import unittest
 from dataclasses import replace
 
 from workstreams.p2.email_watch_triage import (
-    Candidate, DraftExpected, Preflight, choose_cases, draft_readback,
-    draft_sender, inventory_state, preflight_disposition, private_followup_state,
+    Candidate, DraftExpected, OneTimeDraftAuthorization, Preflight, choose_cases, draft_readback,
+    draft_sender, inventory_state, one_time_draft_gate, preflight_disposition,
+    private_followup_state, same_draft_cleanup_status,
 )
 
 
@@ -169,6 +170,70 @@ class EmailWatchTriageTests(unittest.TestCase):
         self.assertEqual(private_followup_state(bad),
                          "FOLLOWUP_REMINDER_POLICY_MISMATCH")
         self.assertEqual(private_followup_state(None), "CALENDAR_NOT_VERIFIED")
+
+
+
+class OneTimeDraftRepairTests(unittest.TestCase):
+    def authorization(self):
+        return OneTimeDraftAuthorization(
+            case_key="verified-case-1", account="business@example.test",
+            original_message_id="original-inbound-id",
+            intended_sender="r@example.test",
+            explicit_operator_approval=True,
+        )
+
+    def gate(self, permit=None, **kwargs):
+        p = dict(case_key="verified-case-1", account="business@example.test",
+                 original_message_id="original-inbound-id",
+                 intended_sender="r@example.test",
+                 suppression_clear=True, espens_outlook_only=False,
+                 complete_preflight=True)
+        p.update(kwargs)
+        return one_time_draft_gate(permit, **p)
+
+    def test_exact_one_time_exception_requires_postwrite_qa(self):
+        self.assertEqual(self.gate(self.authorization()),
+                         "ONE_TIME_DRAFT_WRITE_ALLOWED_QA_REQUIRED")
+        self.assertEqual(self.gate(), "SENDER_ALIAS_UNVERIFIED")
+        self.assertEqual(self.gate(replace(self.authorization(),
+                                          explicit_operator_approval=False)),
+                         "SENDER_ALIAS_UNVERIFIED")
+
+    def test_exception_never_leaks_to_other_thread_account_or_sender(self):
+        p = self.authorization()
+        for changed in (dict(case_key="other-case"),
+                        dict(account="secondary@example.test"),
+                        dict(original_message_id="different-anchor"),
+                        dict(intended_sender="someone@example.test")):
+            self.assertEqual(self.gate(p, **changed),
+                             "SENDER_ALIAS_UNVERIFIED")
+
+    def test_one_time_exception_fails_on_reuse_suppression_and_espen(self):
+        p = self.authorization()
+        self.assertEqual(self.gate(replace(p, already_consumed=True)),
+                         "SENDER_ALIAS_UNVERIFIED")
+        self.assertEqual(self.gate(p, suppression_clear=False),
+                         "OPERATOR_DELETED_SUPPRESS_RECREATE")
+        self.assertEqual(self.gate(p, espens_outlook_only=True),
+                         "PENDING_OPERATOR_CHAT_DRAFT")
+        self.assertEqual(self.gate(p, complete_preflight=False),
+                         "PENDING_COVERAGE")
+
+    def test_same_draft_cleanup_preserves_id_and_exact_clean_body(self):
+        expected = "Hello,\n\nClean response only."
+        params = dict(original_draft_id="draft-A", updated_draft_id="draft-A",
+                      original_thread_id="thread-A", updated_thread_id="thread-A",
+                      stored_body=expected, expected_clean_body=expected,
+                      current_message_read=True)
+        self.assertEqual(same_draft_cleanup_status(**params),
+                         "SAME_DRAFT_CLEAN_BODY_VERIFIED")
+        self.assertEqual(same_draft_cleanup_status(
+            **{**params, "updated_draft_id": "draft-B"}), "DRAFT_QA_FAILED")
+        self.assertEqual(same_draft_cleanup_status(
+            **{**params, "stored_body": expected + "\nOn Friday wrote: quoted"}),
+            "DRAFT_QA_FAILED")
+        self.assertEqual(same_draft_cleanup_status(
+            **{**params, "current_message_read": False}), "DRAFT_QA_FAILED")
 
 
 if __name__ == "__main__":
