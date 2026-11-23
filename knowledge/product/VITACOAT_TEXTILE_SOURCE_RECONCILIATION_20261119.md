@@ -42,3 +42,12 @@
 - **Commercial Order Book / CRM:** Any requested bulk enquiry or production/delivery status requires separate current case verification and existing order-book authority; this document alone does not create an order or shipment.
 
 **Release status:** PENDING_REVIEW for technical, SDS/CLP, biocidal/public-claims, process suitability and commercial scope; no external messages, orders, regulatory releases or website deployments authorized by this document.
+
+## 21.11.2026 evidence revalidation — qualified source audit (PENDING_REVIEW)
+
+- The operator supplied three original supplier PDFs for re-review. They were independently opened/rendered and fully compared at the byte level with the three previously archived restricted NTSN Drive source PDFs. **3/3 exact byte-identical; no later 2026 supplier SDS/TDS or current formulation statement was supplied.**
+- Source SHA-256 IDs: legacy MSDS 2022 `c116ea3468c6ebcc5bd7e227d503c3a80ddc57dc7a283cc809b9d113329f6122`, legacy TDS 2023 `831e6b67c2487092004e2d8bc32b8bddc889f8f5502051bdcb4cd91e2b3e714b`, historical flyer `3cdd08d465c6df7a1a7c82b71eb18010a34bcdfa83433e24724cce5c1903711c`. Raw supplier PDFs remain in restricted Drive, not GitHub.
+- Additional direct contradictions are now explicitly distinguished: 2022 MSDS `GHS07` vs stated not CLP-classified; solvent/flammable vapour text vs current supplier email claiming solvent-free RTU; historic storage 15–30 °C MSDS vs 5–30 °C TDS; odour discrepancies; older flyer 24/7 microbial-protection and 1–2-year durability claims vs technical TDS's disinfection-on-application-only wording. None is accepted as current public claim or regulatory disposition.
+- Supplier 18.11.2026 email and subsequent NTSN clarification already sent are preserved. Bounded current business Gmail read found no substantive resolution; do not repeat as if it were a fresh first inquiry.
+- Ea source PR #157 is now MERGED, as are index/memory-pointer PRs; these are **source routing only**. This does not supersede `PENDING_REVIEW` for formulation, supplier signed current SDS, CLP/REACH/DG, BPR/public health claims, concentrate and commercial scope.
+- **Full separate review addendum:** `knowledge/product/VITACOAT_TEXTILE_QUALIFIED_SOURCE_AUDIT_20261121_PENDING_REVIEW.md`. It governs only the additional reviewed evidence and exact open questions, not a new approved product truth or public claim.
