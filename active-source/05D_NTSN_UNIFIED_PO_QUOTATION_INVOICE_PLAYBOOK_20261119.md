@@ -1,6 +1,7 @@
 # 05D — NTSN Unified PO, Quotation, RFQ, Packing List and Invoice Playbook — 13:32, 19.11.2026 (Europe/Madrid)
 
 **Status:** CONSOLIDATED CANDIDATE / PENDING_REVIEW FOR CANONICAL PROMOTION.
+**Canonical naming/file authority (newer, main):** `active-source/05D_EA_COMMERCIAL_DOCUMENT_NAMING_AND_VERSIONED_DRIVE_FILING_20261119.md` is separately **APPROVED/CANONICAL** and governs reference-only names, retention of each draft/version, company-subfolder filing and accounting-controlled invoice exceptions. This similarly numbered `05D_NTSN_...` candidate is a distinct *template-design* proposal and never overrides the approved `05D_EA_...`. Any contrary historical filing passage below must be read as superseded by that approved rule.
 **Authority sought:** operator's explicit 19.11.2026 consolidation instruction, subject to prior APPROVED/CANONICAL scope rules and source verification.
 **Scope:** NanoTech Solutions Norway AS (NTSN) commercial document drafting, source population, design fidelity, output, validation, Gmail attachment and approved Drive filing. **No automatic sending, invoice posting or commercial release.**
 **Work ID:** EA-COMM-DOC-20261119-01.
@@ -8,7 +9,7 @@
 
 ## 1. Invocation, authority and source selection
 
-On every request for **PO/Purchase Order**, **Quote/Quotation** or **Invoice/Faktura**, invoke this playbook without needing a reminder. Determine document type before selecting the master, and stop if the action would cross from one type into another without a separate instruction.
+On every request for **PO/Purchase Order**, **Quote/Quotation**, **RFQ/Request for Quotation**, **Packing List** or **Invoice/Faktura**, invoke this playbook without needing a reminder. Determine document type before selecting the master, and stop if the action would cross from one type into another without a separate instruction.
 
 Precedence:
 1. Current explicit operator instruction, including an explicitly selected alternative reference for that transaction.
@@ -20,7 +21,7 @@ Precedence:
 
 Preserve exact source values and signatures; do not silently import transaction data from examples. For material conflicts use latest verified approved scope authority; otherwise **PENDING_REVIEW** with source, date and revision. A newer filename alone does not establish a new master. The Google Drive business location index is navigational only: verify current Drive file identity/metadata/parent/content before reliance. Do not mix NTSN with a different legal invoice identity.
 
-## 2. Shared invariants — apply to all three types
+## 2. Shared invariants — apply to all five document families
 
 **Template lock.** Begin from the current designated master or approved reference; use a controlled working copy. Do not improvise a fresh generic PDF, PowerPoint, Canva, HTML or Word layout when a canonical master exists. Preserve page footprint, margins, line rules, section order, table columns, borders, padding, row heights, line breaks, headers/footers, logo anchor, hyperlinks, typography, ink colors, note box, signature position and pagination. Changes to static design require a separately reviewed master revision, not ad hoc edits per transaction.
 
@@ -58,7 +59,7 @@ Preserve exact source values and signatures; do not silently import transaction 
 
 **Quote-only tax treatment**: **no VAT/tax line, statement or VAT-excluded note** in quotations. `Quote approval` is an existing **document field** and is not the same as internal commercial approval. Keep internal `PENDING_REVIEW` until release authorization. Transport/carrier, FCA cost allocation, supply conditions, discounts and note text remain transaction-specific. When expressly instructed, preserve exact statement such as `Transport costs are excluded.`; never make it a permanent term across other quotes.
 
-**Export and reference**: edit/validate XLSM or approved spreadsheet first, export only `Quote`, never directly patch PDF as the routine authoring method; preserve macro/formula/styles and print area. Filename stem **exact quotation reference only** (e.g. `REF-YYYYMMDD-01.pdf`); no `Quotation -`, customer name, FINAL, _v2, REVISED. Any approved in-place correction keeps existing reference/Drive file ID; a new commercial issue gets the next sequential reference.
+**Export and reference**: edit/validate XLSM or approved spreadsheet first, export only `Quote`, never directly patch PDF as the routine authoring method; preserve macro/formula/styles and print area. Filename stem **exact quotation reference only** (e.g. `REF-YYYYMMDD-01.pdf`); no `Quotation -`, customer name, FINAL, _v2, REVISED. Every separately generated draft or correction is retained as a distinct version with the next verified sequential reference per **approved `05D_EA`**; never silently overwrite a prior version. An issued invoice retains accounting-controlled numbering.
 
 ## 5. Invoice — locked invoice standard
 
@@ -74,9 +75,9 @@ Preserve exact source values and signatures; do not silently import transaction 
 
 ## 6. Drive working areas, filing and Gmail
 
-**Canonical template directory:** `Canonical Document Templates` Drive ID `19A7iUWZ7WTowDR1TzRsTLmaraxCbIosH`. **Commercial root:** `Quote & Invoice` Drive ID `1hkq3P-zfEutnwev9cduc1SQGshil3iN8`; subfolders: `PO` ID `1ozfYyGfU8vTbtojv9NBoXVK3cqCTR9RT`, `Quote` ID `1imwSEdP7k4GoWmv9aUf_FvwTtueBF-YR`, `Invoice` ID `17UTt1HjdaThZeu844NcKsNq4ygOhC8gX`, `00_Pending_Review_Quotation_Drafts` ID `1YX9JAJIg3gqVoeh3yXRO89rz3vbsdtnb`, and `Instructions & Validation` ID `10hAW4_V20Hv4eNWJzdEgw1x4rrXeApOP`. All IDs must be revalidated live before write.
+**Canonical template directory:** `Canonical Document Templates`, existing Drive ID `19A7iUWZ7WTowDR1TzRsTLmaraxCbIosH` (retrieve and verify current version before editing). The separate **approved 05D_EA naming and versioned Google Drive filing standard** controls all new draft/version archival, exact filename/reference identity, company subfolders, idempotency and write readback. Current designated archival roots are: Quote `1imwSEdP7k4GoWmv9aUf_FvwTtueBF-YR` (customer), PO `1etKL-OZEABsHxt9vkj5HjNidCwpH9ZjX` (supplier), RFQ `1OUNEbK-iNuVDV08VxLXb2zs9x66zU5Ck` (supplier), Packing List `1HDxtw0OhC00c98rxvL1WbOkqZ9LgDk9V` (consignee), and Invoice `17UTt1HjdaThZeu844NcKsNq4ygOhC8gX` (billed customer). **The older PO folder `1ozfYyGfU8vTbtojv9NBoXVK3cqCTR9RT` is historical and not the new destination.** All listed IDs are references to verify live before a write.
 
-Draft quotes stay in the controlled pending working folder, **not** customer-approved archives. After explicit commercial approval, locate the customer's existing child folder under the correct Quote/Invoice root; only create a missing company folder after authorized filing and verified identity. Preserve the exact canonical filename. PO supplier order archive uses the PO route only after appropriate PO filing/issuance authority; never file a supplier PO as a quotation or invoice.
+**Keep all generated draft revisions in the appropriate company subfolder, even while unapproved**, as instructed by approved `05D_EA`. Internal pending/review folders may be used as transient staging but cannot substitute for the approved company archival destination. Archival is distinct from operator commercial approval and external issue. Preserve old versions; no silent overwrite, move or deletion. For invoices, do not invent or auto-increment a legal invoice number merely to retain versions.
 
 Before creating/update of a Gmail draft, inspect **complete relevant thread, SENT replies, earlier drafts, attachments and authoritative recipients/CC/alias**. Preserve threading and the existing in-thread draft where appropriate; honor suppression of known operator-deleted drafts, unless a new explicit instruction authorizes that specific draft. Document and attachment must be verified as matching **exact filename**; PDF file existence is not proof of attachment. Do not claim a file is attached until provider readback confirms. Do not hand-add Gmail signature. **No send/forward without explicit authorization.**
 
@@ -92,7 +93,7 @@ For file update, verify account, Drive ID, folder parent, revision and access; m
 6. **RENDER** — export from validated source to requested editable and A4 PDF; confirm exact layout against **that document class's canonical** visual reference.
 7. **VALIDATE** — complete content + visual + commercial + source authority + attachment/folder checks and classify PASS/PASS WITH WARNINGS/FAIL. Correct and re-render any failed output.
 8. **APPROVE** — source/design approval is independent of commercial-content approval, signature authorization, external issue and accounting posting. Keep drafts unsent/unissued until authorized.
-9. **FILE / DRAFT MAIL** — after approval only, verified Drive recipient folder/reference, archive readback and Gmail draft attachment identity; never infer sending.
+9. **FILE / DRAFT MAIL** — file each generated draft/version internally to its verified company folder under approved `05D_EA`; sending, invoice issuance and external commercial release remain separately approval-gated. Confirm exact reference and Drive readback; never infer that a Gmail draft was sent.
 10. **LOG / CLOSE** — one redacted per-workstream append-only event ledger with precondition, source SHA/revision, actor/tool, exact effect, idempotency, after-state readback, error and open actions; mirror only a sanitized approved pointer to AI-Memory-Vault.
 
 ## 8. QA acceptance matrix (per generated document)
@@ -129,6 +130,7 @@ A checklist tick or a successful connector response without rendered visual comp
 
 | ID | Evidence tension | Governing treatment now | Required resolution |
 |---|---|---|---|
+| C-05D Canonical naming/versioning vs old candidate filing | New approved `05D_EA` on `main` requires **every draft/version retained** using valid sequential reference and verified company folder; this candidate formerly described approval-first archival and an older PO root | **`05D_EA` overrides** all naming, versioning and filing text; body aligned in 23Nov branch conflict fix | Maintain distinct authority files and recheck registered root on each operation |
 | P-01 PO QR/delivery/purpose layout | 05C default excludes QR and uses Terms; the operator directly approved the new QR/Delivery/Purpose PO PDF as visual template on 19Nov | **19Nov operator-selected PO visual governs the new review layout**; August/September Excel/PDF master revision and migration still pending | Register approved PDF in controlled Drive, qualify editable source, version/merge successor to 05C |
 | Q-01 Pre-discount vs net unit price | 19Aug discount rule sometimes changes displayed Price; latest 16Nov approved quote rule shows pre-discount Price with net Sub total | Apply **16Nov display rule**; validate each workbook formula | Confirm reusable discount formula/schema matches selected master |
 | Q-02 Workbook lineage | 05B XLTM traced to v5.38; older quote workflow names v5.31; unverified later v6.x may exist | Registered XLTM + approved example control; do not auto-switch to v6.x | Verify latest official master and regression test Excel macro/function |
@@ -159,3 +161,7 @@ A checklist tick or a successful connector response without rendered visual comp
 ## 12. 13:38, 19.11.2026 — Corrected RFQ attachment reconciliation
 
 The replacement PDF **corrects the earlier source defect**: one A4 portrait page explicitly headed `Request for Quote (RFQ)`, with request date, PO/RFQ references, supplier fields, Terms and conditions, item/total table, Note, signature and footer. The source is transaction-populated and must be converted to variable fields when templating. Read-only OLE/BIFF inspection of matching `.xls` confirms RFQ and PO visible tabs, five total worksheets, 103 formula records, and **zero cached formula-error records**. Several VBA source streams and the Workbook stream differ from the previous upload, so do **not** assume macro code parity or functional safety. No macro execution, registered XLTM update, provider Drive replacement, commercial release or canonical promotion has been performed. The source evidence register and 05E carry the exact hashes and remaining gates.
+
+## 13. 23.11.2026 — Merge conflict resolution / authority protection
+
+This proposed playbook is separate from the newer approved `05D_EA_COMMERCIAL_DOCUMENT_NAMING_AND_VERSIONED_DRIVE_FILING_20261119.md` added on `main`. It does **not** replace that approved naming, retention or Drive-filing workflow. The operator requested correction of PR #158's textual merge conflict, **not** canonical promotion, commercial issue or Drive mutation. The master index merges both names distinctly and leaves 05A/05B/05C approved masters unmodified. Outstanding review items (invoice source, signer, Excel VBA and template registration) remain PENDING_REVIEW.

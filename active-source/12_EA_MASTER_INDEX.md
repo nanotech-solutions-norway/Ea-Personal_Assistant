@@ -23,8 +23,9 @@ Authority: Active-source framework
 | 05A_EA_DOCUMENT_TEMPLATE_RECREATION_CONVERSION_STATIC_RULES_0349_08082026.md | Default rules for template creation, document drafting, conversion, recreation, extraction and template population for DOCX/PDF/XLSM | Canonical / operator-instructed |
 | 05B_EA_CANONICAL_XLTM_TEMPLATE_USAGE_RULE_0405_08082026.md | Automatic canonical Quote, Packing List, RFQ and legacy editable PO template selection/use | Canonical / operator-instructed |
 | 05C_EA_CANONICAL_PO_DRAFTING_PDF_LAYOUT_STANDARD_0219_09092026.md | Canonical PO drafting, A4 layout, Libre Baskerville typography, branding, signature placement and final-PDF QA | Canonical / operator-instructed |
-| 05D_NTSN_UNIFIED_PO_QUOTATION_INVOICE_PLAYBOOK_20261119.md | Consolidated PO/Quote/RFQ/Packing/Invoice governance and 19Nov operator-selected visual references; does not replace verified operational masters until promotion | CONSOLIDATED CANDIDATE / PENDING_REVIEW |
-| 05E_NTSN_OPERATOR_APPROVED_TEMPLATE_SOURCE_SELECTION_20261119.md | Operator-selected PO, Quote (two variants), Packing List (two variants), and corrected RFQ visual reference; invoice not supplied; functional Excel/VBA and master migration pending | OPERATOR-SELECTED VISUAL EVIDENCE / TECHNICAL PROMOTION PENDING |
+| 05D_EA_COMMERCIAL_DOCUMENT_NAMING_AND_VERSIONED_DRIVE_FILING_20261119.md | Reference-only filenames, every draft/version retained in specified company-subfolder Drive roots; accounting-controlled invoice exception | Approved / Canonical / operator-instructed 19.11.2026 |
+| 05D_NTSN_UNIFIED_PO_QUOTATION_INVOICE_PLAYBOOK_20261119.md | Consolidated PO/Quote/RFQ/Packing/Invoice template-design playbook; **separate from approved 05D_EA filing rule**, subordinate to its canonical naming/filing controls | CONSOLIDATED CANDIDATE / PENDING_REVIEW |
+| 05E_NTSN_OPERATOR_APPROVED_TEMPLATE_SOURCE_SELECTION_20261119.md | Approved PO/Quote/Packing visual selections and corrected RFQ visual source; Excel VBA/runtime tests and Drive source registration pending; invoice not supplied | OPERATOR-SELECTED VISUAL EVIDENCE / TECHNICAL PROMOTION PENDING |
 | docs/approved/EA_QUOTATION_GENERATION_WORKFLOW_1111_05082026.md | Quote creation and approval; visual-template amendment dated 07.11.2026 | APPROVED / CANONICAL |
 | docs/approved/EA_INVOICE_APPROVAL_AND_DRIVE_FILING_WORKFLOW_1153_02082026.md | Invoice approval and filing; visual-template and tax amendment dated 07.11.2026 | APPROVED / CANONICAL |
 | 06_EA_CUSTOM_GPT_AND_PROJECT_SETUP.md | GPT and Project setup | Active |
@@ -52,7 +53,7 @@ Authority: Active-source framework
 | `docs/decisions/EA_DECISION_CANONICAL_PO_DRAFTING_STANDARD_0219_09092026.md` | Operator decision establishing the 05C canonical PO drafting/final-PDF standard | Approved / Canonical |
 | `registers/EA_CANONICAL_DOCUMENT_TEMPLATE_REGISTER_0405_08082026.md` | Canonical XLTM template filenames, Drive IDs, hashes and validation status | Approved / Canonical |
 | `registers/EA_CANONICAL_PO_DRAFTING_STANDARD_REGISTER_0219_09092026.md` | Canonical PO rule, PDF reference, logo and legacy editable-template relationship | Approved / Canonical |
-| `registers/EA_OPERATOR_APPROVED_COMMERCIAL_TEMPLATE_SOURCE_EVIDENCE_20261119.md` | SHA-256 identities, source acceptance scope and unresolved functional QA for 11 new attached sources | PENDING_REVIEW incorporation / Source evidence |
+| `registers/EA_OPERATOR_APPROVED_COMMERCIAL_TEMPLATE_SOURCE_EVIDENCE_20261119.md` | Initial eleven plus corrected RFQ attachments: redacted SHA-256 identities, visual source selection and outstanding functional QA | SOURCE EVIDENCE / PENDING_REVIEW PROMOTION |
 | `registers/EA_LABEL_CREATION_REGISTER.md` | Brother P-touch label workflow and validation history | Active operational register / regulatory release pending review |
 
 ## Precedence
@@ -80,7 +81,9 @@ For document/template work, apply:
 7. current verified source files and connector evidence;
 8. older supporting material.
 
-For PO final PDF, 05C supersedes older 05B visual-layout requirements **for the historical default**. The operator explicitly selected a newer QR / Delivery information / Purpose of use PO visual on 19.11.2026 (05E), which takes precedence as current scoped visual instruction, subject to the new source's verified availability and validation. The legacy 05B functional XLTM/XLSM master is **not replaced** merely by visual approval; older 05C remains registered until a versioned canonical revision passes review.
+For PO final PDF, 05C supersedes conflicting older 05B visual-layout requirements, including the old default requirement for Address/Website QR graphics. 05B continues to control the legacy functional XLTM/XLSM template when an editable Excel PO is explicitly requested or required.
+
+**Distinct 19.11.2026 operator visual selection (review scope):** The operator separately approved the QR / Delivery information / Purpose of use PO PDF, two quotation and packing-list variants, and supplied a subsequently corrected RFQ PDF. The five-family visual evidence and unresolved functional-master gates are recorded in 05E and its redacted register. These selections do not replace the 05B Excel masters, revise the existing 05C source document in place, or authorize external issue. In the event of a pending design-vs-runtime conflict, retain the current approved functional master and flag PENDING_REVIEW. **The newer, separately approved `05D_EA_COMMERCIAL_DOCUMENT_NAMING_AND_VERSIONED_DRIVE_FILING_20261119.md` is controlling for filenames, distinct draft revisions and company-folder filing; the proposed `05D_NTSN_...` is not an alternative filing standard.**
 
 ## Operating rule
 
@@ -100,9 +103,9 @@ When the operator requests a PO/Purchase Order:
 - apply 05C automatically for drafting and final fixed-layout PDF;
 - use the 05C canonical PDF reference for visual layout only, never as a source of reusable transaction values;
 - use current verified quotation/order evidence for prices, items and commercial terms;
-- use Libre Baskerville for approved traditional 05C output; 19.11.2026 operator-selected newer PO source visually governs its specific font mix subject to source fidelity and legibility QA;
-- use top-right logo matching the explicitly selected PO visual reference; do not substitute an unrelated brand/logo;
-- for historical 05C only, preserve dividers under every Terms and conditions row; for the newer approved QR-based PO, use Delivery information and Purpose of use from its own reference instead of merging layouts;
+- use Libre Baskerville for all visible PO text;
+- use only the canonical top-right PO logo;
+- preserve the grey divider under every Terms and conditions row;
 - place the validated signature/stamp directly on the signature line;
 - retrieve the legacy 05B PO XLTM only when an editable Excel PO is explicitly requested or functionally required.
 
@@ -251,7 +254,3 @@ The native prompt was updated in place with the 03I manufacturer-to-customer sam
 ### 14.11.2026 — Later observed Email Watch enabled state (19:44 Europe/Madrid)
 
 Following the paused configuration/readback documented above, a **separate later** native provider read showed `Ea Business Email Watch` `is_enabled=true` with `updated_at=2026-11-14T18:36:41.586938Z`. Ea did not send an enable action and actor attribution is NOT_VERIFIED. The prompt, hourly `condition_watch` mode and Europe/Oslo timezone remain intact. This later observation supersedes the earlier paused snapshot for status only; the user's original plan to enable separately and the no-external-action controls remain as instructed. No new unattended run or notification receipt has been confirmed.
-
-
-## 19.11.2026 — Operator-approved revised document visuals (branch incorporation pending)
-The operator supplied eleven source files and explicitly approved the corresponding template choices. Source-specific PO/Quote/Packing visuals are recorded at `05E_NTSN_OPERATOR_APPROVED_TEMPLATE_SOURCE_SELECTION_20261119.md`; hashes and QA findings are in `registers/EA_OPERATOR_APPROVED_COMMERCIAL_TEMPLATE_SOURCE_EVIDENCE_20261119.md`. The initial PDF named RFQ was mistakenly the PO; the follow-up `(1)` PDF is now verified as a distinct RFQ visual reference, but its matching `.xls` contains changed VBA modules versus the earlier upload and has not passed Excel/security runtime QA. The invoice source was not supplied. Three uploaded .xlsm have cached `#VALUE!` cells and VBA changes relative to the registered master, so functional master changes and external use remain gated. This index edit is in draft PR #158, not on the approved main branch.

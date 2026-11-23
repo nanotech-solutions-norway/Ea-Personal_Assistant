@@ -1,0 +1,355 @@
+{
+  "contract_version": "0.1.0-P1",
+  "status": "PENDING_REVIEW_NOT_CANONICAL",
+  "runtime": "NOT_DEPLOYED_SYNTHETIC_ONLY",
+  "sources": {
+    "mapping": "ai-memory-ops PR 169 merged 2026-11-19",
+    "controls": [
+      "active-source/07B_EA_EMAIL_DRAFT_FOLLOWUP_WATCH_CURRENT_1810_25082026.md",
+      "active-source/03C_EA_HISTORICAL_EMAIL_CONTEXT_DRAFTING_RULE_0930_07082026.md",
+      "active-source/03D_EA_MANUAL_DRAFT_DELETION_SUPPRESSION_RULE_1111_09092026.md",
+      "active-source/03F_EA_EMAIL_DRAFT_HYGIENE_PROTOCOL_V1_20261011.md",
+      "active-source/05D_EA_COMMERCIAL_DOCUMENT_NAMING_AND_VERSIONED_DRIVE_FILING_20261119.md",
+      "docs/approved/EA_QUOTATION_GENERATION_WORKFLOW_1111_05082026.md"
+    ],
+    "inspected": "2026-11-19",
+    "prior_mapped_contract": "ai-memory-ops/reviews/EA_NTSN_WORKSTREAM_INSTANCE_CONTRACT_PROPOSED_20261119.json"
+  },
+  "policy": {
+    "automatic_operations": "internal planning only; source-approved bounded Level 2A writes require separate scope verification and provider readback",
+    "external_gate": "exact-revision operator action required; Level 2B/2C HOLD; this contract never executes external action",
+    "qualified_review_gate": [
+      "SDS",
+      "CLP",
+      "REACH",
+      "BPR",
+      "regulated labels",
+      "product efficacy/safety",
+      "commercial release as applicable"
+    ],
+    "operator_interaction": "Existing global /Button select; each work ID may have optional non-executable input; one final confirmation"
+  },
+  "entity_crosswalk": {
+    "case_id": "existing distinct IDs as source, not a newly minted universal ID",
+    "keys": [
+      "CRM Lead ID",
+      "CRM Opportunity ID",
+      "Order Book Case ID",
+      "Gmail account+thread ID",
+      "Gmail message ID",
+      "Quote Reference",
+      "Customer PO",
+      "Customer Register ID",
+      "Shipment ID"
+    ],
+    "negative": "company spelling, contact name, email subject, historical similarity or domain alone never automatically merges legal entities or cases",
+    "ambiguous_match": "PENDING_REVIEW; no new/merged record or external action",
+    "multi_opportunity": "One legal entity may own multiple independent opportunities; thread linkage alone does not collapse them"
+  },
+  "field_ownership": [
+    {
+      "domain": "Lead qualification",
+      "owner": "CRM Master Register",
+      "tab": "Leads",
+      "key": "Lead ID",
+      "source_fields": [
+        "Lead status",
+        "Product/solution",
+        "Source reference",
+        "Next action"
+      ],
+      "writer": "Ea Lead Changes under its current approved scope",
+      "merge_state": "PROPOSED_MAPPING_NO_LIVE_CHANGE"
+    },
+    {
+      "domain": "Legal relationship identity",
+      "owner": "CRM Master Register",
+      "tab": "Accounts; Contacts",
+      "key": "Account ID; Contact ID",
+      "writer": "CRM-qualified owner",
+      "note": "Customer Register may contain separate customer master attributes; crosswalk not yet approved"
+    },
+    {
+      "domain": "Opportunity commercial pursuit",
+      "owner": "CRM Master Register",
+      "tab": "Opportunities",
+      "key": "Opportunity ID",
+      "source_fields": [
+        "Stage",
+        "Case status",
+        "Owner",
+        "Next action",
+        "Source reference"
+      ],
+      "writer": "Ea Lead Changes under verified CRM scope"
+    },
+    {
+      "domain": "Substantive relationship activity",
+      "owner": "CRM Master Register",
+      "tab": "Activities",
+      "key": "Activity ID + External key",
+      "source_fields": [
+        "Activity date/time",
+        "Direction",
+        "Confirmed outcome",
+        "Source link/reference"
+      ],
+      "writer": "CRM-qualified writer"
+    },
+    {
+      "domain": "Internal follow-up",
+      "owner": "CRM Master Register + Google Calendar",
+      "tab": "Follow_Ups",
+      "key": "Follow-up ID / Calendar event ID",
+      "writer": "CRM/Calendar-approved writer",
+      "note": "Calendar is authority for actual booked event; private internal follow-ups have no reminders"
+    },
+    {
+      "domain": "Commercial order / fulfilment state",
+      "owner": "NTSN Commercial Order Book",
+      "tab": "Order_Book",
+      "key": "Case ID",
+      "source_fields": [
+        "CRM Opportunity ID",
+        "Commercial Case Status",
+        "Quote Reference",
+        "Supplier PO",
+        "Shipment Status",
+        "Review Classification"
+      ],
+      "writer": "Ea Order Book Sync under its current approved scope"
+    },
+    {
+      "domain": "Quote/PO and attachment pointer",
+      "owner": "NTSN Commercial Order Book",
+      "tab": "Document_Index",
+      "key": "Document ID + Case ID",
+      "source_fields": [
+        "Document Reference",
+        "Filename",
+        "Gmail Message ID",
+        "Drive File ID",
+        "Availability / QA",
+        "Verified Date"
+      ],
+      "writer": "Order Book-authorized writer",
+      "note": "Actual Gmail draft and Drive files remain their own provider authorities"
+    },
+    {
+      "domain": "Supplier production / LOT",
+      "owner": "NTSN Commercial Order Book",
+      "tab": "Production_Tracker",
+      "key": "Work Order ID + Case ID",
+      "writer": "Order Book-authorized writer"
+    },
+    {
+      "domain": "Shipment stages",
+      "owner": "NTSN Commercial Order Book",
+      "tab": "Shipment_Legs",
+      "key": "Shipment ID + Case ID",
+      "writer": "Order Book-authorized writer",
+      "note": "Separate Ea Shipment Register master/projection relation remains PENDING_REVIEW"
+    },
+    {
+      "domain": "Customer register details",
+      "owner": "Ea Customer Register",
+      "tab": "Customers",
+      "key": "Customer ID",
+      "writer": "Customer register-qualified writer",
+      "note": "CRM Accounts relationship and billing identity require verified data-ownership crosswalk"
+    },
+    {
+      "domain": "Document storage",
+      "owner": "Google Drive",
+      "tab": "Company subfolders as per 05D",
+      "key": "Drive file ID + printed reference + revision",
+      "writer": "Separately authorized NTSN Drive actor"
+    },
+    {
+      "domain": "Draft communication",
+      "owner": "Gmail",
+      "tab": "DRAFT + SENT original thread",
+      "key": "Mailbox + Thread ID + Draft ID",
+      "writer": "07B/03F-qualified actor",
+      "note": "03D recipient suppression, sender profile, existing attachment-bearing draft limits"
+    },
+    {
+      "domain": "Actual meetings",
+      "owner": "Google Calendar",
+      "tab": "Event ID",
+      "key": "Calendar ID + event ID",
+      "writer": "03A/03B-qualified actor"
+    },
+    {
+      "domain": "Invoices/payments/tax",
+      "owner": "Accounting provider",
+      "tab": "Provider-native source",
+      "key": "Accounting document ID",
+      "writer": "HUMAN_ONLY unless later qualified approval",
+      "note": "CRM/order links are evidence only; no invoice/payment calendar reminders"
+    }
+  ],
+  "workflow_definitions": [
+    {
+      "id": "EA.COM.INQUIRY_TO_REPLY.v0.1",
+      "trigger": [
+        "NEW_LEAD",
+        "INBOUND_REPLY"
+      ],
+      "owner_routine": "Ea Business Email Watch",
+      "stages": [
+        {
+          "name": "MATCH_CASE",
+          "require": [
+            "exact immutable identifiers or review"
+          ]
+        },
+        {
+          "name": "READ_CONTEXT",
+          "require": [
+            "full relevant thread",
+            "prior SENT",
+            "related correspondence",
+            "03D suppression",
+            "sender alias",
+            "latest source revision"
+          ]
+        },
+        {
+          "name": "VERIFY_PRODUCT",
+          "require": [
+            "exact formulation",
+            "APPROVED/CANONICAL technical claims",
+            "recipient fit",
+            "price only if requested"
+          ]
+        },
+        {
+          "name": "PREPARE_DRAFT",
+          "require": [
+            "03F zero authored signatures",
+            "valid reply anchor",
+            "one in-thread draft",
+            "manufacturer nondisclosure"
+          ]
+        },
+        {
+          "name": "DRAFT_QA",
+          "require": [
+            "provider draft readback",
+            "matching actual attachment IDs/versions",
+            "no sent message"
+          ]
+        },
+        {
+          "name": "PROJECTION",
+          "require": [
+            "CRM owner and row readback",
+            "idempotent source event",
+            "append verified activity",
+            "next action"
+          ]
+        },
+        {
+          "name": "OPERATOR_REVIEW",
+          "require": [
+            "new exact-revision operator authorization to send"
+          ]
+        }
+      ],
+      "internal_complete": "DRAFT_VERIFIED or BLOCKED_SOURCE with case disposition",
+      "external_status": "AWAITING_OPERATOR_APPROVAL"
+    },
+    {
+      "id": "EA.COM.RFQ_TO_QUOTE_DRAFT.v0.1",
+      "trigger": [
+        "RFQ_RECEIVED"
+      ],
+      "owner_routine": "Ea Business Email Watch + scoped document engine",
+      "stages": [
+        {
+          "name": "REUSE_CASE",
+          "require": [
+            "prior stage and source IDs",
+            "distinct product opportunities preserved"
+          ]
+        },
+        {
+          "name": "VERIFY_RFQ",
+          "require": [
+            "original request",
+            "exact buyer legal role",
+            "product/variant",
+            "quantity",
+            "currency",
+            "delivery scope"
+          ]
+        },
+        {
+          "name": "PRICE_SOURCE",
+          "require": [
+            "current approved source",
+            "supplier terms if necessary",
+            "no inferred freight",
+            "operator pricing gate"
+          ]
+        },
+        {
+          "name": "RENDER_QUOTE",
+          "require": [
+            "canonical Quote template and 05D reference",
+            "separate invoice SOP",
+            "independent arithmetic and A4 visual QA"
+          ]
+        },
+        {
+          "name": "ATTACH_AND_DRAFT",
+          "require": [
+            "quote PDF and exact draft wording agree",
+            "no superseded attachment",
+            "Gmail source readback",
+            "03D/03F"
+          ]
+        },
+        {
+          "name": "PROJECT_STATUS",
+          "require": [
+            "CRM Activity + Opportunity",
+            "Order Book Document_Index where authorized",
+            "source revisions",
+            "independent write readback"
+          ]
+        },
+        {
+          "name": "OPERATOR_REVIEW",
+          "require": [
+            "validate full text+quote+price+files before external issue"
+          ]
+        }
+      ],
+      "internal_complete": "QUOTE_AND_DRAFT_VERIFIED or PENDING_REVIEW with blockers",
+      "external_status": "AWAITING_OPERATOR_APPROVAL"
+    }
+  ],
+  "event_safety": {
+    "idempotency": "mailbox+provider message ID+event type+owning case ID; no mutating before readback",
+    "writeback": "write-ahead metadata when supported, precondition check, exact approved target, independent after-read",
+    "queue": "unprocessed / partial / blocked retained; successful task run does not prove case coverage",
+    "recovery": "no blind retry after ambiguous write; do not create duplicate canonical ledger"
+  },
+  "regression_gates": [
+    "exact case reuse",
+    "no company-name merge",
+    "two opportunities distinct",
+    "03D suppressed",
+    "03F alias/thread/signature",
+    "Espen chat-only",
+    "source revision and product boundary",
+    "attachment version readback",
+    "quote reference and arithmetic",
+    "separate invoice authority",
+    "no external actions",
+    "writeback owner and idempotency",
+    "partial coverage recovery"
+  ]
+}
