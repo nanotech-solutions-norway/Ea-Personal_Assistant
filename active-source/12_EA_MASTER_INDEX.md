@@ -24,6 +24,8 @@ Authority: Active-source framework
 | 05B_EA_CANONICAL_XLTM_TEMPLATE_USAGE_RULE_0405_08082026.md | Automatic canonical Quote, Packing List, RFQ and legacy editable PO template selection/use | Canonical / operator-instructed |
 | 05C_EA_CANONICAL_PO_DRAFTING_PDF_LAYOUT_STANDARD_0219_09092026.md | Canonical PO drafting, A4 layout, Libre Baskerville typography, branding, signature placement and final-PDF QA | Canonical / operator-instructed |
 | 05D_EA_COMMERCIAL_DOCUMENT_NAMING_AND_VERSIONED_DRIVE_FILING_20261119.md | Reference-only filenames, every draft/version retained in specified company-subfolder Drive roots; accounting-controlled invoice exception | Approved / Canonical / operator-instructed 19.11.2026 |
+| 05D_NTSN_UNIFIED_PO_QUOTATION_INVOICE_PLAYBOOK_20261119.md | Consolidated PO/Quote/RFQ/Packing/Invoice template-design playbook; **separate from approved 05D_EA filing rule**, subordinate to its canonical naming/filing controls | CONSOLIDATED CANDIDATE / PENDING_REVIEW |
+| 05E_NTSN_OPERATOR_APPROVED_TEMPLATE_SOURCE_SELECTION_20261119.md | Approved PO/Quote/Packing visual selections and corrected RFQ visual source; Excel VBA/runtime tests and Drive source registration pending; invoice not supplied | OPERATOR-SELECTED VISUAL EVIDENCE / TECHNICAL PROMOTION PENDING |
 | docs/approved/EA_QUOTATION_GENERATION_WORKFLOW_1111_05082026.md | Quote creation and approval; visual-template amendment dated 07.11.2026 | APPROVED / CANONICAL |
 | docs/approved/EA_INVOICE_APPROVAL_AND_DRIVE_FILING_WORKFLOW_1153_02082026.md | Invoice approval and filing; visual-template and tax amendment dated 07.11.2026 | APPROVED / CANONICAL |
 | 06_EA_CUSTOM_GPT_AND_PROJECT_SETUP.md | GPT and Project setup | Active |
@@ -51,6 +53,7 @@ Authority: Active-source framework
 | `docs/decisions/EA_DECISION_CANONICAL_PO_DRAFTING_STANDARD_0219_09092026.md` | Operator decision establishing the 05C canonical PO drafting/final-PDF standard | Approved / Canonical |
 | `registers/EA_CANONICAL_DOCUMENT_TEMPLATE_REGISTER_0405_08082026.md` | Canonical XLTM template filenames, Drive IDs, hashes and validation status | Approved / Canonical |
 | `registers/EA_CANONICAL_PO_DRAFTING_STANDARD_REGISTER_0219_09092026.md` | Canonical PO rule, PDF reference, logo and legacy editable-template relationship | Approved / Canonical |
+| `registers/EA_OPERATOR_APPROVED_COMMERCIAL_TEMPLATE_SOURCE_EVIDENCE_20261119.md` | Initial eleven plus corrected RFQ attachments: redacted SHA-256 identities, visual source selection and outstanding functional QA | SOURCE EVIDENCE / PENDING_REVIEW PROMOTION |
 | `registers/EA_LABEL_CREATION_REGISTER.md` | Brother P-touch label workflow and validation history | Active operational register / regulatory release pending review |
 
 ## Precedence
@@ -79,6 +82,8 @@ For document/template work, apply:
 8. older supporting material.
 
 For PO final PDF, 05C supersedes conflicting older 05B visual-layout requirements, including the old default requirement for Address/Website QR graphics. 05B continues to control the legacy functional XLTM/XLSM template when an editable Excel PO is explicitly requested or required.
+
+**Distinct 19.11.2026 operator visual selection (review scope):** The operator separately approved the QR / Delivery information / Purpose of use PO PDF, two quotation and packing-list variants, and supplied a subsequently corrected RFQ PDF. The five-family visual evidence and unresolved functional-master gates are recorded in 05E and its redacted register. These selections do not replace the 05B Excel masters, revise the existing 05C source document in place, or authorize external issue. In the event of a pending design-vs-runtime conflict, retain the current approved functional master and flag PENDING_REVIEW. **The newer, separately approved `05D_EA_COMMERCIAL_DOCUMENT_NAMING_AND_VERSIONED_DRIVE_FILING_20261119.md` is controlling for filenames, distinct draft revisions and company-folder filing; the proposed `05D_NTSN_...` is not an alternative filing standard.**
 
 ## Operating rule
 
