@@ -172,6 +172,29 @@ class DurableEventLog:
             db.execute("DELETE FROM leases WHERE work_id=?", (work_id,))
             db.commit()
 
+    def renew(self, work_id: str, token: str, *, ttl_seconds: int = 300, now: float | None = None) -> float:
+        """Extend a still-current lease; an expired lease cannot be resurrected."""
+        if ttl_seconds <= 0:
+            raise ValueError("ttl_seconds must be positive")
+        moment = time.time() if now is None else now
+        with self._database() as db:
+            db.execute("BEGIN IMMEDIATE")
+            row = db.execute("SELECT token, expires_at FROM leases WHERE work_id=?", (work_id,)).fetchone()
+            if not row or float(row["expires_at"]) <= moment or not secrets.compare_digest(str(row["token"]), token):
+                db.rollback()
+                raise StaleLease(work_id)
+            expires_at = moment + ttl_seconds
+            db.execute("UPDATE leases SET expires_at=? WHERE work_id=?", (expires_at, work_id))
+            db.commit()
+            return expires_at
+
+    def lease_is_current(self, work_id: str, token: str, *, now: float | None = None) -> bool:
+        """Read-only guard for local callers before a bounded operation."""
+        moment = time.time() if now is None else now
+        with self._database() as db:
+            row = db.execute("SELECT token, expires_at FROM leases WHERE work_id=?", (work_id,)).fetchone()
+        return bool(row and float(row["expires_at"]) > moment and secrets.compare_digest(str(row["token"]), token))
+
     def event_count(self) -> int:
         with self._database() as db:
             return int(db.execute("SELECT COUNT(*) FROM events").fetchone()[0])
