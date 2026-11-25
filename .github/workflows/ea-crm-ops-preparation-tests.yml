@@ -1,0 +1,24 @@
+name: EA CRM preparation tests
+
+on:
+  pull_request:
+    paths:
+      - 'workstreams/ea_crm_ops/**'
+      - '.github/workflows/ea-crm-ops-preparation-tests.yml'
+
+permissions:
+  contents: read
+
+jobs:
+  synthetic-tests:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Compile synthetic module
+        run: python -m compileall -q workstreams/ea_crm_ops
+      - name: Run synthetic controls tests
+        run: python -m unittest discover -s workstreams/ea_crm_ops/tests -v
