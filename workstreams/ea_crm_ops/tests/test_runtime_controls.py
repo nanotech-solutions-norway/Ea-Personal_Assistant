@@ -139,6 +139,16 @@ class DurableLogTests(unittest.TestCase):
             self.log.release("EA-CRM-OPS", old)
         self.log.release("EA-CRM-OPS", new)
 
+    def test_lease_renewal_and_current_token_check(self):
+        token = self.log.acquire("EA-CRM-OPS", "worker", ttl_seconds=5, now=1000)
+        self.assertTrue(self.log.lease_is_current("EA-CRM-OPS", token, now=1004))
+        self.assertEqual(self.log.renew("EA-CRM-OPS", token, ttl_seconds=10, now=1004), 1014)
+        with self.assertRaises(LeaseBusy):
+            self.log.acquire("EA-CRM-OPS", "other", ttl_seconds=5, now=1010)
+        self.assertFalse(self.log.lease_is_current("EA-CRM-OPS", token, now=1014))
+        with self.assertRaises(StaleLease):
+            self.log.renew("EA-CRM-OPS", token, ttl_seconds=10, now=1014)
+
 
 class ProviderFirstTests(unittest.TestCase):
     def test_provider_evidence_precedes_authority_lookup(self):
