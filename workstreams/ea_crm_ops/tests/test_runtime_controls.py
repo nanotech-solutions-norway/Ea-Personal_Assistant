@@ -10,9 +10,12 @@ from workstreams.ea_crm_ops.runtime_controls import (
     DurableEventLog,
     EventConflict,
     LeaseBusy,
+    RevisionMismatch,
+    RevisionUnavailable,
     StaleLease,
     UnsafeEvent,
     provider_first_preflight,
+    synthetic_guarded_write,
 )
 
 
@@ -183,6 +186,88 @@ class ProviderFirstTests(unittest.TestCase):
         )
         self.assertEqual(order, ["gmail-a"])
         self.assertEqual(result.status, "BLOCKED")
+
+
+class SyntheticWriteGuardTests(unittest.TestCase):
+    def setUp(self):
+        self.temp = tempfile.TemporaryDirectory()
+        self.log = DurableEventLog(Path(self.temp.name) / "events.sqlite3")
+        self.token = self.log.acquire("EA-CRM-OPS", "synthetic-worker", ttl_seconds=10, now=1000)
+
+    def tearDown(self):
+        self.temp.cleanup()
+
+    def test_stale_lease_denies_fake_provider_call(self):
+        calls = []
+        with self.assertRaises(StaleLease):
+            synthetic_guarded_write(
+                self.log, "EA-CRM-OPS", self.token,
+                expected_revision="rev-1", observed_revision="rev-1",
+                conditional_write=lambda revision: calls.append(revision), now=1010,
+            )
+        self.assertEqual(calls, [])
+
+    def test_revision_mismatch_denies_fake_provider_call(self):
+        calls = []
+        with self.assertRaises(RevisionMismatch):
+            synthetic_guarded_write(
+                self.log, "EA-CRM-OPS", self.token,
+                expected_revision="rev-1", observed_revision="rev-2",
+                conditional_write=lambda revision: calls.append(revision), now=1001,
+            )
+        self.assertEqual(calls, [])
+
+    def test_missing_revision_fails_closed(self):
+        calls = []
+        with self.assertRaises(RevisionUnavailable):
+            synthetic_guarded_write(
+                self.log, "EA-CRM-OPS", self.token,
+                expected_revision="rev-1", observed_revision=None,
+                conditional_write=lambda revision: calls.append(revision), now=1001,
+            )
+        self.assertEqual(calls, [])
+
+    def test_fake_provider_cas_rejects_revision_race_without_mutation(self):
+        provider = {"revision": "rev-2", "value": "before"}
+        calls = []
+
+        def conditional_write(if_match):
+            calls.append(if_match)
+            if if_match != provider["revision"]:
+                raise RevisionMismatch("fake provider rejected stale If-Match")
+            provider["value"] = "after"
+            provider["revision"] = "rev-3"
+            return provider["revision"]
+
+        with self.assertRaises(RevisionMismatch):
+            synthetic_guarded_write(
+                self.log, "EA-CRM-OPS", self.token,
+                expected_revision="rev-1", observed_revision="rev-1",
+                conditional_write=conditional_write, now=1001,
+            )
+        self.assertEqual(calls, ["rev-1"])
+        self.assertEqual(provider, {"revision": "rev-2", "value": "before"})
+
+    def test_matching_preconditions_call_fake_provider_once(self):
+        provider = {"revision": "rev-1", "value": "before"}
+        calls = []
+
+        def conditional_write(if_match):
+            calls.append(if_match)
+            if if_match != provider["revision"]:
+                raise RevisionMismatch("fake provider rejected stale If-Match")
+            provider["value"] = "after"
+            provider["revision"] = "rev-2"
+            return provider["revision"]
+
+        result = synthetic_guarded_write(
+            self.log, "EA-CRM-OPS", self.token,
+            expected_revision="rev-1", observed_revision="rev-1",
+            conditional_write=conditional_write, now=1001,
+        )
+        self.assertEqual(result, "rev-2")
+        self.assertEqual(calls, ["rev-1"])
+        self.assertEqual(provider, {"revision": "rev-2", "value": "after"})
 
 
 def sqlite3_connect(path):
