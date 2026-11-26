@@ -76,11 +76,24 @@ class DurableLogTests(unittest.TestCase):
 
     def test_append_is_durable_and_idempotent(self):
         created, first_hash = self.log.append(event())
+        # Reopening models a fresh task invocation that receives the same
+        # shared local file after the previous connection has closed.
+        self.log = DurableEventLog(self.log.path)
+        self.assertEqual(self.log.event_count(), 1)
+        self.assertTrue(self.log.verify_chain())
         duplicate, second_hash = self.log.append(event())
         self.assertTrue(created)
         self.assertFalse(duplicate)
         self.assertEqual(first_hash, second_hash)
         self.assertEqual(self.log.event_count(), 1)
+
+    def test_lease_is_shared_across_log_instances(self):
+        peer = DurableEventLog(self.log.path)
+        token = self.log.acquire("EA-CRM-OPS", "worker-a", now=1000)
+        self.assertTrue(peer.lease_is_current("EA-CRM-OPS", token, now=1001))
+        with self.assertRaises(LeaseBusy):
+            peer.acquire("EA-CRM-OPS", "worker-b", now=1001)
+        peer.release("EA-CRM-OPS", token)
 
     def test_reused_idempotency_key_with_changed_content_fails(self):
         self.log.append(event())
