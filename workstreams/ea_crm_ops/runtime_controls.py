@@ -29,6 +29,14 @@ class StaleLease(RuntimeError):
     """A release was attempted with a stale or incorrect lease token."""
 
 
+class RevisionUnavailable(RuntimeError):
+    """A conditional provider revision was missing from the synthetic check."""
+
+
+class RevisionMismatch(RuntimeError):
+    """The expected revision differs from the provider's current revision."""
+
+
 class UnsafeEvent(RuntimeError):
     """An event contains a prohibited payload field or lacks required metadata."""
 
@@ -216,6 +224,32 @@ class DurableEventLog:
                 return False
             previous = expected
         return True
+
+
+def synthetic_guarded_write(
+    log: DurableEventLog,
+    work_id: str,
+    lease_token: str,
+    *,
+    expected_revision: str | None,
+    observed_revision: str | None,
+    conditional_write: Callable[[str], object],
+    now: float | None = None,
+) -> object:
+    """Exercise fail-closed write preconditions against a fake provider.
+
+    The callback must model the provider's atomic conditional-write operation.
+    This helper is an offline test seam only: it is not a provider adapter, does
+    not make a read-then-write sequence atomic, and does not qualify a scheduler
+    host or a real provider boundary.
+    """
+    if not log.lease_is_current(work_id, lease_token, now=now):
+        raise StaleLease(work_id)
+    if not expected_revision or not observed_revision:
+        raise RevisionUnavailable("expected and observed revisions are required")
+    if expected_revision != observed_revision:
+        raise RevisionMismatch("observed revision does not match expected revision")
+    return conditional_write(expected_revision)
 
 
 @dataclass(frozen=True)
